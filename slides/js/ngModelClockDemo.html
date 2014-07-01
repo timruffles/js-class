@@ -1,0 +1,11 @@
+<svg width=300 height=300 >
+  <g></g>
+  <text x=150 y=125>{{ timeCtrl.item.time | date:"shortTime" }}</text>
+  <text x=150 y=175 ng-click="timeCtrl.toggle()">
+    {{ timeCtrl.label() }}
+  </text>
+</svg>
+<pre>
+  timeCtrl.item.time: {{ timeCtrl.item.time | date:"shortTime" }}
+  timeForm.time.$modelValue: {{ timeForm.time.$modelValue | date:"shortTime" }}
+</pre>
