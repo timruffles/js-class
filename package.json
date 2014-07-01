@@ -1,0 +1,15 @@
+{
+  "name": "js-class",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Ruffles <oi@truffles.me.uk>",
+  "license": "©",
+  "dependencies": {
+    "hogan.js": "~3.0.2",
+    "shelljs": "~0.3.0"
+  }
+}

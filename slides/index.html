@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Radical Javascript</title>
+
+    <link rel="shortcut icon" href="favicon.png">
+  
+    <link rel="stylesheet" href="reveal/css/reveal.min.css">
+    <link rel="stylesheet" href="reveal/lib/css/github.css">
+
+    <link rel="stylesheet" href="slides-theme/style.css" id="theme">
+    <link rel="stylesheet" href="slides-theme/talk-specific.css" id="theme">
+
+    <link rel="stylesheet" href="slides-theme/js/little-console.css" id="theme">
+</head>
+
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+
+<section data-markdown><script type="text/template">
+# Radical Javascript
+[@timruffles](http://twitter.com/timruffles)
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Variables
+
+```javascript
+var x = "howdy";
+var iAmUnitialized; // note: JS is camelCase
+
+// messy VCS diffs
+var x = "howdy",
+    iAmUnitialized;
+
+// oh god why?
+var x = "howdy", iAmUnitialized, y = 1, p,
+    readingThisMakesYouWonderIfItWasPreminified = true, pp = {},
+    someOtherVariable; 
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Scope is ONLY affected by functions
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Variables
+
+```javascript
+var greeting;
+var i = 100;
+
+function sayHi(to,greeting,times) {
+  var i = times;
+  while(i--) {
+    console.log("%s %s",greeting,to);
+  }
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Always declare with var
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Importance of var
+
+```javascript
+var greeting;
+var i = 100;
+sayHi();
+console.log(i);
+
+function sayHi(to,greeting,times) {
+  i = times;
+  while(i--) {
+    console.log("%s %s",greeting,to);
+  }
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Hoisting
+
+What happens?
+
+```javascript
+function sayHi() {
+  console.log(greeting);
+  var greeting = "hello";
+
+  console.log(notDeclared);
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Hoisting, part II
+
+What happens?
+
+```javascript
+sayHi();
+
+function sayHi() {
+  console.log("Hello");
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Function hoisting is great
+
+```javascript
+
+main(document.querySelector("#something"));
+
+function main(el) {
+  var val = otherThing(el);
+}
+
+function otherThing() {
+  someHelper();
+
+  function someHelper() {
+  }
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Plus de change...
+
+Not everything varies - let your readers (if not the interpreter) know.
+
+```javascript
+var A_CONSTANT_VALUE = "something";
+var CONSTANTS = {
+  NORTH: "north", // don't use numbers please, easier to inspect
+  SOUTH: "south", // trailing commas encouraged - less git noise
+};
+
+// ES6
+const A_CONSTANT_VALUE = "something";
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Functions
+</script></section>
+
+section data-markdown><script type="text/template">
+## Two ways of defining
+
+```javascript
+var fn = function() {};
+
+function antoher() {};
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## First-class
+
+First class: use wherever you can use other values
+
+```javascript
+function doTwice(fn) {
+  fn() // fn has been passed in as an argument
+  fn()
+}
+
+doTwice(function() {
+  console.log("Hello!")
+})
+
+function doubleFn(fn) {
+  return function() { // with FCFs we can return functions
+    doTwice(fn)
+  }
+}
+
+var doubleTalk = doubleFn(function() {
+  console.log("I'm going to be saying this twice")
+})
+
+doubleTalk()
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## FCF = higher order functions
+
+- we can pass functions to functions to functions...
+
+```javascript
+function loop(fn) {
+  fn()
+  loop(fn)
+}
+
+loop(function() {
+  console.log("We'll be here for some time")
+})
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Missing feature: optional/kw arguments
+
+```javascript
+// from ES6
+function takeOptional(name,greeting = "hi") {
+  console.log(greeting + " " + name)
+}
+// python-y
+function takeKeywords(name,**kwargs) {
+  console.log(greeting + " " + kwargs["name"])
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Interlude: logical operators
+
+Short-circuit, work on returning operands.
+
+```javascript
+var shorts = true || alert("won't see me");
+var moreShorts = false && alert("or me");
+
+someVar && doSomething(); // please don't use as control-flow
+
+var oneOrTheOther = one || theOther; // only for assignments
+(one || theOther).doSomething(); // or this (within reason)
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Optional implementation
+
+```javascript
+function takeOptional(name,greeting) {
+  greeting = greeting || "hi";
+  
+  console.log(greeting + " " + name)
+}
+
+              
+takeOptional("tom","hello");
+takeOptional("tom");
+
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## kwargs implementation
+
+```javascript
+function takeKeywords(name,opts) {
+  greeting = (opts && opts.greeting || "hi";
+  console.log(greeting + " " + name)
+}
+
+takeKeywords("tom");
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Varargs
+
+`arguments`: for each function call.
+
+```javascript
+function englishList() {
+  if(arguments.length <= 2) return [].join.call(arguments," and ");
+  return [].slice.call(arguments,0,arguments.length - 1).join(", ") 
+    + " and " + arguments[arguments.length - 1];
+}
+
+function es6EnglishList(words...) {
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## `.call`
+
+JS's FP/OOP hybrid model to thank
+
+```javascript
+Function.prototype.call = function(thisValue,args...) {
+  // runs the function (this), setting this = thisValue, and args = args
+}
+```
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+## Control-flow
+
+```javascript
+for(var i = 0; i < 100; i++) {
+}
+// remember, not all blocks req'd, and
+// can use comma operator to do > 1 thing in each
+for(;node; node = node.next) {
+}
+
+// length caching: only req'd for dumb interpreters
+for(var i=0, len=xs.length; i < len; i++) {
+
+}
+
+while(node = node.next) {
+}
+
+do {
+} while (node = node.next)
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Comparators
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Yes `==` has issues
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Comparison
+
+If you can't be bothered to remember, use `===`.
+
+TODO - console
+</script></section>
+
+<section data-markdown><script type="text/template">
+## NaN !== NaN is the right way
+
+- NaN means "category error", it can't meaningfully be equal to anything
+- this is why the `isNaN()` exists
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+## Data-structures
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Two types
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Ordered
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Key-value
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Array
+
+```javascript
+// use literals in nearly every case
+var anArray = [];
+
+// only one good use for this constructor
+var another = new Array(16); 
+
+var joined = anArray.concat([1,2,3]); // non-destructive
+var tail = anArray.slice(1);          // non-destructive
+anArray.splice(0,1);                  // destructive, can replace
+
+// in-place (stability unspecified)
+var ascending = tail.sort(function(a,b) {
+  return a - b;
+});
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## One good use for `new Array`
+
+Avoids resize when length is known.
+
+```sh
+ƒ time node -e 't = 1e6; while(t--) { 
+  i = 16, a = []; while(i--) a[i] = i; 
+}
+real	0m0.628s
+user	0m0.610s
+sys	0m0.025s
+
+ƒ time node -e 't = 1e6; while(t--) { 
+  i = 16, a = new Array(i); while(i--) a[i] = i; 
+}
+real	0m0.388s
+user	0m0.370s
+sys	0m0.022s
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Objects, abused as maps
+
+Misses lots of the niceities of a real map.
+
+```javascript
+var myMap = {};
+
+myMap["1"] = "hello";
+console.log(myMap[1]);
+
+delete myMap[1];
+
+myMap[{}] = {};
+console.log(myMap[{}]);
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Map
+
+By object identity.
+
+```javascript
+var myMap = new Map;
+
+var a = {};
+myMap.set(a,"hi");
+console.log(myMap.get(a));
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Set
+
+For when we just care about membership.
+
+```javascript
+var set = new Set;
+
+var a = {};
+set.add(a);
+console.log(set.has(a));
+console.log(set.has({}));
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## The JS object system
+</script></section>
+
+<section data-markdown><script type="text/template">
+## OOP, hand-rolled
+
+- or more
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Objects in JS
+
+- Have string properties whose values can be any JS type.
+
+```javascript
+var turtle = {x:x, y:y};
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Methods
+
+- We want to have a consistent set of methods, with shorthand access to object
+
+```javascript
+var move = function(dx,dy) {
+  this.x += dx;
+  this.y += dy;
+};
+
+var turtle = {x:x, y:y};
+turtle.move = move;
+turtle.move(10,10);
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Making objects
+
+```javascript
+function createTurtle(x,y) {
+  var turtle = {x:x, y:y, move:move};
+  return turtle;
+}
+
+function turtleMove(dx,dy) {
+  this.x += dx;
+  this.y += dy;
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Standardise: constructor
+
+```javascript
+function Turtle(x,y) {
+  this.x = x; // 'this' ready-allocated
+  this.y = y;
+  // no return required
+}
+
+// will this work?
+var aSweetTurtle = Turtle();
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## `new` is the power
+
+```javascript
+function Turtle(x,y) {
+  this.x = x;
+  this.y = y;
+}
+
+// clear that new is not a standard fn call
+var aSweetTurtle = new Turtle;
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Sharing methods
+
+```javascript
+function Turtle(x,y) {
+  this.x = x;
+  this.y = y;
+}
+
+Turtle.prototype.move = function(dx,dy) {
+  this.x += dx;
+  this.y += dy;
+};
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+# TODO prototype chains
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## `new` operator
+
+```javascript
+function Turtle(x,y) {
+  this.x = x;
+  this.y = y;
+}
+
+Turtle.prototype.move = function(dx,dy) {
+  this.x += dx;
+  this.y += dy;
+};
+
+function newOperator(constructor,arg1) {
+  var instance = Object.create(constructor.prototype);
+  var returnVal = constructor.call(instance,arg1)
+  return typeof returnVal == "object" ? returnVal : instance;
+}
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+# TODO define property etc - ES5
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+## Quirks
+
+```javascript
+if(new Boolean(false)) {
+  console.log("this is why we avoid new Boolean");
+}
+
+if(Boolean(0)) {
+} else {
+  console.log("Good way to force boolean");
+}
+
+if(!!unknown) {
+  console.log("Perhaps less explicit");
+}
+
+if(new String("") === "") {
+  console.log("ugh - just avoid object wrappers for 'primitives'");
+}
+
+if((3.14159).toFixed(5) === "3.14159") {
+  console.log("they're pointless, as the 'primitives'\
+     still have access to prototype methods");
+}
+```
+</script></section>
+
+
+
+<section data-markdown data-state=title><script type="text/template">
+## Combining FP & OOP
+</script></section>
+
+<section data-markdown><script type="text/template">
+## OOP
+
+- essential state: of a computation (e.g promise)
+- essential state: of non-modelled object (e.g GUI, file)
+- essential state: of simulation (e.g analytics)
+- something with identity and state
+</script></section>
+
+<section data-markdown><script type="text/template">
+## FP
+
+- the default
+</script></section>
+
+<section data-markdown><script type="text/template">
+## GUI
+
+- FP: handling data ending up in a graph
+- OOP: stateful widget
+- FP: generating HTML
+</script></section>
+
+<section data-markdown><script type="text/template">
+## TODO
+</script></section>
+
+
+
+
+
+</div>
+</div>
+
+
+
+<script src=slides-theme/js/code-example.js></script>
+<script>
+  var revealCodeSamples = codeExamples.revealAlongside.bind(null,"script[type=code-example-alongside]");
+</script>
+
+<script src=slides-theme/js/little-console.js></script>
+<script>
+  function showConsoles() {
+
+    // show all consoles, and register 'cheats'
+    var cheats = [];
+
+    ;[].forEach.call(document.querySelectorAll(".little-console"),function(el) {
+      var cmds = new LittleConsole.Commands;
+      var console = new LittleConsole({el: el,commands: cmds});
+      var slide = el.parentElement;
+      var cheat = slide.querySelector("[type=cheat]");
+      if(!cheat) return;
+      cheats.push({
+        console: console,
+        slide: slide,
+        src: cheat.innerHTML,
+      });
+    });
+
+    // listen for 'cheat code' - ALT + C, and fill input
+    var C = 67;
+    document.body.addEventListener("keyup",function(evt) {
+      if(evt.keyCode !== C || !evt.altKey) return;
+      var slide = Reveal.getCurrentSlide();
+      cheats.forEach(function(setup) {
+        if(setup.slide !== slide) return;
+        setup.console.setCommand(setup.src);
+      });
+
+    });
+
+  }
+</script>
+
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/js/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+
+    // Display controls in the bottom right corner
+    controls: false,
+
+    // Display a presentation progress bar
+    progress: true,
+
+    // Push each slide change to the browser history
+    history: true,
+
+    // Enable keyboard shortcuts for navigation
+    keyboard: true,
+
+    // Enable the slide overview mode
+    overview: true,
+
+    // Vertical centering of slides
+    center: false,
+
+    // Loop the presentation
+    loop: false,
+
+    // Change the presentation direction to be RTL
+    rtl: false,
+
+    // Number of milliseconds between automatically proceeding to the
+    // next slide, disabled when set to 0, this value can be overwritten
+    // by using a data-autoslide attribute on your slides
+    autoSlide: 0,
+
+    // Enable slide navigation via mouse wheel
+    mouseWheel: false,
+
+    // Apply a 3D roll to links on hover
+    rollingLinks: false,
+
+    // Transition style
+    transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+    dependencies: [
+        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+        { src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
+        // Interreveal/pret Markdown in <section> elements
+        { src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'reveal/plugin/markdown/markdown.js', 
+          condition: function() { return !!document.querySelector( '[data-markdown]' ); },
+          callback: function() {
+            revealCodeSamples(); 
+            showConsoles();
+          } },
+
+        // Syntareveal/x highlight for <code> elements
+        { src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+
+        // Zoom reveal/in and out with Alt+click
+        { src: 'reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+
+        // Speakreveal/er notes
+        { src: 'reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+        // Remotreveal/e control your reveal.js presentation using a touch device
+        // { src: 'reveal/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+
+  });
+</script>
+</body>
+
+
