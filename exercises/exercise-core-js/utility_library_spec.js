@@ -17,7 +17,11 @@ describe("js",function() {
         .toEqual("I am to…");
     });
 
-    it("handles 0 as length (without a === 0 case)",function() {
+    it("handles 0 as length",function() {
+      expect(truncate("I am too long","x",0))
+        .toEqual("");
+    });
+    it("handles 0 as length",function() {
       expect(truncate("I am too long","x",0))
         .toEqual("");
     });
