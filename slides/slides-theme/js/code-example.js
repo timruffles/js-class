@@ -11,9 +11,13 @@ window.codeExamples = api;
 // library
 
 function revealEl(src) {
+  var pre = document.createElement("pre");
   var el = document.createElement("code");
-  el.innerText = src.innerHTML;
-  src.parentElement.insertBefore(el,src);
+
+  pre.appendChild(el);
+  el.innerHTML = cleanWs(src.innerHTML);
+
+  src.parentElement.insertBefore(pre,src);
 }
 
 function revealAlongsideEl(src) {

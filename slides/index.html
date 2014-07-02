@@ -116,25 +116,7 @@ function sayHi() {
 ```
 </script></section>
 
-<section data-markdown><script type="text/template">
-## Function hoisting is great
 
-```javascript
-
-main(document.querySelector("#something"));
-
-function main(el) {
-  var val = otherThing(el);
-}
-
-function otherThing() {
-  someHelper();
-
-  function someHelper() {
-  }
-}
-```
-</script></section>
 
 <section data-markdown><script type="text/template">
 ## Plus de change...
@@ -154,17 +136,92 @@ const A_CONSTANT_VALUE = "something";
 </script></section>
 
 
+
+
+<section data-markdown data-state=title><script type="text/template">
+## Control-flow
+</script></section>
+
+
 <section data-markdown><script type="text/template">
+## Familiar faces
+
+```javascript
+for(var i = 0; i < 100; i++) {
+}
+// remember, not all blocks req'd, and
+// can use comma operator to do > 1 thing in each
+for(;node; node = node.next) {
+}
+
+// length caching: (only for old interpreters)
+for(var i=0, len=xs.length; i < len; i++) {
+}
+
+while(node = node.next) {
+}
+
+do {
+} while (node = node.next);
+```
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Comparators
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Yes `==` has issues
+</script></section>
+
+
+<section>
+<h2>Comparison</h2>
+<p>If you can't be bothered to remember, use <code>===</code>.</p>
+
+<div class=little-console></div>
+
+</section>
+
+<section data-markdown><script type="text/template">
+## NaN !== NaN for a reason
+
+- NaN means "category error", it can't meaningfully be equal to anything
+- this is why the `isNaN()` exists
+</script></section>
+
+
+<section data-markdown data-state=title><script type="text/template">
 ## Functions
 </script></section>
 
-section data-markdown><script type="text/template">
+<section data-markdown><script type="text/template">
 ## Two ways of defining
 
 ```javascript
 var fn = function() {};
 
-function antoher() {};
+function another() {};
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Function hoisting is great
+
+```javascript
+
+main(document.querySelector("#something"));
+
+function main(el) {
+  var val = otherThing(el);
+}
+
+function otherThing() {
+  someHelper();
+
+  function someHelper() {
+  }
+}
 ```
 </script></section>
 
@@ -218,7 +275,7 @@ loop(function() {
 <section data-markdown><script type="text/template">
 ## Missing feature: optional/kw arguments
 
-```javascript
+```python
 // from ES6
 function takeOptional(name,greeting = "hi") {
   console.log(greeting + " " + name)
@@ -283,8 +340,11 @@ takeKeywords("tom");
 
 ```javascript
 function englishList() {
-  if(arguments.length <= 2) return [].join.call(arguments," and ");
-  return [].slice.call(arguments,0,arguments.length - 1).join(", ") 
+  if(arguments.length <= 2) {
+    return [].join.call(arguments," and ");
+  }
+  var commas = [].slice.call(arguments,0,arguments.length - 1);
+  return commas.join(", ") 
     + " and " + arguments[arguments.length - 1];
 }
 
@@ -294,70 +354,39 @@ function es6EnglishList(words...) {
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Dropping the idioms!
+</script></section>
+
+<section data-markdown><script type="text/template">
+## "Array likes"
+
+- `arguments`, `NodeList`
+- subscriptable (`[3] = "foo"` etc), have `.length`
+- but don't have `Array.prototype` - e.g `slice`, `indexOf`
+- `slice` them to fix - via `[].slice.call` or lib
+</script></section>
+
+<section data-markdown><script type="text/template">
 ## `.call`
 
 JS's FP/OOP hybrid model to thank
 
 ```javascript
 Function.prototype.call = function(thisValue,args...) {
-  // runs the function (this), setting this = thisValue, and args = args
+  // runs the function (this), setting this = thisValue, 
+  // and args = args
 }
+
+// e.g
+
+[].slice.call(["a","b","c","d"],2) // ["c","d"];
+/* some fn */.call(/*this*/,/* arg, ... argN */);
+
 ```
 </script></section>
 
 
-
-
-<section data-markdown><script type="text/template">
-## Control-flow
-
-```javascript
-for(var i = 0; i < 100; i++) {
-}
-// remember, not all blocks req'd, and
-// can use comma operator to do > 1 thing in each
-for(;node; node = node.next) {
-}
-
-// length caching: only req'd for dumb interpreters
-for(var i=0, len=xs.length; i < len; i++) {
-
-}
-
-while(node = node.next) {
-}
-
-do {
-} while (node = node.next)
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Comparators
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Yes `==` has issues
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Comparison
-
-If you can't be bothered to remember, use `===`.
-
-TODO - console
-</script></section>
-
-<section data-markdown><script type="text/template">
-## NaN !== NaN is the right way
-
-- NaN means "category error", it can't meaningfully be equal to anything
-- this is why the `isNaN()` exists
-</script></section>
-
-
-
-<section data-markdown><script type="text/template">
+<section data-markdown data-state=title><script type="text/template">
 ## Data-structures
 </script></section>
 
@@ -367,11 +396,10 @@ TODO - console
 
 <section data-markdown><script type="text/template">
 ## Ordered
+
+- `Array`
 </script></section>
 
-<section data-markdown><script type="text/template">
-## Key-value
-</script></section>
 
 <section data-markdown><script type="text/template">
 ## Array
@@ -401,20 +429,30 @@ var ascending = tail.sort(function(a,b) {
 Avoids resize when length is known.
 
 ```sh
-ƒ time node -e 't = 1e6; while(t--) { 
-  i = 16, a = []; while(i--) a[i] = i; 
-}
+> benchmark 'var i = 16, a = []; while(i--) a[i] = i'
+
+One million iterations...
+
 real	0m0.628s
 user	0m0.610s
 sys	0m0.025s
 
-ƒ time node -e 't = 1e6; while(t--) { 
-  i = 16, a = new Array(i); while(i--) a[i] = i; 
-}
+> benchmark 'var i = 16, a = new Array(16); while(i--) a[i] = i'
+
+One million iterations...
+
 real	0m0.388s
 user	0m0.370s
 sys	0m0.022s
 ```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Yes - v8 is fast...
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Key-value
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -438,7 +476,7 @@ console.log(myMap[{}]);
 <section data-markdown><script type="text/template">
 ## Map
 
-By object identity.
+Coming in ES6, keys via object identity.
 
 ```javascript
 var myMap = new Map;
@@ -446,13 +484,15 @@ var myMap = new Map;
 var a = {};
 myMap.set(a,"hi");
 console.log(myMap.get(a));
+
+console.log(myMap.length);
 ```
 </script></section>
 
 <section data-markdown><script type="text/template">
 ## Set
 
-For when we just care about membership.
+ES6: when we just care about membership.
 
 ```javascript
 var set = new Set;
@@ -461,10 +501,12 @@ var a = {};
 set.add(a);
 console.log(set.has(a));
 console.log(set.has({}));
+
+console.log(set.length);
 ```
 </script></section>
 
-<section data-markdown><script type="text/template">
+<section data-markdown data-state=title><script type="text/template">
 ## The JS object system
 </script></section>
 
@@ -480,7 +522,7 @@ console.log(set.has({}));
 - Have string properties whose values can be any JS type.
 
 ```javascript
-var turtle = {x:x, y:y};
+var turtle = {x: 10, y: 20};
 ```
 </script></section>
 
@@ -495,18 +537,36 @@ var move = function(dx,dy) {
   this.y += dy;
 };
 
-var turtle = {x:x, y:y};
+var turtle = {x: 10, y: 20};
 turtle.move = move;
 turtle.move(10,10);
 ```
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Making objects
+## How does this work?
+
+- `someObject.property()` will set `this` to `someObject` while running function returned from `someObject.property`
+
+```javascript
+turtle.move(10,10);
+
+// =
+turtle.move.call(turtle,10,10);
+
+function move(dx,dy) {
+  this.x += dx;
+  this.y += dy;
+};
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## We want constructors
 
 ```javascript
 function createTurtle(x,y) {
-  var turtle = {x:x, y:y, move:move};
+  var turtle = {x: x, y: y, move: turtleMove};
   return turtle;
 }
 
@@ -527,7 +587,13 @@ function Turtle(x,y) {
   // no return required
 }
 
-// will this work?
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Will this work?
+
+```javascript
 var aSweetTurtle = Turtle();
 ```
 </script></section>
@@ -563,7 +629,12 @@ Turtle.prototype.move = function(dx,dy) {
 </script></section>
 
 <section data-markdown><script type="text/template">
-# TODO prototype chains
+## Prototype chains
+
+- Objects are bags of properties
+- `object.property` asks for value of `property`
+- If `object` lacks property, we restart questioning at `object.prototype`
+- Once we've run out of prototypes (`O.pt.pt`) we get `undefined`
 </script></section>
 
 
@@ -581,85 +652,293 @@ Turtle.prototype.move = function(dx,dy) {
   this.y += dy;
 };
 
-function newOperator(constructor,arg1) {
+function newOperator(constructor) {
   var instance = Object.create(constructor.prototype);
-  var returnVal = constructor.call(instance,arg1)
+  var returnVal = constructor.apply(instance,slice(arguments,1));
   return typeof returnVal == "object" ? returnVal : instance;
 }
 ```
 </script></section>
 
+<section data-markdown><script type="text/template">
+## `new`'s final trick
+
+```javascript
+function Turtle(x,y) {
+  this.x = x;
+  this.y = y;
+  return { haha: "didn't expect this" };
+}
+
+var turtle = new Turtle;
+console.log(turtle.haha);
+```
+</script></section>
 
 <section data-markdown><script type="text/template">
-# TODO define property etc - ES5
+## Useful
+
+- Refactor constructor to factory
+- Quite powerful voodoo
 </script></section>
 
 
-
 <section data-markdown><script type="text/template">
-## Quirks
+## Sneaky trick
 
 ```javascript
-if(new Boolean(false)) {
-  console.log("this is why we avoid new Boolean");
+function User(id) {
+  this.id = id;
 }
 
-if(Boolean(0)) {
-} else {
-  console.log("Good way to force boolean");
+User.prototype.toString = function() {
+  return "User<" + this.id + ">";
 }
 
-if(!!unknown) {
-  console.log("Perhaps less explicit");
+var userScores = {};
+var tim = new User("tim");
+var sarah = new User("sarah");
+
+userScores[tim] = 10;
+userScores[sarah] = 20;
+
+console.log(userScores[tim]) // 10
+```
+</script></section>
+
+
+<section>
+<h2>Property descriptors</h2>
+<p>Add properties and control writes/modification</p>
+
+<script type=console-setup>
+  durations = {};
+
+  Object.defineProperties(durations,{
+    hour: {
+      value: 3600 * 1000,
+      writable: false
+    }
+  });
+</script>
+<div class=little-console></div>
+
+<script type=cheat>
+</script>
+
+</section>
+
+<section data-markdown><script type="text/template">
+## Safe(er) monkey patch
+
+```javascript
+Object.defineProperty(Object.prototype,"awesomeify",{
+  enumerable: false,
+  value: function() {
+    this.awesome = true;
+  }
+});
+
+var anObject = [];
+anObject.awesomeify();
+anObject.awesome // true
+
+var props = [];
+for(var prop in anObject) props.push(prop);
+console.log(props.length) // 0
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Preventing change
+
+All shallow
+
+```javascript
+Object.preventExtension // can't add properties
+Object.seal             // above, + can't configure properties
+Object.freeze           // immutable
+
+Object.is{Extensible,Sealed,Frozen} // check
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Strict mode
+
+No `with`.
+
+```javascript
+var someVar = 10;
+spmeVar = 20 // catches typos, rather than adding globals!
+
+var constants = {};
+Object.freeze(constants);
+constants.foo = "bar"; // throws, rather than silently failing
+
+var withDupes = {a: 1, a: 2};
+
+eval("b = 'howdy'");
+console.log(typeof b) // 'undefined'
+```
+
+</script></section>
+
+
+<section data-markdown data-state=title><script type="text/template">
+## OOP in JS
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Use prototypes
+
+```javascript
+function ClassName() {
 }
 
-if(new String("") === "") {
-  console.log("ugh - just avoid object wrappers for 'primitives'");
+ClassName.prototype = {
+};
+ClassName.constructor = ClassName;
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Inheritance
+
+There are edge-cases if you do lots of work in constructor - this is gist, but use a library.
+
+```javascript
+function ClassName(arg,subClassArg) {
+  SuperClass.call(this,arg);
 }
 
-if((3.14159).toFixed(5) === "3.14159") {
-  console.log("they're pointless, as the 'primitives'\
-     still have access to prototype methods");
+ClassName.prototype = new SuperClass;
+ClassName.constructor = ClassName;
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Calling 'super'
+
+Could add a `__super__` to prototype.
+
+```javascript
+ClassName.prototype.something = function(arg1,argN) {
+  SuperClass.prototype.something.call(this,arg1,argN);
 }
 ```
 </script></section>
 
 
+<section data-markdown><script type="text/template">
+## Composition over inheritance
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Example
+
+Inheritance is very tight coupling: many reasons to change.
+
+```javascript
+Widget > Table > PagedTable > EditablePagedTable
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Via composition
+
+```javascript
+function PagedTable(el,table) {
+  var pagerWidget = new PagerWidget;
+  el.appendChild(pagerWidget.el);
+  el.appendChild(table.el);
+}
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Duck typing
+</script></section>
+
+<section>
+<h2>Duck-typing</h2>
+
+<p>In classical OOP languages, you can `isA` check for supertypes/interfaces</p>
+
+<script type=console-setup>
+  TypeA = function() {}
+  TypeB = function() {}
+  TypeB.prototype = new TypeA;
+</script>
+
+<div class=little-console></div>
+
+</section>
+
+
+<section data-markdown><script type="text/template">
+## Issue
+
+```javascript
+var X = Backbone.Model.extend();
+var x = X;
+console.log(x instanceof Backbone.Model); // false
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Duck type!
+
+```javascript
+function withModel(model) {
+  // check object implements the API we need
+  if(typeof model.get === "function") {
+    // then use! no restrictions on what we pass in
+  }
+}
+```
+</script></section>
 
 <section data-markdown data-state=title><script type="text/template">
-## Combining FP & OOP
+## Quirks
+</script></section>
+
+
+<section data-markdown data-state=title><script type="text/template">
+## Quirks
 </script></section>
 
 <section data-markdown><script type="text/template">
-## OOP
+```javascript
+if(new Boolean(false)) {
+  console.log("this is why we avoid new Boolean");
+}
 
-- essential state: of a computation (e.g promise)
-- essential state: of non-modelled object (e.g GUI, file)
-- essential state: of simulation (e.g analytics)
-- something with identity and state
+if(Boolean(1)) {
+  console.log("Good way to coerce to boolean");
+}
+
+if(!!unknown) {
+  console.log("Another - perhaps less explicit");
+}
+
+if(new String("hi") !== "hi") {
+  console.log("ugh - just avoid object wrappers for 'primitives'");
+}
+
+if((3.14159).toFixed(5) === "3.14159") {
+  console.log("no benefit anyway, as the 'primitives'\
+     still have access to prototype methods");
+}
+```
 </script></section>
 
 <section data-markdown><script type="text/template">
-## FP
-
-- the default
+## Fin!
 </script></section>
-
-<section data-markdown><script type="text/template">
-## GUI
-
-- FP: handling data ending up in a graph
-- OOP: stateful widget
-- FP: generating HTML
-</script></section>
-
-<section data-markdown><script type="text/template">
-## TODO
-</script></section>
-
-
-
-
 
 </div>
 </div>
@@ -668,7 +947,13 @@ if((3.14159).toFixed(5) === "3.14159") {
 
 <script src=slides-theme/js/code-example.js></script>
 <script>
-  var revealCodeSamples = codeExamples.revealAlongside.bind(null,"script[type=code-example-alongside]");
+  function revealCodeSamples() {
+    codeExamples.reveal("script[type=code-example-alongside]");
+    codeExamples.reveal("script[type=console-setup]");
+    [].forEach.call(document.querySelectorAll("script[type=console-setup]"),function(el) {
+      eval(el.innerHTML);
+    });
+  }
 </script>
 
 <script src=slides-theme/js/little-console.js></script>
