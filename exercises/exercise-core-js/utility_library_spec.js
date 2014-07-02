@@ -4,6 +4,7 @@ describe("js",function() {
 
     function truncate(str,ellipsis,maxLen) {
       // YOUR CODE
+      // optional arguments
     }
 
     it("shortens string",function() {
@@ -31,19 +32,19 @@ describe("js",function() {
     }
 
     it("formats [1,2,3] as '1, 2 and 3'",function() {
-      expect(englishList([1,2,3])).toEqual('1, 2 and 3');
+      expect(englishList(1,2,3)).toEqual('1, 2 and 3');
     });
 
     it("formats [1,2] as '1 and 2",function() {
-      expect(englishList([1,2])).toEqual('1 and 2');
+      expect(englishList(1,2)).toEqual('1 and 2');
     });
 
     it("formats [1] as '1'",function() {
-      expect(englishList([1])).toEqual('1');
+      expect(englishList(1)).toEqual('1');
     });
 
     it("formats [] as ''",function() {
-      expect(englishList([])).toEqual('');
+      expect(englishList()).toEqual('');
     });
 
   });
