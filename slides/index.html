@@ -34,7 +34,7 @@
 var x = "howdy";
 var iAmUnitialized; // note: JS is camelCase
 
-// messy VCS diffs
+// messy version-control diffs
 var x = "howdy",
     iAmUnitialized;
 
@@ -46,6 +46,25 @@ var x = "howdy", iAmUnitialized, y = 1, p,
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Suggested
+
+```javascript
+var camelCase = "standard: matches JS's own APIs";
+var oneVarPerLine = "neat diffs";
+```
+
+Avoids non-local version-control changes:
+
+```sh
+  var x = 1,
+-     y = 2;
++     y = 2,
++     z = 3;
+```
+
+</script></section>
+
+<section data-markdown><script type="text/template">
 ## Scope is ONLY affected by functions
 </script></section>
 
@@ -53,39 +72,107 @@ var x = "howdy", iAmUnitialized, y = 1, p,
 ## Variables
 
 ```javascript
-var greeting;
-var i = 100;
-
 function sayHi(to,greeting,times) {
   var i = times;
   while(i--) {
     console.log("%s %s",greeting,to);
   }
 }
+
+var greeting;
+var i = 100;
+
+sayHi("bob", "hello", 50);
 ```
 </script></section>
+
+<section data-markdown><script type="text/template">
+## `var` is not block scoped
+
+```javascript
+// all refer to same 'i', it will end up as 50 or 20
+var i = 10;
+
+if(x) {
+  var i = 50;
+} else {
+  var i = 20;
+}
+```
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+## `undefined` vs undeclared
+</script></section>
+
+<section data-markdown><script type="text/template">
+
+```javascript
+// Uncaught ReferenceError: start is not defined
+start();
+```
+
+```javascript
+var start;
+// TypeError: undefined is not a function
+start();
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## `undefined` is a value
+
+- `undefined` is a value of a variable
+- undeclared is a state of a variable in a scope
+</script></section>
+
+<section data-markdown><script type="text/template">
+## `undefined`
+
+- placeholder value for uninitialised variables
+- or arguments not provided in a function
+
+```javascript
+function hi(x) {
+  console.log('hi ' + x);
+}
+
+// 'hi undefined'
+hi();
+```
+</script></section>
+
 
 <section data-markdown><script type="text/template">
 ## Always declare with var
 </script></section>
 
+
 <section data-markdown><script type="text/template">
-## Importance of var
+## Avoid creating global variables
 
 ```javascript
-var greeting;
-var i = 100;
-sayHi();
-console.log(i);
-
-function sayHi(to,greeting,times) {
-  i = times;
-  while(i--) {
-    console.log("%s %s",greeting,to);
-  }
+function A(arg) {
+  x = arg;
 }
+function B(arg) {
+  var x = arg;
+}
+
+// x; // would be 'ReferenceError: x is not defined'
+
+A("hello");
+console.log( x ); // hello
+console.log( window.x ); // hello
+
+// has not affected/created global
+B("bye");
+console.log( x ); // hello
 ```
 </script></section>
+
 
 <section data-markdown><script type="text/template">
 ## Hoisting
@@ -93,12 +180,8 @@ function sayHi(to,greeting,times) {
 What happens?
 
 ```javascript
-function sayHi() {
-  console.log(greeting);
-  var greeting = "hello";
-
-  console.log(notDeclared);
-}
+console.log(greeting);
+var greeting = "hello";
 ```
 </script></section>
 
@@ -116,6 +199,67 @@ function sayHi() {
 ```
 </script></section>
 
+<section data-markdown><script type="text/template">
+## `var` hoisting
+
+- hoisted to top of enclosing scope (function)
+- has value of `undefined` until assigned a value
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Function declaration hoisting
+
+- hoisted to top of enclosing scope (function)
+- is initialised as function throughout scope
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Benefits: readability
+
+```javascript
+// reads high-level to low-level: important stuff first
+function main() {
+  interestingHighLevelTaskA();
+  interestingHighLevelTaskB();
+}
+function interestingHighLevelTaskA() {
+  boringFiddlyHelper();
+}
+function interestingHighLevelTaskB() {
+  moreImplementationDetails();
+}
+function boringFiddlyHelper() {
+}
+function moreImplementationDetails() {
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Benefits: locality
+
+```javascript
+// keeps its helper functions in own scope: makes it clear
+// that only 'interestingHighLevelTask' is using them
+function interestingHighLevelTask() {
+
+  boringFiddlyHelper();
+  moreImplementationDetails();
+  // ...
+
+
+  function boringFiddlyHelper() {
+  }
+  function moreImplementationDetails() {
+  }
+}
+```
+</script></section>
+
+
 
 
 <section data-markdown><script type="text/template">
@@ -126,8 +270,8 @@ Not everything varies - let your readers (if not the interpreter) know.
 ```javascript
 var A_CONSTANT_VALUE = "something";
 var CONSTANTS = {
-  NORTH: "north", // don't use numbers please, easier to inspect
-  SOUTH: "south", // trailing commas encouraged - less git noise
+  NORTH: "north", // don't use numbers please, 
+  SOUTH: "south", // trailing commas encouraged - less version-control noise
 };
 
 // ES6
@@ -151,7 +295,7 @@ for(var i = 0; i < 100; i++) {
 }
 // remember, not all blocks req'd, and
 // can use comma operator to do > 1 thing in each
-for(;node; node = node.next) {
+for(; node; node = node.next) {
 }
 
 // length caching: (only for old interpreters)
@@ -273,18 +417,29 @@ loop(function() {
 
 
 <section data-markdown><script type="text/template">
-## Missing feature: optional/kw arguments
+## Importance of var
 
-```python
-// from ES6
-function takeOptional(name,greeting = "hi") {
-  console.log(greeting + " " + name)
-}
-// python-y
-function takeKeywords(name,**kwargs) {
-  console.log(greeting + " " + kwargs["name"])
+```javascript
+var greeting;
+var i = 100;
+
+sayHi("javascript","hello",10);
+
+console.log(i);
+
+function sayHi(to,greeting,times) {
+  i = times;
+  while(i--) {
+    console.log("%s %s",greeting,to);
+  }
 }
 ```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Missing features: default/optional and kwargs
+
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -307,16 +462,14 @@ var oneOrTheOther = one || theOther; // only for assignments
 ## Optional implementation
 
 ```javascript
-function takeOptional(name,greeting) {
+function takeOptional(name, greeting) {
   greeting = greeting || "hi";
   
   console.log(greeting + " " + name)
 }
-
               
-takeOptional("tom","hello");
+takeOptional("tom", "hello");
 takeOptional("tom");
-
 ```
 </script></section>
 
@@ -325,7 +478,8 @@ takeOptional("tom");
 
 ```javascript
 function takeKeywords(name,opts) {
-  greeting = (opts && opts.greeting || "hi";
+  opts = opts || {};
+  greeting = opts.greeting || "hi";
   console.log(greeting + " " + name)
 }
 
@@ -340,12 +494,14 @@ takeKeywords("tom");
 
 ```javascript
 function englishList() {
-  if(arguments.length <= 2) {
-    return [].join.call(arguments," and ");
+  var items = [].slice.call(arguments);
+  if(items.length <= 2) {
+    return items.join(" and ");
+  } else {
+    var commas = items.slice(0,arguments.length - 1);
+    return commas.join(", ") 
+      + " and " + items[items.length - 1];
   }
-  var commas = [].slice.call(arguments,0,arguments.length - 1);
-  return commas.join(", ") 
-    + " and " + arguments[arguments.length - 1];
 }
 
 function es6EnglishList(words...) {
@@ -354,7 +510,7 @@ function es6EnglishList(words...) {
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Dropping the idioms!
+## Many idioms...
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -505,6 +661,16 @@ console.log(set.has({}));
 console.log(set.length);
 ```
 </script></section>
+
+
+<section data-markdown><script type="text/template">
+## Where can you use?
+
+- IE 11/Chrome/FF only? Now!
+- Node - now! (with --harmony)
+
+</script></section>
+
 
 <section data-markdown data-state=title><script type="text/template">
 ## The JS object system
@@ -880,13 +1046,23 @@ function PagedTable(el,table) {
 
 
 <section data-markdown><script type="text/template">
-## Issue
+## Works ok
 
 ```javascript
 var X = Backbone.Model.extend();
-var x = X;
-console.log(x instanceof Backbone.Model); // false
+var x = new X;
+
+console.log(x instanceof Backbone.Model);
 ```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## But... inflexible
+
+- must have that constructor in prototype chain
+- harder to reuse code
+- much harder to test (passing mocks/stubs)
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -894,9 +1070,12 @@ console.log(x instanceof Backbone.Model); // false
 
 ```javascript
 function withModel(model) {
-  // check object implements the API we need
+  // determine objects 'type' via checking its API,
+  // rather than how it got its API (prototype chain)
   if(typeof model.get === "function") {
-    // then use! no restrictions on what we pass in
+
+  } else if(typeof model.get === "string") {
+
   }
 }
 ```
@@ -906,10 +1085,6 @@ function withModel(model) {
 ## Quirks
 </script></section>
 
-
-<section data-markdown data-state=title><script type="text/template">
-## Quirks
-</script></section>
 
 <section data-markdown><script type="text/template">
 ```javascript
@@ -930,8 +1105,8 @@ if(new String("hi") !== "hi") {
 }
 
 if((3.14159).toFixed(5) === "3.14159") {
-  console.log("no benefit anyway, as the 'primitives'\
-     still have access to prototype methods");
+  console.log("there is no benefit to object wrappers: the 'primitives'" +
+     " still have access to prototype methods");
 }
 ```
 </script></section>
