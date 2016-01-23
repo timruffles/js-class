@@ -85,7 +85,7 @@ function while_(test, block) {
 }
 
 var x = 10;
-while_(() => x, () => {
+while_(() => x = x - 1, () => {
   console.log("X: " + x);
 })
 ```

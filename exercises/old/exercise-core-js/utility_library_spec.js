@@ -2,9 +2,8 @@ describe("js",function() {
 
   describe("truncate",function() {
 
-    function truncate(str,ellipsis,maxLen) {
-      // YOUR CODE
-      // optional arguments
+    function truncate(str, ellipsis, maxLen) {
+      // TODO your code here
     }
 
     it("shortens string",function() {
@@ -12,15 +11,11 @@ describe("js",function() {
         .toEqual("I am…");
     });
 
-    it("handles implicit length and ellipsis",function() {
+    it("accepts default length and ellipsis",function() {
       expect(truncate("I am too long"))
         .toEqual("I am to…");
     });
 
-    it("handles 0 as length",function() {
-      expect(truncate("I am too long","x",0))
-        .toEqual("");
-    });
     it("handles 0 as length",function() {
       expect(truncate("I am too long","x",0))
         .toEqual("");
@@ -31,7 +26,7 @@ describe("js",function() {
 
   describe("english list",function() {
 
-    function englishList(/* words */) {
+    function englishList() {
       // YOUR CODE
     }
 
@@ -55,28 +50,38 @@ describe("js",function() {
 
   describe("until",function() {
 
-    function until(iterator,check) {
-      // YOUR CODE
+    function until(done, iterator) {
+      // TODO your code
     }
 
-    var countDown;
-    var isZero;
+    function recursiveUntil(done, iterator) {
+      // TODO your code
+    }
+
     var i;
     beforeEach(function() {
       i = 10;
-      countDown = function() {
-        i -= 1;
-      }
-      isZero = function() {
-        return i === 0;
-      }
     });
 
     it("runs the iterator until the check returns true",function() {
       expect(i).toEqual(10);
-      until(countDown,isZero);
+      until(isZero, countDown);
       expect(i).toEqual(0);
     });
+
+    it("recursiveUntil runs the iterator until the check returns true",function() {
+      expect(i).toEqual(10);
+      recursiveUntil(isZero, countDown);
+      expect(i).toEqual(0);
+    });
+
+    function countDown() {
+      i -= 1;
+    }
+
+    function isZero() {
+      return i === 0;
+    }
 
   });
 

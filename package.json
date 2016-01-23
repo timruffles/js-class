@@ -9,7 +9,10 @@
   "author": "Tim Ruffles <oi@truffles.me.uk>",
   "license": "©",
   "dependencies": {
+    "chai": "^3.4.1",
     "hogan.js": "~3.0.2",
+    "mocha": "^2.3.4",
+    "pprint": "0.0.1",
     "shelljs": "~0.3.0"
   }
 }
