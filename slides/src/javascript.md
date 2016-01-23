@@ -1,94 +1,9 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Radical Javascript</title>
-
-    <link rel="shortcut icon" href="favicon.png">
-  
-    <link rel="stylesheet" href="reveal/css/reveal.min.css">
-    <link rel="stylesheet" href="reveal/lib/css/github.css">
-
-    <link rel="stylesheet" href="slides-theme/style.css" id="theme">
-    <link rel="stylesheet" href="slides-theme/talk-specific.css" id="theme">
-
-    <link rel="stylesheet" href="slides-theme/js/little-console.css" id="theme">
-</head>
-
-<body>
-
-<div class="reveal">
-<div class="slides">
 
 
-<section data-markdown><script type="text/template">
-# Radical Javascript
-[@timruffles](http://twitter.com/timruffles)
-</script></section>
-
-<section data-markdown><script type="text/template">
-## JS evolved: rollovers to quad-copters
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Evolved things are crufty
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Idioms emerged
-</script></section>
-
-<section data-markdown><script type="text/template">
-## From root: drop the cruft
-</script></section>
-
-<section data-markdown><script type="text/template">
-## JS idioms for 2015
-</script></section>
 
 
-<section data-markdown><script type="text/template">
-## Variables
-
-```javascript
-var x = "howdy";
-var iAmUnitialized; // note: JS is camelCase
-
-// messy version-control diffs
-var x = "howdy",
-    iAmUnitialized;
-
-// oh god why?
-var x = "howdy", iAmUnitialized, y = 1, p,
-    readingThisMakesYouWonderIfItWasPreminified = true, pp = {},
-    someOtherVariable; 
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Suggested
-
-```javascript
-var camelCase = "standard: matches JS's own APIs";
-var oneVarPerLine = "neat diffs";
-```
-
-Avoids non-local version-control changes:
-
-```sh
-  var x = 1,
--     y = 2;
-+     y = 2,
-+     z = 3;
-```
-
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## Scope is ONLY affected by functions
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Variables
 
 ```javascript
@@ -104,9 +19,7 @@ var i = 100;
 
 sayHi("bob", "hello", 50);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `var` is not block scoped
 
 ```javascript
@@ -119,15 +32,8 @@ if(x) {
   var i = 20;
 }
 ```
-</script></section>
 
-
-
-<section data-markdown><script type="text/template">
 ## `undefined` vs undeclared
-</script></section>
-
-<section data-markdown><script type="text/template">
 
 ```javascript
 // Uncaught ReferenceError: start is not defined
@@ -139,16 +45,12 @@ var start;
 // TypeError: undefined is not a function
 start();
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `undefined` is a value
 
 - `undefined` is a value of a variable
 - undeclared is a state of a variable in a scope
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `undefined`
 
 - placeholder value for uninitialised variables
@@ -162,15 +64,9 @@ function hi(x) {
 // 'hi undefined'
 hi();
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Always declare with var
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Avoid creating global variables
 
 ```javascript
@@ -191,10 +87,7 @@ console.log( window.x ); // hello
 B("bye");
 console.log( x ); // hello
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Hoisting
 
 What happens?
@@ -203,9 +96,7 @@ What happens?
 console.log(greeting);
 var greeting = "hello";
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Hoisting, part II
 
 What happens?
@@ -217,26 +108,17 @@ function sayHi() {
   console.log("Hello");
 }
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `var` hoisting
 
 - hoisted to top of enclosing scope (function)
 - has value of `undefined` until assigned a value
 
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## Function declaration hoisting
 
 - hoisted to top of enclosing scope (function)
 - is initialised as function throughout scope
 
-</script></section>
-
-
-<section data-markdown><script type="text/template">
 ## Benefits: readability
 
 ```javascript
@@ -260,9 +142,7 @@ function boringFiddlyHelper() {
 function moreImplementationDetails() {
 }
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Benefits: locality
 
 ```javascript
@@ -281,12 +161,7 @@ function interestingHighLevelTask() {
   }
 }
 ```
-</script></section>
 
-
-
-
-<section data-markdown><script type="text/template">
 ## Plus de change...
 
 Not everything varies - let your readers (if not the interpreter) know.
@@ -294,21 +169,13 @@ Not everything varies - let your readers (if not the interpreter) know.
 ```javascript
 var A_CONSTANT_VALUE = "something";
 var CONSTANTS = {
-  NORTH: "north", // don't use numbers please, 
+  NORTH: "north", // don't use numbers please,
   SOUTH: "south", // trailing commas encouraged - less version-control noise
 };
 ```
-</script></section>
 
-
-
-
-<section data-markdown data-state=title><script type="text/template">
 ## Control-flow
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Familiar faces
 
 ```javascript
@@ -329,38 +196,22 @@ while(node = node.next) {
 do {
 } while (node = node.next);
 ```
-</script></section>
 
-<section data-markdown data-state=title><script type="text/template">
 ## Comparators
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Yes `==` has issues
-</script></section>
-
-
-<section>
 <h2>Comparison</h2>
 <p>If you can't be bothered to remember, use <code>===</code>.</p>
 
 <div class=little-console></div>
 
-</section>
-
-<section data-markdown><script type="text/template">
 ## NaN !== NaN for a reason
 
 - NaN means "category error", it can't meaningfully be equal to anything
 - this is why the `isNaN()` exists
-</script></section>
 
-
-<section data-markdown data-state=title><script type="text/template">
 ## Functions
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Two ways of defining
 
 ```javascript
@@ -368,9 +219,7 @@ var fn = function() {};
 
 function another() {};
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Function hoisting is great
 
 ```javascript
@@ -388,9 +237,7 @@ function otherThing() {
   }
 }
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## First-class
 
 First class: use wherever you can use other values
@@ -417,9 +264,7 @@ var doubleTalk = doubleFn(function() {
 
 doubleTalk()
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## FCF = higher order functions
 
 - we can pass functions to functions to functions...
@@ -434,10 +279,7 @@ loop(function() {
   console.log("We'll be here for some time")
 })
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Importance of var
 
 ```javascript
@@ -455,15 +297,9 @@ function sayHi(to,greeting,times) {
   }
 }
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Missing features: default/optional and kwargs
 
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## Interlude: logical operators
 
 Short-circuit, work on returning operands.
@@ -477,24 +313,20 @@ someVar && doSomething(); // please don't use as control-flow
 var oneOrTheOther = one || theOther; // only for assignments
 (one || theOther).doSomething(); // or this (within reason)
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Optional implementation
 
 ```javascript
 function takeOptional(name, greeting) {
   greeting = greeting || "hi";
-  
+
   console.log(greeting + " " + name)
 }
-              
+
 takeOptional("tom", "hello");
 takeOptional("tom");
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## kwargs implementation
 
 ```javascript
@@ -506,9 +338,7 @@ function takeKeywords(name,opts) {
 
 takeKeywords("tom");
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Varargs
 
 `arguments`: for each function call.
@@ -520,35 +350,29 @@ function englishList() {
     return items.join(" and ");
   } else {
     var commas = items.slice(0, items.length - 1);
-    return commas.join(", ") 
+    return commas.join(", ")
       + " and " + items[items.length - 1];
   }
 }
 
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Many idioms...
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## "Array likes"
 
 - `arguments`, `NodeList`
 - subscriptable (`[3] = "foo"` etc), have `.length`
 - but don't have `Array.prototype` - e.g `slice`, `indexOf`
 - `slice` them to fix - via `[].slice.call` or lib
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `.call`
 
 JS's FP/OOP hybrid model to thank
 
 ```javascript
 Function.prototype.call = function(thisValue,args...) {
-  // runs the function (this), setting this = thisValue, 
+  // runs the function (this), setting this = thisValue,
   // and args = args
 }
 
@@ -558,25 +382,15 @@ Function.prototype.call = function(thisValue,args...) {
 /* some fn */.call(/*this*/,/* arg, ... argN */);
 
 ```
-</script></section>
 
-
-<section data-markdown data-state=title><script type="text/template">
 ## Data-structures
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Two types
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Ordered
 
 - `Array`
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Array
 
 ```javascript
@@ -585,7 +399,7 @@ var anArray = [];
 
 // only one good use for this constructor
 var knownLengthInPerformanceCriticalCode = 16;
-var another = new Array(knownLengthInPerformanceCriticalCode); 
+var another = new Array(knownLengthInPerformanceCriticalCode);
 
 var joined = anArray.concat([1,2,3]); // non-destructive
 var tail = anArray.slice(1);          // non-destructive
@@ -596,10 +410,7 @@ var ascending = tail.sort(function(a,b) {
   return a - b;
 });
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## One good use for `new Array`
 
 Avoids resize when length is known.
@@ -621,17 +432,11 @@ real	0m0.388s
 user	0m0.370s
 sys	0m0.022s
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Yes - v8 is fast...
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Key-value
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Objects, abused as maps
 
 Misses lots of the niceities of a real map.
@@ -647,9 +452,7 @@ delete myMap[1];
 myMap[{}] = {};
 console.log(myMap[{}]);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Map
 
 Coming in ES6, keys via object identity.
@@ -663,9 +466,7 @@ console.log(myMap.get(a));
 
 console.log(myMap.length);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Set
 
 ES6: when we just care about membership.
@@ -680,29 +481,18 @@ console.log(set.has({}));
 
 console.log(set.length);
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Where can you use?
 
 - IE 11/Chrome/FF only? Now!
 - Node - now! (with --harmony)
 
-</script></section>
-
-
-<section data-markdown data-state=title><script type="text/template">
 ## The JS object system
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## OOP, hand-rolled
 
 - or more
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Objects in JS
 
 - Have string properties whose values can be any JS type.
@@ -710,9 +500,7 @@ console.log(set.length);
 ```javascript
 var turtle = {x: 10, y: 20};
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Methods
 
 - We want to have a consistent set of methods, with shorthand access to object
@@ -727,9 +515,7 @@ var turtle = {x: 10, y: 20};
 turtle.move = move;
 turtle.move(10,10);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## How does this work?
 
 - `someObject.property()` will set `this` to `someObject` while running function returned from `someObject.property`
@@ -745,18 +531,13 @@ function move(dx,dy) {
   this.y += dy;
 };
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Implications
 
 - JS will only set the right value of `this` when immediately calling methods
 - passing a method as an argument, storing it in a variable, etc, therefore requires more work
 
 
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## e.g
 
 ```javascript
@@ -781,9 +562,6 @@ isNaN(window.count) && 'count' in window;
 
 
 
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## Bind
 
 ```javascript
@@ -805,9 +583,7 @@ obj.count === 2
 isNaN(window.count) && 'count' in window;
 
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `.bind`
 
 ```javascript
@@ -827,9 +603,7 @@ getBobsName();
 
 /* some fn */.bind(/*this*/,/* arg, ... argN */);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## We want constructors
 
 ```javascript
@@ -843,9 +617,7 @@ function turtleMove(dx,dy) {
   this.y += dy;
 }
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Standardise: constructor
 
 ```javascript
@@ -856,17 +628,13 @@ function Turtle(x,y) {
 }
 
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Will this work?
 
 ```javascript
 var aSweetTurtle = Turtle();
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `new` is the power
 
 ```javascript
@@ -878,9 +646,7 @@ function Turtle(x,y) {
 // clear that new is not a standard fn call
 var aSweetTurtle = new Turtle;
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Sharing methods
 
 ```javascript
@@ -894,19 +660,14 @@ Turtle.prototype.move = function(dx,dy) {
   this.y += dy;
 };
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Prototype chains
 
 - Objects are bags of properties
 - `object.property` asks for value of `property`
 - If `object` lacks property, we restart questioning at `object.prototype`
 - Once we've run out of prototypes (`O.pt.pt`) we get `undefined`
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## `new` operator
 
 ```javascript
@@ -926,9 +687,7 @@ function newOperator(constructor) {
   return typeof returnVal == "object" ? returnVal : instance;
 }
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## `new`'s final trick
 
 ```javascript
@@ -941,17 +700,12 @@ function Turtle(x,y) {
 var turtle = new Turtle;
 console.log(turtle.haha);
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Useful
 
 - Refactor constructor to factory
 - Quite powerful voodoo
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Sneaky trick
 
 ```javascript
@@ -972,10 +726,6 @@ userScores[sarah] = 20;
 
 console.log(userScores[tim]) // 10
 ```
-</script></section>
-
-
-<section>
 <h2>Property descriptors</h2>
 <p>Add properties and control writes/modification</p>
 
@@ -994,9 +744,6 @@ console.log(userScores[tim]) // 10
 <script type=cheat>
 </script>
 
-</section>
-
-<section data-markdown><script type="text/template">
 ## Safe(er) monkey patch
 
 ```javascript
@@ -1015,9 +762,7 @@ var props = [];
 for(var prop in anObject) props.push(prop);
 console.log(props.length) // 0
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Preventing change
 
 All shallow
@@ -1029,10 +774,7 @@ Object.freeze           // immutable
 
 Object.is{Extensible,Sealed,Frozen} // check
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Strict mode
 
 No `with`.
@@ -1051,14 +793,8 @@ eval("b = 'howdy'");
 console.log(typeof b) // 'undefined'
 ```
 
-</script></section>
-
-
-<section data-markdown data-state=title><script type="text/template">
 ## OOP in JS
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Use prototypes
 
 ```javascript
@@ -1069,9 +805,7 @@ ClassName.prototype = {
 };
 ClassName.constructor = ClassName;
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Inheritance
 
 There are edge-cases if you do lots of work in constructor - this is gist, but use a library.
@@ -1084,9 +818,7 @@ function ClassName(arg,subClassArg) {
 ClassName.prototype = new SuperClass;
 ClassName.constructor = ClassName;
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Calling 'super'
 
 Could add a `__super__` to prototype.
@@ -1096,15 +828,9 @@ ClassName.prototype.something = function(arg1,argN) {
   SuperClass.prototype.something.call(this,arg1,argN);
 }
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Composition over inheritance
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Example
 
 Inheritance is very tight coupling: many reasons to change.
@@ -1112,9 +838,7 @@ Inheritance is very tight coupling: many reasons to change.
 ```javascript
 Widget > Table > PagedTable > EditablePagedTable
 ```
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Via composition
 
 ```javascript
@@ -1124,14 +848,8 @@ function PagedTable(el,table) {
   el.appendChild(table.el);
 }
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## Duck typing
-</script></section>
-
-<section>
 <h2>Duck-typing</h2>
 
 <p>In classical OOP languages, you can `isA` check for supertypes/interfaces</p>
@@ -1144,10 +862,6 @@ function PagedTable(el,table) {
 
 <div class=little-console></div>
 
-</section>
-
-
-<section data-markdown><script type="text/template">
 ## Works ok
 
 ```javascript
@@ -1156,18 +870,13 @@ var x = new X;
 
 console.log(x instanceof Backbone.Model);
 ```
-</script></section>
 
-
-<section data-markdown><script type="text/template">
 ## But... inflexible
 
 - must have that constructor in prototype chain
 - harder to reuse code
 - much harder to test (passing mocks/stubs)
-</script></section>
 
-<section data-markdown><script type="text/template">
 ## Duck type!
 
 ```javascript
@@ -1181,14 +890,8 @@ function withModel(model) {
   }
 }
 ```
-</script></section>
 
-<section data-markdown data-state=title><script type="text/template">
 ## Quirks
-</script></section>
-
-
-<section data-markdown><script type="text/template">
 ```javascript
 if(new Boolean(false)) {
   console.log("this is why we avoid new Boolean");
@@ -1211,137 +914,5 @@ if((3.14159).toFixed(5) === "3.14159") {
      " still have access to prototype methods");
 }
 ```
-</script></section>
 
-
-
-
-<section data-markdown><script type="text/template">
 ## Fin!
-</script></section>
-
-</div>
-</div>
-
-
-
-<script src=slides-theme/js/code-example.js></script>
-<script>
-  function revealCodeSamples() {
-    codeExamples.reveal("script[type=code-example-alongside]");
-    codeExamples.reveal("script[type=console-setup]");
-    [].forEach.call(document.querySelectorAll("script[type=console-setup]"),function(el) {
-      eval(el.innerHTML);
-    });
-  }
-</script>
-
-<script src=slides-theme/js/little-console.js></script>
-<script>
-  function showConsoles() {
-
-    // show all consoles, and register 'cheats'
-    var cheats = [];
-
-    ;[].forEach.call(document.querySelectorAll(".little-console"),function(el) {
-      var cmds = new LittleConsole.Commands;
-      var console = new LittleConsole({el: el,commands: cmds});
-      var slide = el.parentElement;
-      var cheat = slide.querySelector("[type=cheat]");
-      if(!cheat) return;
-      cheats.push({
-        console: console,
-        slide: slide,
-        src: cheat.innerHTML,
-      });
-    });
-
-    // listen for 'cheat code' - ALT + C, and fill input
-    var C = 67;
-    document.body.addEventListener("keyup",function(evt) {
-      if(evt.keyCode !== C || !evt.altKey) return;
-      var slide = Reveal.getCurrentSlide();
-      cheats.forEach(function(setup) {
-        if(setup.slide !== slide) return;
-        setup.console.setCommand(setup.src);
-      });
-
-    });
-
-  }
-</script>
-
-<script src="reveal/lib/js/head.min.js"></script>
-<script src="reveal/js/reveal.min.js"></script>
-<script>
-  Reveal.initialize({
-
-    // Display controls in the bottom right corner
-    controls: false,
-
-    // Display a presentation progress bar
-    progress: true,
-
-    // Push each slide change to the browser history
-    history: true,
-
-    // Enable keyboard shortcuts for navigation
-    keyboard: true,
-
-    // Enable the slide overview mode
-    overview: true,
-
-    // Vertical centering of slides
-    center: false,
-
-    // Loop the presentation
-    loop: false,
-
-    // Change the presentation direction to be RTL
-    rtl: false,
-
-    // Number of milliseconds between automatically proceeding to the
-    // next slide, disabled when set to 0, this value can be overwritten
-    // by using a data-autoslide attribute on your slides
-    autoSlide: 0,
-
-    // Enable slide navigation via mouse wheel
-    mouseWheel: false,
-
-    // Apply a 3D roll to links on hover
-    rollingLinks: false,
-
-    // Transition style
-    transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
-
-    dependencies: [
-        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-        { src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-
-        // Interreveal/pret Markdown in <section> elements
-        { src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: 'reveal/plugin/markdown/markdown.js', 
-          condition: function() { return !!document.querySelector( '[data-markdown]' ); },
-          callback: function() {
-            revealCodeSamples(); 
-            showConsoles();
-          } },
-
-        // Syntareveal/x highlight for <code> elements
-        { src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-
-        // Zoom reveal/in and out with Alt+click
-        { src: 'reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Speakreveal/er notes
-        { src: 'reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Remotreveal/e control your reveal.js presentation using a touch device
-        // { src: 'reveal/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-    ]
-
-  });
-</script>
-</body>
-
-
