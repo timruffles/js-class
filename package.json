@@ -9,10 +9,14 @@
   "author": "Tim Ruffles <oi@truffles.me.uk>",
   "license": "©",
   "dependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
     "chai": "^3.4.1",
     "hogan.js": "~3.0.2",
+    "lodash": "^4.0.0",
     "mocha": "^2.3.4",
     "pprint": "0.0.1",
-    "shelljs": "~0.3.0"
+    "shelljs": "~0.3.0",
+    "sinon": "^1.17.2"
   }
 }

@@ -1,12 +1,16 @@
-// TODO your job is to write a helpful method to create
-// a gramatical english list
 //
+// return a function that will:
 //
-// It'll be used like this:
+// TODO - call fn
+// TODO - report to logger with the count of calls, and the arguments
 //
-//   englishList("one","two","three") // one, two and three
-//
-
-exports.englishList = function(...args) {
-   
+// @type exports.spy = (fn: Function, logger: Function) => Function
+exports.spy = function(fn, logger) {
+  var count = 0;
+  return function() {
+    fn.apply(null, arguments); 
+    count += 1;
+    logger(arguments, count);
+  }
 };
+

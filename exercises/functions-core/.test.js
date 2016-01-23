@@ -1,43 +1,57 @@
 var help = require("../.sys/test-help");
+var _ = require("lodash");
 
-describe("englishList", function() {
+describe("functions-core", function() {
 
     help.importAndTest(__dirname, function(exported) {
 
-      it("works with no input", function() {
-        match([], "");
-      });
+      describe('spy', function() {
 
-      it("works with 1 item", function() {
-        var s = help.rstring(); 
-        match([s], s);
+        const self = this;
+
+        beforeEach(function() {
+          self.fnSpy = sinon.spy();   
+          self.logSpy = sinon.spy();
+        });
+
+        it('calls `fn` whenever the created function is called', function() {
+          const userSpied = exported.spy(self.fnSpy, self.logSpy);
+          
+          assert.spyNotCalled(self.fnSpy);
+          userSpied();
+          assert.spyCalledOnce(self.fnSpy);
+        })
+
+        it('passes on the arguments to `fn`', function() {
+          const userSpied = exported.spy(self.fnSpy, self.logSpy);
+          
+          const args = [help.rint(), help.rint()];
+          userSpied.apply(null, args);
+          assert.spyCalledWith(self.fnSpy, ...args);
+        })
+
+        it('reports the number of times called to logger', function() {
+          const userSpied = exported.spy(self.fnSpy, self.logSpy);
+          
+          assert.spyNotCalled(self.logSpy);
+          userSpied();
+          assert.spyCalledOnce(self.logSpy);
+          assert.spyCalledWithMatch(self.logSpy, {}, 1);
+          assert.spyNeverCalledWithMatch(self.logSpy, {}, 2);
+          userSpied();
+          assert.spyCalledWithMatch(self.logSpy, {}, 2);
+        })
+
+        it('passes on the arguments to `logger`', function() {
+          const userSpied = exported.spy(self.fnSpy, self.logSpy);
+          
+          const args = [help.rint(), help.rint()];
+          userSpied.apply(null, args);
+          assert.spyCalledWithMatch(self.logSpy, {0:args[0], 1: args[1]}, 1);
+            
+        })
+          
       })
-
-      it("works with 2 items", function() {
-        var s = help.rstring(); 
-        var t = help.rstring(); 
-        match([s,t], s + ", " + t);
-      })
-
-      it("works with 3 items", function() {
-        var s = help.rstring(); 
-        var t = help.rstring(); 
-        var u = help.rstring(); 
-        match([s,t,u], s + ", " + t + " and " + u);
-      });
-
-      it("works with 5 items", function() {
-        var s = help.rstring(); 
-        var t = help.rstring(); 
-        var u = help.rstring(); 
-        var v = help.rstring(); 
-        var w = help.rstring(); 
-        match([s,t,u,v,w], [s,t,u,v].join(", ") + " and " + w);
-      });
-
-      function match(input, expected) {
-        assert.equal(exported.englishList(...input) , expected);
-      }
 
     });
 
