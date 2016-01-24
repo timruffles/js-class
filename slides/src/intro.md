@@ -1,10 +1,17 @@
 ## Advanced Javascript
+{notitle:1}
 
-@timruffles
+<img src="media/title.png">
+
 
 ## Today
 
 > Giving you strong core JS skills, ready to tackle modern JS codebases!
+
+## Platforms
+{notitle: 1}
+
+<img src=media/platforms.png>
 
 ## Agenda
 
@@ -26,6 +33,36 @@
 console.log(anything)
 ```
 
-## Javascript
+## Today: three ages of JS
 
-Come a long way!
+- ES5 sloppy
+- ES5 strict
+- ES.Next
+
+## Landscape diagram
+{notitle:1}
+
+<img src="media/es landscape.png">
+
+## Strict
+
+```javascript
+// <- first non-comment line of file or function
+"use strict";
+```
+
+## Today: strict mode & ES6
+
+All code will run in strict, with ES6.
+
+## Exercise intro
+
+```sh
+./exercises/some-name
+  exercise.js
+```
+
+```sh
+cd ./exercises/some-name
+node verify
+```

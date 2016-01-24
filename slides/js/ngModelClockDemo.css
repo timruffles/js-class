@@ -1,0 +1,48 @@
+#hand-for-pointer {
+  fill: rgba(255, 252, 209, 1);
+}
+#face {
+  fill: #555;
+}
+.background {
+  width: 1000px;
+  height: 1000px;
+}
+[name=timeForm] {
+  width: 100%;
+  height: 100%;
+}
+clock-input text {
+  pointer-events: all;
+  fill: #000;
+  text-anchor: middle;
+  font-size: 3rem;
+  -webkit-user-select: none;
+}
+.extended-clock {
+  position: relative;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.8));
+}
+.extended-clock [clock-input] {
+  position: absolute;
+}
+.extended-clock .clock-controls {
+  position: absolute;
+  width: 1000px;
+  top: 440px;
+  color: #fff;
+  font-size: 2em;
+  text-align: center;
+}
+
+form[name=timeForm] {
+  position: relative;
+}
+form[name=timeForm] input {
+  font-size: 60px;
+  position: absolute;
+  right: 4rem;
+  top: 10rem;
+}
+
+

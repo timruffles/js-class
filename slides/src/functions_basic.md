@@ -25,18 +25,16 @@ var add = function(a, b) {
 ## Fat-arrow
 
 ```javascript
-// note: lack of `return`
+// note: lack of \`return\`
 var add = (a, b) => a + b;
 ```
 
 ## Evaluating functions
 
-- for pure functions, evaluate to value of `return`
-
 ```javascript
 var result = add(add(10, 5), add(5, add(-5, 5)));
 
-// steps for JS to evaluate right-hand-side of `var result =`
+// steps for JS to evaluate right-hand-side
 add(add(10, 5), add(5, add(-5, 5)));
 add(15 ,        add(5, add(-5, 5)));
 add(15 ,        add(5, 0         ));
@@ -44,7 +42,7 @@ add(15 ,        5                 );
 20
 ```
 
-## Why so important?
+## Why are functions important?
 
 ##  
 
@@ -68,31 +66,32 @@ if(testedForTruthy) {
 
 ## Yes!
 
-## Could we write programs?
+## Wouldn't we be missing?
 
 ```javascript
 while / do / for / try
 ```
 
-## Let's make them
+## Sure, but...
+
+## ...we can make them
 
 ```javascript
-function while_(test, block) {
+function while\_(test, block) {
   if(test()) {
     block();
-    return while_(test, block); 
+    return while\_(test, block); 
   }
 }
 
 var x = 10;
-while_(() => x = x - 1, () => {
-  console.log("X: " + x);
-})
+while_(() => { x = x - 1 }, 
+  () => {
+    console.log("X: " + x);
+  })
 ```
 
-## Functions <3
-
-## The root
+## Functions = the core
 
 <video width="475" height="352" controls>
   <source src="slides-theme/movies/spirit-of-the-computer.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
@@ -103,4 +102,9 @@ while_(() => x = x - 1, () => {
 > Establishing languages controls complexity
 
 SICP
+
+## Exercise!
+{title: 1}
+
+    exercises/functions-core
 

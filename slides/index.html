@@ -1,1347 +1,1304 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Radical Javascript</title>
-
-    <link rel="shortcut icon" href="favicon.png">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Advanced JS class</title>
   
-    <link rel="stylesheet" href="reveal/css/reveal.min.css">
-    <link rel="stylesheet" href="reveal/lib/css/github.css">
+  <link rel="stylesheet" href="reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="reveal/lib/css/googlecode.css">
 
-    <link rel="stylesheet" href="slides-theme/style.css" id="theme">
-    <link rel="stylesheet" href="slides-theme/talk-specific.css" id="theme">
+  <link rel="stylesheet" href="slides-theme/style.css">
+  <link rel="stylesheet" href="slides-theme/talk-specific.css">
 
-    <link rel="stylesheet" href="slides-theme/js/little-console.css" id="theme">
+  <!-- demos -->
+
+  <!-- for live coding -->
+  <link rel="stylesheet" href="js/little-console.css" id="theme">
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24335480-1']);
+  _gaq.push(['_trackPageview']);
+
+  var asyncScript = function(src) {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = src;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  };
+
+  asyncScript(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+  </script>
+
+  <script src="js/revealHooks.js"></script>
+
 </head>
 
 <body>
 
-<div class="reveal">
-<div class="slides">
-
-
-<section data-markdown><script type="text/template">
-# Radical Javascript
-[@timruffles](http://twitter.com/timruffles)
-</script></section>
-
-<section data-markdown><script type="text/template">
-## JS evolved: rollovers to quad-copters
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Evolved things are crufty
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Idioms emerged
-</script></section>
-
-<section data-markdown><script type="text/template">
-## From root: drop the cruft
-</script></section>
-
-<section data-markdown><script type="text/template">
-## JS idioms for 2015
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Variables
-
-```javascript
-var x = "howdy";
-var iAmUnitialized; // note: JS is camelCase
-
-// messy version-control diffs
-var x = "howdy",
-    iAmUnitialized;
-
-// oh god why?
-var x = "howdy", iAmUnitialized, y = 1, p,
-    readingThisMakesYouWonderIfItWasPreminified = true, pp = {},
-    someOtherVariable; 
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Suggested
-
-```javascript
-var camelCase = "standard: matches JS's own APIs";
-var oneVarPerLine = "neat diffs";
-```
-
-Avoids non-local version-control changes:
-
-```sh
-  var x = 1,
--     y = 2;
-+     y = 2,
-+     z = 3;
-```
-
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Scope is ONLY affected by functions
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Variables
-
-```javascript
-function sayHi(to,greeting,times) {
-  var i = times;
-  while(i--) {
-    console.log("%s %s",greeting,to);
-  }
-}
-
-var greeting;
-var i = 100;
-
-sayHi("bob", "hello", 50);
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `var` is not block scoped
-
-```javascript
-// all refer to same 'i', it will end up as 50 or 20
-var i = 10;
-
-if(x) {
-  var i = 50;
-} else {
-  var i = 20;
-}
-```
-</script></section>
-
-
-
-<section data-markdown><script type="text/template">
-## `undefined` vs undeclared
-</script></section>
-
-<section data-markdown><script type="text/template">
-
-```javascript
-// Uncaught ReferenceError: start is not defined
-start();
-```
-
-```javascript
-var start;
-// TypeError: undefined is not a function
-start();
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `undefined` is a value
-
-- `undefined` is a value of a variable
-- undeclared is a state of a variable in a scope
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `undefined`
-
-- placeholder value for uninitialised variables
-- or arguments not provided in a function
-
-```javascript
-function hi(x) {
-  console.log('hi ' + x);
-}
-
-// 'hi undefined'
-hi();
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Always declare with var
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Avoid creating global variables
-
-```javascript
-function A(arg) {
-  x = arg;
-}
-function B(arg) {
-  var x = arg;
-}
-
-// x; // would be 'ReferenceError: x is not defined'
-
-A("hello");
-console.log( x ); // hello
-console.log( window.x ); // hello
-
-// has not affected/created global
-B("bye");
-console.log( x ); // hello
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Hoisting
-
-What happens?
-
-```javascript
-console.log(greeting);
-var greeting = "hello";
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Hoisting, part II
-
-What happens?
-
-```javascript
-sayHi();
-
-function sayHi() {
-  console.log("Hello");
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `var` hoisting
-
-- hoisted to top of enclosing scope (function)
-- has value of `undefined` until assigned a value
-
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Function declaration hoisting
-
-- hoisted to top of enclosing scope (function)
-- is initialised as function throughout scope
-
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Benefits: readability
-
-```javascript
-// reads high-level to low-level: important stuff first
-function main() {
-  interestingHighLevelTaskA();
-  interestingHighLevelTaskB();
-}
-
-function interestingHighLevelTaskA() {
-  boringFiddlyHelper();
-}
-
-function interestingHighLevelTaskB() {
-  moreImplementationDetails();
-}
-
-function boringFiddlyHelper() {
-}
-
-function moreImplementationDetails() {
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Benefits: locality
-
-```javascript
-// keeps its helper functions in own scope: makes it clear
-// that only 'interestingHighLevelTask' is using them
-function interestingHighLevelTask() {
-
-  boringFiddlyHelper();
-  moreImplementationDetails();
-  // ...
-
-
-  function boringFiddlyHelper() {
-  }
-  function moreImplementationDetails() {
-  }
-}
-```
-</script></section>
-
-
-
-
-<section data-markdown><script type="text/template">
-## Plus de change...
-
-Not everything varies - let your readers (if not the interpreter) know.
-
-```javascript
-var A_CONSTANT_VALUE = "something";
-var CONSTANTS = {
-  NORTH: "north", // don't use numbers please, 
-  SOUTH: "south", // trailing commas encouraged - less version-control noise
-};
-```
-</script></section>
-
-
-
-
-<section data-markdown data-state=title><script type="text/template">
-## Control-flow
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Familiar faces
-
-```javascript
-for(var i = 0; i < 100; i++) {
-}
-// remember, not all blocks req'd, and
-// can use comma operator to do > 1 thing in each
-for(; node; node = node.next) {
-}
-
-// length caching: (only for old interpreters)
-for(var i=0, len=xs.length; i < len; i++) {
-}
-
-while(node = node.next) {
-}
-
-do {
-} while (node = node.next);
-```
-</script></section>
-
-<section data-markdown data-state=title><script type="text/template">
-## Comparators
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Yes `==` has issues
-</script></section>
-
-
-<section>
-<h2>Comparison</h2>
-<p>If you can't be bothered to remember, use <code>===</code>.</p>
-
-<div class=little-console></div>
-
+  <div class="reveal">
+    <div class="slides">
+<section data-state='notitle' class=" notitle"><h2 id="advanced-javascript">Advanced Javascript</h2>
+<p><img src="media/title.png"></p>
 </section>
 
-<section data-markdown><script type="text/template">
-## NaN !== NaN for a reason
+<section  class=""><h2 id="today">Today</h2>
+<blockquote>
+<p>Giving you strong core JS skills, ready to tackle modern JS codebases!</p>
+</blockquote>
+</section>
 
-- NaN means "category error", it can't meaningfully be equal to anything
-- this is why the `isNaN()` exists
-</script></section>
+<section data-state='notitle' class=" notitle"><h2 id="platforms">Platforms</h2>
+<p><img src=media/platforms.png></p>
+</section>
 
+<section  class=""><h2 id="agenda">Agenda</h2>
+<ol>
+<li>Core language</li>
+<li>Objects</li>
+<li>Async</li>
+<li>Testing</li>
+<li>Tooling</li>
+</ol>
+</section>
 
-<section data-markdown data-state=title><script type="text/template">
-## Functions
-</script></section>
+<section  class=""><h2 id="method">Method</h2>
+<ol>
+<li>Demo</li>
+<li>Experiment</li>
+<li>Deepen</li>
+</ol>
+</section>
 
-<section data-markdown><script type="text/template">
-## Two ways of defining
+<section  class=""><h2 id="our-guide">Our guide</h2>
+<pre><code class="lang-Javascript">console.log(anything)
+</code></pre>
+</section>
 
-```javascript
-var fn = function() {};
+<section  class=""><h2 id="today-three-ages-of-js">Today: three ages of JS</h2>
+<ul>
+<li>ES5 sloppy</li>
+<li>ES5 strict</li>
+<li>ES.Next</li>
+</ul>
+</section>
 
-function another() {};
-```
-</script></section>
+<section data-state='notitle' class=" notitle"><h2 id="landscape-diagram">Landscape diagram</h2>
+<p><img src="media/es landscape.png"></p>
+</section>
 
-<section data-markdown><script type="text/template">
-## Function hoisting is great
+<section  class=""><h2 id="strict">Strict</h2>
+<pre><code class="lang-javascript">// &lt;- first non-comment line of file or function
+&quot;use strict&quot;;
+</code></pre>
+</section>
 
-```javascript
+<section  class=""><h2 id="today-strict-mode-es6">Today: strict mode &amp; ES6</h2>
+<p>All code will run in strict, with ES6.</p>
+</section>
 
-main(document.querySelector("#something"));
+<section  class=""><h2 id="exercise-intro">Exercise intro</h2>
+<pre><code class="lang-sh">./exercises/some-name
+  exercise.js
+</code></pre>
+<pre><code class="lang-sh">cd ./exercises/some-name
+node verify
+</code></pre>
+</section>
 
-function main(el) {
-  var val = otherThing(el);
+<section data-state='title' class=" title"><h2 id="core">Core</h2>
+</section>
+
+<section  class=""><h2 id="what-s-in-core">What&#39;s in core</h2>
+<ul>
+<li>&quot;Programming in the small&quot;</li>
+<li>Writing JS like a native</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="variables">Variables</h2>
+</section>
+
+<section  class=""><h2 id="two-ages">Two ages</h2>
+<ul>
+<li>Pre-ES.next: <code>var</code></li>
+<li>Post: <code>let</code>, <code>const</code></li>
+</ul>
+</section>
+
+<section  class=""><h2 id="-var-"><code>var</code></h2>
+<pre><code class="lang-javascript">var someVariable;
+var anotherVariable = &quot;hello&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-undefined-vs-undeclared"><code>undefined</code> vs undeclared</h2>
+<pre><code class="lang-javascript">var notDefined;
+
+console.log(notDefined); // ?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="undeclared">Undeclared</h2>
+<pre><code class="lang-javascript">var someVar;
+
+console.log(smeVar); // typo, what happens??
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-const-"><code>const</code></h2>
+<pre><code class="lang-javascript">const doesNotChange = &quot;hi&quot;;
+
+// throws TypeError
+doesNotChange = &quot;I&#39;ll try my luck&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-use-const-if-possible">Rule: use <code>const</code> if possible</h2>
+<ul>
+<li>one less source of bugs</li>
+<li>variables stand out</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="-let-"><code>let</code></h2>
+<pre><code class="lang-javascript">let hiThere = &quot;hello&quot;;
+
+if(true) {
+  let hiThere = &quot;GOODBYE&quot;;
 }
 
-function otherThing() {
-  someHelper();
+console.log(hiThere) // which?
+</code></pre>
+</section>
 
-  function someHelper() {
-  }
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## First-class
-
-First class: use wherever you can use other values
-
-```javascript
-function doTwice(fn) {
-  fn() // fn has been passed in as an argument
-  fn()
+<section  class=""><h2 id="block-scope">Block scope</h2>
+<pre><code class="lang-javascript">for(let i = 0; i++; i &lt; 10) {
+  console.log(i);
 }
 
-doTwice(function() {
-  console.log("Hello!")
-})
-
-function doubleFn(fn) {
-  return function() { // with FCFs we can return functions
-    doTwice(fn)
-  }
-}
-
-var doubleTalk = doubleFn(function() {
-  console.log("I'm going to be saying this twice")
-})
-
-doubleTalk()
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## FCF = higher order functions
-
-- we can pass functions to functions to functions...
-
-```javascript
-function loop(fn) {
-  fn()
-  loop(fn)
-}
-
-loop(function() {
-  console.log("We'll be here for some time")
-})
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Importance of var
-
-```javascript
-var greeting;
-var i = 100;
-
-sayHi("javascript","hello",10);
-
+// reference error
 console.log(i);
+</code></pre>
+</section>
 
-function sayHi(to,greeting,times) {
-  i = times;
-  while(i--) {
-    console.log("%s %s",greeting,to);
+<section data-state='notitle' class=" notitle"><h2 id="diagram-of-block-scope">Diagram of block scope</h2>
+<p><img src="media/block-scopes.png"></p>
+</section>
+
+<section  class=""><h2 id="rule-use-let-in-loops-etc">Rule: use <code>let</code> in loops etc</h2>
+<ul>
+<li>one less source of bugs</li>
+<li>clearer where variables belong</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="what-about-var-">What about <code>var</code>?</h2>
+</section>
+
+<section  class=""><h2 id="-var-function-scoped"><code>var</code> = function scoped</h2>
+</section>
+
+<section  class=""><h2 id="function-scope">Function scope</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-of-function-scope">Diagram of function scope</h2>
+<p><img src="media/function-scopes.png"></p>
+</section>
+
+<section  class=""><h2 id="one-weird-quirk">One weird quirk</h2>
+<pre><code class="lang-javascript">function main() {
+  // what happens here?
+  console.log(i);
+
+  for(var i = 0; i&lt;10; i++) {
+    console.log(i);
   }
 }
-```
-</script></section>
+</code></pre>
+</section>
 
+<section  class=""><h2 id="hoisting">Hoisting</h2>
+<pre><code class="lang-javascript">function main() {
+  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+  # this is the &#39;hoisting zone&#39;, where 
+  # all var statements are hoisted before invocation
+  SCOPE := { i: undefined }
 
-<section data-markdown><script type="text/template">
-## Missing features: default/optional and kwargs
+  # NOTE: JUST for intuition - lightning bolt sections
+  # are to give intuition for interpreter actions
+  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
 
-</script></section>
+  console.log(i);
 
-<section data-markdown><script type="text/template">
-## Interlude: logical operators
-
-Short-circuit, work on returning operands.
-
-```javascript
-var shorts = true || alert("won't see me");
-var moreShorts = false && alert("or me");
-
-someVar && doSomething(); // please don't use as control-flow
-
-var oneOrTheOther = one || theOther; // only for assignments
-(one || theOther).doSomething(); // or this (within reason)
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Optional implementation
-
-```javascript
-function takeOptional(name, greeting) {
-  greeting = greeting || "hi";
-  
-  console.log(greeting + " " + name)
+  for(var i = 0; i&lt;10; i++) {
+    console.log(i);
+  }
 }
-              
-takeOptional("tom", "hello");
-takeOptional("tom");
-```
-</script></section>
+</code></pre>
+</section>
 
-<section data-markdown><script type="text/template">
-## kwargs implementation
+<section  class=""><h2 id="global-scope">Global scope</h2>
+<pre><code class="lang-javascript">// browser - sloppy mode
+something = &quot;I am global&quot;;
 
-```javascript
-function takeKeywords(name,opts) {
-  opts = opts || {};
-  greeting = opts.greeting || "hi";
-  console.log(greeting + " " + name)
+
+// browser - strict mode
+window.something = &quot;I am global&quot;;
+
+// node
+global.something = &quot;I am global&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="acessing-global-object">Acessing global object</h2>
+<pre><code class="lang-javascript">this; // sloppy, outside functions
+
+window; // browser
+global; // node
+</code></pre>
+</section>
+
+<section  class=""><h2 id="exercise-">Exercise!</h2>
+<pre><code>exercises/variables
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="primitives">Primitives</h2>
+</section>
+
+<section  class=""><h2 id="string">String</h2>
+<pre><code class="lang-javascript">var name = &#39;Tim&#39;;
+var opinion = &quot;Double quotes: they&#39;re worth it&quot;;
+
+var complete = `${name}: ${opinion}`;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="template-strings">Template strings</h2>
+<pre><code class="lang-javascript">var complete = <code>${name}: ${opinion}</code>;
+
+var es5Html = &quot;&lt;h1&gt;Ugh&lt;/h1&gt;&quot; +
+  &quot;&lt;p&gt;This is horrid&lt;/p&gt;&quot;;
+
+var html = `
+  &lt;h1&gt;Writing HTML with ES.Next&lt;/h1&gt;
+  &lt;p&gt;Much nicer&lt;/p&gt;
+`;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-number-"><code>Number</code></h2>
+<pre><code class="lang-javascript">var floaty = 1;
+
+var floatsAreApproximate = 0.1 + 0.2; // ?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="boolean">Boolean</h2>
+<pre><code class="lang-javascript">var t = true;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="quiz-truthy-vs-falsy">Quiz: truthy vs falsy</h2>
+<pre><code class="lang-javascript">var empty = Boolean(&quot;&quot;); // true
+
+Boolean(&quot;hello&quot;); // ?
+
+Boolean(0); // ?
+Boolean(1); // ?
+Boolean(7); // ?
+
+Boolean(true); // ?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="quiz">Quiz</h2>
+<pre><code class="lang-javascript">var booly = new Boolean(false);
+
+Boolean(booly);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-never-wrap-primitives">Rule: never wrap primitives</h2>
+<pre><code class="lang-javascript">// ARRRRRGGGHHHH!!!!!
+var x = new String(&quot;&quot;);
+var 1 = new Number(&quot;&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-use-boolean-">Rule: use <code>Boolean</code></h2>
+<pre><code class="lang-javascript">var x = &quot;&quot;;
+var coerced = Boolean(x);
+
+// NOOOOOOOOOO - never wrap primitives
+var evil = new Boolean(false);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-undefined-and-null-"><code>undefined</code> and <code>null</code></h2>
+<pre><code class="lang-javascript">var x; // ?
+
+var y = null;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-null-undefined-"><code>null</code> &amp; <code>undefined</code></h2>
+<p>A nuisance since 1995.</p>
+</section>
+
+<section  class=""><h2 id="comparison">Comparison</h2>
+</section>
+
+<section  class=""><h2 id="yes-has-issues">Yes <code>==</code> has issues</h2>
+</section>
+
+<section  class=""><h2 id="rule-always-use-">Rule: always use <code>===</code></h2>
+</section>
+
+<section  class=""><h2 id="but-one-time-to-use-">But <em>ONE</em> time to use <code>==</code></h2>
+</section>
+
+<section  class=""><h2 id="detecting-null-or-undefined-">Detecting <code>null</code> or <code>undefined</code></h2>
+<pre><code>var undefinedNotEqeqeqNull = undefined === null; // false
+
+// what a chore!
+if(x === null || x === undefined) {
 }
 
-takeKeywords("tom");
-```
-</script></section>
+var nullish = x == null;
+</code></pre></section>
 
-<section data-markdown><script type="text/template">
-## Varargs
+<section  class=""><h2 id="rule-use-null-">Rule: use <code>== null</code></h2>
+<pre><code class="lang-javascript">var nullish = x == null;
+</code></pre>
+</section>
 
-`arguments`: for each function call.
+<section  class=""><h2 id="-"><code>===</code></h2>
+<ol>
+<li>Same type?</li>
+<li><p>Same value?</p>
+</li>
+<li><p>Special cases: <code>NaN !== NaN</code></p>
+</li>
+<li>Objects (non primitives): compares by identity, not value</li>
+</ol>
+</section>
 
-```javascript
-function englishList() {
-  var items = [].slice.call(arguments);
-  if(items.length <= 2) {
-    return items.join(" and ");
-  } else {
-    var commas = items.slice(0, items.length - 1);
-    return commas.join(", ") 
-      + " and " + items[items.length - 1];
+<section data-state='title' class=" title"><h2 id="functions">Functions</h2>
+<p><img src="slides-theme/img/eval-apply.jpg" style='width:476px; display:block; margin: 0 auto'></p>
+</section>
+
+<section  class=""><h2 id="three-ways-to-define">Three ways to define</h2>
+</section>
+
+<section  class=""><h2 id="declare">Declare</h2>
+<pre><code class="lang-javascript">function add(a,b) {
+  return a + b;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="expression">Expression</h2>
+<pre><code class="lang-javascript">var add = function(a, b) {
+  return a + b;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="fat-arrow">Fat-arrow</h2>
+<pre><code class="lang-javascript">// note: lack of `return`
+var add = (a, b) =&gt; a + b;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="evaluating-functions">Evaluating functions</h2>
+<pre><code class="lang-javascript">var result = add(add(10, 5), add(5, add(-5, 5)));
+
+// steps for JS to evaluate right-hand-side
+add(add(10, 5), add(5, add(-5, 5)));
+add(15 ,        add(5, add(-5, 5)));
+add(15 ,        add(5, 0         ));
+add(15 ,        5                 );
+20
+</code></pre>
+</section>
+
+<section  class=""><h2 id="why-are-functions-important-">Why are functions important?</h2>
+</section>
+
+<section  class=""><h2 id="-"> </h2>
+<blockquote>
+<p>Establishing languages is a powerful way to control complexity</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="languages-">Languages?</h2>
+</section>
+
+<section  class=""><h2 id="imagine-if-js-had-only-one-more-feature-">Imagine if JS had only one more feature...</h2>
+</section>
+
+<section  class=""><h2 id="-if-"><code>if</code></h2>
+<pre><code class="lang-javascript">if(testedForTruthy) {
+  console.log(&quot;was truthy&quot;);
+} else {
+  console.log(&quot;was falsy&quot;);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="would-we-have-enough-to-write-programs-">Would we have enough to write programs?</h2>
+</section>
+
+<section  class=""><h2 id="yes-">Yes!</h2>
+</section>
+
+<section  class=""><h2 id="wouldn-t-we-be-missing-">Wouldn&#39;t we be missing?</h2>
+<pre><code class="lang-javascript">while / do / for / try
+</code></pre>
+</section>
+
+<section  class=""><h2 id="sure-but-">Sure, but...</h2>
+</section>
+
+<section  class=""><h2 id="-we-can-make-them">...we can make them</h2>
+<pre><code class="lang-javascript">function while_(test, block) {
+  if(test()) {
+    block();
+    return while_(test, block); 
   }
 }
 
-```
-</script></section>
+var x = 10;
+while_(() =&gt; { x = x - 1 }, 
+  () =&gt; {
+    console.log(&quot;X: &quot; + x);
+  })
+</code></pre>
+</section>
 
-<section data-markdown><script type="text/template">
-## Many idioms...
-</script></section>
+<section  class=""><h2 id="functions-the-core">Functions = the core</h2>
+<video width="475" height="352" controls>
+  <source src="slides-theme/movies/spirit-of-the-computer.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+</video>
 
-<section data-markdown><script type="text/template">
-## "Array likes"
+</section>
 
-- `arguments`, `NodeList`
-- subscriptable (`[3] = "foo"` etc), have `.length`
-- but don't have `Array.prototype` - e.g `slice`, `indexOf`
-- `slice` them to fix - via `[].slice.call` or lib
-</script></section>
+<section  class=""><h2 id="a-language-to-describe-problems">A language to describe problems</h2>
+<blockquote>
+<p>Establishing languages controls complexity</p>
+</blockquote>
+<p>SICP</p>
+</section>
 
-<section data-markdown><script type="text/template">
-## `.call`
+<section data-state='title' class=" title"><h2 id="exercise-">Exercise!</h2>
+<pre><code>exercises/functions-core
+</code></pre></section>
 
-JS's FP/OOP hybrid model to thank
+<section data-state='title' class=" title"><h2 id="ordered-data-structures">Ordered data-structures</h2>
+</section>
 
-```javascript
-Function.prototype.call = function(thisValue,args...) {
-  // runs the function (this), setting this = thisValue, 
-  // and args = args
+<section  class=""><h2 id="-array-"><code>Array</code></h2>
+</section>
+
+<section  class=""><h2 id="for-ordered-data">For ordered data</h2>
+</section>
+
+<section  class=""><h2 id="ordered">Ordered</h2>
+<pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+
+primeMinisters[0] // Cameron;
+primeMinisters[primeMinisters.length - 1] // Major - no negative indexes :(
+
+console.log(primeMinisters.length) // 4
+</code></pre>
+</section>
+
+<section  class=""><h2 id="extension">Extension</h2>
+<pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+
+primeMinisters.unshift(&quot;Fry&quot;); // at start
+primeMinisters.push(&quot;Thatcher&quot;); // at end
+
+
+// what did we learn about const?
+console.log(primeMinisters.length) // 6
+
+primeMinisters.pop(); // drops end
+primeMinisters.shift(); // drops start
+
+console.log(primeMinisters.length) // 4
+</code></pre>
+</section>
+
+<section  class=""><h2 id="subsets">Subsets</h2>
+<pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+
+const lastLabourGovernment = primeMinisters.slice(1, 3);
+lastLabourGovernment.reverse().join(&quot; then &quot;) // Blair then Brown
+
+
+primeMinisters.sort();
+
+// what can we tell about .sort() and mutation?
+console.log(primeMinisters) // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Cameron&#39;, &#39;Major&#39; ]
+
+// and sort order?
+primeMinisters.sort((a,b) =&gt; a.length - b.length)
+console.log(primeMinisters) // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Major&#39;, &#39;Cameron&#39; ]
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-for-"><code>for</code></h2>
+<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+
+const initials = [];
+for(let i = 0, l = primeMinisters.length; i &lt; l; i++) {
+  initials[i] = primeMinisters[i][0];
 }
+</code></pre>
+</section>
 
-// e.g
+<section  class=""><h2 id="-array-likes"><code>Array</code>-likes</h2>
+<ul>
+<li>In JS, <code>arguments</code> object</li>
+<li>In DOM, <code>NodeList</code></li>
+</ul>
+</section>
 
-[].slice.call(["a","b","c","d"],2) // ["c","d"];
-/* some fn */.call(/*this*/,/* arg, ... argN */);
+<section  class=""><h2 id="-for-in-"><code>for ... in</code></h2>
+<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
-```
-</script></section>
+// what... is this allowed?
+primeMinisters.metaData = &quot;hi&quot;;
 
+// for ... in will go over all properties of arrays
+const initials = [];
+for(let i in primeMinisters) {
+  initials[i] = primeMinisters[i][0];
+}
+</code></pre>
+</section>
 
-<section data-markdown data-state=title><script type="text/template">
-## Data-structures
-</script></section>
+<section  class=""><h2 id="-for-of-"><code>for .. of</code></h2>
+<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+primeMinisters.metaData = &quot;hi&quot;;
 
-<section data-markdown><script type="text/template">
-## Two types
-</script></section>
+// ES6 <code>for ... of</code> goes over VALUES of iterables
+const initials = [];
+for(let pm of primeMinisters) {
+  initials.push(pm[0]);
+}
+</code></pre>
+</section>
 
-<section data-markdown><script type="text/template">
-## Ordered
+<section  class=""><h2 id="rule-avoid-for-in-of-on-arrays">Rule: avoid <code>for ... in/of</code> on arrays</h2>
+</section>
 
-- `Array`
-</script></section>
+<section  class=""><h2 id="functional-iteration">Functional iteration</h2>
+<pre><code class="lang-javascript">// ES5 &#39;array additions&#39;
+const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
+primeMinisters.filter((p) =&gt; p[0] === &quot;B&quot;) // [&quot;Brown&quot;,&quot;Blair&quot;];
 
-<section data-markdown><script type="text/template">
-## Array
+primeMinisters.map((p) =&gt; p[0]) // [ &#39;B&#39;, &#39;B&#39;, &#39;M&#39;, &#39;C&#39; ]
 
-```javascript
-// use literals in nearly every case
-var anArray = [];
+primeMinisters.reduce((s, e) =&gt; s + &quot;:&quot; + e) // &#39;Blair:Brown:Major:Cameron&#39;
+</code></pre>
+</section>
 
-// only one good use for this constructor
-var knownLengthInPerformanceCriticalCode = 16;
-var another = new Array(knownLengthInPerformanceCriticalCode); 
+<section  class=""><h2 id="rule-prefer-functional-iterators">Rule: prefer functional iterators</h2>
+<ul>
+<li>intention revealing</li>
+<li>shorter, less error-prone</li>
+</ul>
+</section>
 
-var joined = anArray.concat([1,2,3]); // non-destructive
-var tail = anArray.slice(1);          // non-destructive
-anArray.splice(0,1);                  // destructive, can replace
+<section  class=""><h2 id="remember-compares-by-identity">Remember: compares by identity</h2>
+<pre><code class="lang-javascript">const byValue = [1,2] === [1,2]; // false
 
-// in-place (stability unspecified)
-var ascending = tail.sort(function(a,b) {
-  return a - b;
-});
-```
-</script></section>
+const couldStringify = JSON.stringify([1,2]) 
+  === JSON.stringify([1,2]); // true
+</code></pre>
+</section>
 
+<section  class=""><h2 id="exercise">Exercise</h2>
+<pre><code>exercises/arrays
+</code></pre></section>
 
-<section data-markdown><script type="text/template">
-## One good use for `new Array`
+<section data-state='title' class=" title"><h2 id="key-value-data-structures">Key-value data-structures</h2>
+</section>
 
-Avoids resize when length is known.
+<section  class=""><h2 id="objects-used-as-dictionaries">Objects, used as dictionaries</h2>
+<pre><code class="lang-javascript">const enToFr = {};
 
-```sh
-> benchmark 'var i = 16, a = []; while(i--) a[i] = i'
+enToFr.hello = &quot;bonjour&quot;;
+enToFr.cheese = &quot;fromage&quot;;
 
-One million iterations...
+// equivalent
+console.log(enToFr.hello);
+console.log(enToFr[&quot;hello&quot;]);
+</code></pre>
+</section>
 
-real	0m0.628s
-user	0m0.610s
-sys	0m0.025s
+<section  class=""><h2 id="keys-are-strings-values-any">Keys are strings, values = any</h2>
+<pre><code class="lang-javascript">const dict = {};
 
-> benchmark 'var i = 16, a = new Array(16); while(i--) a[i] = i'
+dict[10] = &quot;ten&quot;;
 
-One million iterations...
+dict[&quot;10&quot;] // &quot;ten&quot;
 
-real	0m0.388s
-user	0m0.370s
-sys	0m0.022s
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Yes - v8 is fast...
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Key-value
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Objects, abused as maps
-
-Misses lots of the niceities of a real map.
-
-```javascript
-var myMap = {};
-
-myMap["1"] = "hello";
-console.log(myMap[1]);
-
-delete myMap[1];
-
-myMap[{}] = {};
-console.log(myMap[{}]);
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Map
-
-Coming in ES6, keys via object identity.
-
-```javascript
-var myMap = new Map;
-
-var a = {};
-myMap.set(a,"hi");
-console.log(myMap.get(a));
-
-console.log(myMap.length);
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Set
-
-ES6: when we just care about membership.
-
-```javascript
-var set = new Set;
-
-var a = {};
-set.add(a);
-console.log(set.has(a));
-console.log(set.has({}));
-
-console.log(set.length);
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Where can you use?
-
-- IE 11/Chrome/FF only? Now!
-- Node - now! (with --harmony)
-
-</script></section>
-
-
-<section data-markdown data-state=title><script type="text/template">
-## The JS object system
-</script></section>
-
-<section data-markdown><script type="text/template">
-## OOP, hand-rolled
-
-- or more
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Objects in JS
-
-- Have string properties whose values can be any JS type.
-
-```javascript
-var turtle = {x: 10, y: 20};
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Methods
-
-- We want to have a consistent set of methods, with shorthand access to object
-
-```javascript
-var move = function(dx,dy) {
-  this.x += dx;
-  this.y += dy;
+// general rule: calls toString on non-strings
+const convertsToTen = {
+  toString: () =&gt; &quot;10&quot;
 };
 
-var turtle = {x: 10, y: 20};
-turtle.move = move;
-turtle.move(10,10);
-```
-</script></section>
+dict[convertsToTen] // &quot;ten&quot;
+</code></pre>
+</section>
 
-<section data-markdown><script type="text/template">
-## How does this work?
-
-- `someObject.property()` will set `this` to `someObject` while running function returned from `someObject.property`
-
-```javascript
-turtle.move(10,10);
-
-// =
-turtle.move.call(turtle,10,10);
-
-function move(dx,dy) {
-  this.x += dx;
-  this.y += dy;
-};
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Implications
-
-- JS will only set the right value of `this` when immediately calling methods
-- passing a method as an argument, storing it in a variable, etc, therefore requires more work
-
-
-</script></section>
-
-<section data-markdown><script type="text/template">
-## e.g
-
-```javascript
-var obj = {
-  count: 0,
-  increment: function() {
-    this.count += 1;
-  },
-};
-
-// 1
-obj.increment();
-
-var inc = obj.increment;
-inc();
-
-obj.count === 1
-// true
-isNaN(window.count) && 'count' in window;
-
-```
-
-
-
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Bind
-
-```javascript
-var obj = {
-  count: 0,
-  increment: function() {
-    this.count += 1;
-  },
-};
-
-// 1
-obj.increment();
-
-var inc = obj.increment.bind(obj);
-inc();
-
-obj.count === 2
-// false
-isNaN(window.count) && 'count' in window;
-
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `.bind`
-
-```javascript
-Function.prototype.bind = function(thisValue, args...) {
-  // returns a new function that always runs with `this`
-  // set to `thisValue`
+<section  class=""><h2 id="es6-dynamic-keys">ES6 - dynamic keys</h2>
+<pre><code class="lang-javascript">// ES6
+function create(property, value) {
+  return {[&quot;id:&quot; + property]: value}
 }
 
-// e.g
-function myName() { return this.name };
+// ES5
+function create(property, value) {
+  var o = {};
+  o[&quot;id:&quot; + property] = value;
+  return o;
+}
+</code></pre>
+</section>
 
-var bob = { name: "bob" };
-var getBobsName = myName.bind(bob);
+<section  class=""><h2 id="missing-features">Missing features</h2>
+<pre><code class="lang-javascript">const dict = {};
 
-// bob
-getBobsName();
+dict[1] = &quot;hello&quot;;
 
-/* some fn */.bind(/*this*/,/* arg, ... argN */);
-```
-</script></section>
+// how to count?
+dict.length // undefined
 
-<section data-markdown><script type="text/template">
-## We want constructors
+Object.keys(dict).length // costs O(N)
+</code></pre>
+</section>
 
-```javascript
-function createTurtle(x,y) {
-  var turtle = {x: x, y: y, move: turtleMove};
-  return turtle;
+<section  class=""><h2 id="-map-es6-to-rescue"><code>Map</code>: ES6 to rescue</h2>
+<pre><code class="lang-javascript">
+const m = new Map;
+const o = {};
+
+m.size // 0
+
+const a = [1,2];
+const b = [1,2];
+
+o = {[a]: &quot;A&quot;, [b]: &quot;B&quot;}
+
+Object.keys(o).length // 1
+
+m.set(a, &quot;A&quot;);
+m.set(b, &quot;B&quot;);
+
+m.size // 2
+
+// can you see why this is happening?
+m.get(a) // A
+o[a] // B
+</code></pre>
+</section>
+
+<section  class=""><h2 id="maps-for-of-">Maps: <code>for .. of</code></h2>
+<pre><code class="lang-javascript">const m = new Map;
+m.set(&quot;A&quot;, 1);
+m.set(&quot;B&quot;, 2);
+
+for(let i in m) {
+  console.log(i) // not called! why?
 }
 
-function turtleMove(dx,dy) {
-  this.x += dx;
-  this.y += dy;
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Standardise: constructor
-
-```javascript
-function Turtle(x,y) {
-  this.x = x; // 'this' ready-allocated
-  this.y = y;
-  // no return required
+for(let i of m) {
+  console.log(i) // [&quot;A&quot;, 1], ...
 }
 
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Will this work?
-
-```javascript
-var aSweetTurtle = Turtle();
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `new` is the power
-
-```javascript
-function Turtle(x,y) {
-  this.x = x;
-  this.y = y;
+for(let i of m.keys()) {
+  console.log(i) // &quot;A&quot;, &quot;B&quot;
 }
 
-// clear that new is not a standard fn call
-var aSweetTurtle = new Turtle;
-```
-</script></section>
+for(let i of m.values()) {
+  console.log(i) // 1, 2
+}
+</code></pre>
+</section>
 
-<section data-markdown><script type="text/template">
-## Sharing methods
+<section  class=""><h2 id="maps-for-of-">Maps: <code>for .. of</code></h2>
+<pre><code class="lang-javascript">const m = new Map;
+m.set(&quot;A&quot;, 1);
+m.set(&quot;B&quot;, 2);
 
-```javascript
-function Turtle(x,y) {
-  this.x = x;
-  this.y = y;
+for(let i in m) {
+  console.log(i) // not called! why?
 }
 
-Turtle.prototype.move = function(dx,dy) {
-  this.x += dx;
-  this.y += dy;
-};
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Prototype chains
-
-- Objects are bags of properties
-- `object.property` asks for value of `property`
-- If `object` lacks property, we restart questioning at `object.prototype`
-- Once we've run out of prototypes (`O.pt.pt`) we get `undefined`
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## `new` operator
-
-```javascript
-function Turtle(x,y) {
-  this.x = x;
-  this.y = y;
+for(let i of m) {
+  console.log(i) // [&quot;A&quot;, 1], ...
 }
 
-Turtle.prototype.move = function(dx,dy) {
-  this.x += dx;
-  this.y += dy;
-};
-
-function newOperator(constructor) {
-  var instance = Object.create(constructor.prototype);
-  var returnVal = constructor.apply(instance,slice(arguments,1));
-  return typeof returnVal == "object" ? returnVal : instance;
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## `new`'s final trick
-
-```javascript
-function Turtle(x,y) {
-  this.x = x;
-  this.y = y;
-  return { haha: "didn't expect this" };
+for(let i of m.keys()) {
+  console.log(i) // &quot;A&quot;, &quot;B&quot;
 }
 
-var turtle = new Turtle;
-console.log(turtle.haha);
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Useful
-
-- Refactor constructor to factory
-- Quite powerful voodoo
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Sneaky trick
-
-```javascript
-function User(id) {
-  this.id = id;
+for(let i of m.values()) {
+  console.log(i) // 1, 2
 }
 
-User.prototype.toString = function() {
-  return "User<" + this.id + ">";
+m.forEach((v, k) =&gt; console.log(v, k))
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-set-"><code>Set</code></h2>
+<pre><code class="lang-javascript">// ES6 only
+
+const s = new Set;
+s.add([1,2]);
+s.has([1,2]) // false
+
+
+s.add(1);
+s.has(1); // true
+
+s.size // 2
+s.add(1);
+s.add(1);
+s.size // 2
+</code></pre>
+</section>
+
+<section  class=""><h2 id="exercise">Exercise</h2>
+<pre><code>exercises/maps-objects-sets
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="async">Async</h2>
+</section>
+
+<section  class=""><h2 id="async-io">Async IO</h2>
+<ul>
+<li>ubiquitious in JS</li>
+<li>the ecosystem default</li>
+<li>vs subset of libraries in Ruby EM, Python Twisted</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="let-s-compare">Let&#39;s compare</h2>
+</section>
+
+<section  class=""><h2 id="synchronous-io">Synchronous IO</h2>
+<ul>
+<li>AKA &#39;blocking IO&#39;</li>
+</ul>
+<pre><code class="lang-javascript">1 // we&#39;ll not continue to the next line until the OS
+2 // has read the file and provided it back to our process
+3 var contents = fs.readFileSync(&quot;/tmp/hello&quot;, &quot;utf8&quot;);
+4 
+5 console.log(&quot;End of source file&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="asynchronous-io">Asynchronous IO</h2>
+<ul>
+<li>AKA &#39;non-blocking IO&#39;</li>
+</ul>
+<pre><code class="lang-javascript">1 fs.readFile(&quot;/tmp/hello&quot;, { encoding: &quot;utf8&quot; },
+2  function(err, content) {
+3    // (2/2) ...we get here
+4    console.log(&quot;Read the file&quot;);
+5  });
+6
+7 // (1/2) we&#39;ll get here waaaaaaaaaaaay before...
+8 console.log(&quot;End of source file&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="clearing-the-stack">Clearing the stack</h2>
+<ul>
+<li>no code ever runs simultaneously</li>
+<li>while code is running, no callbacks fire</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-loop">Diagram loop</h2>
+<p><img src="media/event-loop-schematic.png"></p>
+</section>
+
+<section  class=""><h2 id="rule-don-t-block-the-loop">Rule: don&#39;t block the loop</h2>
+<ul>
+<li>avoid long running, synchronous code</li>
+<li>chunk</li>
+<li>or delegate to other processes/WebWorkers</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-starving-the-lop">Diagram: starving the lop</h2>
+<p><img src="media/event-loop.png"></p>
+</section>
+
+<section  class=""><h2 id="sources-of-async">Sources of async</h2>
+<ul>
+<li><code>setTimeout</code></li>
+<li>AJAX</li>
+<li>IndexedDB, WebWorkers</li>
+<li>most Node APIs (<code>fs</code>, <code>child_process</code>)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="stacks">Stacks</h2>
+<ul>
+<li>languages with functions need a stack</li>
+<li>keeps point to return to</li>
+<li>stack &#39;unravels&#39; with errors</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="stack-diagram">Stack diagram</h2>
+<p><img src="media/stack-clear-errors.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="with-async-no-one-can-hear-you-throw">With async, no one can hear you throw</h2>
+<p><img src="media/stack-clear.png"></p>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">// this stack is long gone...
+try {
+
+  create({}, function() {
+    // ...
+  })
+
+} catch(e) {
+  // never going to catch!
 }
+// waaaaay before...(1)
 
-var userScores = {};
-var tim = new User("tim");
-var sarah = new User("sarah");
-
-userScores[tim] = 10;
-userScores[sarah] = 20;
-
-console.log(userScores[tim]) // 10
-```
-</script></section>
-
-
-<section>
-<h2>Property descriptors</h2>
-<p>Add properties and control writes/modification</p>
-
-<script type=console-setup>
-  durations = {};
-
-  Object.defineProperties(durations,{
-    hour: {
-      value: 3600 * 1000,
-      writable: false
+function create(data, cb) {
+  $post(&quot;/api/create&quot;, data, function(err, ok) {
+    if(err) {
+      // (1)...we get here
+      throw err;
     }
-  });
-</script>
-<div class=little-console></div>
-
-<script type=cheat>
-</script>
-
+  })
+}
+</code></pre>
 </section>
 
-<section data-markdown><script type="text/template">
-## Safe(er) monkey patch
+<section  class=""><h2 id="rule-don-t-throw-in-async">Rule: don&#39;t throw in async</h2>
+</section>
 
-```javascript
-Object.defineProperty(Object.prototype,"awesomeify",{
-  enumerable: false, // actually default
-  value: function() {
-    this.awesome = true;
-  }
-});
+<section data-state='title' class=" title"><h2 id="objects">Objects</h2>
+</section>
 
-var anObject = [];
-anObject.awesomeify();
-anObject.awesome // true
+<section  class=""><h2 id="everythingisanobject-">EverythingIsAnObject... ?</h2>
+<pre><code class="lang-javascript">var iAmAnObject = {};
 
-var props = [];
-for(var prop in anObject) props.push(prop);
-console.log(props.length) // 0
-```
-</script></section>
+var soAmI = 5;
+soAmI.toFixed(2);
 
-<section data-markdown><script type="text/template">
-## Preventing change
+var meToo = &quot;goo&quot;;
+meToo.join(&quot;since I have methods&quot;);
 
-All shallow
+var imAnObject = [];
+</code></pre>
+</section>
 
-```javascript
-Object.preventExtension // can't add properties
-Object.seal             // above, + can't configure properties
-Object.freeze           // immutable
+<section  class=""><h2 id="-object-is-overloaded">&#39;Object&#39; is overloaded</h2>
+</section>
 
-Object.is{Extensible,Sealed,Frozen} // check
-```
-</script></section>
+<section  class=""><h2 id="definitions-in-js">Definitions in JS</h2>
+<ul>
+<li>everything that isn&#39;t <code>null</code>/<code>undefined</code></li>
+<li>empty objects used as key-value stores</li>
+<li>things that have functions in them that reference &#39;this&#39;</li>
+</ul>
+</section>
 
+<section  class=""><h2 id="so-which-is-it-">So which is it?</h2>
+</section>
 
-<section data-markdown><script type="text/template">
-## Strict mode
+<section data-state='bad' class=" bad"><h2 id="none-of-the-above">None of the above</h2>
+</section>
 
-No `with`.
+<section  class=""><h2 id="let-s-ask-alan-kay">Let&#39;s ask Alan Kay</h2>
+<blockquote>
+<p>OOP to me means only messaging, local retention and hiding of state, and extreme late-binding of all things.</p>
+</blockquote>
+<p>Alan Kay</p>
+</section>
 
-```javascript
-var someVar = 10;
-spmeVar = 20 // catches typos, rather than adding globals!
+<section  class=""><h2 id="so-what-do-alan-kay-s-objects-look-like-">So what do Alan Kay&#39;s objects look like?</h2>
+</section>
 
-var constants = {};
-Object.freeze(constants);
-constants.foo = "bar"; // throws, rather than silently failing
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/objects.png" alt="technical diagram of OOP"></p>
+</section>
 
-var withDupes = {a: 1, a: 2};
+<section  class=""><h2 id="messaging-late-binding">Messaging &amp; late-binding</h2>
+<ul>
+<li>component sends a message</li>
+<li>another components receives and does... whatever it likes</li>
+</ul>
+</section>
 
-eval("b = 'howdy'");
-console.log(typeof b) // 'undefined'
-```
+<section  class=""><h2 id="results-of-messaging">Results of messaging</h2>
+<ul>
+<li>decouples intent from implementation (polymorphism)</li>
+<li>can&#39;t see/modify state of receiver</li>
+</ul>
+</section>
 
-</script></section>
+<section  class=""><h2 id="what-the-hell-are-objects-">What the hell are objects?</h2>
+</section>
 
+<section  class=""><h2 id="-objects-are-a-pattern">&#39;Objects&#39; are a pattern</h2>
+<ul>
+<li>not the specific implementation</li>
+</ul>
+</section>
 
-<section data-markdown data-state=title><script type="text/template">
-## OOP in JS
-</script></section>
+<section  class=""><h2 id="alan-kay-s-objects-are">Alan Kay&#39;s objects are</h2>
+<ul>
+<li>entities that accept messages</li>
+<li>that access hidden state</li>
+<li>and do something in response to the message</li>
+</ul>
+</section>
 
-<section data-markdown><script type="text/template">
-## Use prototypes
+<section data-state='title' class=" title"><h2 id="implementations">Implementations</h2>
+</section>
 
-```javascript
-function ClassName() {
+<section  class=""><h2 id="what-do-we-need-">What do we need?</h2>
+<ul>
+<li>identity</li>
+<li>state</li>
+<li>messages</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="without-additional-syntax">Without additional syntax</h2>
+<pre><code class="lang-javascript">function Counter() {
+  // important thing: some way
+  // to refer to enclosed state
+  var count = 0;
+
+  return {
+    increment: () =&gt; {
+      count += 1;
+    },
+    count: () =&gt; count,
+  };
 }
 
-ClassName.prototype = {
+
+const c1 = counter();
+const c2 = counter();
+
+c1.increment();
+c1.count(); // 1
+c2.count(); // 0
+</code></pre>
+</section>
+
+<section  class=""><h2 id="issue">Issue</h2>
+<pre><code class="lang-javascript">var n = 1e6;
+const counters = [];
+
+// lots of copies of `increment` and `count`!
+while(n--) {
+  counters.push(Counter());
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="examples-where-this-matters">Examples where this matters</h2>
+<ul>
+<li>Arrays</li>
+<li>Element - DOM</li>
+<li>Promise</li>
+<li>Function</li>
+<li>all will have 1,000s of instances</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="how-do-we-share-implementations-">How do we share implementations?</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="closures-not-enough">Closures not enough</h2>
+</section>
+
+<section  class=""><h2 id="language-level-help-">Language level help!</h2>
+<pre><code class="lang-javascript">this
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-this-on-invocation"><code>this</code> on invocation</h2>
+<pre><code class="lang-javascript">function couter() {
+  return {
+    // same fn for all instances!
+    increment: counterIncrement,
+    count: 0, 
+  };
+}
+
+var c1 = counter();
+var c2 = counter();
+
+c1.increment();
+c2.count; // 0
+
+function counterIncrement() {
+  this.count += 1;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="magic-argument-this-">Magic argument <code>this</code></h2>
+<pre><code class="lang-javascript">// this = someObject
+someObject.someProperty();
+
+const someProperty = this.someObject;
+
+// this = enclosing this, likely global
+someProperty();
+</code></pre>
+</section>
+
+<section  class=""><h2 id="classic-bug">Classic bug</h2>
+<pre><code class="lang-javascript">var someObject = {
+  name: &quot;lil&#39; listeny&quot;,
+  listen: function(el) {
+    el.addEventListener(&quot;click&quot;, this.handle)
+  },
+  handle: function() {
+    console.log(this.name);
+  },
 };
-ClassName.constructor = ClassName;
-```
-</script></section>
 
-<section data-markdown><script type="text/template">
-## Inheritance
-
-There are edge-cases if you do lots of work in constructor - this is gist, but use a library.
-
-```javascript
-function ClassName(arg,subClassArg) {
-  SuperClass.call(this,arg);
-}
-
-ClassName.prototype = new SuperClass;
-ClassName.constructor = ClassName;
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Calling 'super'
-
-Could add a `__super__` to prototype.
-
-```javascript
-ClassName.prototype.something = function(arg1,argN) {
-  SuperClass.prototype.something.call(this,arg1,argN);
-}
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Composition over inheritance
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Example
-
-Inheritance is very tight coupling: many reasons to change.
-
-```javascript
-Widget > Table > PagedTable > EditablePagedTable
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Via composition
-
-```javascript
-function PagedTable(el,table) {
-  var pagerWidget = new PagerWidget;
-  el.appendChild(pagerWidget.el);
-  el.appendChild(table.el);
-}
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## Duck typing
-</script></section>
-
-<section>
-<h2>Duck-typing</h2>
-
-<p>In classical OOP languages, you can `isA` check for supertypes/interfaces</p>
-
-<script type=console-setup>
-  TypeA = function() {}
-  TypeB = function() {}
-  TypeB.prototype = new TypeA;
-</script>
-
-<div class=little-console></div>
-
+// what do we see console.log&#39;d?
+someObject.listen(button);
+button.click();
+</code></pre>
 </section>
 
+<section  class=""><h2 id="how-can-we-fix-">How can we fix?</h2>
+</section>
 
-<section data-markdown><script type="text/template">
-## Works ok
+<section  class=""><h2 id="-fn-bind-thisvalue-"><code>fn.bind(thisValue)</code></h2>
+<pre><code class="lang-javascript">var someObject = {
+  // ...
+  listen: function(el) {
+    // .bind returns a new fn, as if bound to this via closure
+    el.addEventListener(&quot;click&quot;, this.handle.bind(this))
+  },
+  // ...
+};
+</code></pre>
+</section>
 
-```javascript
-var X = Backbone.Model.extend();
-var x = new X;
-
-console.log(x instanceof Backbone.Model);
-```
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-## But... inflexible
-
-- must have that constructor in prototype chain
-- harder to reuse code
-- much harder to test (passing mocks/stubs)
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Duck type!
-
-```javascript
-function withModel(model) {
-  // determine objects 'type' via checking its API,
-  // rather than how it got its API (prototype chain)
-  if(typeof model.get === "function") {
-
-  } else if(typeof model.get === "string") {
-
+<section  class=""><h2 id="writing-bind-">Writing <code>bind</code></h2>
+<pre><code class="lang-javascript">function bind(fn, thisValue) {
+  return function() {
+    return fn.apply(thisValue, arguments);
   }
 }
-```
-</script></section>
+</code></pre>
+</section>
 
-<section data-markdown data-state=title><script type="text/template">
-## Quirks
-</script></section>
+<section  class=""><h2 id="enough-">Enough?</h2>
+</section>
 
+<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
+</section>
 
-<section data-markdown><script type="text/template">
-```javascript
-if(new Boolean(false)) {
-  console.log("this is why we avoid new Boolean");
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">const el = document.querySelector(&quot;<em>&quot;);
+
+console.log(_.keys(el).length) // 72!
+
+document.querySelectorAll(&quot;</em>&quot;) // 1,002 for bbc.co.uk
+
+// need to track per object
+el.myCustomMethod = () =&gt; 1
+</code></pre>
+</section>
+
+<section  class=""><h2 id="costly-to-assume-all-objects-different">Costly to assume all objects different</h2>
+</section>
+
+<section  class=""><h2 id="want-flexibility-and-efficency">Want: flexibility and efficency</h2>
+</section>
+
+<section  class=""><h2 id="solution-prototypes-">Solution: prototypes!</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/prototypes.png"></p>
+</section>
+
+<section  class=""><h2 id="additional-benefit">Additional benefit</h2>
+<ul>
+<li>some things modelled in chain</li>
+<li>e.g store common tools at <code>Object</code></li>
+</ul>
+</section>
+
+<section  class=""><h2 id="chain">Chain</h2>
+<p><img src="media/prototype-chain.png"></p>
+</section>
+
+<section  class=""><h2 id="lookup-algorithm">Lookup algorithm</h2>
+<pre><code class="lang-javascript">// always at run-time
+function getProperty(object, prop) {
+  if(object.hasOwnProperty(prop)) {
+    return object[prop];
+  } else {
+    if(object.__proto__) {
+      getProperty(object.__proto__, prop);
+    } else {
+      return undefined;
+    }
+  }
 }
+</code></pre>
+</section>
 
-if(Boolean(1)) {
-  console.log("Good way to coerce to boolean");
+<section data-state='notitle' class=" notitle"><h2 id="creating-object-with-prototype">Creating object with prototype</h2>
+<pre><code class="lang-javascript">function Structure(width, height) {
+  const self = Object.create(structurePt)
+  self.width = width;
+  self.height = height;
+  return self;
+} 
+
+const structurePt = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
+
+function House(w, h, bedrooms) {
+  const self = Object.create(housePt)
+  Structure.call(self, w, h);
+  self.bedrooms = bedrooms;
+  return self;
+} 
+
+const housePt = Object.create(Structure());
+housePt.sleeps = function() {
+  return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
+};
+</code></pre>
+</section>
+
+<section  class=""><h2 id="enough-">Enough?</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="boilerplate">Boilerplate</h2>
+</section>
+
+<section  class=""><h2 id="-new-to-rescue-"><code>new</code> to rescue!</h2>
+<pre><code class="lang-javascript">function Structure(width, height) {
+  this.width = width;
+  this.height = height;
+} 
+
+Structure.prototype = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
+
+function House(w, h, bedrooms) {
+  Structure.call(this, w, h);
+  this.bedrooms = bedrooms;
+} 
+
+House.prototype = new Structure;
+House.prototype.sleeps = function() {
+  return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
+};
+</code></pre>
+</section>
+
+<section  class=""><h2 id="using-new-">Using <code>new</code></h2>
+<pre><code class="lang-javascript">const house = new House(10, 20, []);
+house.sleeps() // 0
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-new-in-depth"><code>new</code> in depth</h2>
+<pre><code class="lang-javascript">function newOperator(constructor, ...args) {
+  var instance = Object.create(constructor.prototype);
+  var returnVal = constructor.apply(instance, args);
+  return typeof returnVal == &quot;object&quot; ? returnVal : instance;
 }
+</code></pre>
+</section>
 
-if(!!unknown) {
-  console.log("Another - perhaps less explicit");
+<section  class=""><h2 id="enough-">Enough?</h2>
+</section>
+
+<section  class=""><h2 id="yes-probably">Yes, probably</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="but">BUT</h2>
+</section>
+
+<section  class=""><h2 id="moar-">Moar!</h2>
+<pre><code class="lang-javascript">class Structure{
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  squareArea() {
+    return this.width * this.height;
+  }
+} 
+
+
+class House extends Structure {
+  constructor(w, h, bedrooms) {
+    super(w,h)
+    this.bedrooms = bedrooms;
+  }
+
+  sleeps() {
+    return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
+  }
 }
+</code></pre>
+</section>
 
-if(new String("hi") !== "hi") {
-  console.log("ugh - just avoid object wrappers for 'primitives'");
-}
-
-if((3.14159).toFixed(5) === "3.14159") {
-  console.log("there is no benefit to object wrappers: the 'primitives'" +
-     " still have access to prototype methods");
-}
-```
-</script></section>
-
-
-
-
-<section data-markdown><script type="text/template">
-## Fin!
-</script></section>
+<section  class=""><h2 id="using">Using</h2>
+<p><img src=media/instance.png></p>
+</section>
 
 </div>
 </div>
 
+<!-- demo code -->
+<script src="js/jquery.js"></script>
+<script src="js/lodash.js"></script>
+<script src="js/angular.js"></script>
 
+<!-- live coding -->
+<script src=js/little-console.js></script>
+<script src=js/showConsoles.js></script>
 
-<script src=slides-theme/js/code-example.js></script>
-<script>
-  function revealCodeSamples() {
-    codeExamples.reveal("script[type=code-example-alongside]");
-    codeExamples.reveal("script[type=console-setup]");
-    [].forEach.call(document.querySelectorAll("script[type=console-setup]"),function(el) {
-      eval(el.innerHTML);
-    });
-  }
-</script>
-
-<script src=slides-theme/js/little-console.js></script>
-<script>
-  function showConsoles() {
-
-    // show all consoles, and register 'cheats'
-    var cheats = [];
-
-    ;[].forEach.call(document.querySelectorAll(".little-console"),function(el) {
-      var cmds = new LittleConsole.Commands;
-      var console = new LittleConsole({el: el,commands: cmds});
-      var slide = el.parentElement;
-      var cheat = slide.querySelector("[type=cheat]");
-      if(!cheat) return;
-      cheats.push({
-        console: console,
-        slide: slide,
-        src: cheat.innerHTML,
-      });
-    });
-
-    // listen for 'cheat code' - ALT + C, and fill input
-    var C = 67;
-    document.body.addEventListener("keyup",function(evt) {
-      if(evt.keyCode !== C || !evt.altKey) return;
-      var slide = Reveal.getCurrentSlide();
-      cheats.forEach(function(setup) {
-        if(setup.slide !== slide) return;
-        setup.console.setCommand(setup.src);
-      });
-
-    });
-
-  }
-</script>
-
+<!-- reveal -->
 <script src="reveal/lib/js/head.min.js"></script>
-<script src="reveal/js/reveal.min.js"></script>
-<script>
-  Reveal.initialize({
+<script src="reveal/plugin/highlight/highlight.js"></script>
+<script src="reveal/js/reveal.js"></script>
+<script src="js/revealConfig.js"></script>
 
-    // Display controls in the bottom right corner
-    controls: false,
-
-    // Display a presentation progress bar
-    progress: true,
-
-    // Push each slide change to the browser history
-    history: true,
-
-    // Enable keyboard shortcuts for navigation
-    keyboard: true,
-
-    // Enable the slide overview mode
-    overview: true,
-
-    // Vertical centering of slides
-    center: false,
-
-    // Loop the presentation
-    loop: false,
-
-    // Change the presentation direction to be RTL
-    rtl: false,
-
-    // Number of milliseconds between automatically proceeding to the
-    // next slide, disabled when set to 0, this value can be overwritten
-    // by using a data-autoslide attribute on your slides
-    autoSlide: 0,
-
-    // Enable slide navigation via mouse wheel
-    mouseWheel: false,
-
-    // Apply a 3D roll to links on hover
-    rollingLinks: false,
-
-    // Transition style
-    transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
-
-    dependencies: [
-        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-        { src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-
-        // Interreveal/pret Markdown in <section> elements
-        { src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: 'reveal/plugin/markdown/markdown.js', 
-          condition: function() { return !!document.querySelector( '[data-markdown]' ); },
-          callback: function() {
-            revealCodeSamples(); 
-            showConsoles();
-          } },
-
-        // Syntareveal/x highlight for <code> elements
-        { src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-
-        // Zoom reveal/in and out with Alt+click
-        { src: 'reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Speakreveal/er notes
-        { src: 'reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Remotreveal/e control your reveal.js presentation using a touch device
-        // { src: 'reveal/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-    ]
-
-  });
-</script>
 </body>
-
-

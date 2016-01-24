@@ -3,5 +3,7 @@
 
 ## What's in core
 
-- Nuts'n'bolts of 'programming in the small'
+- "Programming in the small"
 - Writing JS like a native
+
+

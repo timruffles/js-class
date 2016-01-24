@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
+    "slides:dev": "node_modules/.bin/watch 'npm run slides' slides"
   },
   "author": "Tim Ruffles <oi@truffles.me.uk>",
   "license": "©",
@@ -18,5 +20,12 @@
     "pprint": "0.0.1",
     "shelljs": "~0.3.0",
     "sinon": "^1.17.2"
+  },
+  "devDependencies": {
+    "MD5": "^1.3.0",
+    "easy-stdin": "^1.0.1",
+    "marked": "^0.3.5",
+    "node-uuid": "^1.4.7",
+    "watch": "^0.17.1"
   }
 }
