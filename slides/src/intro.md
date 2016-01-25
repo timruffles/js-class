@@ -68,6 +68,7 @@ All code will run in strict, with ES6.
 ```sh
 ./exercises/some-name
   exercise.js
+  verify.js
 ```
 
 ```sh
