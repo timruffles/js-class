@@ -54,6 +54,7 @@ console.log(anything)
 
 ## Tightens up language
 
+- new to JS? Not missing anything!
 - removes `with`
 - bans duplicate properties
 - implicit globals

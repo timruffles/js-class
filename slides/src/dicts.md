@@ -109,30 +109,6 @@ for(let i of m.keys()) {
 for(let i of m.values()) {
   console.log(i) // 1, 2
 }
-```
-
-## Maps: `for .. of`
-
-```javascript
-const m = new Map;
-m.set("A", 1);
-m.set("B", 2);
-
-for(let i in m) {
-  console.log(i) // not called! why?
-}
-
-for(let i of m) {
-  console.log(i) // ["A", 1], ...
-}
-
-for(let i of m.keys()) {
-  console.log(i) // "A", "B"
-}
-
-for(let i of m.values()) {
-  console.log(i) // 1, 2
-}
 
 m.forEach((v, k) => console.log(v, k))
 ```

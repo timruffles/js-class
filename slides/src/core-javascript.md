@@ -1,9 +1,9 @@
 ## Core
 {title:1}
 
-## What's in core
+## Aim
 
-- "Programming in the small"
+- Effective "programming in the small"
 - Writing JS like a native
 
 

@@ -74,12 +74,14 @@ Alan Kay
 - messages
 
 ## Without additional syntax
-{code:1}
+
+## Objects via closures
+{notitle:1}
 
 ```javascript
+// what technique is being used?
+
 function Counter() {
-  // important thing: some way
-  // to refer to enclosed state
   var count = 0;
 
   return {
@@ -185,6 +187,20 @@ button.click();
 ```
 
 ## How can we fix?
+
+## `=>`
+{code:1}
+
+```javascript
+var someObject = {
+  // ...
+  listen: function(el) {
+    // fat arrow has lexical this! i.e this of current scope
+    el.addEventListener("click", (e) => this.handle(e))
+  },
+  // ...
+};
+```
 
 ## `fn.bind(thisValue)`
 {code:1}

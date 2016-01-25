@@ -27,6 +27,9 @@ var add = function(a, b) {
 ```javascript
 // note: lack of \`return\`
 var add = (a, b) => a + b;
+
+// note: multiple expressions requires {} and \`return\`
+var twoStep = (a, b) => { console.log(a); return b }
 ```
 
 ## Evaluating functions

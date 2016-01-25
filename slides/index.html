@@ -96,6 +96,7 @@
 
 <section  class=""><h2 id="tightens-up-language">Tightens up language</h2>
 <ul>
+<li>new to JS? Not missing anything!</li>
 <li>removes <code>with</code></li>
 <li>bans duplicate properties</li>
 <li>implicit globals</li>
@@ -118,9 +119,9 @@ node verify
 <section data-state='title' class=" title"><h2 id="core">Core</h2>
 </section>
 
-<section  class=""><h2 id="what-s-in-core">What&#39;s in core</h2>
+<section  class=""><h2 id="aim">Aim</h2>
 <ul>
-<li>&quot;Programming in the small&quot;</li>
+<li>Effective &quot;programming in the small&quot;</li>
 <li>Writing JS like a native</li>
 </ul>
 </section>
@@ -417,6 +418,9 @@ var nullish = x == null;
 <section  class=""><h2 id="fat-arrow">Fat-arrow</h2>
 <pre><code class="lang-javascript">// note: lack of `return`
 var add = (a, b) =&gt; a + b;
+
+// note: multiple expressions requires {} and `return`
+var twoStep = (a, b) =&gt; { console.log(a); return b }
 </code></pre>
 </section>
 
@@ -808,29 +812,6 @@ for(let i of m.keys()) {
 for(let i of m.values()) {
   console.log(i) // 1, 2
 }
-</code></pre>
-</section>
-
-<section  class=""><h2 id="maps-for-of-">Maps: <code>for .. of</code></h2>
-<pre><code class="lang-javascript">const m = new Map;
-m.set(&quot;A&quot;, 1);
-m.set(&quot;B&quot;, 2);
-
-for(let i in m) {
-  console.log(i) // not called! why?
-}
-
-for(let i of m) {
-  console.log(i) // [&quot;A&quot;, 1], ...
-}
-
-for(let i of m.keys()) {
-  console.log(i) // &quot;A&quot;, &quot;B&quot;
-}
-
-for(let i of m.values()) {
-  console.log(i) // 1, 2
-}
 
 m.forEach((v, k) =&gt; console.log(v, k))
 </code></pre>
@@ -948,9 +929,12 @@ var imAnObject = [];
 </section>
 
 <section  class=""><h2 id="without-additional-syntax">Without additional syntax</h2>
-<pre><code class="lang-javascript">function Counter() {
-  // important thing: some way
-  // to refer to enclosed state
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="objects-via-closures">Objects via closures</h2>
+<pre><code class="lang-javascript">// what technique is being used?
+
+function Counter() {
   var count = 0;
 
   return {
@@ -1053,6 +1037,18 @@ button.click();
 </section>
 
 <section  class=""><h2 id="how-can-we-fix-">How can we fix?</h2>
+</section>
+
+<section  class=""><h2 id="-"><code>=&gt;</code></h2>
+<pre><code class="lang-javascript">var someObject = {
+  // ...
+  listen: function(el) {
+    // fat arrow has lexical this! i.e this of current scope
+    el.addEventListener(&quot;click&quot;, (e) =&gt; this.handle(e))
+  },
+  // ...
+};
+</code></pre>
 </section>
 
 <section  class=""><h2 id="-fn-bind-thisvalue-"><code>fn.bind(thisValue)</code></h2>
