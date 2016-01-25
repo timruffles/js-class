@@ -1544,9 +1544,15 @@ app.js | wc -l # 5372
 </section>
 
 <section  class=""><h2 id="mocks-function-voyeurism">Mocks: function voyeurism</h2>
-<pre><code class="lang-javascript">var getSpy = sinon.spy($,&quot;get&quot;);
-$.get(&quot;http://example.com&quot;);
-assert.calledWithMatch(&quot;http://example.com&quot;);
+<pre><code class="lang-javascript">it(&quot;should call&quot;, function(done) {
+  // Faking out $.get
+  $.get = function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  } 
+
+  user.retrieve(1);
+})
 </code></pre>
 </section>
 
@@ -1577,7 +1583,8 @@ computeAnswer(function(answer) {
 <section  class=""><h2 id="mocks-are-tests-stubs-support-tests">Mocks are tests, stubs support tests</h2>
 </section>
 
-<section  class=""><h2 id="both-are-fakes">Both are fakes</h2>
+<section data-state='notitle' class=" notitle"><h2 id="diagram-of-mocks-stubs">Diagram of mocks/stubs</h2>
+<p><img src="media/mocks-stubs.png"></p>
 </section>
 
 <section  class=""><h2 id="javascript-testing-superpower">Javascript testing superpower</h2>
@@ -1602,20 +1609,6 @@ it(&quot;has a way of accessing lots&quot;,function() {
   assert.equal(answer,43);
 })
 </code></pre>
-</section>
-
-<section  class=""><h2 id="like-all-stubbing-">Like all stubbing...</h2>
-<ul>
-<li>suggests your design isn&#39;t very modular/coherent</li>
-<li>if it happens a lot, why does object have unused deps?</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="fragility">Fragility</h2>
-<ul>
-<li>don&#39;t over stub/mock</li>
-<li>if it&#39;s not slow/indeterminate, and it exists, use that</li>
-</ul>
 </section>
 
 <section  class=""><h2 id="exercise">Exercise</h2>

@@ -87,8 +87,6 @@ computeAnswer(function(answer) {
 
 <img src="media/mocks-stubs.png">
 
-## Both are fakes
-
 ## Javascript testing superpower
 
 - remember `bind`?
@@ -111,17 +109,6 @@ it("has a way of accessing lots",function() {
   assert.equal(answer,43);
 })
 ```
-
-## Like all stubbing...
-
-- suggests your design isn't very modular/coherent
-- if it happens a lot, why does object have unused deps?
-
-## Fragility
-
-- don't over stub/mock
-- if it's not slow/indeterminate, and it exists, use that
-
 
 ## Exercise
 
