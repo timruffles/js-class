@@ -44,35 +44,14 @@
 //   be sure to ignore further queries after the first `n`
 //
 exports.sampleQueries = function(queryStream, n, cb) {
-  var queries = [];
-  var ended = 0;
 
   queryStream.on("query", queryHandler);
 
   function queryHandler(query, time) {
-    if(queries.length >= n) {
-      return;
-    }
-
     console.log(`start id:${query.id} time:${time}`);
 
-    var data = {
-      start: time,
-      q: query,
-    };
-    queries.push(data);
-
     query.on("end", function(time) {
-    console.log(`end id:${query.id} time:${time}`);
-      ended += 1;
-      data.duration = time - data.start;
-
-      if(ended === n) {
-        cb({
-          queries: queries.map(d => d.q),
-          durations: queries.map(d => d.duration),
-        });
-      }
+      console.log(`end id:${query.id} time:${time}`);
     });
   }
 }
