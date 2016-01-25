@@ -15,7 +15,7 @@ describe("closures", function() {
       });
 
       function testElements(fn) {
-        const els = _.range(1, 6).map((n) => createEl(`Element ${n}`))
+        const els = _.range(1, 100).map((n) => createEl(`Element ${n} <${help.rstring()}>`))
 
         const clickSpy = sinon.spy();
 
