@@ -9,12 +9,7 @@
 // @type englishList = (items: Array<string>) => string
 
 exports.englishList = function(args) {
-  switch(args.length) {
-  case 0: return "";
-  case 1: return args[0];
-  case 2: return args.join(", ");
-  default: return args.slice(0, args.length - 1).join(", ")  + " and " + args[args.length - 1];
-  }
+  // TODO
 };
 
 // TODO implement the 'dig' function, that looks up
@@ -29,7 +24,5 @@ exports.englishList = function(args) {
 // @type dig = (object: Object, ...properties: Array<string>) => any
 
 exports.dig = function(object, ...properties) {
-  return properties.reduce(function(value, prop) {
-    return value == null ? value : value[prop];
-  }, object);
-}
+  // TODO
+};
