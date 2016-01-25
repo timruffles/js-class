@@ -13,6 +13,8 @@ objects
 async
 promises
 
+testing
+
 build
 quality
 developer-tools
