@@ -1,1 +1,4 @@
-require("../.sys/verify")(__dirname);
+require("../.sys/verify").tdd(__dirname);
+
+
+
