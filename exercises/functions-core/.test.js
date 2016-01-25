@@ -31,6 +31,13 @@ describe("functions-core", function() {
           self.logSpy = sinon.spy();
         });
 
+        it('returns a new function', function() {
+          const userSpied = exported.spy(self.fnSpy, self.logSpy);
+          
+          assert.isFunction(userSpied);
+          assert.notEqual(userSpied, self.fnSpy);
+        })
+
         it('calls `fn` whenever the created function is called', function() {
           const userSpied = exported.spy(self.fnSpy, self.logSpy);
           
