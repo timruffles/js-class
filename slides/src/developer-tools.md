@@ -14,7 +14,7 @@
 
 ## Hands-on
 
-    exercise/profiling/index.html
+    in Chrome, google and open 'backbone TodoMVC'
 
 
 
