@@ -7,6 +7,7 @@
 - Fulfilled or rejected - once
 - Use before or after resolved
 - Chain together
+- Flow control for async
 
 ## Intuition
 
@@ -15,25 +16,32 @@
 
 ## Promises in practice
 
-- `.then()` with a function that accepts the value when it arrives
-- `.then()` returns a new promise - for the return value of the function
+## Steps in process
+
+- `.then(transformResolve, transformReject)`
 
 ```javascript
-var user = getUser(params["id"]);
-var profile = user.then(getProfile);
-var accountPage = Promise.spread(user,profile).then(accountPageTemplate);
+const user = getUser(params["id"]);
+const profile = user.then(getProfile);
+const accountPage = Promise.all([user,profile])
+  .then(accountPageTemplate);
+```
 
+## Present/use value
+
+- finally used more like callback
+
+```javascript
 accountPage.then(
-  renderToDom,
+  renderHtml,
   renderErrorMessage
 );
 ```
 
+## `then` is
 
-## `then` is either:
-
-- An action to take when promise settles
-- A recipe for a new promised value
+- Mostly: recipe for new values
+- Sometimes: actions when resolved
 
 ## Where?
 
@@ -46,11 +54,11 @@ accountPage.then(
 
 ```javascript
  // returns a promise, if x is:
- // - a non-promise, a resolved promise for x
+ // - a non-promise, a fulfilled promise for 'x'
  // - a promise, that promise
 Promise.resolve(x)
 
-// a rejected promise
+// a promise rejected with 'x'
 Promise.reject(x)
 
 // a promise for an array/object with all resolved
@@ -60,7 +68,7 @@ Promise.all([promise, value, promiseB, valueB])
 // a promise for first resolved
 Promise.race([promise, value, promiseB, valueB])
 ```
-## Promise flow control
+## Flow control
 
 ```javascript
 SomeQuery
@@ -69,13 +77,11 @@ SomeQuery
     if(!isOk(value)) {
       return Promise.reject(Error("Not ok!"))
     }
-    if(someTest(value)) {
-      return QueryA(value)
-    } else {
-      return QueryB(value)
-    }
+
+    return someTest(value)) ?
+      QueryA(value) : QueryB(value);
   })
-  .catch((err) => Promise.reject(Error("Our query failed: " + err)))
+  .catch((err) => Promise.reject(Error("Query failed: " + err)))
   .finally(function() {
     // anything that happens if resolved/rejected
   });
@@ -83,6 +89,8 @@ SomeQuery
 
 ## Rule: don't use promises as callbacks
 {rule:1}
+
+- unless you're applying side-effects
 
 ## Promises + collections
 
@@ -114,3 +122,6 @@ var usersWithAccounts = Promise.all(users)
 ## Let's try
 
 - exercises/promises
+
+
+

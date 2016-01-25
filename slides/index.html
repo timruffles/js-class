@@ -55,9 +55,9 @@
 <section  class=""><h2 id="agenda">Agenda</h2>
 <ol>
 <li>Core language</li>
+<li>Data-structures</li>
 <li>Objects</li>
 <li>Async</li>
-<li>Testing</li>
 <li>Tooling</li>
 </ol>
 </section>
@@ -65,7 +65,7 @@
 <section  class=""><h2 id="method">Method</h2>
 <ol>
 <li>Demo</li>
-<li>Experiment</li>
+<li>Exercise</li>
 <li>Deepen</li>
 </ol>
 </section>
@@ -75,9 +75,10 @@
 </code></pre>
 </section>
 
-<section  class=""><h2 id="today-three-ages-of-js">Today: three ages of JS</h2>
+<section  class=""><h2 id="ages-of-js">Ages of JS</h2>
 <ul>
-<li>ES5 sloppy</li>
+<li><del>ES3</del> (obsolete)</li>
+<li><del>ES5 sloppy</del> (avoid)</li>
 <li>ES5 strict</li>
 <li>ES.Next</li>
 </ul>
@@ -93,7 +94,15 @@
 </code></pre>
 </section>
 
-<section  class=""><h2 id="today-strict-mode-es6">Today: strict mode &amp; ES6</h2>
+<section  class=""><h2 id="tightens-up-language">Tightens up language</h2>
+<ul>
+<li>removes <code>with</code></li>
+<li>bans duplicate properties</li>
+<li>implicit globals</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="today-es5-strict-es6">Today: ES5 strict, &amp; ES6</h2>
 <p>All code will run in strict, with ES6.</p>
 </section>
 
@@ -491,8 +500,78 @@ while_(() =&gt; { x = x - 1 },
 <p>SICP</p>
 </section>
 
+<section  class=""><h2 id="parameters">Parameters</h2>
+<pre><code class="lang-javascript">// variable length functions
+function sprintf(format, ...args) {
+  console.log(format, ...args);
+}
+
+const pair = [1,2];
+
+// can use ... in calls too!
+sprint(&quot;%s %s&quot;, ...pair);
+
+// default parameters
+function log(n, base = 10) {
+  // ...
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-arguments-"><code>arguments</code></h2>
+<pre><code class="lang-javascript">// in ES5, useful where we use ...rest params in ES6
+function callMe() {
+  // who needs parameters?
+  console.log(&quot;Hello &quot; + arguments[0]);
+}
+
+callMe(&quot;a&quot;);
+</code></pre>
+</section>
+
 <section data-state='title' class=" title"><h2 id="exercise-">Exercise!</h2>
 <pre><code>exercises/functions-core
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="functions-continued">Functions, continued</h2>
+</section>
+
+<section  class=""><h2 id="closures">Closures</h2>
+<ul>
+<li>functions see var/let/const in surrounding function</li>
+<li>this link remains long after surrounding fn clears</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="-"> </h2>
+<p><img src="media/closures annotated.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="context">Context</h2>
+<p>We can see variables in functions that wrap us (red)</p>
+<p><img src="media/closures annotated.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="privacy">Privacy</h2>
+<p>We can&#39;t see variables from inner functions (blue)</p>
+<p><img src="media/closures annotated.png"></p>
+</section>
+
+<section  class=""><h2 id="coding-interview-spoiler">Coding interview spoiler</h2>
+<pre><code class="lang-javascript">var elements = document.querySelectorAll(&quot;button&quot;);
+
+// What is wrong here? How can we solve?
+for(var i = 0; i &lt; elements.length; i++) {
+  var element = elements[i];
+  element.addEventListener(&quot;click&quot;, function() {
+    console.log(element.innerHTML);
+  });
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="exercise">Exercise</h2>
+<pre><code>exercise/closures
 </code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="ordered-data-structures">Ordered data-structures</h2>
@@ -778,122 +857,6 @@ s.size // 2
 <section  class=""><h2 id="exercise">Exercise</h2>
 <pre><code>exercises/maps-objects-sets
 </code></pre></section>
-
-<section data-state='title' class=" title"><h2 id="async">Async</h2>
-</section>
-
-<section  class=""><h2 id="async-io">Async IO</h2>
-<ul>
-<li>ubiquitious in JS</li>
-<li>the ecosystem default</li>
-<li>vs subset of libraries in Ruby EM, Python Twisted</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="let-s-compare">Let&#39;s compare</h2>
-</section>
-
-<section  class=""><h2 id="synchronous-io">Synchronous IO</h2>
-<ul>
-<li>AKA &#39;blocking IO&#39;</li>
-</ul>
-<pre><code class="lang-javascript">1 // we&#39;ll not continue to the next line until the OS
-2 // has read the file and provided it back to our process
-3 var contents = fs.readFileSync(&quot;/tmp/hello&quot;, &quot;utf8&quot;);
-4 
-5 console.log(&quot;End of source file&quot;);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="asynchronous-io">Asynchronous IO</h2>
-<ul>
-<li>AKA &#39;non-blocking IO&#39;</li>
-</ul>
-<pre><code class="lang-javascript">1 fs.readFile(&quot;/tmp/hello&quot;, { encoding: &quot;utf8&quot; },
-2  function(err, content) {
-3    // (2/2) ...we get here
-4    console.log(&quot;Read the file&quot;);
-5  });
-6
-7 // (1/2) we&#39;ll get here waaaaaaaaaaaay before...
-8 console.log(&quot;End of source file&quot;);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="clearing-the-stack">Clearing the stack</h2>
-<ul>
-<li>no code ever runs simultaneously</li>
-<li>while code is running, no callbacks fire</li>
-</ul>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="diagram-loop">Diagram loop</h2>
-<p><img src="media/event-loop-schematic.png"></p>
-</section>
-
-<section  class=""><h2 id="rule-don-t-block-the-loop">Rule: don&#39;t block the loop</h2>
-<ul>
-<li>avoid long running, synchronous code</li>
-<li>chunk</li>
-<li>or delegate to other processes/WebWorkers</li>
-</ul>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="diagram-starving-the-lop">Diagram: starving the lop</h2>
-<p><img src="media/event-loop.png"></p>
-</section>
-
-<section  class=""><h2 id="sources-of-async">Sources of async</h2>
-<ul>
-<li><code>setTimeout</code></li>
-<li>AJAX</li>
-<li>IndexedDB, WebWorkers</li>
-<li>most Node APIs (<code>fs</code>, <code>child_process</code>)</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="stacks">Stacks</h2>
-<ul>
-<li>languages with functions need a stack</li>
-<li>keeps point to return to</li>
-<li>stack &#39;unravels&#39; with errors</li>
-</ul>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="stack-diagram">Stack diagram</h2>
-<p><img src="media/stack-clear-errors.png"></p>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="with-async-no-one-can-hear-you-throw">With async, no one can hear you throw</h2>
-<p><img src="media/stack-clear.png"></p>
-</section>
-
-<section  class=""><h2 id="e-g">e.g</h2>
-<pre><code class="lang-javascript">// this stack is long gone...
-try {
-
-  create({}, function() {
-    // ...
-  })
-
-} catch(e) {
-  // never going to catch!
-}
-// waaaaay before...(1)
-
-function create(data, cb) {
-  $post(&quot;/api/create&quot;, data, function(err, ok) {
-    if(err) {
-      // (1)...we get here
-      throw err;
-    }
-  })
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="rule-don-t-throw-in-async">Rule: don&#39;t throw in async</h2>
-</section>
 
 <section data-state='title' class=" title"><h2 id="objects">Objects</h2>
 </section>
@@ -1281,6 +1244,327 @@ class House extends Structure {
 
 <section  class=""><h2 id="using">Using</h2>
 <p><img src=media/instance.png></p>
+</section>
+
+<section data-state='title' class=" title"><h2 id="async">Async</h2>
+</section>
+
+<section  class=""><h2 id="async-io">Async IO</h2>
+<ul>
+<li>ubiquitious in JS</li>
+<li>the ecosystem default</li>
+<li>vs subset of libraries in Ruby EM, Python Twisted</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="let-s-compare">Let&#39;s compare</h2>
+</section>
+
+<section  class=""><h2 id="synchronous-io">Synchronous IO</h2>
+<ul>
+<li>AKA &#39;blocking IO&#39;</li>
+</ul>
+<pre><code class="lang-javascript">1 // we&#39;ll not continue to the next line until the OS
+2 // has read the file and provided it back to our process
+3 var contents = fs.readFileSync(&quot;/tmp/hello&quot;, &quot;utf8&quot;);
+4 
+5 console.log(&quot;End of source file&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="asynchronous-io">Asynchronous IO</h2>
+<ul>
+<li>AKA &#39;non-blocking IO&#39;</li>
+</ul>
+<pre><code class="lang-javascript">1 fs.readFile(&quot;/tmp/hello&quot;, { encoding: &quot;utf8&quot; },
+2  function(err, content) {
+3    // (2/2) ...we get here
+4    console.log(&quot;Read the file&quot;);
+5  });
+6
+7 // (1/2) we&#39;ll get here waaaaaaaaaaaay before...
+8 console.log(&quot;End of source file&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="clearing-the-stack">Clearing the stack</h2>
+<ul>
+<li>no code ever runs simultaneously</li>
+<li>while code is running, no callbacks fire</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-loop">Diagram loop</h2>
+<p><img src="media/event-loop-schematic.png"></p>
+</section>
+
+<section  class=""><h2 id="rule-don-t-block-the-loop">Rule: don&#39;t block the loop</h2>
+<ul>
+<li>avoid long running, synchronous code</li>
+<li>chunk</li>
+<li>or delegate to other processes/WebWorkers</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-starving-the-lop">Diagram: starving the lop</h2>
+<p><img src="media/event-loop.png"></p>
+</section>
+
+<section  class=""><h2 id="sources-of-async">Sources of async</h2>
+<ul>
+<li><code>setTimeout</code></li>
+<li>AJAX</li>
+<li>IndexedDB, WebWorkers</li>
+<li>most Node APIs (<code>fs</code>, <code>child_process</code>)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="stacks">Stacks</h2>
+<ul>
+<li>languages with functions need a stack</li>
+<li>keeps point to return to</li>
+<li>stack &#39;unravels&#39; with errors</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="stack-diagram">Stack diagram</h2>
+<p><img src="media/stack-clear-errors.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="with-async-no-one-can-hear-you-throw">With async, no one can hear you throw</h2>
+<p><img src="media/stack-clear.png"></p>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">// this stack is long gone...
+try {
+
+  create({}, function() {
+    // ...
+  })
+
+} catch(e) {
+  // never going to catch!
+}
+// waaaaay before...(1)
+
+function create(data, cb) {
+  $post(&quot;/api/create&quot;, data, function(err, ok) {
+    if(err) {
+      // (1)...we get here
+      throw err;
+    }
+  })
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-don-t-throw-in-async">Rule: don&#39;t throw in async</h2>
+</section>
+
+<section data-state='title' class=" title"><h2 id="promises">Promises</h2>
+</section>
+
+<section  class=""><h2 id="an-iou">An IOU</h2>
+<ul>
+<li>A value, returned immediately</li>
+<li>Fulfilled or rejected - once</li>
+<li>Use before or after resolved</li>
+<li>Chain together</li>
+<li>Flow control for async</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="intuition">Intuition</h2>
+<p><img src="media/promises.png" alt="Promise chain"></p>
+</section>
+
+<section  class=""><h2 id="promises-in-practice">Promises in practice</h2>
+</section>
+
+<section  class=""><h2 id="steps-in-process">Steps in process</h2>
+<ul>
+<li><code>.then(transformResolve, transformReject)</code></li>
+</ul>
+<pre><code class="lang-javascript">const user = getUser(params[&quot;id&quot;]);
+const profile = user.then(getProfile);
+const accountPage = Promise.all([user,profile])
+  .then(accountPageTemplate);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="present-use-value">Present/use value</h2>
+<ul>
+<li>finally used more like callback</li>
+</ul>
+<pre><code class="lang-javascript">accountPage.then(
+  renderHtml,
+  renderErrorMessage
+);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-then-is"><code>then</code> is</h2>
+<ul>
+<li>Mostly: recipe for new values</li>
+<li>Sometimes: actions when resolved</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="where-">Where?</h2>
+<ul>
+<li>ES5: libraries</li>
+<li>ES6: built-in</li>
+<li>Libraries actually better</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="promise-tools">Promise tools</h2>
+<pre><code class="lang-javascript"> // returns a promise, if x is:
+ // - a non-promise, a fulfilled promise for &#39;x&#39;
+ // - a promise, that promise
+Promise.resolve(x)
+
+// a promise rejected with &#39;x&#39;
+Promise.reject(x)
+
+// a promise for an array/object with all resolved
+// promises values - works with all iterables
+Promise.all([promise, value, promiseB, valueB])
+
+// a promise for first resolved
+Promise.race([promise, value, promiseB, valueB])
+</code></pre>
+</section>
+
+<section  class=""><h2 id="flow-control">Flow control</h2>
+<pre><code class="lang-javascript">SomeQuery
+  .then(transform)
+  .then(function(value) {
+    if(!isOk(value)) {
+      return Promise.reject(Error(&quot;Not ok!&quot;))
+    }
+
+    return someTest(value)) ?
+      QueryA(value) : QueryB(value);
+  })
+  .catch((err) =&gt; Promise.reject(Error(&quot;Query failed: &quot; + err)))
+  .finally(function() {
+    // anything that happens if resolved/rejected
+  });
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-don-t-use-promises-as-callbacks">Rule: don&#39;t use promises as callbacks</h2>
+<ul>
+<li>unless you&#39;re applying side-effects</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="promises-collections">Promises + collections</h2>
+<pre><code class="lang-javascript">var userIds = [10,20,30,50,100];
+
+// array of promises
+var users = userIds.map(User.get);
+
+// promise for array of {user, account}
+var usersWithAccounts = Promise.all(users)
+  .then(function(users) {
+    return users.map(function(user) {
+      return Promise.all({
+        user: user,
+        account: Account.get(user)
+      });
+    });
+  });
+</code></pre>
+</section>
+
+<section  class=""><h2 id="promises-conclusion">Promises conclusion</h2>
+<ul>
+<li>promises = values for async</li>
+<li>don&#39;t just use as callbacks</li>
+<li>think about transformers for the values</li>
+<li>chain promises flows together</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<ul>
+<li>exercises/promises</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="build-tools">Build tools</h2>
+</section>
+
+<section  class=""><h2 id="package-management">Package management</h2>
+<ul>
+<li><code>npm</code> - great for back/frontend</li>
+<li><code>jspm</code> - good future proofing</li>
+<li><code>bower</code> - probably had its day</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="modules">Modules</h2>
+<ul>
+<li><code>SystemJS</code> - ES6 style modules</li>
+<li><code>browserify</code> - builds CommonJS style modules</li>
+<li><code>webpack</code> - supports AMD/CommonJS (ES6 with plugins)</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
+</section>
+
+<section  class=""><h2 id="eslint">ESLint</h2>
+<pre><code class="lang-sh">eslint exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="jscs">JSCS</h2>
+<pre><code class="lang-sh">jscs exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
+<section data-state='title' class=" title"><h2 id="developer-tools">Developer Tools</h2>
+</section>
+
+<section  class=""><h2 id="chrome">Chrome</h2>
+<ul>
+<li>CPU</li>
+<li>memory</li>
+<li>timeline</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="node-js">Node.js</h2>
+<ul>
+<li>node debugger - stepping etc</li>
+<li>DTrace - more complex, same techniques</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="hands-on">Hands-on</h2>
+<pre><code>exercise/profiling/index.html
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="wrap-">Wrap!</h2>
+</section>
+
+<section  class=""><h2 id="advanced-js">Advanced JS</h2>
+<ul>
+<li>Know the core, love functions</li>
+<li>Data-structures &gt; code</li>
+<li>Objects, the right way</li>
+<li>Bring backup with async</li>
+<li>Lean on tools!</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="thanks-">Thanks!</h2>
+<p><a href="twitter.com/timruffles">@timruffles</a>
+<a href="twitter.com/sidekicksrc">@sidekicksrc</a></p>
 </section>
 
 </div>

@@ -20,8 +20,8 @@ exports.greeter = function(person, greeting = 'hi') {
 exports.spy = function(fn, logger) {
   var count = 0;
 
-  return function() {
-    fn.apply(null, arguments); 
+  return function(...args) {
+    fn(...args);
     count += 1;
     logger(arguments, count);
   }

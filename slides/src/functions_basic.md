@@ -103,6 +103,37 @@ while_(() => { x = x - 1 },
 
 SICP
 
+## Parameters
+
+```javascript
+// variable length functions
+function sprintf(format, ...args) {
+  console.log(format, ...args);
+}
+
+const pair = [1,2];
+
+// can use ... in calls too!
+sprint("%s %s", ...pair);
+
+// default parameters
+function log(n, base = 10) {
+  // ...
+}
+```
+
+## `arguments`
+
+```javascript
+// in ES5, useful where we use ...rest params in ES6
+function callMe() {
+  // who needs parameters?
+  console.log("Hello " + arguments[0]);
+}
+
+callMe("a");
+```
+
 ## Exercise!
 {title: 1}
 

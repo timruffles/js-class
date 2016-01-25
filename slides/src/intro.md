@@ -16,15 +16,15 @@
 ## Agenda
 
 1. Core language
+1. Data-structures
 1. Objects
 1. Async
-1. Testing
 1. Tooling
 
 ## Method
 
 1. Demo
-1. Experiment
+1. Exercise
 1. Deepen
 
 ## Our guide
@@ -33,9 +33,10 @@
 console.log(anything)
 ```
 
-## Today: three ages of JS
+## Ages of JS
 
-- ES5 sloppy
+- ~~ES3~~ (obsolete)
+- ~~ES5 sloppy~~ (avoid)
 - ES5 strict
 - ES.Next
 
@@ -51,7 +52,13 @@ console.log(anything)
 "use strict";
 ```
 
-## Today: strict mode & ES6
+## Tightens up language
+
+- removes `with`
+- bans duplicate properties
+- implicit globals
+
+## Today: ES5 strict, & ES6
 
 All code will run in strict, with ES6.
 

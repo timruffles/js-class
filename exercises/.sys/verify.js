@@ -20,7 +20,7 @@ exports = module.exports = function(path) {
 }
 
 exports.test = function(testFile, handler) {
-  var cmd = format('node "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon -r babel-register -r "%s/mocha-setup.js" "%s"',
+  var cmd = format('node --use_strict "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon -r babel-register -r "%s/mocha-setup.js" "%s"',
     dn, dn, testFile);
 
   exec(cmd, { cwd: dn }, handler);
