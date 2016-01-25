@@ -47,9 +47,15 @@ app.js | wc -l # 5372
 ## Mocks: function voyeurism
 
 ```javascript
-var getSpy = sinon.spy($,"get");
-$.get("http://example.com");
-assert.calledWithMatch("http://example.com");
+it("should call", function(done) {
+  // Faking out $.get
+  $.get = function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  } 
+
+  user.retrieve(1);
+})
 ```
 ## Mocks: asserting call behaviour
 
@@ -75,6 +81,11 @@ computeAnswer(function(answer) {
 ```
 
 ## Mocks are tests, stubs support tests
+
+## Diagram of mocks/stubs
+{notitle:1}
+
+<img src="media/mocks-stubs.png">
 
 ## Both are fakes
 
