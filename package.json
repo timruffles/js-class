@@ -1,19 +1,27 @@
 {
   "name": "js-class",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "How to make effective use of today's JS",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "verify": "node exercises/.sys/verify",
+    "// everything below here is stuff that's only useful for me": "",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
+    "lint:examples": "eslint --ignore-pattern '**/exercise.*' exercises/",
+    "test": "for f in */verify.js; do SPECIMIN=1 node $f; done",
     "slides:dev": "node_modules/.bin/watch 'npm run slides' slides"
   },
   "author": "Tim Ruffles <oi@truffles.me.uk>",
   "license": "©",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 4.2.0"
+  },
   "dependencies": {
-    "babel-preset-es2015": "^6.3.13",
-    "babel-register": "^6.4.3",
+    "babel-preset-node5": "^11.0.1",
+    "babel-register": "^6.7.2",
     "chai": "^3.4.1",
+    "chalk": "^1.1.3",
+    "es6-module-loader": "^0.17.11",
     "eslint": "^1.10.3",
     "hogan.js": "~3.0.2",
     "jscs": "^2.8.0",
@@ -36,12 +44,11 @@
   "eslintConfig": {
     "env": {
       "browser": true,
+      "mocha": true,
       "es6": true,
       "node": true
     },
-    "globals": {
-      "_": false
-    },
+    "globals": {},
     "rules": {
       "no-underscore-dangle": 0,
       "new-parens": 0,
