@@ -18,7 +18,7 @@ describe("arrays", function() {
         })
 
         it("works with 2 items", function() {
-          match([s,t], s + ", " + t);
+          match([s,t], s + " and " + t);
         })
 
         it("works with 3 items", function() {
