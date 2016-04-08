@@ -32,12 +32,32 @@ const convertsToTen = {
 dict[convertsToTen] // "ten"
 ```
 
+## Iterate
+
+```javascript
+for(const property of object) {
+  const value = object[property];
+  console.log(`${property}: ${value}`);
+}
+```
+
+## Both
+
+```javascript
+// objects not iterable by default, so...
+for(const [property, value] of Object.entries(object)) {
+  console.log(`${property}: ${value}`);
+}
+```
+
 ## ES6 - dynamic keys
 
 ```javascript
 // ES6
 function create(property, value) {
-  return {["id:" + property]: value}
+  return {
+    ["id:" + property]: value,
+  }
 }
 
 // ES5
@@ -64,27 +84,39 @@ Object.keys(dict).length // costs O(N)
 ## `Map`: ES6 to rescue
 
 ```javascript
+const m = new Map;
 
+const list = [1,2,3];
+
+m.set(list, "A");
+m.get(list); // A
+m.get([1,2,3]); // why?
+
+const m2 = new Map(Object.entries({
+  list: "hello",
+  boo: "another key",
+}));
+```
+
+## Non-object keys!
+
+```javascript
 const m = new Map;
 const o = {};
-
-m.size // 0
 
 const a = [1,2];
 const b = [1,2];
 
-o = {[a]: "A", [b]: "B"}
-
-Object.keys(o).length // 1
-
+// assign
 m.set(a, "A");
 m.set(b, "B");
 
+o = {[a]: "A", [b]: "B"}
+
+Object.keys(o).length // 1
 m.size // 2
 
-// can you see why this is happening?
-m.get(a) // A
-o[a] // B
+// ...why?
 ```
 
 ## Maps: `for .. of`

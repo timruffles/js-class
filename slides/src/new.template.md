@@ -1,6 +1,6 @@
 intro
 
-core-javascript
+core javascript
 
 designing in js
 variables
@@ -19,6 +19,7 @@ generators
 
 build
 quality
-developer-tools
+developer tools
 
 wrap
+

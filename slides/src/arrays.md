@@ -11,7 +11,12 @@
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 primeMinisters[0] // Cameron;
-primeMinisters[primeMinisters.length - 1] // Major - no negative indexes :(
+
+// Major
+primeMinisters[primeMinisters.length - 1] 
+
+// undefined - no negative indexes :(
+primeMinisters[-1] 
 
 console.log(primeMinisters.length) // 4
 ```
@@ -40,17 +45,22 @@ console.log(primeMinisters.length) // 4
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 const lastLabourGovernment = primeMinisters.slice(1, 3);
-lastLabourGovernment.reverse().join(" then ") // Blair then Brown
+ // Blair then Brown
+lastLabourGovernment.reverse().join(" then ")
 
 
 primeMinisters.sort();
 
 // what can we tell about .sort() and mutation?
-console.log(primeMinisters) // [ 'Blair', 'Brown', 'Cameron', 'Major' ]
+
+// [ 'Blair', 'Brown', 'Cameron', 'Major' ]
+console.log(primeMinisters)
 
 // and sort order?
 primeMinisters.sort((a,b) => a.length - b.length)
-console.log(primeMinisters) // [ 'Blair', 'Brown', 'Major', 'Cameron' ]
+
+// [ 'Blair', 'Brown', 'Major', 'Cameron' ]
+console.log(primeMinisters)
 ```
 
 ## `for`
@@ -110,11 +120,10 @@ primeMinisters.filter((p) => p[0] === "B") // ["Brown","Blair"];
 
 primeMinisters.map((p) => p[0]) // [ 'B', 'B', 'M', 'C' ]
 
-primeMinisters.reduce((s, e) => s + ":" + e) // 'Blair:Brown:Major:Cameron'
+primeMinisters.reduce((s, e) => s + ":" + e) // 'Cameron:Brown:Blair:Major'
 ```
 
-## Rule: prefer functional iterators
-{rule:1}
+## Functional iterators
 
 - intention revealing
 - shorter, less error-prone

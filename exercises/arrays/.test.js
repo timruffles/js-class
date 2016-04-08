@@ -7,7 +7,7 @@ describe("arrays", function() {
     help.importAndTest(__dirname, function(exported) {
 
       describe('englishList', function() {
-        var [s,t,u,v,w] = _.sampleSize(["pony","apple","snail","hedge hog", "mushroom", "bear", "hippo", "pillow", "piano"], 5);
+        var [s,t,u,v,w] = _.sampleSize(["pony","apple","snail","hedge-hog", "mushroom", "bear", "hippo", "pillow", "piano"], 5);
 
         it("works with no input", function() {
           match([], "");
