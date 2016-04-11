@@ -7,9 +7,9 @@
 //
 // try ES5 and ES6 implementations
 //
-exports.getCount = function(incoming) {
+export function getCount(incoming) {
 
-  incoming(function(event) {
+  incoming((event) => {
 
     // TODO
     return 0;
@@ -25,10 +25,10 @@ exports.getCount = function(incoming) {
 //
 // try ES5 and ES6 implementations
 //
-exports.getIpSets = function(incoming) {
+export function getIpSets(incoming) {
 
 
-  incoming(function(event, ip) {
+  incoming((event, ip) => {
 
     // TODO
     return [];

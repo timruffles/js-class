@@ -1,5 +1,5 @@
 // here is the function to test
-var showUserAction = require("./exercise").showUserAction;
+import { showUserAction } from "./exercise";
 
 describe("showUserAction", function() {
 

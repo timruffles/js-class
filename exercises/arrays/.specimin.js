@@ -8,7 +8,7 @@
 //
 // @type englishList = (items: Array<string>) => string
 
-exports.englishList = function(args) {
+export function englishList(args) {
   switch(args.length) {
   case 0: return "";
   case 1: return args[0];
@@ -28,7 +28,7 @@ exports.englishList = function(args) {
 //
 // @type dig = (object: Object, ...properties: Array<string>) => any
 
-exports.dig = function(object, ...properties) {
+export function dig(object, ...properties) {
   return properties.reduce(function(value, prop) {
     return value == null ? value : value[prop];
   }, object);

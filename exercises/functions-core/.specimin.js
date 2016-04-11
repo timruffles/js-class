@@ -6,8 +6,8 @@
 // @type greeter = (person: string, greeting?: string) => string
 
 /* TODO define parameters */
-exports.greeter = function(person, greeting = 'hi') {
-  return greeting + " " + person;
+export function greeter(person, greeting = 'hi') {
+  return `${greeting} ${person}`;
 };
 
 
@@ -16,10 +16,8 @@ exports.greeter = function(person, greeting = 'hi') {
 // TODO - call fn
 // TODO - report to logger with the count of calls, and the arguments
 //
-// @type exports.spy = (fn: Function, logger: Function) => Function
-exports.spy = function(fn, logger) {
-  var count = 0;
-
+// @type exports.spy = (fn: Function, logger: Function, count? : number) => Function
+export function spy(fn, logger, count = 0) {
   return function(...args) {
     fn(...args);
     count += 1;

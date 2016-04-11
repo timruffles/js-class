@@ -1,5 +1,6 @@
-var help = require("../.sys/test-help");
-var showUserAction = require("./exercise").showUserAction;
+
+import { showUserAction } from "./exercise";
+import help from "../.sys/test-help";
 
 describe("showUserAction", function() {
 
@@ -34,14 +35,8 @@ describe("showUserAction", function() {
           };
           showUserAction(getUserStub, resMock);
         });
-
-
-
-
-                
+      
       })
 
     });
-
-
 });

@@ -5,11 +5,11 @@
 // return the number of times an event has been
 // called on each event
 //
-exports.getCount = function(incoming) {
+export function getCount(incoming) {
 
   const events = new Map;
 
-  incoming(function(event) {
+  incoming((event) => {
     events.set(event, 
       (events.get(event) || 0) + 1);
     
@@ -23,11 +23,11 @@ exports.getCount = function(incoming) {
 //
 // return the unique set of IPs for each event on each event
 //
-exports.getIpSets = function(incoming) {
+export function getIpSets(incoming) {
 
   const events = new Map;
 
-  incoming(function(event, ip) {
+  incoming((event, ip) => {
     const s = events.get(event) || new Set;
     s.add(ip);
     events.set(event, s);

@@ -12,22 +12,19 @@
 //      returns balance
 //
 //
-function BankAccount(balance) {
+export function BankAccount(balance) {
 }
 
-exports.BankAccount = BankAccount;
 
 
 // TODO reimplement BankAccount as a constructor
 // designed to be used with `new` & `this` - 
 // ensuring you share `balance` and `deposit` between
 // all instances
-function BankAccountWithThis(balance) {
+export function BankAccountWithThis(balance) {
 }
 
 // TODO implement sharing via prototypes
-
-exports.BankAccountWithThis = BankAccountWithThis;
 
 
 
@@ -40,10 +37,8 @@ exports.BankAccountWithThis = BankAccountWithThis;
 //   deposit(n)
 //  
 //      will allow withdraws to -overdraft, then throws `OutOfFunds`
-function BankAccountWithOverdraft(balance, overdraft) {
+export function BankAccountWithOverdraft(balance, overdraft) {
 }
-
-BankAccountWithOverdraft.prototype = new BankAccountWithThis;
 
 // TODO create inheritance relation
 

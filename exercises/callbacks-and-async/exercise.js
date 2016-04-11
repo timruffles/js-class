@@ -43,14 +43,14 @@
 //
 //   be sure to ignore further queries after the first `n`
 //
-exports.sampleQueries = function(queryStream, n, cb) {
+export function sampleQueries (queryStream, n, cb) {
 
   queryStream.on("query", queryHandler);
 
   function queryHandler(query, time) {
     console.log(`start id:${query.id} time:${time}`);
 
-    query.on("end", function(time) {
+    query.on("end", (time) => {
       console.log(`end id:${query.id} time:${time}`);
     });
   }
