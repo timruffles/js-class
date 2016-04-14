@@ -15,6 +15,20 @@
 ## Iterators
 
 ```javascript
+// over arrays
+for(const v of values) {
+}
+for(const [index, v] of values.entries()) {
+}
+
+// over maps
+for(const [k,v] of map.entries()) {
+}
+```
+
+## Write your own!
+
+```javascript
 function *objectProperties(object) {
   const keys = Object.keys(object);
   for(const key of keys) {
@@ -32,7 +46,7 @@ for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
 ## Baby steps: `*`
 
 ```javascript
-// the '*' means we're a generator method
+// the '*' means we're a generator function
 function *objectProperties(object) {
   // ...
 }

@@ -7,9 +7,7 @@
 eslint exercises/some-exercise/exercise.js
 ```
 
-## JSCS
+<!-- TODO stinger - demonstration -->
 
-```sh
-jscs exercises/some-exercise/exercise.js
-```
 
+<!-- TODO talk about standard, and standard format -->

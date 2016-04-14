@@ -6,6 +6,7 @@ designing in js
 variables
 primitives
 functions basic
+functions continued
 specifying behaviour
 
 arrays

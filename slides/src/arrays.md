@@ -63,23 +63,11 @@ primeMinisters.sort((a,b) => a.length - b.length)
 console.log(primeMinisters)
 ```
 
-## `for`
 
-```javascript
-const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
-
-const initials = [];
-for(let i = 0, l = primeMinisters.length; i < l; i++) {
-  initials[i] = primeMinisters[i][0];
-}
-```
-
-## `Array`-likes
-
-- In JS, `arguments` object
-- In DOM, `NodeList`
 
 ## `for ... in`
+
+<!-- TODO stinger: ask ppl to guess what happens -->
 
 ```javascript
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
@@ -93,6 +81,19 @@ for(let i in primeMinisters) {
   initials[i] = primeMinisters[i][0];
 }
 ```
+
+## `for`
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
+
+const initials = [];
+for(let i = 0, l = primeMinisters.length; i < l; i++) {
+  initials[i] = primeMinisters[i][0];
+}
+```
+
+
 
 ## `for .. of`
 
@@ -109,6 +110,11 @@ for(let pm of primeMinisters) {
 
 ## Rule: avoid `for ... in/of` on arrays
 {rule:1}
+
+## `Array`-likes
+
+- In JS, `arguments` object
+- In DOM, `NodeList`
 
 ## Functional iteration
 

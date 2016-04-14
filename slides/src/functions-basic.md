@@ -56,19 +56,6 @@ function log(n, base = 10, opts = {}) {
 }
 ```
 
-## 'Required' parameters trick
-
-```javascript
-// default parameters
-function log(n = required("number"), base = 10) {
-  // ...
-}
-
-function required(name) {
-  throw new Error(name + " is a required argument");
-}
-```
-
 ## Named parameters
 
 ```javascript
@@ -83,6 +70,19 @@ log({ n: 90, base: 10 }) // 1.954...
 // team up with required!
 function log({ n = required("n"), base = required("base") }) {
   return Math.log(n) / Math.log(base);
+}
+
+function required(name) {
+  throw new Error(name + " is a required argument");
+}
+```
+
+## 'Required' parameters trick
+
+```javascript
+// default parameters
+function log(n = required("number"), base = 10) {
+  // ...
 }
 
 function required(name) {

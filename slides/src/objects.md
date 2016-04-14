@@ -78,6 +78,8 @@ TODO simple exericse
 
 ## Conventions
 
+<!-- TODO add WeakMap idiom -->
+
 ```javascript
 class Widget {
 

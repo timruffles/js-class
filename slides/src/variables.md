@@ -155,6 +155,10 @@ global; // node
 
     exercises/variables
 
+## TODO
+
+- destructuring
+
 
 
 

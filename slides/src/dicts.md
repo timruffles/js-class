@@ -1,6 +1,8 @@
 ## Key-value data-structures
 {title:1}
 
+<!-- TODO why do we care? -->
+
 ## Objects, used as dictionaries
 
 ```javascript
@@ -167,3 +169,5 @@ s.size // 2
 ## Exercise
 
     exercises/maps-objects-sets
+
+<!-- TODO weak maps/sets -->

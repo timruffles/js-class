@@ -65,6 +65,9 @@ hi("amy"); // prints 'hi amy'
 1. destructuring
 1. more on export?
 
+1. fix exercise - it uses closures that aren't introduced!
+1. another exercise on args
+
 ## Summary: modules
 {summary:true}
 
