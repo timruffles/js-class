@@ -7,7 +7,7 @@
     "// everything below here is stuff that's only useful for me": "",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
     "lint:examples": "eslint --ignore-pattern '**/exercise.*' exercises/",
-    "test": "for f in ./exercises/*/verify.js; do SPECIMIN=1 node $f; done",
+    "test": "node exercises/.sys/run-all.js",
     "slides:dev": "node_modules/.bin/watch 'npm run slides' slides"
   },
   "author": "Tim Ruffles <oi@truffles.me.uk>",
@@ -17,18 +17,18 @@
     "node": ">= 4.2.0"
   },
   "dependencies": {
-    "babel-preset-node5": "^11.0.1",
+    "babel-plugin-transform-regenerator": "^6.6.5",
+    "babel-preset-es2015-node4": "^2.1.0",
     "babel-register": "^6.7.2",
     "chai": "^3.4.1",
     "chalk": "^1.1.3",
     "es6-module-loader": "^0.17.11",
     "eslint": "^1.10.3",
     "hogan.js": "~3.0.2",
-    "jscs": "^2.8.0",
     "lodash": "^4.0.0",
     "mocha": "^2.3.4",
     "pprint": "0.0.1",
-    "shelljs": "~0.3.0",
+    "regenerator": "^0.8.42",
     "sinon": "^1.17.2"
   },
   "devDependencies": {
@@ -36,10 +36,8 @@
     "easy-stdin": "^1.0.1",
     "marked": "^0.3.5",
     "node-uuid": "^1.4.7",
+    "shelljs": "^0.3.0",
     "watch": "^0.17.1"
-  },
-  "jscsConfig": {
-    "preset": "airbnb"
   },
   "eslintConfig": {
     "env": {
