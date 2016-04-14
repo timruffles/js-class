@@ -9,4 +9,7 @@ script:
 cache:
   directories:
   - $HOME/.npm
+os:
+  - osx
+  - linux
 
