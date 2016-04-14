@@ -8,7 +8,7 @@
 //
 // 
 //
-exports.showUserAction = function(getUser, res) {
+export function showUserAction(getUser, res) {
   // You should NOT need to edit this function
   getUser()
     .then(function(user) {

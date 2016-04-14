@@ -7,7 +7,7 @@
     "// everything below here is stuff that's only useful for me": "",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
     "lint:examples": "eslint --ignore-pattern '**/exercise.*' exercises/",
-    "test": "for f in */verify.js; do SPECIMIN=1 node $f; done",
+    "test": "for f in ./exercises/*/verify.js; do SPECIMIN=1 node $f; done",
     "slides:dev": "node_modules/.bin/watch 'npm run slides' slides"
   },
   "author": "Tim Ruffles <oi@truffles.me.uk>",

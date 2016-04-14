@@ -18,9 +18,9 @@
 //
 //
 //
-exports.formatUserOrError = function(userPromise, getAccount, formatHtml, formatError) {
+export function formatUserOrError(userPromise, getAccount, formatHtml, formatError) {
   const accountPromise = userPromise
-    .then(getAccount)
+    .then(getAccount);
 
   return Promise.all([userPromise, accountPromise])
     .then(function([user, account]) {
@@ -28,5 +28,5 @@ exports.formatUserOrError = function(userPromise, getAccount, formatHtml, format
     })
     .catch(function(err) {
       return formatError(err) 
-    })
+    });
 }

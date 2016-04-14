@@ -3,7 +3,7 @@ var help = require("../.sys/test-help");
 describe("variables and scopes", function() {
 
     help.importAndTest(__dirname, function(exported) {
-
+       
       for(let scenario in exported) {
         if(!/^scenario/.test(scenario)) {
           continue;

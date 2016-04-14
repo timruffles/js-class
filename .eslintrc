@@ -1,0 +1,26 @@
+{
+  "ecmaFeatures": {
+    "modules":true,
+    "arrowFunctions":true,
+    "spread":true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "new-parens": 0,
+    "strict": 0,
+    "no-lone-blocks": 0,
+    "no-trailing-spaces": 0,
+    "comma-spacing": 0,
+    "quotes": 0,
+    "comma-dangle": 0,
+    "key-spacing": 0,
+    "semi": 0,
+    "no-use-before-define": 0
+  }
+}

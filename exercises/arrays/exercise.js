@@ -8,7 +8,7 @@
 //
 // @type englishList = (items: Array<string>) => string
 
-exports.englishList = function(args) {
+export function englishList(args) {
   // TODO
 };
 
@@ -23,6 +23,6 @@ exports.englishList = function(args) {
 //
 // @type dig = (object: Object, ...properties: Array<string>) => any
 
-exports.dig = function(object, ...properties) {
+export function dig(object, ...properties) {
   // TODO
 };

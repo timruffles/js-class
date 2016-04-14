@@ -2,7 +2,7 @@
 Object.assign(exports, require("./exercise"));
 
 // ignore this :)
-exports.ANSWERS = {
+export const ANSWERS = {
   scenarioOne: "inner",
   scenarioTwo: "out",
   scenarioThree: "helper",

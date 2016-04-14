@@ -12,31 +12,29 @@
 //      returns balance
 //
 //
-function BankAccount(balance) {
+export function BankAccount(balance) {
   var self = {};
 
-  self.deposit = function(n) {
+  self.deposit = (n) => {
     if(balance + n < 0) {
       throw new Error("OutOfFunds");
     }
     balance += n;
   }
 
-  self.balance = function() {
+  self.balance = () => {
     return balance;
   }
 
   return self;
 }
 
-exports.BankAccount = BankAccount;
-
 
 // TODO reimplement BankAccount as a constructor
 // designed to be used with `new` & `this` - 
 // ensuring you share `balance` and `deposit` between
 // all instances
-function BankAccountWithThis(balance) {
+export function BankAccountWithThis(balance) {
   this._balance = balance;
 }
 
@@ -51,9 +49,6 @@ BankAccountWithThis.prototype.balance = function() {
   return this._balance;
 }
 
-exports.BankAccountWithThis = BankAccountWithThis;
-
-
 
 // TODO using prototypes, create a BankAccountWithOverdraft
 // which allows balance to go below 0, but only
@@ -64,7 +59,7 @@ exports.BankAccountWithThis = BankAccountWithThis;
 //   deposit(n)
 //  
 //      will allow withdraws to -overdraft, then throws `OutOfFunds`
-function BankAccountWithOverdraft(balance, overdraft) {
+export function BankAccountWithOverdraft(balance, overdraft) {
   this._balance = balance;
   this._overdraft = overdraft;
 }
@@ -79,6 +74,4 @@ Object.assign(BankAccountWithOverdraft.prototype, {
 
     this._balance += n;
   },
-})
-
-exports.BankAccountWithOverdraft = BankAccountWithOverdraft;
+});

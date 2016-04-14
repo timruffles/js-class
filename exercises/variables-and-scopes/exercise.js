@@ -174,7 +174,8 @@ ANSWERS.scenarioSeven = "TODO";
 
 
 // ignore this :)
-exports.ANSWERS = ANSWERS;
+
+export { ANSWERS };
 [scenarioOne, scenarioTwo, scenarioThree, scenarioFour, scenarioFive, scenarioSix, scenarioSeven].forEach(function(s) {
   exports[s.name] = s;
 });

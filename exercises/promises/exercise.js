@@ -15,7 +15,7 @@
 //     formatError: (error) => html: string,
 //  )
 //
-exports.formatUserOrError = function(userPromise, getAccount, formatHtml, formatError) {
+export function formatUserOrError(userPromise, getAccount, formatHtml, formatError) {
 
   // TODO return final promise
   // TODO thread userPromise through getAccount
