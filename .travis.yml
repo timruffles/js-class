@@ -6,7 +6,6 @@ os:
 node_js:
 - 5.5.0
 - 4.2.0
-- iojs
 script:
 - npm test
 cache:
