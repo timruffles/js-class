@@ -1,5 +1,7 @@
 # Advanced JS Class
 
+[![Build Status](https://travis-ci.org/timruffles/js-class.svg?branch=master)](https://travis-ci.org/timruffles/js-class)
+
 It's a total priviledge to welcome you to the Advanced JS Class! Today we're going to look at getting the best from the JS of today and the near future: ES6 and beyond.
 
 The class is exercise driven, so it's worth having a glance over the below to learn how to run the exercises.
