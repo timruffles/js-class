@@ -1,25 +1,24 @@
-// return a function that will:
+// return a 'spiedFunction', which wraps originalFn and:
 //
-// TODO - call fn
-// TODO - report to logger with the count of calls, and the arguments
+// TODO - calls originalFn with arguments that our spiedFunction is called with
+// TODO - calls 'logger' with the count of calls, and the arguments
 //
-// @type exports.spy = (fn: Function, logger: Function, count? : number) => Function
-export function spy(fn, logger, count = 0) {
-  return function(...args) {
-    fn(...args);
-    count += 1;
-    logger(arguments, count);
-  }
+// @type function loggerFunction(args: Array<any>, callCount: number): void
+// @type function spy(originalFn: Function, logger: loggerFunction, count? : number): spiedFunction
+export function spy(originalFn, logger, count = 0) {
 };
 
 
 // TODO fix the following code, using ES6
 export function listenForClickEs6(elements, onClicked) {
-  // What is wrong here? How can we solve using ES6? Is there more than one way?
+  // What is wrong here? Work through how the interpreter will run the 'clickHandler'
+  // function in response to click events
+  //
+  // How can we solve using ES6? Is there more than one way?
   for(var i = 0; i < elements.length; i++) {
     var element = elements[i];
 
-    element.addEventListener("click", function() {
+    element.addEventListener("click", function clickHandler() {
       onClicked(element);
     });
   } 
