@@ -40,7 +40,7 @@ function runExercises(toRun) {
 
     var cwd = path.dirname(p);
 
-    exec(process.execPath + ' verify.js', {
+    exec('"' + process.execPath + '" verify.js', {
       cwd: cwd,
       env: {
         SPECIMIN: 1,
