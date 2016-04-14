@@ -9,6 +9,8 @@
  * pass the SPECIMIN env variable to test vs the `.specimin.js`
  * file for an exercise
  *
+ * NOTE - this file is designed to work in any version of node
+ * >= 0.10.x  it's not babelified, and uses only 0.10.x methods
  */
 var exec = require("child_process").exec;
 
@@ -20,7 +22,7 @@ exports = module.exports = function(path) {
 }
 
 exports.test = function(testFile, handler) {
-  var cmd = format('node --use_strict "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon -r babel-register -r "%s/mocha-setup.js" "%s"',
+  var cmd = format('node --use_strict "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon --compilers js:babel-register -r "%s/mocha-setup.js" "%s"',
     dn, dn, testFile);
 
   exec(cmd, { cwd: dn }, handler);

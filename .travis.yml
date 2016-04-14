@@ -2,9 +2,8 @@ sudo: false
 language: node_js
 matrix:
   include:
-  - node_js: 5.9 # Latest stable
-  - node_js: 4.4 # LTS
-  - node_js: 0.10 # Minimum supported
+  - node_js: 5.10.1
+  - node_js: 4.4.3
 script:
 - npm test
 cache:

@@ -1,5 +1,3 @@
-require("babel-register");
-
 exports.importAndTest = function(path, runner) {
   var failed = false;
 
@@ -23,7 +21,7 @@ exports.rint = function rint(n) {
   return Math.random() * (n || 100) | 0;
 }
 
-const strings = ["cheese", "bagel", "mushroom", "hat"];
+var strings = ["cheese", "bagel", "mushroom", "hat"];
 
 exports.rstring = function() {
   return strings[exports.rint(strings.length - 1)];
