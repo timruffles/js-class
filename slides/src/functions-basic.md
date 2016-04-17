@@ -22,6 +22,8 @@ var add = function(a, b) {
 }
 ```
 
+- (expression: something assignable)
+
 ## Fat-arrow
 
 ```javascript
@@ -34,6 +36,10 @@ var twoStep = (a, b) => { console.log(a); return b }
 // returning just an object requires you provide brackets:
 var object = (a, b) => {{a:1, b:2}}
 ```
+
+<p class=fragment>
+- Is a fat-arrow an expression?
+</p>
 
 ## Evaluating functions
 
@@ -56,27 +62,6 @@ function log(n, base = 10, opts = {}) {
 }
 ```
 
-## Named parameters
-
-```javascript
-function log({ n, base }) {
-  return Math.log(n) / Math.log(base);
-}
-
-
-log({ n: 64, base: 4 }) // 3
-log({ n: 90, base: 10 }) // 1.954...
-
-// team up with required!
-function log({ n = required("n"), base = required("base") }) {
-  return Math.log(n) / Math.log(base);
-}
-
-function required(name) {
-  throw new Error(name + " is a required argument");
-}
-```
-
 ## 'Required' parameters trick
 
 ```javascript
@@ -89,6 +74,33 @@ function required(name) {
   throw new Error(name + " is a required argument");
 }
 ```
+
+## Named parameters
+
+```javascript
+function log({ n, base }) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+log({ n: 64, base: 4 }) // 3
+log({ n: 90, base: 10 }) // 1.954...
+```
+
+
+<pre class=fragment>
+<code class="lang-javascript ">
+// team up with required!
+function log({ n = required("n"), base = required("base") }) {
+  return Math.log(n) / Math.log(base);
+}
+
+function required(name) {
+  throw new Error(name + " is a required argument");
+}
+</code></pre>
+
+
 
 ## Variable length
 
@@ -127,7 +139,7 @@ callMe("a");
 ```javascript
 function describeRace(race, winner) {
   console.log(race + " was won by " + winner + ", beating " 
-    + join(arguments, start, end));
+    + slice(arguments, 2).join(", "));
 }
 
 function slice(arrayLike, start, end) {

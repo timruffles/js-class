@@ -1,8 +1,11 @@
-## Functions, continued
+## Closures
 {title:1}
 
+## Functions retain context
 
-## Closures
+- functions retain variables visible where they're defined
+
+## In detail
 
 - functions see var/let/const in surrounding function
 - this link remains long after surrounding fn clears

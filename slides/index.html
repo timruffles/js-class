@@ -703,6 +703,9 @@ jscs exercises/some-exercise/exercise.js
   return a + b;
 }
 </code></pre>
+<ul>
+<li>(expression: something assignable)</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="fat-arrow">Fat-arrow</h2>
@@ -715,6 +718,10 @@ var twoStep = (a, b) =&gt; { console.log(a); return b }
 // returning just an object requires you provide brackets:
 var object = (a, b) =&gt; {{a:1, b:2}}
 </code></pre>
+<p class=fragment>
+- Is a fat-arrow an expression?
+</p>
+
 </section>
 
 <section  class=""><h2 id="evaluating-functions">Evaluating functions</h2>
@@ -736,26 +743,6 @@ function log(n, base = 10, opts = {}) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="named-parameters">Named parameters</h2>
-<pre><code class="lang-javascript">function log({ n, base }) {
-  return Math.log(n) / Math.log(base);
-}
-
-
-log({ n: 64, base: 4 }) // 3
-log({ n: 90, base: 10 }) // 1.954...
-
-// team up with required!
-function log({ n = required(&quot;n&quot;), base = required(&quot;base&quot;) }) {
-  return Math.log(n) / Math.log(base);
-}
-
-function required(name) {
-  throw new Error(name + &quot; is a required argument&quot;);
-}
-</code></pre>
-</section>
-
 <section  class=""><h2 id="-required-parameters-trick">&#39;Required&#39; parameters trick</h2>
 <pre><code class="lang-javascript">// default parameters
 function log(n = required(&quot;number&quot;), base = 10) {
@@ -766,6 +753,31 @@ function required(name) {
   throw new Error(name + &quot; is a required argument&quot;);
 }
 </code></pre>
+</section>
+
+<section  class=""><h2 id="named-parameters">Named parameters</h2>
+<pre><code class="lang-javascript">function log({ n, base }) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+log({ n: 64, base: 4 }) // 3
+log({ n: 90, base: 10 }) // 1.954...
+</code></pre>
+<pre class=fragment>
+<code class="lang-javascript ">
+// team up with required!
+function log({ n = required(&quot;n&quot;), base = required(&quot;base&quot;) }) {
+  return Math.log(n) / Math.log(base);
+}
+
+function required(name) {
+  throw new Error(name + &quot; is a required argument&quot;);
+}
+</code></pre>
+
+
+
 </section>
 
 <section  class=""><h2 id="variable-length">Variable length</h2>
@@ -800,7 +812,7 @@ callMe(&quot;a&quot;);
 <section  class=""><h2 id="variable-length">Variable length</h2>
 <pre><code class="lang-javascript">function describeRace(race, winner) {
   console.log(race + &quot; was won by &quot; + winner + &quot;, beating &quot; 
-    + join(arguments, start, end));
+    + slice(arguments, 2).join(&quot;, &quot;));
 }
 
 function slice(arrayLike, start, end) {
@@ -820,10 +832,16 @@ callMe(&quot;a&quot;);
 -->
 </section>
 
-<section data-state='title' class=" title"><h2 id="functions-continued">Functions, continued</h2>
+<section data-state='title' class=" title"><h2 id="closures">Closures</h2>
 </section>
 
-<section  class=""><h2 id="closures">Closures</h2>
+<section  class=""><h2 id="functions-retain-context">Functions retain context</h2>
+<ul>
+<li>functions retain variables visible where they&#39;re defined</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="in-detail">In detail</h2>
 <ul>
 <li>functions see var/let/const in surrounding function</li>
 <li>this link remains long after surrounding fn clears</li>
@@ -1447,21 +1465,32 @@ const accountPage = Promise.all([user,profile])
 </section>
 
 <section  class=""><h2 id="promise-tools">Promise tools</h2>
-<pre><code class="lang-javascript"> // returns a promise, if x is:
- // - a non-promise, a fulfilled promise for &#39;x&#39;
- // - a promise, that promise
-Promise.resolve(x)
+</section>
 
-// a promise rejected with &#39;x&#39;
-Promise.reject(x)
-
-// a promise for an array/object with all resolved
-// promises values - works with all iterables
-Promise.all([promise, value, promiseB, valueB])
-
-// a promise for first resolved
-Promise.race([promise, value, promiseB, valueB])
+<section  class=""><h2 id="creating-resolved-promise">Creating resolved promise</h2>
+<pre><code class="lang-javascript">Promise.resolve(x)
 </code></pre>
+<ul>
+<li>returns a promise, if x is:</li>
+<li>a non-promise, a fulfilled promise for &#39;x&#39;</li>
+<li>a promise, that promise</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="creating-rejected">Creating rejected</h2>
+<pre><code>Promise.reject(Error(&quot;some description&quot;))
+</code></pre><ul>
+<li>returns a rejected promise</li>
+<li>should always reject with <code>Error</code> for stacks</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="groups-of-promises">Groups of promises</h2>
+<pre><code>Promise.all([promise, value, promiseB, valueB])
+</code></pre><ul>
+<li>returns promise for an array with all resolved</li>
+<li>works with all iterables (<code>Array</code>, <code>Map</code> etc)</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="flow-control">Flow control</h2>
@@ -1484,7 +1513,7 @@ Promise.race([promise, value, promiseB, valueB])
 
 <section  class=""><h2 id="rule-don-t-use-promises-as-callbacks">Rule: don&#39;t use promises as callbacks</h2>
 <ul>
-<li>unless you&#39;re applying side-effects</li>
+<li>until you&#39;re <em>doing</em> something (display etc)</li>
 </ul>
 </section>
 
@@ -1494,14 +1523,14 @@ Promise.race([promise, value, promiseB, valueB])
 // array of promises
 var users = userIds.map(User.get);
 
-// promise for array of {user, account}
+// promise for array of [user, account]
 var usersWithAccounts = Promise.all(users)
   .then(function(users) {
     return users.map(function(user) {
-      return Promise.all({
-        user: user,
-        account: Account.get(user)
-      });
+      return Promise.all([
+        user,
+        Account.get(user)
+      ]);
     });
   });
 </code></pre>
