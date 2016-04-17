@@ -23,6 +23,7 @@ export function englishList(args) {
 //
 // @type dig = (object: Object, ...properties: Array<string>) => any
 
-export function dig(object, ...properties) {
-  // TODO
+export function dig(/* TODO define params */) {
+  // TODO implement with for ... of etc
+  // TODO implement with a reduce
 };
