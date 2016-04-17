@@ -6,15 +6,15 @@
 //
 //   { send: function(reply) }
 //
-// 
+//
 //
 export function showUserAction(getUser, res) {
   // You should NOT need to edit this function
   getUser()
-    .then(function(user) {
+    .then(function (user) {
       res.send(`<user>${user.name}</user>`);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       res.send(`<error>${err.message}</error>`);
-    })
+    });
 }

@@ -1,5 +1,5 @@
-
-// TODO write a bank account using closures (no prototype, `this` or `new`) that implements the following:
+// TODO write a bank account using closures (no prototype, `this` or `new`)
+// that implements the following:
 //
 //   BankAccount(balance)
 //      returns new instance, with provided balance
@@ -18,15 +18,13 @@ export function BankAccount(balance) {
 
 
 // TODO reimplement BankAccount as a constructor
-// designed to be used with `new` & `this` - 
+// designed to be used with `new` & `this` -
 // ensuring you share `balance` and `deposit` between
 // all instances
 export function BankAccountWithThis(balance) {
 }
 
 // TODO implement sharing via prototypes
-
-
 
 // TODO using prototypes, create a BankAccountWithOverdraft
 // which allows balance to go below 0, but only
@@ -35,7 +33,7 @@ export function BankAccountWithThis(balance) {
 //   BankAccountWithOverdraft(balance: number, overdraft: number)
 //
 //   deposit(n)
-//  
+//
 //      will allow withdraws to -overdraft, then throws `OutOfFunds`
 export function BankAccountWithOverdraft(balance, overdraft) {
 }

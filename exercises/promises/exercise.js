@@ -1,10 +1,11 @@
-// TODO 
+// TODO
 //
 //   implement a promise chain that threads userPromise to:
 //
 //     getAccount - retrieve the account
 //
-//   and thread user, account into `formatHtml`, ensuring you transform errors by returning `formatError`
+//   and thread user, account into `formatHtml`, ensuring you transform
+//   errors by returning `formatError`
 //
 //
 //

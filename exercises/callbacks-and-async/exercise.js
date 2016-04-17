@@ -1,4 +1,4 @@
-// TODO 
+// TODO
 //
 //   write a method that implements
 //   sampling a query stream
@@ -32,25 +32,25 @@
 //   be careful - there's no guarantee the query which
 //   starts first, will end first!
 //
-//   Both queryStream and queries emit events you can 
+//   Both queryStream and queries emit events you can
 //   subscribe to via the `.on` method:
 //
 //       queryStream.on("query", function(query, startTime) {
 //         query.on("end", function(endTime) {
-//           
+//
 //         });
 //       })
 //
 //   be sure to ignore further queries after the first `n`
 //
-export function sampleQueries (queryStream, n, cb) {
+export function sampleQueries(queryStream, n, cb) {
 
-  queryStream.on("query", queryHandler);
+  queryStream.on('query', queryHandler);
 
   function queryHandler(query, time) {
     console.log(`start id:${query.id} time:${time}`);
 
-    query.on("end", (time) => {
+    query.on('end', (time) => {
       console.log(`end id:${query.id} time:${time}`);
     });
   }

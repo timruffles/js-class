@@ -1,6 +1,6 @@
 /**
  * Exercise 1
- * 
+ *
  * Export a function called 'objectEntries' that iterates over the keys and values of an object
  *
  * It'll be used as follows:
@@ -30,8 +30,8 @@
  *         const out = yield "mouseup";
 
  *         return {
- *           dx: out.clientX - over.clientX, 
- *           dy: out.clientY - over.clientY, 
+ *           dx: out.clientX - over.clientX,
+ *           dy: out.clientY - over.clientY,
  *         };
  *       });
  *
@@ -46,7 +46,7 @@
  */
 export function events(emitter, makeGen) {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
 
     //  TODO create the generator (remember generator function vs generator distinction)
     //  TODO get an initial event string
@@ -54,7 +54,7 @@ export function events(emitter, makeGen) {
     //  TODO repeat the listen/resume process until the generator is done
     //  TODO when the generator is done, return the final value
 
-  })
+  });
 
 }
 
@@ -78,8 +78,7 @@ export function events(emitter, makeGen) {
  *
  */
 
-import co from "co";
-
+// TODO import 'co' module
 // TODO Read up the documentation on `co.wrap()`.
 // TODO export your helper method, accepting a variable number of promise arguments
 // TODO rensure you wait for result of each promise
@@ -93,14 +92,13 @@ import co from "co";
  * Enable this Stack class below to be used as
  * an iterator.
  *
- * Like a physical stack of books, the easiest way to 
+ * Like a physical stack of books, the easiest way to
  * get items out is from the top - this is called last-in, first-out
  * order (LIFO). We want to enable the stack to be iterated
  * in LIFO order, removing each item we iterate over
  *
  *
  */
-
 
 export class Stack {
   constructor() {

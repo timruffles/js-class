@@ -1,3 +1,7 @@
 {
-  "preset": "airbnb"
+  "preset": "airbnb",
+  // both these are simply as exercise files have these
+  // for readability
+  "requireShorthandArrowFunctions": false,
+  "disallowMultipleLineBreaks": false
 }

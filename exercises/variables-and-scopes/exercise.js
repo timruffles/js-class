@@ -19,45 +19,43 @@
  *
  * only modify code inside 'exports'
  */
+
+// config for exercises
+/* eslint no-unused-vars:0 no-unreachable:0 */
+
 const ANSWERS = {};
 
 function scenarioOne() {
 
-  var A = "scenario";
+  var A = 'scenario';
   inner();
 
   return A;
 
   function inner() {
-    A = "inner";
+    A = 'inner';
   }
 }
 
-ANSWERS.scenarioOne = "TODO";
-
-
-
+ANSWERS.scenarioOne = 'TODO';
 
 function scenarioTwo() {
 
-  var A = "out";
+  var A = 'out';
   inner();
 
   return A;
 
   function inner() {
-    var A = "inner";
+    var A = 'inner';
   }
 
 }
 
-ANSWERS.scenarioTwo = "TODO";
-
-
-
+ANSWERS.scenarioTwo = 'TODO';
 
 function scenarioThree() {
-  var A = "outer";
+  var A = 'outer';
 
   inner();
 
@@ -69,50 +67,42 @@ function scenarioThree() {
     return;
 
     function helper() {
-      A = "helper";
+      A = 'helper';
     }
 
-    A = "inner";
+    A = 'inner';
   }
 
 }
 
-ANSWERS.scenarioThree = "TODO";
-
-
+ANSWERS.scenarioThree = 'TODO';
 
 function scenarioFour() {
-  const A = "outer";
+  const A = 'outer';
 
   {
-    let A = "inner";
+    let A = 'inner';
   }
 
   return A;
 
-
 }
 
-ANSWERS.scenarioFour = "TODO";
-
-
+ANSWERS.scenarioFour = 'TODO';
 
 function scenarioFive() {
-  let A = "outer"
+  let A = 'outer';
 
   {
-    let A = "inner";
+    let A = 'inner';
     return A;
   }
 
-  A = "outer";
+  A = 'outer';
   return A;
 }
 
-ANSWERS.scenarioFive = "TODO";
-
-
-
+ANSWERS.scenarioFive = 'TODO';
 
 function scenarioSix() {
   var A;
@@ -121,14 +111,13 @@ function scenarioSix() {
   return A;
 
   function loop() {
-    for(A = 0; A < 10; A++) {
+    for (A = 0; A < 10; A++) {
+      A;
     }
   }
 }
 
-ANSWERS.scenarioSix = "TODO";
-
-
+ANSWERS.scenarioSix = 'TODO';
 
 function scenarioSeven() {
 
@@ -136,12 +125,13 @@ function scenarioSeven() {
   let B = 5;
 
   {
-    for(B = 0; B < 10; B++) {
+    for (B = 0; B < 10; B++) {
       inner();
-      if(B > 5) {
+      if (B > 5) {
         A = B;
         return A;
       }
+
       inner();
       A = B;
     }
@@ -153,11 +143,11 @@ function scenarioSeven() {
 
   function inner(A, B) {
     B = 100;
-    A = "inner";
+    A = 'inner';
   }
 }
 
-ANSWERS.scenarioSeven = "TODO";
+ANSWERS.scenarioSeven = 'TODO';
 
 
 
@@ -176,6 +166,9 @@ ANSWERS.scenarioSeven = "TODO";
 // ignore this :)
 
 export { ANSWERS };
-[scenarioOne, scenarioTwo, scenarioThree, scenarioFour, scenarioFive, scenarioSix, scenarioSeven].forEach(function(s) {
+[scenarioOne,
+  scenarioTwo, scenarioThree, scenarioFour,
+  scenarioFive, scenarioSix, scenarioSeven,
+].forEach(function (s) {
   exports[s.name] = s;
 });

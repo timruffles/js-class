@@ -13,8 +13,8 @@ export function getCount(incoming) {
 
     // TODO
     return 0;
-  })
-  
+  });
+
 };
 
 // TODO function passed to incoming will be called
@@ -27,11 +27,10 @@ export function getCount(incoming) {
 //
 export function getIpSets(incoming) {
 
-
   incoming((event, ip) => {
 
     // TODO
     return [];
-  })
+  });
 };
 

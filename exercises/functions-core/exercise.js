@@ -1,13 +1,14 @@
-// the greeter function returns a simple message. 
+// the greeter function returns a simple message.
 //
 // use default parameters to fulfil the contract. The default
 // greeting should be 'hi'
 //
 // @type greeter = (person: string, greeting?: string) => string
 
+/* eslint no-undef:0 */
 
 export function greeter(/* TODO define parameters */) {
-   return `${greeting} ${person}`;
+  return `${greeting} ${person}`;
 };
 
 
@@ -20,5 +21,4 @@ export function greeter(/* TODO define parameters */) {
 export function spy(fn, logger) {
   // TODO
 };
-
 

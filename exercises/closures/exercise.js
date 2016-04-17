@@ -15,25 +15,25 @@ export function listenForClickEs6(elements, onClicked) {
   // function in response to click events
   //
   // How can we solve using ES6? Is there more than one way?
-  for(var i = 0; i < elements.length; i++) {
+  for (var i = 0; i < elements.length; i++) {
     var element = elements[i];
 
-    element.addEventListener("click", function clickHandler() {
+    element.addEventListener('click', function clickHandler() {
       onClicked(element);
     });
-  } 
+  }
 }
 
 // TODO fix the following code, using ES5 (no lets, consts etc)
 export function listenForClickEs5(elements, onClicked) {
 
   // How can we solve using ES5?
-  for(var i = 0; i < elements.length; i++) {
+  for (var i = 0; i < elements.length; i++) {
     var element = elements[i];
-    element.addEventListener("click", function() {
-      onClicked(element);       
+    element.addEventListener('click', function () {
+      onClicked(element);
     });
-  } 
+  }
 
 }
 
