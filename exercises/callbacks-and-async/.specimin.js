@@ -63,7 +63,7 @@ export function sampleQueries(queryStream, n, cb) {
     queries.push(data);
 
     query.on("end", (time) => {
-    console.log(`end id:${query.id} time:${time}`);
+      console.log(`end id:${query.id} time:${time}`);
       ended += 1;
       data.duration = time - data.start;
 

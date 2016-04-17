@@ -15,7 +15,7 @@
  *      during iteration
  * TODO yield up key value pairs as arrays
  */
-export function *objectEntries(o = {}) {
+export function * objectEntries(o = {}) {
   const keys = Object.keys(o);
 
   for(const k of keys) {
@@ -93,7 +93,7 @@ export function events(emitter, makeGen) {
 
 import co from "co";
 
-export const settleAll = co.wrap(function*(...promises) {
+export const settleAll = co.wrap(function * (...promises) {
 
   const results = [];
 
@@ -140,7 +140,7 @@ export class Stack {
     return this._values.push(v);
   }
 
-  *[Symbol.iterator]() {
+  *[Symbol.iterator ]() {
     while(this._values.length) {
       yield this.pop();
     }
