@@ -109,3 +109,7 @@ function create(data, cb) {
 ## Rule: don't throw in async
 {rule:1}
 
+## Let's try
+{exercise:true}
+
+    exercises/callbacks-and-async

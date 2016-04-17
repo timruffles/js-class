@@ -9,12 +9,18 @@
 
 ## Node.js
 
-- node debugger - stepping etc
-- DTrace - more complex, same techniques
+- can be used here too, with caveats
+- `node-debugger`
 
 ## Hands-on
 
-    in Chrome, google and open 'backbone TodoMVC'
+    in Chrome, google and open 'ember TodoMVC'
+
+<!--
+
+TODO create an exercise
+
+-->
 
 
 

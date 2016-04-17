@@ -155,9 +155,9 @@ global; // node
 
     exercises/variables
 
-## TODO
-
-- destructuring
+<!--
+TODO slides/destructuring
+-->
 
 <!-- TODO exercises/destructuring  
 1 on array
