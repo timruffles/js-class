@@ -7,7 +7,6 @@
     "style:all": "jscs exercises/*/exercise.js",
     "// everything in here is stuff that's only useful for me": "",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
-    "lint:examples": "eslint --ignore-pattern '**/exercise.*' exercises/",
     "test": "node exercises/.sys/run-all.js",
     "slides:dev": "nodemon --ext md,js,css --watch slides --exec 'npm run slides'"
   },
@@ -18,8 +17,6 @@
     "node": ">= 4.2.0"
   },
   "dependencies": {
-    "babel-plugin-transform-regenerator": "^6.6.5",
-    "babel-polyfill": "^6.7.4",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-register": "^6.7.2",
     "chai": "^3.4.1",
@@ -30,7 +27,6 @@
     "eslint-config-standard": "^5.1.0",
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-standard": "^1.3.2",
-    "hogan.js": "~3.0.2",
     "jscs": "^3.0.3",
     "lodash": "^4.0.0",
     "mocha": "^2.4.5",
@@ -39,6 +35,7 @@
     "sinon": "^1.17.2"
   },
   "devDependencies": {
+    "hogan.js": "~3.0.2",
     "MD5": "^1.3.0",
     "easy-stdin": "^1.0.1",
     "marked": "^0.3.5",

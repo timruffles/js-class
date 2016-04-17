@@ -1,13 +1,18 @@
 ## Quality
 {title:1}
 
+<!-- TODO stinger - demonstration - for ESLint -->
+
 ## ESLint
 
+## Try now
+
 ```sh
+npm run lint:all
+
+# per exercise
 eslint exercises/some-exercise/exercise.js
 ```
-
-<!-- TODO stinger - demonstration -->
 
 ## Running ESLint
 
@@ -22,4 +27,15 @@ eslint path/to/js
 
 ## Boring to debate!
 
-<!-- TODO talk about standard, and standard format -->
+<!-- TODO stinger - demonstration - for ESLint -->
+
+## JSCS
+
+## Try now
+
+```sh
+npm run style:all
+
+# per exercise
+jscs exercises/some-exercise/exercise.js
+```
