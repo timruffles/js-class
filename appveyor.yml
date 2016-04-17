@@ -16,6 +16,8 @@ test_script:
   - npm --version
   # run tests
   - npm test
+  - npm run lint:all
+  - npm run style:all
 
 # Don't actually build.
 build: off
