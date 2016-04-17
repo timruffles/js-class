@@ -34,14 +34,6 @@ var html = \`
 \`;
 ```
 
-## `Number`
-
-```javascript
-var floaty = 1;
-
-var floatsAreApproximate = 0.1 + 0.2; // ?
-```
-
 ## Boolean
 
 ```javascript

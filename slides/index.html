@@ -127,6 +127,147 @@ node verify
 </ul>
 </section>
 
+<section data-state='title' class=" title"><h2 id="designing-in-js">Designing in JS</h2>
+</section>
+
+<section  class=""><h2 id="structuring-an-application">Structuring an application</h2>
+<blockquote>
+<p>Make smaller things.</p>
+</blockquote>
+<p>Sandii Metz</p>
+</section>
+
+<section  class=""><h2 id="lots-of-small-bits">Lots of small bits</h2>
+</section>
+
+<section  class=""><h2 id="aka-modules-">AKA modules!</h2>
+</section>
+
+<section  class=""><h2 id="simplest">Simplest</h2>
+<pre><code class="lang-javascript">// A.js
+export var hello = &quot;hi&quot;;
+</code></pre>
+<pre><code class="lang-javascript">// B.js
+import { hello } from &quot;./A&quot;;
+
+console.log(&quot;A says &quot; + hello);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="more-useful">More useful</h2>
+<pre><code class="lang-javascript">export function hi(name) {
+  console.log(&quot;hi &quot; + name);
+}
+</code></pre>
+<pre><code class="lang-javascript">// B.js
+import { hi } from &quot;./A&quot;;
+
+hi(&quot;amy&quot;); // prints &#39;hi amy&#39;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="default-export">Default export</h2>
+<pre><code class="lang-javascript">// hi.js
+export default function(name) {
+  console.log(&quot;hi &quot; + name);
+}
+</code></pre>
+<pre><code class="lang-javascript">// B.js
+import hi from &quot;./hi&quot;;
+
+hi(&quot;amy&quot;); // prints &#39;hi amy&#39;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-have-a-go-">Let&#39;s have a go!</h2>
+<!-- TODO exercises/modules -->
+</section>
+
+<section  class=""><h2 id="commonjs">CommonJS</h2>
+<p>Node&#39;s module system</p>
+</section>
+
+<section  class=""><h2 id="very-comparable-syntax">Very comparable syntax</h2>
+<pre><code class="lang-javascript">
+var aModule = require(&quot;./some/other/module&quot;);
+
+var fs = require(&quot;fs&quot;);
+var anNpmModule = require(&quot;from-npm&quot;);
+
+// export function mainMethod() {}
+module.exports = exports = mainMethod;
+
+// export function someFunction() {}
+exports.someFunction = function() {}
+
+
+function mainMethod() {
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="third-party-code">Third-party code</h2>
+<pre><code class="lang-javascript">
+// this is from core library
+var fs = require(&quot;fs&quot;);
+
+// this is looked up from node_modules folders in current, and parent
+// directories
+var anNpmModule = require(&quot;from-npm&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="import">import</h2>
+<pre><code class="lang-javascript">// relative or absolute path
+var myModule = require(&quot;./my/module&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="export">export</h2>
+<pre><code class="lang-javascript">⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+⭐️                                     ⭐️
+⭐️      &#39;Behind the scenes&#39;            ⭐️
+⭐️ var module = { exports: {} };       ⭐️
+⭐️ var exports = module.exports;       ⭐️
+⭐️                                     ⭐️
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+
+exports.helper = function() {
+}
+
+module.exports = function Main() {
+}
+</code></pre>
+<ul>
+  <li>What&#39;s wrong with the code above?</li>
+  <li class="fragment">
+     We&#39;ve redefined <code>module.exports</code>!
+  </li>
+
+  <li class="fragment">
+    Old <code>exports</code> object is no longer in module object.
+  </li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="todo">TODO</h2>
+<ol>
+<li>renaming</li>
+<li>destructuring</li>
+<li>more on export?</li>
+</ol>
+</section>
+
+<section  class=""><h2 id="summary-modules">Summary: modules</h2>
+<ul>
+<li>small modules = simpler, better</li>
+<li>break program into high-level modules</li>
+<li>export single functions, or namespaces</li>
+<li><code>import x from &quot;../y&quot;</code></li>
+</ul>
+</section>
+
 <section data-state='title' class=" title"><h2 id="variables">Variables</h2>
 </section>
 
@@ -274,34 +415,46 @@ global; // node
 <pre><code>exercises/variables
 </code></pre></section>
 
+<section  class=""><h2 id="todo">TODO</h2>
+<ul>
+<li>destructuring</li>
+</ul>
+<!-- TODO exercises/destructuring  
+1 on array
+1 on advanced - multi-layered
+-->
+</section>
+
 <section data-state='title' class=" title"><h2 id="primitives">Primitives</h2>
 </section>
 
 <section  class=""><h2 id="string">String</h2>
 <pre><code class="lang-javascript">var name = &#39;Tim&#39;;
-var opinion = &quot;Double quotes: they&#39;re worth it&quot;;
+var description = &quot;It&#39;s saving escapes&quot;;
 
 var complete = `${name}: ${opinion}`;
 </code></pre>
 </section>
 
-<section  class=""><h2 id="template-strings">Template strings</h2>
-<pre><code class="lang-javascript">var complete = <code>${name}: ${opinion}</code>;
+<section  class=""><h2 id="interpolation-">Interpolation: <code>${}</code></h2>
+<pre><code class="lang-javascript">var opinionOnEs6 = &quot;much nicer&quot;;
+var es6 = `Interpolation: &#39;${opinion}&#39;`;
 
-var es5Html = &quot;&lt;h1&gt;Ugh&lt;/h1&gt;&quot; +
-  &quot;&lt;p&gt;This is horrid&lt;/p&gt;&quot;;
-
-var html = `
-  &lt;h1&gt;Writing HTML with ES.Next&lt;/h1&gt;
-  &lt;p&gt;Much nicer&lt;/p&gt;
-`;
+var opinionOnEs5 = &quot;looks ugly&quot;;
+var es5 = &quot;Interpolation: &#39;&quot; + opinion + &quot;&#39;&quot;;
 </code></pre>
 </section>
 
-<section  class=""><h2 id="-number-"><code>Number</code></h2>
-<pre><code class="lang-javascript">var floaty = 1;
+<section  class=""><h2 id="template-strings">Template strings</h2>
+<pre><code class="lang-javascript">var es5Html = &quot;&lt;h1&gt;Ugh&lt;/h1&gt;&quot; +
+  &quot;&lt;p&gt;This is horrid&lt;/p&gt;&quot;;
 
-var floatsAreApproximate = 0.1 + 0.2; // ?
+var howMuch = &quot;Much&quot;;
+
+var html = `
+  &lt;h1&gt;Writing HTML with ES.Next&lt;/h1&gt;
+  &lt;p&gt;${howMuch} nicer&lt;/p&gt;
+`;
 </code></pre>
 </section>
 
@@ -341,6 +494,9 @@ var 1 = new Number(&quot;&quot;);
 <pre><code class="lang-javascript">var x = &quot;&quot;;
 var coerced = Boolean(x);
 
+// yes, you understand it, but does everyone?
+var shortCoerce = !!x;
+
 // NOOOOOOOOOO - never wrap primitives
 var evil = new Boolean(false);
 </code></pre>
@@ -354,7 +510,10 @@ var y = null;
 </section>
 
 <section  class=""><h2 id="-null-undefined-"><code>null</code> &amp; <code>undefined</code></h2>
-<p>A nuisance since 1995.</p>
+<ul>
+<li>A nuisance since 1995.</li>
+<li>I&#39;d stick to <code>undefined</code></li>
+</ul>
 </section>
 
 <section  class=""><h2 id="comparison">Comparison</h2>
@@ -366,17 +525,19 @@ var y = null;
 <section  class=""><h2 id="rule-always-use-">Rule: always use <code>===</code></h2>
 </section>
 
-<section  class=""><h2 id="but-one-time-to-use-">But <em>ONE</em> time to use <code>==</code></h2>
+<section  class=""><h2 id="but-one-place-to-use-">But <em>ONE</em> place to use <code>==</code></h2>
 </section>
 
-<section  class=""><h2 id="detecting-null-or-undefined-">Detecting <code>null</code> or <code>undefined</code></h2>
+<section  class=""><h2 id="handling-null-and-undefined-">Handling <code>null</code> and <code>undefined</code></h2>
 <pre><code>var undefinedNotEqeqeqNull = undefined === null; // false
 
-// what a chore!
 if(x === null || x === undefined) {
+  // what a chore!
 }
 
-var nullish = x == null;
+if(x == null) {
+  // equivalent, shorter, nicer
+}
 </code></pre></section>
 
 <section  class=""><h2 id="rule-use-null-">Rule: use <code>== null</code></h2>
@@ -393,6 +554,119 @@ var nullish = x == null;
 </li>
 <li>Objects (non primitives): compares by identity, not value</li>
 </ol>
+</section>
+
+<section data-state='title' class=" title"><h2 id="build-tools">Build tools</h2>
+</section>
+
+<section  class=""><h2 id="modules">Modules</h2>
+<ul>
+<li>still not native</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="frontend-build">Frontend build</h2>
+<ul>
+<li>combine modules to single file</li>
+<li>minify to reduce size</li>
+<li>Source Maps to retain debuggability</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="backend-build">Backend build</h2>
+<ul>
+<li>simply transpile</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="babel">Babel</h2>
+<ul>
+<li>most popular, big community</li>
+<li>other options: Traceur, Closure</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="transpiler">Transpiler</h2>
+<ul>
+<li>converts from ES6 code to ES5</li>
+<li>plugin architecture: opt in</li>
+</ul>
+<!-- TODO nice image -->
+</section>
+
+<section  class=""><h2 id="fewest-plugins-as-possible">Fewest plugins as possible</h2>
+<ul>
+<li>faster transpilation</li>
+<li>faster code!</li>
+</ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<pre><code class="lang-javascript">function x([a,b]) {
+  return (...args) =&gt; args.map(x =&gt; x + a + b);
+}
+</code></pre>
+<p>vs</p>
+<pre><code class="lang-javascript">&quot;use strict&quot;;
+
+var _slicedToArray = function () { /* 0.7kb of JS... */ }
+
+function x(_ref) {
+  var _ref2 = _slicedToArray(_ref, 2);
+
+  var a = _ref2[0];
+  var b = _ref2[1];
+
+  return function () {
+    for (var _len = arguments.length, args = Array(_len),
+       _key = 0; _key &lt; _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return args.map(function (x) {
+      return x + a + b;
+    });
+  };
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<ul>
+<li>Node 5 passes 56% of ES6 test suite, so:</li>
+</ul>
+<pre><code class="lang-sh">&gt; node -v
+5.5.0
+&gt; npm install --save babel-preset-node5
+</code></pre>
+</section>
+
+<section  class=""><h2 id="frontend">Frontend</h2>
+<!-- TODO image -->
+</section>
+
+<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
+</section>
+
+<section  class=""><h2 id="eslint">ESLint</h2>
+<pre><code class="lang-sh">eslint exercises/some-exercise/exercise.js
+</code></pre>
+<!-- TODO stinger - demonstration -->
+</section>
+
+<section  class=""><h2 id="running-eslint">Running ESLint</h2>
+<ul>
+<li>Editor plugins</li>
+</ul>
+<pre><code class="lang-sh">eslint path/to/js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="code-style">Code style</h2>
+</section>
+
+<section  class=""><h2 id="boring-to-debate-">Boring to debate!</h2>
+<!-- TODO talk about standard, and standard format -->
 </section>
 
 <section data-state='title' class=" title"><h2 id="functions">Functions</h2>
@@ -422,90 +696,64 @@ var add = (a, b) =&gt; a + b;
 
 // note: multiple expressions requires {} and `return`
 var twoStep = (a, b) =&gt; { console.log(a); return b }
+
+// returning just an object requires you provide brackets:
+var object = (a, b) =&gt; {{a:1, b:2}}
 </code></pre>
 </section>
 
 <section  class=""><h2 id="evaluating-functions">Evaluating functions</h2>
-<pre><code class="lang-javascript">var result = add(add(10, 5), add(5, add(-5, 5)));
+<pre><code class="lang-javascript">var result = add(add(10, 5), 5); 
 
-// steps for JS to evaluate right-hand-side
-add(add(10, 5), add(5, add(-5, 5)));
-add(15 ,        add(5, add(-5, 5)));
-add(15 ,        add(5, 0         ));
-add(15 ,        5                 );
-20
+// steps for JS to evaluate right-hand-side:
+
+//   add(add(10, 5), 5);
+//   add(15, 5);
+//   20
 </code></pre>
 </section>
 
-<section  class=""><h2 id="why-are-functions-important-">Why are functions important?</h2>
-</section>
-
-<section  class=""><h2 id="-"> </h2>
-<blockquote>
-<p>Establishing languages is a powerful way to control complexity</p>
-</blockquote>
-</section>
-
-<section  class=""><h2 id="languages-">Languages?</h2>
-</section>
-
-<section  class=""><h2 id="imagine-if-js-had-only-one-more-feature-">Imagine if JS had only one more feature...</h2>
-</section>
-
-<section  class=""><h2 id="-if-"><code>if</code></h2>
-<pre><code class="lang-javascript">if(testedForTruthy) {
-  console.log(&quot;was truthy&quot;);
-} else {
-  console.log(&quot;was falsy&quot;);
+<section  class=""><h2 id="default-parameters">Default parameters</h2>
+<pre><code class="lang-javascript">// default parameters
+function log(n, base = 10, opts = {}) {
+  // ...
 }
 </code></pre>
 </section>
 
-<section  class=""><h2 id="would-we-have-enough-to-write-programs-">Would we have enough to write programs?</h2>
-</section>
-
-<section  class=""><h2 id="yes-">Yes!</h2>
-</section>
-
-<section  class=""><h2 id="wouldn-t-we-be-missing-">Wouldn&#39;t we be missing?</h2>
-<pre><code class="lang-javascript">while / do / for / try
-</code></pre>
-</section>
-
-<section  class=""><h2 id="sure-but-">Sure, but...</h2>
-</section>
-
-<section  class=""><h2 id="-we-can-make-them">...we can make them</h2>
-<pre><code class="lang-javascript">function while_(test, block) {
-  if(test()) {
-    block();
-    return while_(test, block); 
-  }
+<section  class=""><h2 id="named-parameters">Named parameters</h2>
+<pre><code class="lang-javascript">function log({ n, base }) {
+  return Math.log(n) / Math.log(base);
 }
 
-var x = 10;
-while_(() =&gt; { x = x - 1 }, 
-  () =&gt; {
-    console.log(&quot;X: &quot; + x);
-  })
+
+log({ n: 64, base: 4 }) // 3
+log({ n: 90, base: 10 }) // 1.954...
+
+// team up with required!
+function log({ n = required(&quot;n&quot;), base = required(&quot;base&quot;) }) {
+  return Math.log(n) / Math.log(base);
+}
+
+function required(name) {
+  throw new Error(name + &quot; is a required argument&quot;);
+}
 </code></pre>
 </section>
 
-<section  class=""><h2 id="functions-the-core">Functions = the core</h2>
-<video width="475" height="352" controls>
-  <source src="slides-theme/movies/spirit-of-the-computer.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-</video>
+<section  class=""><h2 id="-required-parameters-trick">&#39;Required&#39; parameters trick</h2>
+<pre><code class="lang-javascript">// default parameters
+function log(n = required(&quot;number&quot;), base = 10) {
+  // ...
+}
 
+function required(name) {
+  throw new Error(name + &quot; is a required argument&quot;);
+}
+</code></pre>
 </section>
 
-<section  class=""><h2 id="a-language-to-describe-problems">A language to describe problems</h2>
-<blockquote>
-<p>Establishing languages controls complexity</p>
-</blockquote>
-<p>SICP</p>
-</section>
-
-<section  class=""><h2 id="parameters">Parameters</h2>
+<section  class=""><h2 id="variable-length">Variable length</h2>
 <pre><code class="lang-javascript">// variable length functions
 function sprintf(format, ...args) {
   console.log(format, ...args);
@@ -515,17 +763,17 @@ const pair = [1,2];
 
 // can use ... in calls too!
 sprint(&quot;%s %s&quot;, ...pair);
-
-// default parameters
-function log(n, base = 10) {
-  // ...
-}
 </code></pre>
 </section>
 
+<section  class=""><h2 id="can-do-all-this-in-es5">Can do all this in ES5</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="but-much-uglier">But <em>much</em> uglier</h2>
+</section>
+
 <section  class=""><h2 id="-arguments-"><code>arguments</code></h2>
-<pre><code class="lang-javascript">// in ES5, useful where we use ...rest params in ES6
-function callMe() {
+<pre><code class="lang-javascript">function callMe() {
   // who needs parameters?
   console.log(&quot;Hello &quot; + arguments[0]);
 }
@@ -534,9 +782,28 @@ callMe(&quot;a&quot;);
 </code></pre>
 </section>
 
+<section  class=""><h2 id="variable-length">Variable length</h2>
+<pre><code class="lang-javascript">function describeRace(race, winner) {
+  console.log(race + &quot; was won by &quot; + winner + &quot;, beating &quot; 
+    + join(arguments, start, end));
+}
+
+function slice(arrayLike, start, end) {
+  return [].slice.call(arrayLike, start, end);
+}
+
+callMe(&quot;a&quot;);
+</code></pre>
+</section>
+
 <section data-state='title' class=" title"><h2 id="exercise-">Exercise!</h2>
 <pre><code>exercises/functions-core
-</code></pre></section>
+</code></pre><!-- TODO
+
+1. another exercise on different types of args: defaults, destructuring etc
+
+-->
+</section>
 
 <section data-state='title' class=" title"><h2 id="functions-continued">Functions, continued</h2>
 </section>
@@ -579,6 +846,107 @@ for(var i = 0; i &lt; elements.length; i++) {
 <pre><code>exercise/closures
 </code></pre></section>
 
+<section  class=""><h2 id="tests">Tests</h2>
+</section>
+
+<section  class=""><h2 id="writing-good-software-takes-time">Writing good software takes time</h2>
+</section>
+
+<section  class=""><h2 id="js-is-loose">JS is loose</h2>
+</section>
+
+<section  class=""><h2 id="tests-dynamic-great-mix">Tests + dynamic: great mix</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-test-">How do we test?</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-test-">How do we <del>test</del>?</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-specify-behaviour-">How do we specify behaviour?</h2>
+</section>
+
+<section  class=""><h2 id="documentation-comes-free-">Documentation comes free!</h2>
+</section>
+
+<section  class=""><h2 id="1-describe-the-context">1. Describe the context</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="2-state-what-it-should-do">2. State what it should do</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+  it(&quot;starts off with username field focussed&quot;);
+
+  it(&quot;warns if the password is too simple&quot;);
+
+  it(&quot;prevents sumission if invalid&quot;);
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="3-implement-assertions-to-ensure-behaviour">3. Implement assertions to ensure behaviour</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+  it(&quot;starts off with username field focussed&quot;, function() {
+    const widget = new Widget();
+    widget.render();
+
+    const input = widget.el.find(&quot;[name=username&quot;);
+
+    assert.elementHasFocus(input);
+  });
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="4-when-tests-fail-you-are-write-code">4. When tests fail, you are write code</h2>
+<pre><code class="lang-javascript">class Widget {
+  render() {
+    // implement
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="5-or-new-lower-level-tests">5. Or, new, lower-level tests</h2>
+<pre><code class="lang-javascript">// our higher level test may prompt this:
+
+//  it(&quot;starts off with username field focussed&quot;);
+
+describe(&quot;auto-focus component&quot;, function() {
+  it(&quot;focusses an input&quot;);
+
+  it(&quot;does not prevent focus leaving the input&quot;);
+})
+</code></pre>
+<p>## </p>
+<!-- TODO TDD loop image -->
+</section>
+
+<section  class=""><h2 id="tdd-loop">TDD loop</h2>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+</section>
+
+<section  class=""><h2 id="asynchronous-tests">Asynchronous tests</h2>
+</section>
+
+<section  class=""><h2 id="specifying-behavour">Specifying behavour</h2>
+<ul>
+<li>write specifications as imperative english sentences</li>
+<li>keep one assertion per specification, using <code>before()</code></li>
+<li>factor out repetition: tests are code!</li>
+</ul>
+</section>
+
 <section data-state='title' class=" title"><h2 id="ordered-data-structures">Ordered data-structures</h2>
 </section>
 
@@ -592,7 +960,12 @@ for(var i = 0; i &lt; elements.length; i++) {
 <pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
 primeMinisters[0] // Cameron;
-primeMinisters[primeMinisters.length - 1] // Major - no negative indexes :(
+
+// Major
+primeMinisters[primeMinisters.length - 1] 
+
+// undefined - no negative indexes :(
+primeMinisters[-1] 
 
 console.log(primeMinisters.length) // 4
 </code></pre>
@@ -619,17 +992,39 @@ console.log(primeMinisters.length) // 4
 <pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
 const lastLabourGovernment = primeMinisters.slice(1, 3);
-lastLabourGovernment.reverse().join(&quot; then &quot;) // Blair then Brown
+ // Blair then Brown
+lastLabourGovernment.reverse().join(&quot; then &quot;)
 
 
 primeMinisters.sort();
 
 // what can we tell about .sort() and mutation?
-console.log(primeMinisters) // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Cameron&#39;, &#39;Major&#39; ]
+
+// [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Cameron&#39;, &#39;Major&#39; ]
+console.log(primeMinisters)
 
 // and sort order?
 primeMinisters.sort((a,b) =&gt; a.length - b.length)
-console.log(primeMinisters) // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Major&#39;, &#39;Cameron&#39; ]
+
+// [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Major&#39;, &#39;Cameron&#39; ]
+console.log(primeMinisters)
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-for-in-"><code>for ... in</code></h2>
+<!-- TODO stinger: ask ppl to guess what happens -->
+<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
+
+// what... is this allowed?
+primeMinisters.metaData = &quot;hi&quot;;
+
+// for ... in will go over all properties of arrays
+var initials = [];
+for(let i in primeMinisters) {
+  initials.push( primeMinisters[i][0] );
+}
+
+// what does initials end up as?
 </code></pre>
 </section>
 
@@ -638,27 +1033,6 @@ console.log(primeMinisters) // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Major&#3
 
 const initials = [];
 for(let i = 0, l = primeMinisters.length; i &lt; l; i++) {
-  initials[i] = primeMinisters[i][0];
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-array-likes"><code>Array</code>-likes</h2>
-<ul>
-<li>In JS, <code>arguments</code> object</li>
-<li>In DOM, <code>NodeList</code></li>
-</ul>
-</section>
-
-<section  class=""><h2 id="-for-in-"><code>for ... in</code></h2>
-<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
-
-// what... is this allowed?
-primeMinisters.metaData = &quot;hi&quot;;
-
-// for ... in will go over all properties of arrays
-const initials = [];
-for(let i in primeMinisters) {
   initials[i] = primeMinisters[i][0];
 }
 </code></pre>
@@ -673,10 +1047,19 @@ const initials = [];
 for(let pm of primeMinisters) {
   initials.push(pm[0]);
 }
+
+console.log(initials) // [&quot;C&quot;,&quot;B&quot;,&quot;B&quot;,&quot;M&quot;]
 </code></pre>
 </section>
 
-<section  class=""><h2 id="rule-avoid-for-in-of-on-arrays">Rule: avoid <code>for ... in/of</code> on arrays</h2>
+<section  class=""><h2 id="rule-avoid-for-in-on-arrays">Rule: avoid <code>for ... in</code> on arrays</h2>
+</section>
+
+<section  class=""><h2 id="-array-likes"><code>Array</code>-likes</h2>
+<ul>
+<li>In JS, <code>arguments</code> object</li>
+<li>In DOM, <code>NodeList</code></li>
+</ul>
 </section>
 
 <section  class=""><h2 id="functional-iteration">Functional iteration</h2>
@@ -685,13 +1068,13 @@ const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot
 
 primeMinisters.filter((p) =&gt; p[0] === &quot;B&quot;) // [&quot;Brown&quot;,&quot;Blair&quot;];
 
-primeMinisters.map((p) =&gt; p[0]) // [ &#39;B&#39;, &#39;B&#39;, &#39;M&#39;, &#39;C&#39; ]
+primeMinisters.map((p) =&gt; p[0]) // [ &quot;C&quot;, &quot;B&quot;, &quot;B&quot;, &quot;M&quot; ]
 
-primeMinisters.reduce((s, e) =&gt; s + &quot;:&quot; + e) // &#39;Blair:Brown:Major:Cameron&#39;
+primeMinisters.reduce((s, e) =&gt; s + &quot;:&quot; + e) // &#39;Cameron:Brown:Blair:Major&#39;
 </code></pre>
 </section>
 
-<section  class=""><h2 id="rule-prefer-functional-iterators">Rule: prefer functional iterators</h2>
+<section  class=""><h2 id="functional-iterators">Functional iterators</h2>
 <ul>
 <li>intention revealing</li>
 <li>shorter, less error-prone</li>
@@ -711,6 +1094,7 @@ const couldStringify = JSON.stringify([1,2])
 </code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="key-value-data-structures">Key-value data-structures</h2>
+<!-- TODO why do we care? -->
 </section>
 
 <section  class=""><h2 id="objects-used-as-dictionaries">Objects, used as dictionaries</h2>
@@ -741,10 +1125,28 @@ dict[convertsToTen] // &quot;ten&quot;
 </code></pre>
 </section>
 
+<section  class=""><h2 id="iterate">Iterate</h2>
+<pre><code class="lang-javascript">for(const property of object) {
+  const value = object[property];
+  console.log(<code>${property}: ${value}</code>);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="both">Both</h2>
+<pre><code class="lang-javascript">// objects not iterable by default, so...
+for(const [property, value] of Object.entries(object)) {
+  console.log(<code>${property}: ${value}</code>);
+}
+</code></pre>
+</section>
+
 <section  class=""><h2 id="es6-dynamic-keys">ES6 - dynamic keys</h2>
 <pre><code class="lang-javascript">// ES6
 function create(property, value) {
-  return {[&quot;id:&quot; + property]: value}
+  return {
+    [&quot;id:&quot; + property]: value,
+  }
 }
 
 // ES5
@@ -769,27 +1171,38 @@ Object.keys(dict).length // costs O(N)
 </section>
 
 <section  class=""><h2 id="-map-es6-to-rescue"><code>Map</code>: ES6 to rescue</h2>
-<pre><code class="lang-javascript">
-const m = new Map;
-const o = {};
+<pre><code class="lang-javascript">const m = new Map;
 
-m.size // 0
+const list = [1,2,3];
+
+m.set(list, &quot;A&quot;);
+m.get(list); // A
+m.get([1,2,3]); // why?
+
+const m2 = new Map(Object.entries({
+  list: &quot;hello&quot;,
+  boo: &quot;another key&quot;,
+}));
+</code></pre>
+</section>
+
+<section  class=""><h2 id="non-object-keys-">Non-object keys!</h2>
+<pre><code class="lang-javascript">const m = new Map;
+const o = {};
 
 const a = [1,2];
 const b = [1,2];
 
-o = {[a]: &quot;A&quot;, [b]: &quot;B&quot;}
-
-Object.keys(o).length // 1
-
+// assign
 m.set(a, &quot;A&quot;);
 m.set(b, &quot;B&quot;);
 
+o = {[a]: &quot;A&quot;, [b]: &quot;B&quot;}
+
+Object.keys(o).length // 1
 m.size // 2
 
-// can you see why this is happening?
-m.get(a) // A
-o[a] // B
+// ...why?
 </code></pre>
 </section>
 
@@ -838,409 +1251,7 @@ s.size // 2
 
 <section  class=""><h2 id="exercise">Exercise</h2>
 <pre><code>exercises/maps-objects-sets
-</code></pre></section>
-
-<section data-state='title' class=" title"><h2 id="objects">Objects</h2>
-</section>
-
-<section  class=""><h2 id="everythingisanobject-">EverythingIsAnObject... ?</h2>
-<pre><code class="lang-javascript">var iAmAnObject = {};
-
-var soAmI = 5;
-soAmI.toFixed(2);
-
-var meToo = &quot;goo&quot;;
-meToo.join(&quot;since I have methods&quot;);
-
-var imAnObject = [];
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-object-is-overloaded">&#39;Object&#39; is overloaded</h2>
-</section>
-
-<section  class=""><h2 id="definitions-in-js">Definitions in JS</h2>
-<ul>
-<li>everything that isn&#39;t <code>null</code>/<code>undefined</code></li>
-<li>empty objects used as key-value stores</li>
-<li>things that have functions in them that reference &#39;this&#39;</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="so-which-is-it-">So which is it?</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="none-of-the-above">None of the above</h2>
-</section>
-
-<section  class=""><h2 id="let-s-ask-alan-kay">Let&#39;s ask Alan Kay</h2>
-<blockquote>
-<p>OOP to me means only messaging, local retention and hiding of state, and extreme late-binding of all things.</p>
-</blockquote>
-<p>Alan Kay</p>
-</section>
-
-<section  class=""><h2 id="so-what-do-alan-kay-s-objects-look-like-">So what do Alan Kay&#39;s objects look like?</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
-<p><img src="media/objects.png" alt="technical diagram of OOP"></p>
-</section>
-
-<section  class=""><h2 id="messaging-late-binding">Messaging &amp; late-binding</h2>
-<ul>
-<li>component sends a message</li>
-<li>another components receives and does... whatever it likes</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="results-of-messaging">Results of messaging</h2>
-<ul>
-<li>decouples intent from implementation (polymorphism)</li>
-<li>can&#39;t see/modify state of receiver</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="what-the-hell-are-objects-">What the hell are objects?</h2>
-</section>
-
-<section  class=""><h2 id="-objects-are-a-pattern">&#39;Objects&#39; are a pattern</h2>
-<ul>
-<li>not the specific implementation</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="alan-kay-s-objects-are">Alan Kay&#39;s objects are</h2>
-<ul>
-<li>entities that accept messages</li>
-<li>that access hidden state</li>
-<li>and do something in response to the message</li>
-</ul>
-</section>
-
-<section data-state='title' class=" title"><h2 id="implementations">Implementations</h2>
-</section>
-
-<section  class=""><h2 id="what-do-we-need-">What do we need?</h2>
-<ul>
-<li>identity</li>
-<li>state</li>
-<li>messages</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="without-additional-syntax">Without additional syntax</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="objects-via-closures">Objects via closures</h2>
-<pre><code class="lang-javascript">// what technique is being used?
-
-function Counter() {
-  var count = 0;
-
-  return {
-    increment: () =&gt; {
-      count += 1;
-    },
-    count: () =&gt; count,
-  };
-}
-
-
-const c1 = counter();
-const c2 = counter();
-
-c1.increment();
-c1.count(); // 1
-c2.count(); // 0
-</code></pre>
-</section>
-
-<section  class=""><h2 id="issue">Issue</h2>
-<pre><code class="lang-javascript">var n = 1e6;
-const counters = [];
-
-// lots of copies of `increment` and `count`!
-while(n--) {
-  counters.push(Counter());
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="examples-where-this-matters">Examples where this matters</h2>
-<ul>
-<li>Arrays</li>
-<li>Element - DOM</li>
-<li>Promise</li>
-<li>Function</li>
-<li>all will have 1,000s of instances</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="how-do-we-share-implementations-">How do we share implementations?</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="closures-not-enough">Closures not enough</h2>
-</section>
-
-<section  class=""><h2 id="language-level-help-">Language level help!</h2>
-<pre><code class="lang-javascript">this
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-this-on-invocation"><code>this</code> on invocation</h2>
-<pre><code class="lang-javascript">function couter() {
-  return {
-    // same fn for all instances!
-    increment: counterIncrement,
-    count: 0, 
-  };
-}
-
-var c1 = counter();
-var c2 = counter();
-
-c1.increment();
-c2.count; // 0
-
-function counterIncrement() {
-  this.count += 1;
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="magic-argument-this-">Magic argument <code>this</code></h2>
-<pre><code class="lang-javascript">// this = someObject
-someObject.someProperty();
-
-const someProperty = this.someObject;
-
-// this = enclosing this, likely global
-someProperty();
-</code></pre>
-</section>
-
-<section  class=""><h2 id="classic-bug">Classic bug</h2>
-<pre><code class="lang-javascript">var someObject = {
-  name: &quot;lil&#39; listeny&quot;,
-  listen: function(el) {
-    el.addEventListener(&quot;click&quot;, this.handle)
-  },
-  handle: function() {
-    console.log(this.name);
-  },
-};
-
-// what do we see console.log&#39;d?
-someObject.listen(button);
-button.click();
-</code></pre>
-</section>
-
-<section  class=""><h2 id="how-can-we-fix-">How can we fix?</h2>
-</section>
-
-<section  class=""><h2 id="-"><code>=&gt;</code></h2>
-<pre><code class="lang-javascript">var someObject = {
-  // ...
-  listen: function(el) {
-    // fat arrow has lexical this! i.e this of current scope
-    el.addEventListener(&quot;click&quot;, (e) =&gt; this.handle(e))
-  },
-  // ...
-};
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-fn-bind-thisvalue-"><code>fn.bind(thisValue)</code></h2>
-<pre><code class="lang-javascript">var someObject = {
-  // ...
-  listen: function(el) {
-    // .bind returns a new fn, as if bound to this via closure
-    el.addEventListener(&quot;click&quot;, this.handle.bind(this))
-  },
-  // ...
-};
-</code></pre>
-</section>
-
-<section  class=""><h2 id="writing-bind-">Writing <code>bind</code></h2>
-<pre><code class="lang-javascript">function bind(fn, thisValue) {
-  return function() {
-    return fn.apply(thisValue, arguments);
-  }
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="enough-">Enough?</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
-</section>
-
-<section  class=""><h2 id="e-g">e.g</h2>
-<pre><code class="lang-javascript">const el = document.querySelector(&quot;<em>&quot;);
-
-console.log(_.keys(el).length) // 72!
-
-document.querySelectorAll(&quot;</em>&quot;) // 1,002 for bbc.co.uk
-
-// need to track per object
-el.myCustomMethod = () =&gt; 1
-</code></pre>
-</section>
-
-<section  class=""><h2 id="costly-to-assume-all-objects-different">Costly to assume all objects different</h2>
-</section>
-
-<section  class=""><h2 id="want-flexibility-and-efficency">Want: flexibility and efficency</h2>
-</section>
-
-<section  class=""><h2 id="solution-prototypes-">Solution: prototypes!</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
-<p><img src="media/prototypes.png"></p>
-</section>
-
-<section  class=""><h2 id="additional-benefit">Additional benefit</h2>
-<ul>
-<li>some things modelled in chain</li>
-<li>e.g store common tools at <code>Object</code></li>
-</ul>
-</section>
-
-<section  class=""><h2 id="chain">Chain</h2>
-<p><img src="media/prototype-chain.png"></p>
-</section>
-
-<section  class=""><h2 id="lookup-algorithm">Lookup algorithm</h2>
-<pre><code class="lang-javascript">// always at run-time
-function getProperty(object, prop) {
-  if(object.hasOwnProperty(prop)) {
-    return object[prop];
-  } else {
-    if(object.__proto__) {
-      getProperty(object.__proto__, prop);
-    } else {
-      return undefined;
-    }
-  }
-}
-</code></pre>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="creating-object-with-prototype">Creating object with prototype</h2>
-<pre><code class="lang-javascript">function Structure(width, height) {
-  const self = Object.create(structurePt)
-  self.width = width;
-  self.height = height;
-  return self;
-} 
-
-const structurePt = {
-  squareArea: function() {
-    return this.width * this.height;
-  },
-};
-
-function House(w, h, bedrooms) {
-  const self = Object.create(housePt)
-  Structure.call(self, w, h);
-  self.bedrooms = bedrooms;
-  return self;
-} 
-
-const housePt = Object.create(Structure());
-housePt.sleeps = function() {
-  return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
-};
-</code></pre>
-</section>
-
-<section  class=""><h2 id="enough-">Enough?</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="boilerplate">Boilerplate</h2>
-</section>
-
-<section  class=""><h2 id="-new-to-rescue-"><code>new</code> to rescue!</h2>
-<pre><code class="lang-javascript">function Structure(width, height) {
-  this.width = width;
-  this.height = height;
-} 
-
-Structure.prototype = {
-  squareArea: function() {
-    return this.width * this.height;
-  },
-};
-
-function House(w, h, bedrooms) {
-  Structure.call(this, w, h);
-  this.bedrooms = bedrooms;
-} 
-
-House.prototype = new Structure;
-House.prototype.sleeps = function() {
-  return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
-};
-</code></pre>
-</section>
-
-<section  class=""><h2 id="using-new-">Using <code>new</code></h2>
-<pre><code class="lang-javascript">const house = new House(10, 20, []);
-house.sleeps() // 0
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-new-in-depth"><code>new</code> in depth</h2>
-<pre><code class="lang-javascript">function newOperator(constructor, ...args) {
-  var instance = Object.create(constructor.prototype);
-  var returnVal = constructor.apply(instance, args);
-  return typeof returnVal == &quot;object&quot; ? returnVal : instance;
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="enough-">Enough?</h2>
-</section>
-
-<section  class=""><h2 id="yes-probably">Yes, probably</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="but">BUT</h2>
-</section>
-
-<section  class=""><h2 id="moar-">Moar!</h2>
-<pre><code class="lang-javascript">class Structure{
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
-  }
-
-  squareArea() {
-    return this.width * this.height;
-  }
-} 
-
-
-class House extends Structure {
-  constructor(w, h, bedrooms) {
-    super(w,h)
-    this.bedrooms = bedrooms;
-  }
-
-  sleeps() {
-    return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
-  }
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="using">Using</h2>
-<p><img src=media/instance.png></p>
+</code></pre><!-- TODO weak maps/sets -->
 </section>
 
 <section data-state='title' class=" title"><h2 id="async">Async</h2>
@@ -1492,160 +1503,766 @@ var usersWithAccounts = Promise.all(users)
 </ul>
 </section>
 
-<section data-state='title' class=" title"><h2 id="testing">Testing</h2>
+<section data-state='title' class=" title"><h2 id="generators">Generators</h2>
 </section>
 
-<section  class=""><h2 id="js-is-easy-to-test">JS is easy to test</h2>
+<section  class=""><h2 id="why-">Why?</h2>
 </section>
 
-<section  class=""><h2 id="if-you-kiss">If you KISS</h2>
-<pre><code class="lang-javascript">&#39;generateResetToken&#39;: function (req, res) {
-    var email = req.body.email;
-    api.users.generateResetToken(email).then(
-      api._sendMessage.bind(null,config,email)
-    ).then(
-      api._notifySuccess(res,{
-        type: &#39;success&#39;,
-        message: &#39;Check your email for further instructions&#39;,
-        status: &#39;passive&#39;,
-        id: &#39;successresetpw&#39;
-      })
-      , api._handleFailure
-    );
-},
-</code></pre>
-</section>
-
-<section  class=""><h2 id="unit-tests-need-units">Unit tests need units</h2>
-</section>
-
-<section  class=""><h2 id="code-can-prevent-tests">Code can prevent tests</h2>
-</section>
-
-<section  class=""><h2 id="-test-zero-">&#39;Test zero&#39;</h2>
-<pre><code class="lang-sh"># no way to test monolithic jQuery (or node) apps!
-app.js | wc -l # 5372
-</code></pre>
-</section>
-
-<section  class=""><h2 id="isolate">Isolate</h2>
-</section>
-
-<section  class=""><h2 id="until-it-s-too-easy-">until it&#39;s &#39;too easy&#39;</h2>
-</section>
-
-<section data-state='title' class=" title"><h2 id="mocks-n-stubs">Mocks n stubs</h2>
-</section>
-
-<section  class=""><h2 id="both-fakes">Both fakes</h2>
-</section>
-
-<section  class=""><h2 id="roll-your-own-or-library-it-s-a-role">Roll your own, or library: it&#39;s a role</h2>
-</section>
-
-<section  class=""><h2 id="mocks-function-voyeurism">Mocks: function voyeurism</h2>
-<pre><code class="lang-javascript">it(&quot;should call&quot;, function(done) {
-  // Faking out $.get
-  $.get = function(url) {
-    assert.match(url, /users\/1/)
-    done();
-  } 
-
-  user.retrieve(1);
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="mocks-asserting-call-behaviour">Mocks: asserting call behaviour</h2>
-</section>
-
-<section  class=""><h2 id="stubs">Stubs</h2>
+<section  class=""><h2 id="custom-iterators">Custom iterators</h2>
 <ul>
-<li>replace dependencies of a unit</li>
+<li>potentially infinite</li>
+<li>over your own data-structures</li>
 </ul>
-<pre><code class="lang-javascript">function computeAnswer(cb) {
-  $.get(&quot;/answer&quot;,function(answer) {
-    cb(answer + 1);
-  });
+</section>
+
+<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
+<ul>
+<li>very powerful for creating flow control</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="iterators">Iterators</h2>
+<pre><code class="lang-javascript">// over arrays
+for(const v of values) {
+}
+for(const [index, v] of values.entries()) {
 }
 
-// STUB!
-$.get = function(url, cb) {
-  cb(42);
+// over maps
+for(const [k,v] of map.entries()) {
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="write-your-own-">Write your own!</h2>
+<pre><code class="lang-javascript">function *objectProperties(object) {
+  const keys = Object.keys(object);
+  for(const key of keys) {
+    yield [key, object[key]];
+  }
 }
 
-computeAnswer(function(answer) {
-  assert.equals(result,43);
+for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
+  console.log(k, v);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="woah-">Woah!</h2>
+</section>
+
+<section  class=""><h2 id="baby-steps-">Baby steps: <code><em></code></h2>
+<pre><code class="lang-javascript">// the &#39;</em>&#39; means we&#39;re a generator function
+function *objectProperties(object) {
+  // ...
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="baby-steps-yield-">Baby steps: <code>yield</code></h2>
+<pre><code class="lang-javascript">function *abc() {
+  // yield returns a value to the caller (for ... of above)
+  yield &quot;a&quot;;
+  yield &quot;b&quot;;
+  yield &quot;c&quot;;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="two-gotchas">Two gotchas</h2>
+</section>
+
+<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
+<pre><code class="lang-javascript">
+logLast([1,2,3,4])
+
+function *logLast(xs) {
+  console.log(xs[xs.length - 1]);
+}
+</code></pre>
+<ul>
+  <li class='fragment'>Calling a generator function creates, not starts, a generator</li>
+  <li class='fragment'>It&#39;s only via iterating it we can start it</li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
+<ul>
+<li>Generator functions <em>return</em> a generator</li>
+<li>The function body is run only via iteration (manual or <code>for ... of</code>)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="gotcha-2">Gotcha 2</h2>
+<pre><code class="lang-javascript">
+for(const k in reverse([1,2,3,4])) {
+  // never gets here! why?
+  console.log(k);
+}
+
+function *reverse(xs) {
+  for(var i = xs.length; i--;) {
+    yield xs[i];
+  }
+}
+</code></pre>
+<ul>
+  <li class='fragment'>How are we looping over our generator?</li>
+  <li class='fragment'>Generator objects have only prototype properties! i.e <code>{}</code></li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="gotcha-2-only-for-of-in-will-not-work">Gotcha 2: Only <code>for ... of</code>, <code>in</code> will NOT work</h2>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<pre><code>Exercise 1
+
+exercises/generators
+</code></pre><!-- TODO generator API -->
+</section>
+
+<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
+</section>
+
+<section  class=""><h2 id="callbacks">Callbacks</h2>
+<pre><code class="lang-javascript">function cat(pathA, pathB, cb) {
+  fs.readFile(pathA, function(err, fileA) {
+    if(err) return cb(err);
+
+    fs.readFile(pathB, function(err, fileB) {
+      if(err) return cb(err);
+
+      combine(fileA, fileB, cb);
+    });
+  })
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="promises">Promises</h2>
+<pre><code class="lang-javascript">function cat(pathA, pathB) {
+  return Promise.all([
+    fs.readFileAsync(pathA),
+    fs.readFileAsync(pathB),
+  ]).then([fileA, fileB]) =&gt; {
+    return combine(fileA, fileB);<br>  });
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="but-can-we-do-better-">But... can we do better?</h2>
+</section>
+
+<section  class=""><h2 id="yes-">Yes!</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
+
+co(function *cat() {
+  const fileA = yield fs.readFileAsync(pathA);
+  const fileB = yield fs.readFileAsync(pathB);
+
+  return combine(fileA, fileB);
+})
+.then(function(combined) {
+  console.log(combined);
 });
 </code></pre>
 </section>
 
-<section  class=""><h2 id="mocks-are-tests-stubs-support-tests">Mocks are tests, stubs support tests</h2>
+<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
+<p><img src="media/yay.png" alt="yay"></p>
 </section>
 
-<section data-state='notitle' class=" notitle"><h2 id="diagram-of-mocks-stubs">Diagram of mocks/stubs</h2>
-<p><img src="media/mocks-stubs.png"></p>
+<section  class=""><h2 id="what-s-going-on-">What&#39;s going on?</h2>
 </section>
 
-<section  class=""><h2 id="javascript-testing-superpower">Javascript testing superpower</h2>
+<section  class=""><h2 id="promise-enabled">Promise enabled</h2>
 <ul>
-<li>remember <code>bind</code>?</li>
-<li><code>Function.prototype.call</code> can also affect <code>this</code></li>
+<li>when we <code>yield</code> a promise, co will call <code>.next</code> after the promise resolves</li>
 </ul>
 </section>
 
-<section  class=""><h2 id="avoid-tedious-setup">Avoid tedious setup</h2>
-<pre><code class="lang-javascript">function User(lots,of,deps) {
-  this.lots = lots;
-  // ...
-}
-User.prototype.getLots = function() {
-  // only uses one dependency
-  return this.lots + 1;
-}
+<section  class=""><h2 id="writing-methods">Writing methods</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
 
-it(&quot;has a way of accessing lots&quot;,function() {
-  var answer = User.prototype.getLots.call({lots: 42})
-  assert.equal(answer,43);
+const cat = co.wrap(function *cat(pathA, pathB) {
+  const readingA = fs.readFileAsync(pathA);
+
+  yield fs.readFileAsync(pathB);
+  const fileA = yield readingA;
+
+  return combine(fileA, fileB);
+});
+
+// files contain upper case words
+cat(&quot;./one&quot;, &quot;./two&quot;)
+.then(function(combined) {
+  // ONETWO
+  console.log(combined);
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="parallel">Parallel</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
+
+co(function *cat() {
+  // don&#39;t yield yet...
+  const readingA = fs.readFileAsync(pathA);
+
+  // ...until we&#39;ve started the other tasks
+  // to run in parallel
+  const fileB = yield fs.readFileAsync(pathB);
+  const fileA = yield readingA;
+
+  return combine(fileA, fileB);
 })
 </code></pre>
 </section>
 
-<section  class=""><h2 id="exercise">Exercise</h2>
-<pre><code>exercise/testing
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<p>  Exercise 3</p>
+<p>  exercise/generators</p>
+</section>
+
+<section data-state='title' class=" title"><h2 id="objects">Objects</h2>
+</section>
+
+<section  class=""><h2 id="confusion">Confusion</h2>
+</section>
+
+<section  class=""><h2 id="objects">Objects</h2>
+<pre><code class="lang-javascript">const a = { b: 1 }; // this is instance of &#39;Object&#39;
+</code></pre>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
+</section>
+
+<section  class=""><h2 id="oop">OOP</h2>
+<p>I mean Alan Kay objects! OOP</p>
+</section>
+
+<section  class=""><h2 id="oop-in-js">OOP in JS</h2>
+<ul>
+<li>ES6: <code>class</code></li>
+<li>ES5: prototypes</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="es6">ES6</h2>
+<pre><code class="lang-javascript">class Widget {
+  constructor({ model }) {
+    this._model = model;
+  }
+
+  render() {
+    return <code>&amp;lt;div&amp;gt;${ this._model.get(&amp;quot;name&amp;quot;) }&amp;lt;/div&amp;gt;</code>;
+  }
+}
+
+const instance = new Widget({
+  model: new Map(Object.entries({&quot;name&quot;: &quot;crockford&quot;})),
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
+<pre><code class="lang-javascript">class Widget {
+  // this is the function invoked when we call &#39;new Widget&#39;
+  constructor({ model }) {
+    // ... 
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
+<pre><code class="lang-javascript">class Widget {
+  // ...
+
+  // methods defined here will be callable on the instances
+  render() {
+
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-have-a-go">Let&#39;s have a go</h2>
+<!--
+
+TODO exercise
+
+- basic class syntax
+
+-->
+</section>
+
+<section  class=""><h2 id="okay-that-s-the-basics">Okay that&#39;s the basics</h2>
+</section>
+
+<section  class=""><h2 id="what-about">What about</h2>
+</section>
+
+<section  class=""><h2 id="privacy-">Privacy?</h2>
+</section>
+
+<section  class=""><h2 id="-">...</h2>
+</section>
+
+<section  class=""><h2 id="conventions">Conventions</h2>
+<!-- TODO add WeakMap idiom -->
+<pre><code class="lang-javascript">class Widget {
+
+  // clear it&#39;s private
+  _renderHelper() {
+    return `&lt;span class=&#39;name&#39;&gt;
+      ${ this._model.get(&quot;name&quot;) }
+    &lt;/span&gt;`;
+  }
+
+  render() {
+    return `&lt;div&gt;${ this._renderName() }&lt;/div&gt;`;
+  }
+}
+
+const instance = new Widget(/* ... */);
+
+instance.render();
+instance._renderHelper(); // no error
+</code></pre>
+</section>
+
+<section  class=""><h2 id="inheritence">Inheritence</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
+
+  constructor(members, default) {
+    super(members);
+    this._default = default;
+  }
+
+  get(key) {
+    if(!this.has(key)) {
+      this._default(key, this);<br>    }
+
+    return super.get(key);
+  }
+}
+
+const instance = new DefaultMap(Object.entries({ apples: 7 }), () =&gt; 0)
+
+instance.get(&quot;apples&quot;) // 7
+instance.get(&quot;pears&quot;) // 0
+</code></pre>
+</section>
+
+<section  class=""><h2 id="broken-down">Broken down</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
+
+  constructor(members, default) {
+    super(members);
+    this._default = default;
+  }
+
+  // ...
+}
+</code></pre>
+<pre><code class="lang-javascript">// this is the default constructor of a sub-class
+constructor(...args) {
+  super(...args)
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="calling-super-methods">Calling super methods</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
+  // ...
+
+  get(key) {
+    // ...
+
+    return super.get(key);
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<!-- TODO
+
+- exercise on inheritence, using DefaultMap example
+
+-->
+</section>
+
+<section  class=""><h2 id="properties-">Properties?</h2>
+<pre><code class="lang-javascript">class Widget {
+  something: [];
+}
+</code></pre>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
+</section>
+
+<section  class=""><h2 id="deliberate-ommission">Deliberate ommission</h2>
+</section>
+
+<section  class=""><h2 id="instead">Instead</h2>
+<pre><code class="lang-javascript">class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="why-">Why?</h2>
+</section>
+
+<section  class=""><h2 id="well-">Well...</h2>
+</section>
+
+<section  class=""><h2 id="how-do-js-objects-really-work-">How do JS objects really work?</h2>
+</section>
+
+<section  class=""><h2 id="prototypes-">Prototypes!</h2>
+</section>
+
+<section  class=""><h2 id="big-idea">Big idea</h2>
+</section>
+
+<section  class=""><h2 id="if-an-object-doesn-t-know-it-asks-its-prototype">If an object doesn&#39;t know, it asks its prototype</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/prototypes.png"></p>
+</section>
+
+<section  class=""><h2 id="lookup-algorithm">Lookup algorithm</h2>
+<pre><code class="lang-javascript">// always at run-time
+function getProperty(object, prop) {
+  if(object.hasOwnProperty(prop)) {
+    return object[prop];
+  } else {
+    if(object.__proto__) {
+      getProperty(object.__proto__, prop);
+    } else {
+      return undefined;
+    }
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="chain">Chain</h2>
+<p><img src="media/prototype-chain.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="creating-object-with-prototype">Creating object with prototype</h2>
+<pre><code class="lang-javascript">const sturcture = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
+
+const house = Object.create(structure);
+Object.assign(house, {
+  width: 5,
+  height: 10,
+});
+
+const shed = Object.create(structure);
+Object.assign(shed, {
+  width: 2,
+  height: 2,
+});
+
+house.squareArea() // 50
+shed.squareArea() // 4
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-this-on-invocation"><code>this</code> on invocation</h2>
+<pre><code class="lang-javascript">const sturcture = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
+
+const house = Object.create(structure);
+Object.assign(house, {
+  width: 5,
+  height: 10,
+});
+
+house.squareArea() // 50
+</code></pre>
+</section>
+
+<section  class=""><h2 id="magic-argument-this-">Magic argument <code>this</code></h2>
+<pre><code class="lang-javascript">// this = someObject
+someObject.someProperty();
+
+const someProperty = this.someObject;
+
+// this = enclosing this, likely global
+someProperty();
+</code></pre>
+</section>
+
+<section  class=""><h2 id="classic-bug">Classic bug</h2>
+<pre><code class="lang-javascript">var someObject = {
+  name: &quot;lil&#39; listeny&quot;,
+  listen: function(el) {
+    el.addEventListener(&quot;click&quot;, this.handle)
+  },
+  handle: function() {
+    console.log(this.name);
+  },
+};
+
+// what do we see console.log&#39;d?
+someObject.listen(button);
+button.click();
+</code></pre>
+</section>
+
+<section  class=""><h2 id="how-can-we-fix-">How can we fix?</h2>
+</section>
+
+<section  class=""><h2 id="-"><code>=&gt;</code></h2>
+<pre><code class="lang-javascript">var someObject = {
+  // ...
+  listen: function(el) {
+    // fat arrow has lexical this! i.e this of current scope
+    el.addEventListener(&quot;click&quot;, (e) =&gt; this.handle(e))
+  },
+  // ...
+};
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-fn-bind-thisvalue-"><code>fn.bind(thisValue)</code></h2>
+<pre><code class="lang-javascript">var someObject = {
+  // ...
+  listen: function(el) {
+    // .bind returns a new fn, as if bound to this via closure
+    el.addEventListener(&quot;click&quot;, this.handle.bind(this))
+  },
+  // ...
+};
+</code></pre>
+</section>
+
+<section  class=""><h2 id="writing-bind-">Writing <code>bind</code></h2>
+<pre><code class="lang-javascript">function bind(fn, thisValue) {
+  return function() {
+    return fn.apply(thisValue, arguments);
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<!-- TODO exercise
+
+- quick exercise on this variable context
+- using bind and () => to fix
+
+-->
+</section>
+
+<section data-state='title' class=" title"><h2 id="iterating-custom-data-structures">Iterating custom data structures</h2>
+</section>
+
+<section  class=""><h2 id="we-can-for-of-map-s-etc">We can <code>for .. of</code> <code>Map</code>s etc</h2>
+</section>
+
+<section  class=""><h2 id="what-about-our-own-data-structures-">What about our own data-structures?</h2>
+</section>
+
+<section  class=""><h2 id="yes-we-can-">Yes we can!</h2>
+<pre><code class="lang-javascript">for(const [value, left, right] of myTree) {
+  // pretty cooooool....
+}
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
+<p><img src="media/yay.png" alt="yay"></p>
+</section>
+
+<section  class=""><h2 id="how-">How?</h2>
+</section>
+
+<section  class=""><h2 id="an-api">An API</h2>
+</section>
+
+<section  class=""><h2 id="we-need-to-be-safe-here-">We need to be safe here...</h2>
+</section>
+
+<section  class=""><h2 id="avoid-name-clashes-with-any-existing-code">Avoid name clashes with <em>any</em> existing code</h2>
+</section>
+
+<section  class=""><h2 id="how-">How?</h2>
+</section>
+
+<section  class=""><h2 id="-symbol-s"><code>Symbol</code>s</h2>
+</section>
+
+<section  class=""><h2 id="symbols-opaque-unique-id-">Symbols = opaque, unique &#39;ID&#39;</h2>
+<pre><code class="lang-javascript">const s1 = Symbol(&quot;A&quot;);
+const s2 = Symbol(&quot;B&quot;);
+const s3 = Symbol(&quot;B&quot;);
+
+s2 === s3 // ?
+</code></pre>
+<ul>
+  <li class='fragment'>Are s2 and s3 the same?</li>
+  <li class='fragment'>Why not?</li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="prevents-clashes">Prevents clashes</h2>
+<ul>
+<li>e.g two libraries extend built-in Objects with methods</li>
+</ul>
+<pre><code class="lang-javascript">// like unix &#39;cat&#39; method
+Object.defineProperty(String.prototype, &quot;tac&quot;, {
+  value: function(...others) {
+    return others.slice().reverse().join(&quot;&quot;) + this;
+  }
+});
+
+console.log(&quot;hello&quot;.tac(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)) // 321hello
+</code></pre>
+</section>
+
+<section  class=""><h2 id="with-symbols">With symbols</h2>
+<pre><code class="lang-javascript">const tacOne = Symbol();
+const tacTwo = Symbol();
+
+Object.defineProperty(String.prototype, tacOne, {
+  value: function(...others) {
+    return others.slice().reverse().join(&quot;&quot;) + this;
+  }
+});
+
+Object.defineProperty(String.prototype, tacTwo, {
+  value: () =&gt; { throw Error(&quot;BROOOOKEN&quot;) }
+});
+
+console.log(&quot;hello&quot;<a href="&quot;1&quot;,&quot;2&quot;,&quot;3&quot;">tacOne</a>) // 321hello
+</code></pre>
+</section>
+
+<section  class=""><h2 id="used-a-lot-in-new-language-features">Used a lot in new language features</h2>
+<ul>
+<li>no risk of breaking old code via clashes</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="letting-you-define-object-iterators">Letting YOU define object iterators</h2>
+</section>
+
+<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
+<pre><code class="lang-javascript">function L(value, next) {
+  return { value, next };
+}
+
+const list = L(1, L(2, L(3)));
+
+const items = [];
+for(let node = list; node; node = node.next) {
+  items.push(node.value);
+}
+
+console.log(items); // [1, 2, 3]
+</code></pre>
+</section>
+
+<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
+<pre><code class="lang-javascript">// this is a bit faffy, and fragile
+for(let node = list; node; node = node.next) {
+  items.push(node.value);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="with-custom-iterators-">With custom iterators!</h2>
+<pre><code class="lang-javascript">// WOAH!!!
+for(const value of list) {
+  items.push(node.value);
+}
+</code></pre>
+<ul>
+<li>implementation detail hidden (<code>.next</code>, <code>.value</code>)</li>
+<li>generic - <code>list</code> could be replaced with <code>Array</code>, <code>Set</code></li>
+<li>no boilerplate</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="language-hook">Language hook</h2>
+<ul>
+<li>shared symbols are hooks for the newer features of ECMAScript</li>
+</ul>
+<pre><code class="lang-javascript">{ 
+  [Symbol.iterator]: function *() {
+    // yields each value in data-structure in turn
+  } 
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="defining">Defining</h2>
+<pre><code class="lang-javascript">function L(value, next) {
+  return { value, next, 
+    [Symbol.iterator]: iterateLinkedList };
+}
+
+function *iterateLinkedList() {
+  for(let node = list; node; node = node.next) {
+    yield node.value;
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="in-action-">In action!</h2>
+<pre><code class="lang-javascript">function L(value, next) {
+  return { value, next, 
+    [Symbol.iterator]: iterateLinkedList };
+}
+
+const list = L(1, L(2, L(3)));
+
+const items = [];
+for(const value of list) {
+  items.push(value);
+}
+
+console.log(items); // [1, 2, 3]
+
+function *iterateLinkedList() {
+  for(let node = list; node; node = node.next) {
+    yield node.value;
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="your-turn">Your turn</h2>
+<pre><code>Exercise 4
+
+exercises/generators
 </code></pre></section>
-
-<section data-state='title' class=" title"><h2 id="build-tools">Build tools</h2>
-</section>
-
-<section  class=""><h2 id="package-management">Package management</h2>
-<ul>
-<li><code>npm</code> - great for back/frontend</li>
-<li><code>jspm</code> - good future proofing</li>
-<li><code>bower</code> - probably had its day</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="modules">Modules</h2>
-<ul>
-<li><code>SystemJS</code> - ES6 style modules</li>
-<li><code>browserify</code> - builds CommonJS style modules</li>
-<li><code>webpack</code> - supports AMD/CommonJS (ES6 with plugins)</li>
-</ul>
-</section>
-
-<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
-</section>
-
-<section  class=""><h2 id="eslint">ESLint</h2>
-<pre><code class="lang-sh">eslint exercises/some-exercise/exercise.js
-</code></pre>
-</section>
-
-<section  class=""><h2 id="jscs">JSCS</h2>
-<pre><code class="lang-sh">jscs exercises/some-exercise/exercise.js
-</code></pre>
-</section>
 
 <section data-state='title' class=" title"><h2 id="developer-tools">Developer Tools</h2>
 </section>
@@ -1672,19 +2289,12 @@ it(&quot;has a way of accessing lots&quot;,function() {
 <section data-state='title' class=" title"><h2 id="wrap-">Wrap!</h2>
 </section>
 
-<section  class=""><h2 id="advanced-js">Advanced JS</h2>
-<ul>
-<li>Know the core, love functions</li>
-<li>Data-structures &gt; code</li>
-<li>Objects, the right way</li>
-<li>Bring backup with async</li>
-<li>Lean on tools!</li>
-</ul>
-</section>
-
 <section  class=""><h2 id="thanks-">Thanks!</h2>
-<p><a href="twitter.com/timruffles">@timruffles</a>
-<a href="twitter.com/sidekicksrc">@sidekicksrc</a></p>
+<p>For tips &amp; content, sign up to my mailing list:</p>
+<ul>
+<li><a href="http://truffles.me.uk/tips">truffles.me.uk/tips</a></li>
+<li><a href="https://www.twitter.com/timruffles">@timruffles</a></li>
+</ul>
 </section>
 
 </div>

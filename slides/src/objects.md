@@ -66,7 +66,13 @@ class Widget {
 
 ## Let's have a go
 
-TODO simple exericse
+<!--
+
+TODO exercise
+
+- basic class syntax
+
+-->
 
 ## Okay that's the basics
 
@@ -83,18 +89,19 @@ TODO simple exericse
 ```javascript
 class Widget {
 
-  // anyone can still call this, but you've made it clear it's
-  // private. Getting the biggest benefit of privacy: communication
+  // clear it's private
   _renderHelper() {
-    return `<span class='name'>${ this._model.get("name") }</span>`;
+    return \`<span class='name'>
+      ${ this._model.get("name") }
+    </span>\`;
   }
 
   render() {
-    return `<div>${ this._renderName() }</div>`;
+    return \`<div>${ this._renderName() }</div>\`;
   }
 }
 
-const instance = new Widget(/* ... */);
+const instance = new Widget(/\* ... \*/);
 
 instance.render();
 instance._renderHelper(); // no error
@@ -163,7 +170,11 @@ class DefaultMap extends Map {
 ## Let's try
 {exercise:true}
 
-TODO
+<!-- TODO
+
+- exercise on inheritence, using DefaultMap example
+
+-->
 
 ## Properties?
 
@@ -347,5 +358,10 @@ function bind(fn, thisValue) {
 ## Let's try!
 {exercise:true}
 
-TODO
+<!-- TODO exercise
+
+- quick exercise on this variable context
+- using bind and () => to fix
+
+-->
 

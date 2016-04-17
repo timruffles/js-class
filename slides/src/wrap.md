@@ -1,15 +1,9 @@
 ## Wrap!
 {title:1}
 
-## Advanced JS
-
-- Know the core, love functions
-- Data-structures > code
-- Objects, the right way
-- Bring backup with async
-- Lean on tools!
-
 ## Thanks!
 
-[@timruffles](twitter.com/timruffles)
-[@sidekicksrc](twitter.com/sidekicksrc)
+For tips & content, sign up to my mailing list:
+
+- [truffles.me.uk/tips](http://truffles.me.uk/tips)
+- [@timruffles](https://www.twitter.com/timruffles)

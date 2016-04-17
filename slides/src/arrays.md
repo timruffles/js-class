@@ -76,11 +76,14 @@ const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 primeMinisters.metaData = "hi";
 
 // for ... in will go over all properties of arrays
-const initials = [];
+var initials = [];
 for(let i in primeMinisters) {
-  initials[i] = primeMinisters[i][0];
+  initials.push( primeMinisters[i][0] );
 }
+
+// what does initials end up as?
 ```
+
 
 ## `for`
 
@@ -106,9 +109,11 @@ const initials = [];
 for(let pm of primeMinisters) {
   initials.push(pm[0]);
 }
+
+console.log(initials) // ["C","B","B","M"]
 ```
 
-## Rule: avoid `for ... in/of` on arrays
+## Rule: avoid `for ... in` on arrays
 {rule:1}
 
 ## `Array`-likes
@@ -124,7 +129,7 @@ const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 primeMinisters.filter((p) => p[0] === "B") // ["Brown","Blair"];
 
-primeMinisters.map((p) => p[0]) // [ 'B', 'B', 'M', 'C' ]
+primeMinisters.map((p) => p[0]) // [ "C", "B", "B", "M" ]
 
 primeMinisters.reduce((s, e) => s + ":" + e) // 'Cameron:Brown:Blair:Major'
 ```

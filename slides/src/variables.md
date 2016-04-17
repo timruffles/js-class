@@ -159,6 +159,11 @@ global; // node
 
 - destructuring
 
+<!-- TODO exercises/destructuring  
+1 on array
+1 on advanced - multi-layered
+-->
+
 
 
 

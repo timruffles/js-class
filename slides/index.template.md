@@ -2,24 +2,27 @@ intro
 
 core-javascript
 
-designing in js
+modules
 variables
 primitives
+
+build
+quality
+
 functions basic
-functions continued
+closures
 specifying behaviour
 
 arrays
 dicts
 
-objects
-
 async
 promises
 generators
 
-build
-quality
+objects
+generators-objects
+
 developer-tools
 
 wrap

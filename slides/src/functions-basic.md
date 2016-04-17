@@ -142,11 +142,9 @@ callMe("a");
 
     exercises/functions-core
 
-## Summary
-{summary:true}
+<!-- TODO
 
-- functions can take a range of arguments
-- default arguments should came last
-- ~3 args max; avoid plain boolean args, prefer keywords if possible
-- adopt conventions to create readability
-- destructuring in API and call side
+1. another exercise on different types of args: defaults, destructuring etc
+
+-->
+

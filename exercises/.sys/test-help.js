@@ -5,7 +5,7 @@ exports.importAndTest = function(path, runner) {
     var exported = require(path + (process.env.SPECIMIN ? "/.specimin" : "/exercise"));
   } catch(e) {
     failed = true; 
-    console.error(e);
+    console.error(e.stack);
   }
 
   if(failed) {
