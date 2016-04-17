@@ -10,7 +10,6 @@ script:
 - npm test
 - npm run lint:all
 - npm run style:all
-- npm run slides
 cache:
   directories:
   - $HOME/.npm
