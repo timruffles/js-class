@@ -1099,6 +1099,19 @@ describe(&quot;auto-focus component&quot;, function() {
 </code></pre>
 </section>
 
+<section  class=""><h2 id="also-tests-are-code">Also: tests are code</h2>
+</section>
+
+<section  class=""><h2 id="keep-it-dry">Keep it dry</h2>
+<pre><code class="lang-javascript">describe(&quot;auto-focus component&quot;, function() {
+  let widget;
+  beforeEach(function() {
+    // put our shared setup in here, save typing
+    widget = new Widget;
+  })<br>})
+</code></pre>
+</section>
+
 <section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
 <!-- TODO TDD loop image -->
 </section>
@@ -1107,12 +1120,89 @@ describe(&quot;auto-focus component&quot;, function() {
 </section>
 
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<!-- TODO get an easier test for start of TDD -->
+<pre><code>Exercise 1
+
+exercises/testing
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="hard-tests">Hard tests</h2>
 </section>
 
-<section  class=""><h2 id="asynchronous-tests">Asynchronous tests</h2>
-<!-- TODO bring in async test slides -->
+<section  class=""><h2 id="e-g">e.g</h2>
+<ul>
+<li>asynchronous</li>
+<li>random</li>
+<li>Date/time dependent</li>
+</ul>
 </section>
+
+<section  class=""><h2 id="isolate">Isolate</h2>
+</section>
+
+<section  class=""><h2 id="until-it-s-too-easy-">until it&#39;s &#39;too easy&#39;</h2>
+</section>
+
+<section data-state='title' class=" title"><h2 id="mocks-n-stubs">Mocks n stubs</h2>
+</section>
+
+<section  class=""><h2 id="both-fakes">Both fakes</h2>
+</section>
+
+<section  class=""><h2 id="roll-your-own-or-library">Roll your own, or library</h2>
+<ul>
+<li>sinon</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="mocks-function-voyeurism">Mocks: function voyeurism</h2>
+<pre><code class="lang-javascript">it(&quot;should call&quot;, function(done) {
+  // Faking out $.get
+  $.get = function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  } 
+
+  user.retrieve(1);
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="mocks-asserting-call-behaviour">Mocks: asserting call behaviour</h2>
+</section>
+
+<section  class=""><h2 id="stubs">Stubs</h2>
+<ul>
+<li>replace dependencies of a unit</li>
+</ul>
+<pre><code class="lang-javascript">function computeAnswer(cb) {
+  $.get(&quot;/answer&quot;,function(answer) {
+    cb(answer + 1);
+  });
+}
+
+// STUB!
+$.get = function(url, cb) {
+  cb(42);
+}
+
+computeAnswer(function(answer) {
+  assert.equals(result,43);
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="mocks-are-tests-stubs-support-tests">Mocks are tests, stubs support tests</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-of-mocks-stubs">Diagram of mocks/stubs</h2>
+<p><img src="media/mocks-stubs.png"></p>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>Exercise 2
+
+exercises/testing
+</code></pre></section>
 
 <section  class=""><h2 id="specifying-behavour">Specifying behavour</h2>
 <ul>

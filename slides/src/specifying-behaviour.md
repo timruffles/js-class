@@ -77,6 +77,22 @@ describe("auto-focus component", function() {
 })
 ```
 
+
+## Also: tests are code
+
+
+## Keep it dry
+
+```javascript
+describe("auto-focus component", function() {
+  let widget;
+  beforeEach(function() {
+    // put our shared setup in here, save typing
+    widget = new Widget;
+  })  
+})
+```
+
 ##   
 {notitle: true}
 
@@ -87,11 +103,81 @@ describe("auto-focus component", function() {
 ## Let's try
 {exercise:true}
 
-<!-- TODO get an easier test for start of TDD -->
+    Exercise 1
 
-## Asynchronous tests
+    exercises/testing
 
-<!-- TODO bring in async test slides -->
+## Hard tests
+{title: 1}
+
+## e.g
+
+- asynchronous
+- random
+- Date/time dependent
+
+## Isolate
+
+## until it's 'too easy'
+
+## Mocks n stubs
+{title:1}
+
+## Both fakes
+
+## Roll your own, or library
+
+- sinon
+
+## Mocks: function voyeurism
+
+```javascript
+it("should call", function(done) {
+  // Faking out $.get
+  $.get = function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  } 
+
+  user.retrieve(1);
+})
+```
+## Mocks: asserting call behaviour
+
+## Stubs
+
+- replace dependencies of a unit
+
+```javascript
+function computeAnswer(cb) {
+  $.get("/answer",function(answer) {
+    cb(answer + 1);
+  });
+}
+
+// STUB!
+$.get = function(url, cb) {
+  cb(42);
+}
+
+computeAnswer(function(answer) {
+  assert.equals(result,43);
+});
+```
+
+## Mocks are tests, stubs support tests
+
+## Diagram of mocks/stubs
+{notitle:1}
+
+<img src="media/mocks-stubs.png">
+
+## Let's try
+{exercise:true}
+
+    Exercise 2
+
+    exercises/testing
 
 
 ## Specifying behavour
