@@ -4,6 +4,7 @@ core-javascript
 
 modules
 variables
+destructuring
 primitives
 
 build
