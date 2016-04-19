@@ -1,125 +1,82 @@
-/**
- * Exercise 1
+/* TODO in the below scenarios, give the value
+ * of A returned from the function. e.g if you think
+ * scenarioOne returns "apple", then
  *
- * Export a function called 'objectEntries' that iterates over the keys and values of an object
+ *   ANSWERS.scenarioOne = "apple";
  *
- * It'll be used as follows:
+ * Think it through each time. Come up with a
+ * reasoned argument for 'A' being a certain
+ * value in terms of:
  *
- *    const object = { a: 1, b: 2, c: 3};
+ * - order of execution
+ * - function scope
+ * - block scope
  *
- *    for(const [k,v] of exports.objectEntries(object)) {
- *      console.log(k, v);
- *    }
+ * Just guessing until it works won't help you learn it!
  *
- * TODO make sure your design isn't affected by keys being added
- *      during iteration
- * TODO yield up key value pairs as arrays
+ * if you think the scenario returns nothing, or will
+ * throw an error, return nothing (null/undefined or no return)
+ *
+ * only modify code inside 'exports'
  */
 
+// config for exercises
+/* eslint no-unused-vars:0 no-unreachable:0 */
 
-/**
- * Exercise 2
- *
- * Create a helper that *accepts* generator functions to
- * make sequencing events much easier:
- *
- * It'll be used as follows:
- *
- *       const moveDistance = exported.events(someElement, function*() {
- *         const over = yield "mousedown";
- *         const out = yield "mouseup";
+const ANSWERS = {};
 
- *         return {
- *           dx: out.clientX - over.clientX,
- *           dy: out.clientY - over.clientY,
- *         };
- *       });
- *
- *       moveDistance.then(function({dx,dy}) {
- *         // should have values
- *       });
- *
- * You need to implement the `events` function to be used in this way. The
- * generator function you'll be passed will `yield` event strings as above.
- *
- *
- */
-export function events(emitter, makeGen) {
+function scenarioOne() {
 
-  return new Promise(function (resolve, reject) {
+  var robot = { name: 'Stone' };
+  var {name: A } = robot;
 
-    //  TODO create the generator (remember generator function vs generator distinction)
-    //  TODO get an initial event string
-    //  TODO listen, and resume once the event fires
-    //  TODO repeat the listen/resume process until the generator is done
-    //  TODO when the generator is done, return the final value
+  return A;
+}
 
-  });
+ANSWERS.scenarioOne = 'TODO';
+
+function scenarioTwo() {
+
+  var obj = { X: "ABC", Y: false};
+  var {X: A, Y: B} = obj;
+
+  return A;
 
 }
 
+ANSWERS.scenarioTwo = 'TODO';
 
-/**
- * Exercise 3
- *
- * Write a function that takes a variable
- * number of promises and is resolved
- * with an array containing their values or
- * the errors they were rejected with.
- *
- * It'll be used as follows:
- *
- *
- *     exported.settleAll(promise1, promise2)
- *     .then(function([valueOrError1, valueOrError2]) {
- *
- *     });
- *
- *
- */
+function scenarioThree() {
+  var [,,A] = func();
 
-// TODO import 'co' module
-// TODO Read up the documentation on `co.wrap()`.
-// TODO export your helper method, accepting a variable number of promise arguments
-// TODO rensure you wait for result of each promise
-// TODO handle any rejected promises
-// TODO return list of - rejection reasons or resolution values
-
-
-/**
- * Exercise 4
- *
- * Enable this Stack class below to be used as
- * an iterator.
- *
- * Like a physical stack of books, the easiest way to
- * get items out is from the top - this is called last-in, first-out
- * order (LIFO). We want to enable the stack to be iterated
- * in LIFO order, removing each item we iterate over
- *
- *
- */
-
-export class Stack {
-  constructor() {
-    this._values = [];
+  function func() {
+    return [1,2,3,4];
   }
+}
 
-  get size() {
-    return this._values.length;
+ANSWERS.scenarioThree = 'TODO';
+
+function scenarioFour() {
+  let A = sum({x: 1, y:2});
+
+  return A;
+
+  function sum({x, y, w = 10, h = 20}) {
+    return x + y + w + h;
   }
-
-  pop() {
-    return this._values.pop();
-  }
-
-  push(v) {
-    return this._values.push(v);
-  }
-
-  // TODO find out how to tell the interpreter this
-  //      object can be iterated (it's defining a method with a special name)
-  // TODO consider how the interation needs to occur
 
 }
 
+ANSWERS.scenarioFour = 'TODO';
+
+
+
+
+// ignore this :)
+
+export { ANSWERS };
+[scenarioOne,
+  scenarioTwo, scenarioThree, scenarioFour
+].forEach(function (s) {
+  exports[s.name] = s;
+});

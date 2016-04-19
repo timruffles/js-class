@@ -1,6 +1,6 @@
 var help = require("../.sys/test-help");
 
-describe("variables and scopes", function() {
+describe("destructuring", function() {
 
     help.importAndTest(__dirname, function(exported) {
        
