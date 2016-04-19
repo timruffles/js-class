@@ -25,16 +25,12 @@
 
 
 
-// TODO using prototypes, subclass BankAccount to create BankAccountWithOverdraftViaPt
-// (inheriting from BankAccount)
-// which allows balance to go below 0, but only
-// as low as the overdraft allows. The API is:
+// TODO using prototypes, define BankAccountWithOverdraftViaPt that
+// manually creates an object with BankAccount.prototype as its prototype,
+// and then overrides deposit on each instance, in the same way as BankAccountWithOverdraft
 //
-//   BankAccountWithOverdraftViaPt(balance: number, overdraft: number)
-//
-//   deposit(n)
-//
-//      will allow withdraws to -overdraft, then throws `OutOfFunds`
 
-// TODO create inheritance relation
+// TODO define standard function BankAccountWithOverdraft
+// TODO create an object with BankAccount.prototype as its prototype
+// TODO override deposit
 

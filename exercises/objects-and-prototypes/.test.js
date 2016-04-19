@@ -137,7 +137,7 @@ describe("", function() {
 
         it('shares functions with superclass', function() {
           const a = new BankAccountWithOverdraftViaPt(100)
-          const b = new exported.BankAccountWithThis(100)
+          const b = new BankAccount(100)
 
           assert.equal(a.balance, b.balance);
         })

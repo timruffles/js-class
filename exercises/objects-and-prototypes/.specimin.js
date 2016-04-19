@@ -64,9 +64,9 @@ export class BankAccountWithOverdraft extends BankAccount {
 //  
 //      will allow withdraws to -overdraft, then throws `OutOfFunds`
 export function BankAccountWithOverdraftViaPt(balance, overdraft) {
-  // TODO interesting - interop question
-  BankAccount.call(this, balance);
+  this._balance = balance;
   this._overdraft = overdraft;
+  return this;
 }
 
 BankAccountWithOverdraftViaPt.prototype = Object.create(BankAccount.prototype);
