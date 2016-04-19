@@ -3,7 +3,7 @@ import help from "../.sys/test-help";
 
 describe("showUserAction", function() {
 
-    this.timeout(50);
+    this.timeout(500);
 
     help.importAndTest(__dirname, function(exported) {
 
