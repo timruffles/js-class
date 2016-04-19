@@ -7,22 +7,24 @@ variables
 destructuring
 primitives
 
-build
 quality
+build
 
 functions basic
 closures
-specifying behaviour
 
 arrays
 dicts
 
 async
 promises
+
 generators
 
 objects
 generators-objects
+
+specifying behaviour
 
 developer-tools
 

@@ -669,6 +669,53 @@ if(x == null) {
 </ol>
 </section>
 
+<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
+<!-- TODO stinger - demonstration - for ESLint -->
+</section>
+
+<section  class=""><h2 id="eslint">ESLint</h2>
+</section>
+
+<section  class=""><h2 id="try-now">Try now</h2>
+<pre><code class="lang-sh">npm run lint:all
+
+# per exercise
+eslint exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="running-eslint">Running ESLint</h2>
+<ul>
+<li>Editor plugins</li>
+<li>CLI:</li>
+</ul>
+<pre><code class="lang-sh">npm install --global eslint@latest
+eslint path/to/js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="code-style">Code style</h2>
+</section>
+
+<section  class=""><h2 id="boring-to-debate-">Boring to debate!</h2>
+<!-- TODO stinger - demonstration - for ESLint -->
+</section>
+
+<section  class=""><h2 id="jscs">JSCS</h2>
+</section>
+
+<section  class=""><h2 id="try-now">Try now</h2>
+<pre><code class="lang-sh">npm run style:all
+
+# per exercise
+npm install --global jscs@latest
+jscs exercises/some-exercise/exercise.js
+
+// boredom removal
+jscs --fix exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
 <section data-state='title' class=" title"><h2 id="build-tools">Build tools</h2>
 </section>
 
@@ -751,53 +798,6 @@ function x(_ref) {
 <pre><code class="lang-sh">&gt; node -v
 5.5.0
 &gt; npm install --save babel-preset-node5
-</code></pre>
-</section>
-
-<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
-<!-- TODO stinger - demonstration - for ESLint -->
-</section>
-
-<section  class=""><h2 id="eslint">ESLint</h2>
-</section>
-
-<section  class=""><h2 id="try-now">Try now</h2>
-<pre><code class="lang-sh">npm run lint:all
-
-# per exercise
-eslint exercises/some-exercise/exercise.js
-</code></pre>
-</section>
-
-<section  class=""><h2 id="running-eslint">Running ESLint</h2>
-<ul>
-<li>Editor plugins</li>
-<li>CLI:</li>
-</ul>
-<pre><code class="lang-sh">npm install --global eslint@latest
-eslint path/to/js
-</code></pre>
-</section>
-
-<section  class=""><h2 id="code-style">Code style</h2>
-</section>
-
-<section  class=""><h2 id="boring-to-debate-">Boring to debate!</h2>
-<!-- TODO stinger - demonstration - for ESLint -->
-</section>
-
-<section  class=""><h2 id="jscs">JSCS</h2>
-</section>
-
-<section  class=""><h2 id="try-now">Try now</h2>
-<pre><code class="lang-sh">npm run style:all
-
-# per exercise
-npm install --global jscs@latest
-jscs exercises/some-exercise/exercise.js
-
-// boredom removal
-jscs --fix exercises/some-exercise/exercise.js
 </code></pre>
 </section>
 
@@ -1013,204 +1013,9 @@ for(var i = 0; i &lt; elements.length; i++) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="exercise">Exercise</h2>
+<section data-state='title' class=" title"><h2 id="exercise">Exercise</h2>
 <pre><code>exercise/closures
 </code></pre></section>
-
-<section  class=""><h2 id="tests">Tests</h2>
-</section>
-
-<section  class=""><h2 id="writing-good-software-takes-time">Writing good software takes time</h2>
-</section>
-
-<section  class=""><h2 id="js-is-loose">JS is loose</h2>
-</section>
-
-<section  class=""><h2 id="tests-dynamic-great-mix">Tests + dynamic: great mix</h2>
-</section>
-
-<section  class=""><h2 id="how-do-we-test-">How do we test?</h2>
-</section>
-
-<section  class=""><h2 id="how-do-we-test-">How do we <del>test</del>?</h2>
-</section>
-
-<section  class=""><h2 id="how-do-we-specify-behaviour-">How do we specify behaviour?</h2>
-</section>
-
-<section  class=""><h2 id="documentation-comes-free-">Documentation comes free!</h2>
-</section>
-
-<section  class=""><h2 id="1-describe-the-context">1. Describe the context</h2>
-<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
-
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="2-state-what-it-should-do">2. State what it should do</h2>
-<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
-
-  it(&quot;starts off with username field focussed&quot;);
-
-  it(&quot;warns if the password is too simple&quot;);
-
-  it(&quot;prevents sumission if invalid&quot;);
-
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="3-implement-assertions-to-ensure-behaviour">3. Implement assertions to ensure behaviour</h2>
-<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
-
-  it(&quot;starts off with username field focussed&quot;, function() {
-    const widget = new Widget();
-    widget.render();
-
-    const input = widget.el.find(&quot;[name=username&quot;);
-
-    assert.elementHasFocus(input);
-  });
-
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="4-when-tests-fail-you-write-code">4. When tests fail, you write code</h2>
-<pre><code class="lang-javascript">class Widget {
-  render() {
-    // implement
-  }
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="5-or-new-lower-level-tests">5. Or, new, lower-level tests</h2>
-<pre><code class="lang-javascript">// our higher level test may prompt this:
-
-//  it(&quot;starts off with username field focussed&quot;);
-
-describe(&quot;auto-focus component&quot;, function() {
-  it(&quot;focusses an input&quot;);
-
-  it(&quot;does not prevent focus leaving the input&quot;);
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="also-tests-are-code">Also: tests are code</h2>
-</section>
-
-<section  class=""><h2 id="keep-it-dry">Keep it dry</h2>
-<pre><code class="lang-javascript">describe(&quot;auto-focus component&quot;, function() {
-  let widget;
-  beforeEach(function() {
-    // put our shared setup in here, save typing
-    widget = new Widget;
-  })<br>})
-</code></pre>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
-<!-- TODO TDD loop image -->
-</section>
-
-<section  class=""><h2 id="tdd-loop">TDD loop</h2>
-</section>
-
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<pre><code>Exercise 1
-
-exercises/testing
-</code></pre></section>
-
-<section data-state='title' class=" title"><h2 id="hard-tests">Hard tests</h2>
-</section>
-
-<section  class=""><h2 id="e-g">e.g</h2>
-<ul>
-<li>asynchronous</li>
-<li>random</li>
-<li>Date/time dependent</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="isolate">Isolate</h2>
-</section>
-
-<section  class=""><h2 id="until-it-s-too-easy-">until it&#39;s &#39;too easy&#39;</h2>
-</section>
-
-<section data-state='title' class=" title"><h2 id="mocks-n-stubs">Mocks n stubs</h2>
-</section>
-
-<section  class=""><h2 id="both-fakes">Both fakes</h2>
-</section>
-
-<section  class=""><h2 id="roll-your-own-or-library">Roll your own, or library</h2>
-<ul>
-<li>sinon</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="mocks-function-voyeurism">Mocks: function voyeurism</h2>
-<pre><code class="lang-javascript">it(&quot;should call&quot;, function(done) {
-  // Faking out $.get
-  $.get = function(url) {
-    assert.match(url, /users\/1/)
-    done();
-  } 
-
-  user.retrieve(1);
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="mocks-asserting-call-behaviour">Mocks: asserting call behaviour</h2>
-</section>
-
-<section  class=""><h2 id="stubs">Stubs</h2>
-<ul>
-<li>replace dependencies of a unit</li>
-</ul>
-<pre><code class="lang-javascript">function computeAnswer(cb) {
-  $.get(&quot;/answer&quot;,function(answer) {
-    cb(answer + 1);
-  });
-}
-
-// STUB!
-$.get = function(url, cb) {
-  cb(42);
-}
-
-computeAnswer(function(answer) {
-  assert.equals(result,43);
-});
-</code></pre>
-</section>
-
-<section  class=""><h2 id="mocks-are-tests-stubs-support-tests">Mocks are tests, stubs support tests</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="diagram-of-mocks-stubs">Diagram of mocks/stubs</h2>
-<p><img src="media/mocks-stubs.png"></p>
-</section>
-
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<pre><code>Exercise 2
-
-exercises/testing
-</code></pre></section>
-
-<section  class=""><h2 id="specifying-behavour">Specifying behavour</h2>
-<ul>
-<li>write specifications as imperative english sentences</li>
-<li>keep one assertion per specification, using <code>before()</code></li>
-<li>factor out repetition: tests are code!</li>
-</ul>
-</section>
 
 <section data-state='title' class=" title"><h2 id="ordered-data-structures">Ordered data-structures</h2>
 </section>
@@ -1924,7 +1729,78 @@ function *reverse(xs) {
 <pre><code>Exercise 1
 
 exercises/generators
-</code></pre><!-- TODO generator API -->
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="generator-api">Generator API</h2>
+</section>
+
+<section data-state='title' class=" title"><h2 id="generators-are-an-interface">Generators are an interface</h2>
+<pre><code class="lang-javascript">const gen = someGeneratorFunction();
+
+console.log(typeof gen.next); // function
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-next-passtoyield-"><code>.next(passToYield)</code></h2>
+<ul>
+<li>resume generator, passing <code>yield</code> the value</li>
+<li>returns next yielded value</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">function* echo() {
+  let value;
+  while(true) {
+    value = yield value;
+  }
+}
+
+const g = echo();
+console.log(g.next(&quot;one&quot;))  // { done: false, value: undefined }
+console.log(g.next(&quot;two&quot;)) // { done: false, value: &quot;two&quot; }
+console.log(g.next(&quot;three&quot;)) // { done: false, value: &quot;three&quot; }
+
+// why...?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="writing-tools-dsls">Writing tools + DSLs</h2>
+<ul>
+<li>since we control flow control inside our generators</li>
+<li>we... can write anything! :)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="e-g-digger">e.g digger</h2>
+<pre><code class="lang-javascript">console.log(dig({ a: { b: &quot;here&quot; }}, ab)) // &quot;here&quot;
+console.log(dig({ z: { b: &quot;here&quot; }}, ab)) // undefined
+
+function *ab() {
+  yield &quot;a&quot;;
+  yield &quot;b&quot;;
+}
+
+function dig(object, create) {
+  const g = create();
+
+  while(object) {
+    let step = g.next();
+    if(step.done) {
+      break;
+    } else {
+      object = object[step.value];
+    }
+  }
+
+  return object;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<p>  Exercise 2</p>
+<p>  exercise/generators</p>
 </section>
 
 <section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
@@ -2652,7 +2528,219 @@ for(const v of list) console.log(v);
 <pre><code>Exercise 4
 
 exercises/generators
-</code></pre><!-- TODO check exercise 4 -->
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="tests">Tests</h2>
+</section>
+
+<section  class=""><h2 id="writing-good-software-takes-time">Writing good software takes time</h2>
+</section>
+
+<section  class=""><h2 id="js-is-loose">JS is loose</h2>
+</section>
+
+<section  class=""><h2 id="tests-dynamic-great-mix">Tests + dynamic: great mix</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-test-">How do we test?</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-test-">How do we <del>test</del>?</h2>
+</section>
+
+<section  class=""><h2 id="how-do-we-specify-behaviour-">How do we specify behaviour?</h2>
+</section>
+
+<section  class=""><h2 id="documentation-comes-free-">Documentation comes free!</h2>
+</section>
+
+<section  class=""><h2 id="1-describe-the-context">1. Describe the context</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="2-state-what-it-should-do">2. State what it should do</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+  it(&quot;starts off with username field focussed&quot;);
+
+  it(&quot;warns if the password is too simple&quot;);
+
+  it(&quot;prevents sumission if invalid&quot;);
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="3-implement-assertions-to-ensure-behaviour">3. Implement assertions to ensure behaviour</h2>
+<pre><code class="lang-javascript">describe(&quot;user login&quot;, function() {
+
+  it(&quot;starts off with username field focussed&quot;, function() {
+    const widget = new Widget();
+    widget.render();
+
+    const input = widget.el.find(&quot;[name=username&quot;);
+
+    assert.elementHasFocus(input);
+  });
+
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="4-when-tests-fail-you-write-code">4. When tests fail, you write code</h2>
+<pre><code class="lang-javascript">class Widget {
+  render() {
+    // implement
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="5-or-new-lower-level-tests">5. Or, new, lower-level tests</h2>
+<pre><code class="lang-javascript">// our higher level test may prompt this:
+
+//  it(&quot;starts off with username field focussed&quot;);
+
+describe(&quot;auto-focus component&quot;, function() {
+  it(&quot;focusses an input&quot;);
+
+  it(&quot;does not prevent focus leaving the input&quot;);
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="also-tests-are-code">Also: tests are code</h2>
+</section>
+
+<section  class=""><h2 id="keep-it-dry">Keep it dry</h2>
+<pre><code class="lang-javascript">describe(&quot;auto-focus component&quot;, function() {
+  let widget;
+  beforeEach(function() {
+    // put our shared setup in here, save typing
+    widget = new Widget();
+  });
+})
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<!-- TODO TDD loop image -->
+</section>
+
+<section  class=""><h2 id="tdd-loop">TDD loop</h2>
+<ul>
+<li>fail/red: a failing test</li>
+<li>code code code!</li>
+<li>pass/green: our code passes test</li>
+<li>(refactor/performance): with confidence</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>Exercise 1
+
+exercises/testing
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="hard-tests">Hard tests</h2>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<ul>
+<li>asynchronous</li>
+<li>random</li>
+<li>Date/time dependent</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="aside-async">Aside: async</h2>
+<pre><code class="lang-javascript">// callback based - mocha supports promises too
+it(&quot;should call&quot;, function(done) {
+  somethingAsync(function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  }) 
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="isolate">Isolate</h2>
+</section>
+
+<section  class=""><h2 id="until-it-s-too-easy-">until it&#39;s &#39;too easy&#39;</h2>
+</section>
+
+<section data-state='title' class=" title"><h2 id="mocks-n-stubs">Mocks n stubs</h2>
+</section>
+
+<section  class=""><h2 id="both-fakes">Both fakes</h2>
+</section>
+
+<section  class=""><h2 id="roll-your-own-or-library">Roll your own, or library</h2>
+<ul>
+<li>sinon</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="mocks-function-voyeurism">Mocks: function voyeurism</h2>
+<pre><code class="lang-javascript">it(&quot;should call&quot;, function(done) {
+  // Faking out $.get
+  $.get = function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  } 
+
+  user.retrieve(1);
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="mocks-asserting-call-behaviour">Mocks: asserting call behaviour</h2>
+</section>
+
+<section  class=""><h2 id="stubs">Stubs</h2>
+<ul>
+<li>replace dependencies of a unit</li>
+</ul>
+<pre><code class="lang-javascript">function computeAnswer(cb) {
+  $.get(&quot;/answer&quot;,function(answer) {
+    cb(answer + 1);
+  });
+}
+
+// STUB!
+$.get = function(url, cb) {
+  cb(42);
+}
+
+computeAnswer(function(answer) {
+  assert.equals(result,43);
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="mocks-are-tests-stubs-support-tests">Mocks are tests, stubs support tests</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="diagram-of-mocks-stubs">Diagram of mocks/stubs</h2>
+<p><img src="media/mocks-stubs.png"></p>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>Exercise 2
+
+exercises/testing
+</code></pre></section>
+
+<section  class=""><h2 id="specifying-behavour">Specifying behavour</h2>
+<ul>
+<li>write specifications as imperative english sentences</li>
+<li>keep one assertion per specification, using <code>before()</code></li>
+<li>factor out repetition: tests are code!</li>
+</ul>
 </section>
 
 <section data-state='title' class=" title"><h2 id="developer-tools">Developer Tools</h2>

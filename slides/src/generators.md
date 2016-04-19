@@ -119,7 +119,82 @@ function *reverse(xs) {
 
     exercises/generators
 
-<!-- TODO generator API -->
+## Generator API
+{title: true}
+
+## Generators are an interface
+{title:true}
+
+```javascript
+const gen = someGeneratorFunction();
+
+console.log(typeof gen.next); // function
+```
+
+## `.next(passToYield)`
+
+- resume generator, passing `yield` the value
+- returns next yielded value
+
+## e.g
+
+```javascript
+function* echo() {
+  let value;
+  while(true) {
+    value = yield value;
+  }
+}
+
+const g = echo();
+console.log(g.next("one"))  // { done: false, value: undefined }
+console.log(g.next("two")) // { done: false, value: "two" }
+console.log(g.next("three")) // { done: false, value: "three" }
+
+// why...?
+```
+
+## Writing tools + DSLs
+
+- since we control flow control inside our generators
+- we... can write anything! :)
+
+## e.g digger
+
+```javascript
+console.log(dig({ a: { b: "here" }}, ab)) // "here"
+console.log(dig({ z: { b: "here" }}, ab)) // undefined
+
+function *ab() {
+  yield "a";
+  yield "b";
+}
+
+function dig(object, create) {
+  const g = create();
+
+  while(object) {
+    let step = g.next();
+    if(step.done) {
+      break;
+    } else {
+      object = object[step.value];
+    }
+  }
+
+  return object;
+}
+```
+
+
+## Let's try!
+{exercise:true}
+
+  Exercise 2
+
+  exercise/generators
+
+    
 
 
 ## Asynchronicity

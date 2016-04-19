@@ -165,6 +165,3 @@ for(const v of list) console.log(v);
     Exercise 4
 
     exercises/generators
-
-
-<!-- TODO check exercise 4 -->

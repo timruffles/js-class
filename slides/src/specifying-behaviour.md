@@ -1,4 +1,5 @@
 ## Tests
+{title:true}
 
 ## Writing good software takes time
 
@@ -88,17 +89,22 @@ describe("auto-focus component", function() {
   let widget;
   beforeEach(function() {
     // put our shared setup in here, save typing
-    widget = new Widget;
-  })  
+    widget = new Widget();
+  });
 })
 ```
 
-##   
+##  
 {notitle: true}
 
 <!-- TODO TDD loop image -->
 
 ## TDD loop
+
+- fail/red: a failing test
+- code code code!
+- pass/green: our code passes test
+- (refactor/performance): with confidence
 
 ## Let's try
 {exercise:true}
@@ -115,6 +121,18 @@ describe("auto-focus component", function() {
 - asynchronous
 - random
 - Date/time dependent
+
+## Aside: async
+
+```javascript
+// callback based - mocha supports promises too
+it("should call", function(done) {
+  somethingAsync(function(url) {
+    assert.match(url, /users\/1/)
+    done();
+  }) 
+})
+```
 
 ## Isolate
 
