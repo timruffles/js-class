@@ -8,9 +8,11 @@
 // bring along a treat too - that should be exported as 'treat'
 //
 
-var Hatter = "The Mad Hatter!!!";
+/* eslint no-unused-vars:0 */
 
-var hattersTreat = "darjeeling in a conch-shell";
+var Hatter = 'The Mad Hatter!!!';
+
+var hattersTreat = 'darjeeling in a conch-shell';
 
 
 /** only change code below here **/
