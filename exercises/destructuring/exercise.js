@@ -1,174 +1,125 @@
-/* TODO in the below scenarios, give the value
- * of A returned from the function. e.g if you think
- * scenarioOne returns "apple", then
+/**
+ * Exercise 1
  *
- *   ANSWERS.scenarioOne = "apple";
+ * Export a function called 'objectEntries' that iterates over the keys and values of an object
  *
- * Think it through each time. Come up with a
- * reasoned argument for 'A' being a certain
- * value in terms of:
+ * It'll be used as follows:
  *
- * - order of execution
- * - function scope
- * - block scope
+ *    const object = { a: 1, b: 2, c: 3};
  *
- * Just guessing until it works won't help you learn it!
+ *    for(const [k,v] of exports.objectEntries(object)) {
+ *      console.log(k, v);
+ *    }
  *
- * if you think the scenario returns nothing, or will
- * throw an error, return nothing (null/undefined or no return)
- *
- * only modify code inside 'exports'
+ * TODO make sure your design isn't affected by keys being added
+ *      during iteration
+ * TODO yield up key value pairs as arrays
  */
 
-// config for exercises
-/* eslint no-unused-vars:0 no-unreachable:0 */
 
-const ANSWERS = {};
+/**
+ * Exercise 2
+ *
+ * Create a helper that *accepts* generator functions to
+ * make sequencing events much easier:
+ *
+ * It'll be used as follows:
+ *
+ *       const moveDistance = exported.events(someElement, function*() {
+ *         const over = yield "mousedown";
+ *         const out = yield "mouseup";
 
-function scenarioOne() {
+ *         return {
+ *           dx: out.clientX - over.clientX,
+ *           dy: out.clientY - over.clientY,
+ *         };
+ *       });
+ *
+ *       moveDistance.then(function({dx,dy}) {
+ *         // should have values
+ *       });
+ *
+ * You need to implement the `events` function to be used in this way. The
+ * generator function you'll be passed will `yield` event strings as above.
+ *
+ *
+ */
+export function events(emitter, makeGen) {
 
-  var A = 'scenario';
-  inner();
+  return new Promise(function (resolve, reject) {
 
-  return A;
+    //  TODO create the generator (remember generator function vs generator distinction)
+    //  TODO get an initial event string
+    //  TODO listen, and resume once the event fires
+    //  TODO repeat the listen/resume process until the generator is done
+    //  TODO when the generator is done, return the final value
 
-  function inner() {
-    A = 'inner';
-  }
-}
-
-ANSWERS.scenarioOne = 'TODO';
-
-function scenarioTwo() {
-
-  var A = 'out';
-  inner();
-
-  return A;
-
-  function inner() {
-    var A = 'inner';
-  }
-
-}
-
-ANSWERS.scenarioTwo = 'TODO';
-
-function scenarioThree() {
-  var A = 'outer';
-
-  inner();
-
-  return A;
-
-  function inner() {
-    helper();
-
-    return;
-
-    function helper() {
-      A = 'helper';
-    }
-
-    A = 'inner';
-  }
+  });
 
 }
 
-ANSWERS.scenarioThree = 'TODO';
 
-function scenarioFour() {
-  const A = 'outer';
+/**
+ * Exercise 3
+ *
+ * Write a function that takes a variable
+ * number of promises and is resolved
+ * with an array containing their values or
+ * the errors they were rejected with.
+ *
+ * It'll be used as follows:
+ *
+ *
+ *     exported.settleAll(promise1, promise2)
+ *     .then(function([valueOrError1, valueOrError2]) {
+ *
+ *     });
+ *
+ *
+ */
 
-  {
-    let A = 'inner';
+// TODO import 'co' module
+// TODO Read up the documentation on `co.wrap()`.
+// TODO export your helper method, accepting a variable number of promise arguments
+// TODO rensure you wait for result of each promise
+// TODO handle any rejected promises
+// TODO return list of - rejection reasons or resolution values
+
+
+/**
+ * Exercise 4
+ *
+ * Enable this Stack class below to be used as
+ * an iterator.
+ *
+ * Like a physical stack of books, the easiest way to
+ * get items out is from the top - this is called last-in, first-out
+ * order (LIFO). We want to enable the stack to be iterated
+ * in LIFO order, removing each item we iterate over
+ *
+ *
+ */
+
+export class Stack {
+  constructor() {
+    this._values = [];
   }
 
-  return A;
+  get size() {
+    return this._values.length;
+  }
+
+  pop() {
+    return this._values.pop();
+  }
+
+  push(v) {
+    return this._values.push(v);
+  }
+
+  // TODO find out how to tell the interpreter this
+  //      object can be iterated (it's defining a method with a special name)
+  // TODO consider how the interation needs to occur
 
 }
 
-ANSWERS.scenarioFour = 'TODO';
-
-function scenarioFive() {
-  let A = 'outer';
-
-  {
-    let A = 'inner';
-    return A;
-  }
-
-  A = 'outer';
-  return A;
-}
-
-ANSWERS.scenarioFive = 'TODO';
-
-function scenarioSix() {
-  var A;
-  loop();
-
-  return A;
-
-  function loop() {
-    for (A = 0; A < 10; A++) {
-      A;
-    }
-  }
-}
-
-ANSWERS.scenarioSix = 'TODO';
-
-function scenarioSeven() {
-
-  let A;
-  let B = 5;
-
-  {
-    for (B = 0; B < 10; B++) {
-      inner();
-      if (B > 5) {
-        A = B;
-        return A;
-      }
-
-      inner();
-      A = B;
-    }
-
-    return A;
-  }
-
-  return A;
-
-  function inner(A, B) {
-    B = 100;
-    A = 'inner';
-  }
-}
-
-ANSWERS.scenarioSeven = 'TODO';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ignore this :)
-
-export { ANSWERS };
-[scenarioOne,
-  scenarioTwo, scenarioThree, scenarioFour,
-  scenarioFive, scenarioSix, scenarioSeven,
-].forEach(function (s) {
-  exports[s.name] = s;
-});
