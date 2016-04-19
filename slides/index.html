@@ -897,7 +897,30 @@ function required(name) {
 </code></pre>
 
 
+</section>
 
+<section  class=""><h2 id="named-parameters-defaults">Named parameters defaults</h2>
+<pre><code class="lang-javascript">function log({ n, base = 2 }) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+console.log(log({ n: 8 })) // 3
+log() // TypeError: Cannot match against &#39;undefined&#39; or &#39;null&#39;
+
+// How to fix?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="complete-named-parameters">Complete named parameters</h2>
+<pre><code class="lang-javascript">function log({ n, base = 2 } = {}) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+console.log(log({ n: 8 })) // 3
+log() // NaN
+</code></pre>
 </section>
 
 <section  class=""><h2 id="variable-length">Variable length</h2>
@@ -945,8 +968,7 @@ callMe(&quot;a&quot;);
 
 <section data-state='title' class=" title"><h2 id="exercise-">Exercise!</h2>
 <pre><code>exercises/functions-core
-</code></pre><!-- TODO 1. another exercise on different types of args: defaults, destructuring etc -->
-</section>
+</code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="closures">Closures</h2>
 </section>

@@ -1,16 +1,3 @@
-// TODO your job is to write a helpful method to create
-// a gramatical english list
-//
-//
-// It'll be used like this:
-//
-//   englishList(["one","two","three"]) // "one, two and three"
-//
-// @type englishList = (items: Array<string>) => string
-
-export function englishList(args) {
-  // TODO
-};
 
 // TODO implement the 'dig' function, that looks up
 // deeply nested properties. it should be 'safe' - if
@@ -21,9 +8,18 @@ export function englishList(args) {
 //    dig({ a: { b: "hi } }, "a") // { b: "hi" }
 //    dig({ a: { b: "hi } }, "z", "z") // undefined
 //
+// Try first with for of, then with a reduce
+//
 // @type dig = (object: Object, ...properties: Array<string>) => any
+//
+/* eslint no-unused-vars:0 */
 
-export function dig(/* TODO define params */) {
+export { dig };
+
+function dig(/* TODO define params */) {
   // TODO implement with for ... of etc
+}
+
+function digReduce(/* TODO define params */) {
   // TODO implement with a reduce
-};
+}

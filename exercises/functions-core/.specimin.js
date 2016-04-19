@@ -10,36 +10,34 @@ export function greeter(person, greeting = 'hi') {
   return `${greeting} ${person}`;
 };
 
+// TODO your job is to write a helpful method to create
+// a gramatical english list
+//
+//
+// It'll be used like this:
+//
+//   englishList(["one","two","three"], { oxford: false }) // "one, two and three"
+//
+// if oxford is true, put an additional comma before the and in lists of 3 + items
+//
+//   "one, two, and three"
+//
+// default oxford to false.
+//
+// @type englishList = (items: Array<string>, { oxford?: Boolean }) => string
 
-
-/**
- * define a sorting utility that takes the following
- * named options:
- *
- * - array - required
- * - reverse (default: false)
- * - inPlace (default: false)
- * - comparator (default: a - b)
- */
-
-export function sort({ array = required("must supply array"), reverse = false, inPlace = false, comparator =(a,b) => a-b }) {
-  // TODO use destructuring to extract all
-  //      options, and set defaults
-  // TODO use defaults to ensure comparator has a default
-  // TODO write a 'required(name)' helper function to ensure
-  //      the array is provided
-
-
-  // you shouldn't need to edit code below this line
-  if(!inPlace) {
-    array = array.slice();
+export function englishList(args, { oxford = false } = {}) {
+  const trailing = oxford ? "," : "";
+  switch(args.length) {
+    case 0: return "";
+    case 1: return args[0];
+    case 2: 
+      const [a,b] = args;
+      return `${a} and ${b}`;
+    default:
+      const [last, ...initial] = args.reverse();
+      return initial.reverse().join(", ") + trailing + " and " + last;
   }
+};
 
-  const orderFactor = reverse ? -1 : 1;
-  array.sort((a, b) => {
-    const result = comparator(a, b);
-    return result * orderFactor;
-  });
 
-  return array;
-}

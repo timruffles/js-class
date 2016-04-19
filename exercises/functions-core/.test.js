@@ -21,36 +21,41 @@ describe("functions-core", function() {
           
       })
 
-      describe('sort', function() {
+     
+       describe('englishList', function() {
+        var [s,t,u,v,w] = _.sampleSize(["pony","apple","snail","hedge-hog", "mushroom", "bear", "hippo", "pillow", "piano"], 5);
 
-        beforeEach(function() {
-          this.items = [1,1,1,1,1].map(help.rint);
-
-          // not supposed to be a nicely random short :)
-          this.items.sort((a,b) => Math.random() - 0.5)
-
-          this.sorted = this.items.slice().sort();
+        it("works with no input", function() {
+          match([], "");
         });
 
-        it('can work with defaults', function() {
-          assert.deepEqual(exported.sort({ array: this.items }), this.sorted);
+        it("works with 1 item", function() {
+          match([s], s);
         })
 
-        it('accepts named args', function() {
-          const sorted = exported.sort({ array: this.items, inPlace: false })
-          assert.notEqual(sorted, this.items, "didn't handle named arg");
+        it("works with 2 items", function() {
+          match([s,t], s + " and " + t);
         })
 
-        it('accepts function as named arg', function() {
-          const sorted = exported.sort({
-            array: this.items,
-            inPlace: false,
-            comparator: (a,b) => b - a
-          })
-          assert.deepEqual(sorted, this.items.reverse(), "comparator wasn't accepted");
-        })
+        it("works with 3 items", function() {
+          match([s,t,u], s + ", " + t + " and " + u);
+        });
 
-          
+        it("works with 5 items", function() {
+          match([s,t,u,v,w], [s,t,u,v].join(", ") + " and " + w);
+        });
+
+        it("can accept no options", function() {
+          exported.englishList([1,2,3], {})
+        });
+
+        it("works with oxford comma", function() {
+          assert.equal(exported.englishList([s,t, v], {oxford: true}) , `${s}, ${t}, and ${v}`);
+        });
+
+        function match(input, expected) {
+          assert.equal(exported.englishList(input, {}) , expected);
+        }
       })
 
 

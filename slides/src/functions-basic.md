@@ -104,6 +104,32 @@ function required(name) {
 </code></pre>
 
 
+## Named parameters defaults
+
+```javascript
+function log({ n, base = 2 }) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+console.log(log({ n: 8 })) // 3
+log() // TypeError: Cannot match against 'undefined' or 'null'
+
+// How to fix?
+```
+
+## Complete named parameters
+
+```javascript
+function log({ n, base = 2 } = {}) {
+  return Math.log(n) / Math.log(base);
+}
+
+
+console.log(log({ n: 8 })) // 3
+log() // NaN
+```
+
 
 ## Variable length
 
@@ -156,6 +182,4 @@ callMe("a");
 {title: 1}
 
     exercises/functions-core
-
-<!-- TODO 1. another exercise on different types of args: defaults, destructuring etc -->
 

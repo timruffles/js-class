@@ -12,34 +12,25 @@ export function greeter(/* TODO define parameters */) {
 };
 
 
-/**
- * define a sorting utility that takes the following
- * named options:
- *
- * - array - required
- * - reverse (default: false)
- * - inPlace (default: false)
- * - comparator (default: a - b)
- */
+// TODO your job is to write a helpful method to create
+// a gramatical english list
+//
+//
+// It'll be used like this:
+//
+//   englishList(["one","two","three"], { oxford: false }) // "one, two and three"
+//
+// if oxford is true, put an additional comma before the and
+//
+//   "one, two, and three"
+//
+// default oxford to false.
+//
+// @type englishList = (items: Array<string>, { oxford?: Boolean }) => string
+//
+// eslint no-unused-vars:0
 
-export function sort() {
-  // TODO use destructuring to extract all
-  //      options, and set defaults
-  // TODO use defaults to ensure comparator has a default
-  // TODO write a 'required(name)' helper function to ensure
-  //      the array is provided
-
-
-  // you shouldn't need to edit code below this line
-  if (!inPlace) {
-    array = array.slice();
-  }
-
-  const orderFactor = reverse ? -1 : 1;
-  array.sort((a, b) => {
-    const result = comparator(a, b);
-    return result * orderFactor;
-  });
-
-  return array;
-}
+export function englishList(/* params */) {
+  // TODO use destructuring to pull out values
+  // TODO use destructuring to define defaults
+};
