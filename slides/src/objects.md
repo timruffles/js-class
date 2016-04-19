@@ -219,6 +219,8 @@ class DefaultMap extends Map {
 ## Let's try
 {exercise:true}
 
+    Exercise 2
+
     exercises/objects-and-prototypes
 
 ## Properties?
@@ -308,7 +310,9 @@ console.log(B.letters) // ["a"]
   <li class=fragment>All instances share same prototype property!</li>
 </ul>
 
-## Creating object with prototype
+## Creating objects with prototype
+
+## 
 {notitle:1}
 
 ```javascript
@@ -333,6 +337,7 @@ Object.assign(shed, {
 house.squareArea() // 50
 shed.squareArea() // 4
 ```
+
 
 ## `this` on invocation
 {code:1}
@@ -424,22 +429,53 @@ function bind(fn, thisValue) {
 }
 ```
 
+## Via `new`
+{notitle:1}
+
+```javascript
+function Structure(width, height) {
+  this.width = width;
+  this.height = height;
+}
+
+Structure.prototype = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
+
+function House(w, h, bedrooms) {
+  Structure.call(this, w, h);
+  this.bedrooms = bedrooms;
+}
+
+House.prototype = new Structure;
+House.prototype.sleeps = function() {
+  return this.bedrooms.reduce((s,b) => s + b.sleeps, 0)
+};
+```
+
+## `.call(thisValue, ...args)`
+
+```javascript
+function House(w, h, bedrooms) {
+  Structure.call(this, w, h);
+  this.bedrooms = bedrooms;
+}
+
+
+function Structure(width, height) {
+  // our 'this' value when we call Structure.call above
+  // will be an object { __proto__: House.prototype }
+  this.width = width;
+}
+```
+
+
 ## Let's try!
 {exercise:true}
 
+    Exercise 3
+
     exercises/objects-and-prototypes
-
-<!-- TODO exercise
-
-- explain .call - in es6 mostly for invoking constructors
-- & .apply - useful es5 applications
-
--->
-
-<!-- TODO exercise
-
-- quick exercise on this variable context
-- using bind and () => to fix
-
--->
 

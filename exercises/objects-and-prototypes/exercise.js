@@ -1,3 +1,5 @@
+// Exercise 1
+
 // TODO write a BankAccount class that implements the following:
 //
 //   BankAccount(balance)
@@ -9,6 +11,7 @@
 //   .balance(n)
 //      returns balance
 
+// Exercise 2
 
 // TODO using class, sub-class BankAccount to create a BankAccountWithOverdraft
 // which allows balance to go below 0, but only
@@ -24,13 +27,15 @@
 
 
 
+// Exercise 3
 
 // TODO using prototypes, define BankAccountWithOverdraftViaPt that
 // manually creates an object with BankAccount.prototype as its prototype,
 // and then overrides deposit on each instance, in the same way as BankAccountWithOverdraft
 //
 
-// TODO define standard function BankAccountWithOverdraft
-// TODO create an object with BankAccount.prototype as its prototype
-// TODO override deposit
+// TODO define standard function BankAccountWithOverdraftViaPt
+// TODO ensure balance is set
+// TODO ensure BankAccountWithOverdraftViaPt.prototype is a BankAccount (prototypal inheritance)
+// TODO override deposit for our prototypal 'subclass'
 

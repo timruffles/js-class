@@ -2131,7 +2131,9 @@ constructor(...args) {
 </section>
 
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<pre><code>exercises/objects-and-prototypes
+<pre><code>Exercise 2
+
+exercises/objects-and-prototypes
 </code></pre></section>
 
 <section  class=""><h2 id="properties-">Properties?</h2>
@@ -2220,7 +2222,9 @@ console.log(B.letters) // [&quot;a&quot;]
 
 </section>
 
-<section data-state='notitle' class=" notitle"><h2 id="creating-object-with-prototype">Creating object with prototype</h2>
+<section  class=""><h2 id="creating-objects-with-prototype">Creating objects with prototype</h2>
+<p>## 
+{notitle:1}</p>
 <pre><code class="lang-javascript">const sturcture = {
   squareArea: function() {
     return this.width * this.height;
@@ -2325,21 +2329,50 @@ button.click();
 </code></pre>
 </section>
 
-<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<pre><code>exercises/objects-and-prototypes
-</code></pre><!-- TODO exercise
+<section data-state='notitle' class=" notitle"><h2 id="via-new-">Via <code>new</code></h2>
+<pre><code class="lang-javascript">function Structure(width, height) {
+  this.width = width;
+  this.height = height;
+}
 
-- explain .call - in es6 mostly for invoking constructors
-- & .apply - useful es5 applications
+Structure.prototype = {
+  squareArea: function() {
+    return this.width * this.height;
+  },
+};
 
--->
-<!-- TODO exercise
+function House(w, h, bedrooms) {
+  Structure.call(this, w, h);
+  this.bedrooms = bedrooms;
+}
 
-- quick exercise on this variable context
-- using bind and () => to fix
-
--->
+House.prototype = new Structure;
+House.prototype.sleeps = function() {
+  return this.bedrooms.reduce((s,b) =&gt; s + b.sleeps, 0)
+};
+</code></pre>
 </section>
+
+<section  class=""><h2 id="-call-thisvalue-args-"><code>.call(thisValue, ...args)</code></h2>
+<pre><code class="lang-javascript">function House(w, h, bedrooms) {
+  Structure.call(this, w, h);
+  this.bedrooms = bedrooms;
+}
+
+
+function Structure(width, height) {
+  // our &#39;this&#39; value when we call Structure.call above
+  // will be an object { <strong>proto</strong>: House.prototype }
+  this.width = width;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<pre><code>Exercise 3
+
+exercises/objects-and-prototypes
+</code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="iterating-custom-data-structures">Iterating custom data structures</h2>
 </section>
