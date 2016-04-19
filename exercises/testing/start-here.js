@@ -1,5 +1,17 @@
 // here is the function to test
-import { showUserAction } from "./exercise";
+import { userPresenter, showUserAction } from "./exercise";
+
+// TODO using our TDD fail, code, pass loop, drive out userPresenter():
+//
+// - takes a user and returns a string
+// - the returned string includes <span>
+// - the returned string includes the user's name
+// - throws an error if we don't pass something with a name
+//
+// remember: try to be strict with getting a failing test
+// before deciding what code to write
+
+
 
 describe("showUserAction", function() {
 
