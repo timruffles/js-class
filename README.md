@@ -24,3 +24,12 @@ Each exercise is a subfolder. You check your work by navigating to the folder in
 
 Some exercises have an `exercise.js` file. Some have a `start-here.js` file where we right tests - this is for learning about TDD (test-driven development).
 
+So, for instance, to run the first exercise:
+
+```sh
+cd path/where/you/downloaded/this/repo
+cd exercises/modules
+
+node verify.js
+```
+
