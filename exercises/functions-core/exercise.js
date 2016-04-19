@@ -20,14 +20,15 @@ export function greeter(/* TODO define parameters */) {
 //
 //   englishList(["one","two","three"], { oxford: false }) // "one, two and three"
 //
-// if oxford is true, put an additional comma before the and
+// if oxford is true, put an additional comma before the and in lists of 3 + items
 //
 //   "one, two, and three"
 //
 // default oxford to false.
 //
 // @type englishList = (items: Array<string>, { oxford?: Boolean }) => string
-//
+
+
 // eslint no-unused-vars:0
 
 export function englishList(/* params */) {
