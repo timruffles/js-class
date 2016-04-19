@@ -17,8 +17,10 @@ eslint exercises/some-exercise/exercise.js
 ## Running ESLint
 
 - Editor plugins
+- CLI:
 
 ```sh
+npm install --global eslint@latest
 eslint path/to/js
 ```
 
@@ -37,5 +39,9 @@ eslint path/to/js
 npm run style:all
 
 # per exercise
+npm install --global jscs@latest
 jscs exercises/some-exercise/exercise.js
+
+// boredom removal
+jscs --fix exercises/some-exercise/exercise.js
 ```

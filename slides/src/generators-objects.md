@@ -38,7 +38,7 @@ const s1 = Symbol("A");
 const s2 = Symbol("B");
 const s3 = Symbol("B");
 
-s2 === s3 // ?
+console.log(s2 === s3) // ?
 ```
 
 <ul>
@@ -51,7 +51,7 @@ s2 === s3 // ?
 - e.g two libraries extend built-in Objects with methods
 
 ```javascript
-// like unix 'cat' method
+// like unix 'tac' method
 Object.defineProperty(String.prototype, "tac", {
   value: function(...others) {
     return others.slice().reverse().join("") + this;
@@ -64,8 +64,8 @@ console.log("hello".tac("1","2","3")) // 321hello
 ## With symbols
 
 ```javascript
-const tacOne = Symbol();
-const tacTwo = Symbol();
+const tacOne = Symbol("tac");
+const tacTwo = Symbol("tac");
 
 Object.defineProperty(String.prototype, tacOne, {
   value: function(...others) {
@@ -107,6 +107,7 @@ console.log(items); // [1, 2, 3]
 
 ```javascript
 // this is a bit faffy, and fragile
+const items = [];
 for(let node = list; node; node = node.next) {
   items.push(node.value);
 }
@@ -115,6 +116,7 @@ for(let node = list; node; node = node.next) {
 ## With custom iterators!
 
 ```javascript
+const items = [];
 // WOAH!!!
 for(const value of list) {
   items.push(node.value);
@@ -133,7 +135,7 @@ for(const value of list) {
 
 ```javascript
 { 
-  [Symbol.iterator]: function *() {
+  *[Symbol.iterator]() {
     // yields each value in data-structure in turn
   } 
 }
@@ -151,31 +153,10 @@ function *iterateLinkedList() {
   for(let node = list; node; node = node.next) {
     yield node.value;
   }
-} 
-``` 
-
-## In action!
-
-```javascript
-function L(value, next) {
-  return { value, next, 
-    [Symbol.iterator]: iterateLinkedList };
 }
 
-const list = L(1, L(2, L(3)));
-
-const items = [];
-for(const value of list) {
-  items.push(value);
-}
-
-console.log(items); // [1, 2, 3]
-
-function *iterateLinkedList() {
-  for(let node = list; node; node = node.next) {
-    yield node.value;
-  }
-} 
+const list = L(1, L(2, L("banana")));
+for(const v of list) console.log(v);
 ``` 
 
 ## Your turn
@@ -185,3 +166,5 @@ function *iterateLinkedList() {
 
     exercises/generators
 
+
+<!-- TODO check exercise 4 -->

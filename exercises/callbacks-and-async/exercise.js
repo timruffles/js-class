@@ -1,32 +1,27 @@
 // TODO
 //
-//   write a method that implements
-//   sampling a query stream
+//   write a method that implements sampling a query stream
 //
-//   it should listen to 'n' queries, then
-//   report to cb with the following object:
-//
-//       {
-//         queries: [],
-//         cumulativeDuration: [],
-//       }
+//   it should listen to 'n' queries, then report its result
+//   to 'cb'
 //
 //   it should also disconnect from the 'query' events on queryStream
 //
 //   cumlative duration should be in the order the queries started,
 //
-//   e.g this scenario would result in the following result
+//   e.g this scenario:
 //
-//       NAME     START    END     DURATION     CUMLATIVE DURATION
-//       query 1: 0        50      50           50
-//       query 2: 5        10      5            55
-//       query 3: 10       60      50           105
+//       NAME     START    END     DURATION
+//       query 1: 0        50      50
+//       query 2: 5        10      5
+//       query 3: 10       60      50
 //
-//   the result:
+//   would give the following result. The query objects in the `queries`
+//   array, their durations in the `durations` array:
 //
 //       {
 //         queries: [q1,q2,q3]
-//         durations: [50, 5, 10],
+//         durations: [50, 5, 50],
 //       }
 //
 //   be careful - there's no guarantee the query which

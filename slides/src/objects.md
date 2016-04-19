@@ -65,14 +65,11 @@ class Widget {
 ```
 
 ## Let's have a go
+{exercise:true}
 
-<!--
+    Exercise 1
 
-TODO exercise
-
-- basic class syntax
-
--->
+    exericses/objects-and-prototypes
 
 ## Okay that's the basics
 
@@ -82,29 +79,80 @@ TODO exercise
 
 ## ...
 
-## Conventions
-
-<!-- TODO add WeakMap idiom -->
+## Consensual privacy
 
 ```javascript
 class Widget {
 
-  // clear it's private
+  render() {
+    return \`<div>${ this._renderName() }</div>\`;
+  }
+
+  // _ prefix to show it's private
   _renderHelper() {
     return \`<span class='name'>
       ${ this._model.get("name") }
     </span>\`;
   }
 
-  render() {
-    return \`<div>${ this._renderName() }</div>\`;
-  }
 }
 
 const instance = new Widget(/\* ... \*/);
 
 instance.render();
 instance._renderHelper(); // no error
+```
+
+## Stricter privacy
+
+```javascript
+const privates = new WeakMap;
+
+class Counter {
+  constructor() {
+    privates.set(this, { count: 0 })
+  }
+
+  get() {
+    return privates.get(this).count;
+  }
+
+  add() {
+    privates.get(this).count += 1;
+  }
+}
+
+const instance = new Counter(/\* ... \*/);
+
+instance.add();
+instance.add();
+console.log(instance.get()); // 2
+```
+
+## `WeakMap`?
+
+- *keys* are available to garbage collect (GC)
+- if only weak references remain, available for GC
+- keys must be non-primitives
+
+## `WeakMap` e.g
+
+```javascript
+const map = new Map;
+const weak = new WeakMap;
+
+const A = {};
+const B = {};
+const C = {};
+
+map.set(A, "");
+weak.set(B, "");
+
+weak.set(B, "");
+weak.set(C, "");
+
+global.map = map;
+global.weak = weak;
 ```
 
 ## Inheritence
@@ -126,7 +174,8 @@ class DefaultMap extends Map {
   }
 }
 
-const instance = new DefaultMap(Object.entries({ apples: 7 }), () => 0)
+const instance = new DefaultMap(Object.entries({ apples: 7 }), 
+  () => 0)
 
 instance.get("apples") // 7
 instance.get("pears") // 0
@@ -170,11 +219,7 @@ class DefaultMap extends Map {
 ## Let's try
 {exercise:true}
 
-<!-- TODO
-
-- exercise on inheritence, using DefaultMap example
-
--->
+    exercises/objects-and-prototypes
 
 ## Properties?
 
@@ -217,6 +262,12 @@ class Point {
 
 <img src="media/prototypes.png">
 
+<!-- TODO explain why on image - i.e that we're reducing repetition -->
+
+## Chain
+
+<img src="media/prototype-chain.png">
+
 ## Lookup algorithm
 {code:1}
 
@@ -235,9 +286,27 @@ function getProperty(object, prop) {
 }
 ```
 
-## Chain
 
-<img src="media/prototype-chain.png">
+## So... properties
+
+```javascript
+class Widget {
+}
+
+// I'm bored of initialising in constructor!
+Widget.prototype.letters = [];
+
+const A = new Widget;
+const B = new Widget;
+A.letters.push("a");
+
+console.log(B.letters) // ["a"]
+```
+
+<ul>
+  <li>What went wrong?</li>
+  <li class=fragment>All instances share same prototype property!</li>
+</ul>
 
 ## Creating object with prototype
 {notitle:1}
@@ -357,6 +426,15 @@ function bind(fn, thisValue) {
 
 ## Let's try!
 {exercise:true}
+
+    exercises/objects-and-prototypes
+
+<!-- TODO exercise
+
+- explain .call - in es6 mostly for invoking constructors
+- & .apply - useful es5 applications
+
+-->
 
 <!-- TODO exercise
 

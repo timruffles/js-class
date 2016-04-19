@@ -53,7 +53,7 @@ describe("user login", function() {
 })
 ```
 
-## 4. When tests fail, you are write code
+## 4. When tests fail, you write code
 
 ```javascript
 class Widget {
@@ -77,7 +77,8 @@ describe("auto-focus component", function() {
 })
 ```
 
-## 
+##   
+{notitle: true}
 
 <!-- TODO TDD loop image -->
 
@@ -86,8 +87,11 @@ describe("auto-focus component", function() {
 ## Let's try
 {exercise:true}
 
+<!-- TODO get an easier test for start of TDD -->
+
 ## Asynchronous tests
 
+<!-- TODO bring in async test slides -->
 
 
 ## Specifying behavour

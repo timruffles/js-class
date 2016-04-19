@@ -3,7 +3,7 @@
 
 <!-- TODO why do we care? -->
 
-## Objects, used as dictionaries
+## `Object` used as dictionary
 
 ```javascript
 const enToFr = {};
@@ -17,6 +17,8 @@ console.log(enToFr["hello"]);
 
 ```
 
+AKA hashmap, associative array, table.
+
 ## Keys are strings, values = any
 
 ```javascript
@@ -24,31 +26,31 @@ const dict = {};
 
 dict[10] = "ten";
 
-dict["10"] // "ten"
+console.log(dict["10"]); // "ten"
 
 // general rule: calls toString on non-strings
 const convertsToTen = {
   toString: () => "10"
 };
 
-dict[convertsToTen] // "ten"
+console.log(dict[convertsToTen]); // "ten"
 ```
 
-## Iterate
+## `for ... in`
 
 ```javascript
-for(const property of object) {
+for(const property in Object.values(object)) {
   const value = object[property];
-  console.log(`${property}: ${value}`);
+  console.log(\`${property}: ${value}\`);
 }
 ```
 
-## Both
+## `for ... of`
 
 ```javascript
 // objects not iterable by default, so...
 for(const [property, value] of Object.entries(object)) {
-  console.log(`${property}: ${value}`);
+  console.log(\`${property}: ${value}\`);
 }
 ```
 
@@ -57,9 +59,7 @@ for(const [property, value] of Object.entries(object)) {
 ```javascript
 // ES6
 function create(property, value) {
-  return {
-    ["id:" + property]: value,
-  }
+  return { ["id:" + property]: value };
 }
 
 // ES5
@@ -78,29 +78,13 @@ const dict = {};
 dict[1] = "hello";
 
 // how to count?
-dict.length // undefined
+console.log(dict.length); // undefined
 
-Object.keys(dict).length // costs O(N)
+console.log(Object.keys(dict).length); // slow for very large objects
 ```
 
-## `Map`: ES6 to rescue
 
-```javascript
-const m = new Map;
-
-const list = [1,2,3];
-
-m.set(list, "A");
-m.get(list); // A
-m.get([1,2,3]); // why?
-
-const m2 = new Map(Object.entries({
-  list: "hello",
-  boo: "another key",
-}));
-```
-
-## Non-object keys!
+## ES6 to the rescue!
 
 ```javascript
 const m = new Map;
@@ -115,11 +99,30 @@ m.set(b, "B");
 
 o = {[a]: "A", [b]: "B"}
 
-Object.keys(o).length // 1
-m.size // 2
+console.log(Object.keys(o).length); // 1
+console.log(m.size); // 2
 
 // ...why?
 ```
+
+## More `Map`
+
+```javascript
+const m = new Map;
+
+const list = [1,2,3];
+
+m.set(list, "A");
+console.log(m.get(list)); // A
+
+console.log(m.get([1,2,3])); // ...?
+
+const m2 = new Map(Object.entries({
+  list: "hello",
+  boo: "another key",
+}));
+```
+
 
 ## Maps: `for .. of`
 
@@ -153,21 +156,21 @@ m.forEach((v, k) => console.log(v, k))
 // ES6 only
 
 const s = new Set;
-s.add([1,2]);
-s.has([1,2]) // false
-
 
 s.add(1);
-s.has(1); // true
+console.log(s.has(1)); // ...?
 
-s.size // 2
-s.add(1);
-s.add(1);
-s.size // 2
+console.log(s.size); // ...?
+s.add(1); s.add(1); s.add(1);
+console.log(s.size); // ...?
+
+const A = [1,2];
+s.add(A);
+
+console.log(s.has(A)); // ...?
+console.log(s.has([1,2])); // ...?
 ```
 
 ## Exercise
 
     exercises/maps-objects-sets
-
-<!-- TODO weak maps/sets -->

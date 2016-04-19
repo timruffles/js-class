@@ -21,6 +21,38 @@ describe("functions-core", function() {
           
       })
 
+      describe('sort', function() {
+
+        beforeEach(function() {
+          this.items = [1,1,1,1,1].map(help.rint);
+
+          // not supposed to be a nicely random short :)
+          this.items.sort((a,b) => Math.random() - 0.5)
+
+          this.sorted = this.items.slice().sort();
+        });
+
+        it('can work with defaults', function() {
+          assert.deepEqual(exported.sort({ array: this.items }), this.sorted);
+        })
+
+        it('accepts named args', function() {
+          const sorted = exported.sort({ array: this.items, inPlace: false })
+          assert.notEqual(sorted, this.items, "didn't handle named arg");
+        })
+
+        it('accepts function as named arg', function() {
+          const sorted = exported.sort({
+            array: this.items,
+            inPlace: false,
+            comparator: (a,b) => b - a
+          })
+          assert.deepEqual(sorted, this.items.reverse(), "comparator wasn't accepted");
+        })
+
+          
+      })
+
 
     });
 

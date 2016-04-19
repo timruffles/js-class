@@ -12,13 +12,34 @@ export function greeter(/* TODO define parameters */) {
 };
 
 
-// return a function that will:
-//
-// TODO - calls fn with arguments the returned function is provided
-// TODO - report to logger with the count of calls, and the arguments
-//
-// @type exports.spy = (fn: Function, logger: Function, count? : number) => Function
-export function spy(fn, logger) {
-  // TODO
-};
+/**
+ * define a sorting utility that takes the following
+ * named options:
+ *
+ * - array - required
+ * - reverse (default: false)
+ * - inPlace (default: false)
+ * - comparator (default: a - b)
+ */
 
+export function sort() {
+  // TODO use destructuring to extract all
+  //      options, and set defaults
+  // TODO use defaults to ensure comparator has a default
+  // TODO write a 'required(name)' helper function to ensure
+  //      the array is provided
+
+
+  // you shouldn't need to edit code below this line
+  if (!inPlace) {
+    array = array.slice();
+  }
+
+  const orderFactor = reverse ? -1 : 1;
+  array.sort((a, b) => {
+    const result = comparator(a, b);
+    return result * orderFactor;
+  });
+
+  return array;
+}

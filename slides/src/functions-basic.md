@@ -30,7 +30,10 @@ var add = function(a, b) {
 // note: lack of \`return\`
 var add = (a, b) => a + b;
 
-// note: multiple expressions requires {} and \`return\`
+// no ( ) for single arg
+var id = object => object.id;
+
+// note: multiple statements requires {} and \`return\`
 var twoStep = (a, b) => { console.log(a); return b }
 
 // returning just an object requires you provide brackets:
@@ -75,7 +78,7 @@ function required(name) {
 }
 ```
 
-## Named parameters
+## Named parameters via destructuring
 
 ```javascript
 function log({ n, base }) {
@@ -154,9 +157,5 @@ callMe("a");
 
     exercises/functions-core
 
-<!-- TODO
-
-1. another exercise on different types of args: defaults, destructuring etc
-
--->
+<!-- TODO 1. another exercise on different types of args: defaults, destructuring etc -->
 

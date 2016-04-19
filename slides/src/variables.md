@@ -153,17 +153,6 @@ global; // node
 ## Exercise!
 {exercise:1}
 
-    exercises/variables
-
-<!--
-TODO slides/destructuring
--->
-
-<!-- TODO exercises/destructuring  
-1 on array
-1 on advanced - multi-layered
--->
-
-
+    exercises/variables-and-scopes
 
 

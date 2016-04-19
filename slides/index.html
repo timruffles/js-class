@@ -144,65 +144,95 @@ node verify
 </section>
 
 <section  class=""><h2 id="simplest">Simplest</h2>
-<pre><code class="lang-javascript">// A.js
-export var hello = &quot;hi&quot;;
+<pre><code class="lang-javascript">// greetings.en.js
+export var informal = &quot;hi&quot;;
 </code></pre>
-<pre><code class="lang-javascript">// B.js
-import { hello } from &quot;./A&quot;;
+<pre><code class="lang-javascript">// run.js
+import { informal } from &quot;./greetings.en&quot;;
 
-console.log(&quot;A says &quot; + hello);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="more-useful">More useful</h2>
-<pre><code class="lang-javascript">export function hi(name) {
-  console.log(&quot;hi &quot; + name);
-}
-</code></pre>
-<pre><code class="lang-javascript">// B.js
-import { hi } from &quot;./A&quot;;
-
-hi(&quot;amy&quot;); // prints &#39;hi amy&#39;
+console.log(informal + &quot; amy&quot;) // hi amy
 </code></pre>
 </section>
 
 <section  class=""><h2 id="default-export">Default export</h2>
-<pre><code class="lang-javascript">// hi.js
-export default function(name) {
-  console.log(&quot;hi &quot; + name);
-}
+<pre><code class="lang-javascript">// greetings.es.js
+export default &quot;hola&quot;;
 </code></pre>
-<pre><code class="lang-javascript">// B.js
-import hi from &quot;./hi&quot;;
+<pre><code class="lang-javascript">// greetings.es.js
+var greeting = &quot;hola&quot;;
+export default greeting;
+</code></pre>
+<pre><code class="lang-javascript">// greetings.es.js
+var greeting = &quot;hola&quot;;
+export { greeting as default };
+</code></pre>
+<pre><code class="lang-javascript">// run.js
+import defaultSpanish from &quot;./greetings.es&quot;;
 
-hi(&quot;amy&quot;); // prints &#39;hi amy&#39;
+console.log(defaultSpanish + &quot; amy&quot;); // prints &#39;hola amy&#39;
 </code></pre>
+</section>
+
+<section  class=""><h2 id="named-exports-and-renaming">Named exports, and renaming</h2>
+<pre><code class="lang-javascript">var cake = &quot;sponge&quot;;
+var tea = &quot;darjeeling&quot;;
+
+
+export { tea, cake as treat };
+</code></pre>
+</section>
+
+<section  class=""><h2 id="import-default-and-renaming">Import default, and renaming</h2>
+<pre><code class="lang-javascript">import { tea as drink, treat } from &quot;./teaParty&quot;;
+</code></pre>
+<pre><code class="lang-javascript">import { default as host } from &quot;./teaParty&quot;;
+</code></pre>
+<pre><code class="lang-javascript">// default + values
+import party, { tea, treat } from &quot;./teaParty&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="import-as-object">Import as object</h2>
+<pre><code class="lang-javascript">import * as party from &quot;./teaParty&quot;;
+
+var cake = party.cake;
+
+export { party as default, cake as treat };
+</code></pre>
+</section>
+
+<section  class=""><h2 id="don-t-worry">Don&#39;t worry</h2>
+<ul>
+<li>just learn a few - you are only saving a couple of keystrokes</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="let-s-have-a-go-">Let&#39;s have a go!</h2>
-<!-- TODO exercises/modules -->
-</section>
+<pre><code>exercises/modules;
+</code></pre></section>
 
 <section  class=""><h2 id="commonjs">CommonJS</h2>
 <p>Node&#39;s module system</p>
 </section>
 
 <section  class=""><h2 id="very-comparable-syntax">Very comparable syntax</h2>
-<pre><code class="lang-javascript">
-var aModule = require(&quot;./some/other/module&quot;);
+</section>
 
-var fs = require(&quot;fs&quot;);
-var anNpmModule = require(&quot;from-npm&quot;);
-
-// export function mainMethod() {}
+<section  class=""><h2 id="export">Export</h2>
+<pre><code class="lang-javascript">// export { mainMethod as default }
 module.exports = exports = mainMethod;
 
 // export function someFunction() {}
 exports.someFunction = function() {}
 
-
 function mainMethod() {
 }
+</code></pre>
+</section>
+
+<section  class=""><h2 id="import">Import</h2>
+<pre><code class="lang-javascript">// relative or absolute path
+var myModule = require(&quot;./my/module&quot;);
 </code></pre>
 </section>
 
@@ -211,15 +241,23 @@ function mainMethod() {
 // this is from core library
 var fs = require(&quot;fs&quot;);
 
-// this is looked up from node_modules folders in current, and parent
-// directories
+// this is looked up from node_modules folders in current,
+// and parent directories
 var anNpmModule = require(&quot;from-npm&quot;);
 </code></pre>
 </section>
 
-<section  class=""><h2 id="import">import</h2>
-<pre><code class="lang-javascript">// relative or absolute path
-var myModule = require(&quot;./my/module&quot;);
+<section  class=""><h2 id="import">Import</h2>
+<pre><code class="lang-javascript">
+// what&#39;s this?
+var aModule = require(&quot;./some/other/module&quot;);
+
+// third party?
+var fs = require(&quot;fs&quot;);
+var readFile = fs.readFile;
+
+// third party?
+var someModule = require(&quot;lodash&quot;);
 </code></pre>
 </section>
 
@@ -249,16 +287,11 @@ module.exports = function Main() {
   </li>
 </ul>
 
-<!-- TODO exercises/commonjs -->
 </section>
 
-<section  class=""><h2 id="todo">TODO</h2>
-<ol>
-<li>renaming</li>
-<li>destructuring</li>
-<li>more on export?</li>
-</ol>
-</section>
+<section  class=""><h2 id="let-s-have-a-go-">Let&#39;s have a go!</h2>
+<pre><code>exercises/commonjs
+</code></pre></section>
 
 <section  class=""><h2 id="summary-modules">Summary: modules</h2>
 <ul>
@@ -413,15 +446,89 @@ global; // node
 </section>
 
 <section  class=""><h2 id="exercise-">Exercise!</h2>
-<pre><code>exercises/variables
-</code></pre><!--
-TODO slides/destructuring
--->
-<!-- TODO exercises/destructuring  
-1 on array
-1 on advanced - multi-layered
--->
+<pre><code>exercises/variables-and-scopes
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="destructuring">Destructuring</h2>
 </section>
+
+<section  class=""><h2 id="pulling-variables-from-composite-values">Pulling variables from composite values</h2>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">const [breakfast, lunch, ...more]
+  = [&quot;eggs&quot;, &quot;falafel&quot;, &quot;high tea&quot;, &quot;a feast!&quot;, &quot;hot chocolate&quot;];
+
+console.log(more) // [&quot;high tea&quot;, &quot;a feast!&quot;, &quot;hot chocolate&quot;];
+</code></pre>
+</section>
+
+<section  class=""><h2 id="structure">Structure</h2>
+<pre><code class="lang-sh">PATTERN = VALUE TO DESTRUCTURE
+</code></pre>
+</section>
+
+<section  class=""><h2 id="objects">Objects</h2>
+<pre><code class="lang-javascript">const guest = { name: &quot;Hare&quot;, treat: &quot;chocolate eggs&quot; };
+const { name, treat } = guest;
+
+console.log(name) // Hare
+</code></pre>
+</section>
+
+<section  class=""><h2 id="renaming">Renaming</h2>
+<pre><code class="lang-javascript">const guest = { name: &quot;Hare&quot;, treat: &quot;chocolate eggs&quot; };
+const { name: guestName, treat } = guest;
+
+console.log(guestName) // Hare
+</code></pre>
+</section>
+
+<section  class=""><h2 id="objects-continued">Objects continued</h2>
+<pre><code class="lang-javascript">const guest = { name: &quot;Hare&quot;, treat: &quot;chocolate eggs&quot; };
+
+let name, treat;
+
+// syntax issue: can&#39;t have a naked {} on left hand
+({ name, treat } = guest);
+
+console.log(name, mood) // Hare, Jumpy
+</code></pre>
+</section>
+
+<section  class=""><h2 id="failing">Failing</h2>
+<pre><code class="lang-javascript">const notGuest = 1;
+const { name, treat } = notGuest;
+
+console.log(name, treat) // undefined, undefined
+</code></pre>
+</section>
+
+<section  class=""><h2 id="defaults">Defaults</h2>
+<pre><code class="lang-javascript">const guest = { name: &quot;Hare&quot;, treat: &quot;chocolate eggs&quot; };
+const { name, treat, mood = &quot;jumpy&quot; } = guest;
+
+console.log(name, mood) // Hare, Jumpy
+
+const [ firstGuest = &quot;cheshire cat&quot; ] = [];
+</code></pre>
+</section>
+
+<section  class=""><h2 id="recursive">Recursive</h2>
+<pre><code class="lang-javascript">const guest = {
+  name: &quot;Hare&quot;,
+  treats: [&quot;chocolate eggs&quot;, &quot;toast&quot;, &quot;rich tea biscuits&quot;],
+
+};
+const { name, treats: [best, ...rest], mood = &quot;jumpy&quot; } = guest;
+
+console.log(name, rest) // Hare, [&quot;toast&quot;, &quot;rich tea biscuits&quot;]
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>exercises/destructuring
+</code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="primitives">Primitives</h2>
 </section>
@@ -517,7 +624,8 @@ var y = null;
 <section  class=""><h2 id="comparison">Comparison</h2>
 </section>
 
-<section  class=""><h2 id="yes-has-issues">Yes <code>==</code> has issues</h2>
+<section  class=""><h2 id="-has-issues"><code>==</code> has issues</h2>
+<!-- TODO image -->
 </section>
 
 <section  class=""><h2 id="rule-always-use-">Rule: always use <code>===</code></h2>
@@ -551,6 +659,13 @@ if(x == null) {
 <li><p>Special cases: <code>NaN !== NaN</code></p>
 </li>
 <li>Objects (non primitives): compares by identity, not value</li>
+</ol>
+</section>
+
+<section  class=""><h2 id="-"><code>==</code></h2>
+<ol>
+<li>Objects (non primitives): compares by identity, not value</li>
+<li>Beyond that, very complex. Just use for <code>null</code> or <code>undefined</code></li>
 </ol>
 </section>
 
@@ -639,10 +754,6 @@ function x(_ref) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="frontend">Frontend</h2>
-<!-- TODO image -->
-</section>
-
 <section data-state='title' class=" title"><h2 id="quality">Quality</h2>
 <!-- TODO stinger - demonstration - for ESLint -->
 </section>
@@ -661,8 +772,10 @@ eslint exercises/some-exercise/exercise.js
 <section  class=""><h2 id="running-eslint">Running ESLint</h2>
 <ul>
 <li>Editor plugins</li>
+<li>CLI:</li>
 </ul>
-<pre><code class="lang-sh">eslint path/to/js
+<pre><code class="lang-sh">npm install --global eslint@latest
+eslint path/to/js
 </code></pre>
 </section>
 
@@ -680,7 +793,11 @@ eslint exercises/some-exercise/exercise.js
 <pre><code class="lang-sh">npm run style:all
 
 # per exercise
+npm install --global jscs@latest
 jscs exercises/some-exercise/exercise.js
+
+// boredom removal
+jscs --fix exercises/some-exercise/exercise.js
 </code></pre>
 </section>
 
@@ -712,7 +829,10 @@ jscs exercises/some-exercise/exercise.js
 <pre><code class="lang-javascript">// note: lack of `return`
 var add = (a, b) =&gt; a + b;
 
-// note: multiple expressions requires {} and `return`
+// no ( ) for single arg
+var id = object =&gt; object.id;
+
+// note: multiple statements requires {} and `return`
 var twoStep = (a, b) =&gt; { console.log(a); return b }
 
 // returning just an object requires you provide brackets:
@@ -755,7 +875,7 @@ function required(name) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="named-parameters">Named parameters</h2>
+<section  class=""><h2 id="named-parameters-via-destructuring">Named parameters via destructuring</h2>
 <pre><code class="lang-javascript">function log({ n, base }) {
   return Math.log(n) / Math.log(base);
 }
@@ -825,11 +945,7 @@ callMe(&quot;a&quot;);
 
 <section data-state='title' class=" title"><h2 id="exercise-">Exercise!</h2>
 <pre><code>exercises/functions-core
-</code></pre><!-- TODO
-
-1. another exercise on different types of args: defaults, destructuring etc
-
--->
+</code></pre><!-- TODO 1. another exercise on different types of args: defaults, destructuring etc -->
 </section>
 
 <section data-state='title' class=" title"><h2 id="closures">Closures</h2>
@@ -939,7 +1055,7 @@ for(var i = 0; i &lt; elements.length; i++) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="4-when-tests-fail-you-are-write-code">4. When tests fail, you are write code</h2>
+<section  class=""><h2 id="4-when-tests-fail-you-write-code">4. When tests fail, you write code</h2>
 <pre><code class="lang-javascript">class Widget {
   render() {
     // implement
@@ -959,7 +1075,9 @@ describe(&quot;auto-focus component&quot;, function() {
   it(&quot;does not prevent focus leaving the input&quot;);
 })
 </code></pre>
-<p>## </p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
 <!-- TODO TDD loop image -->
 </section>
 
@@ -967,9 +1085,11 @@ describe(&quot;auto-focus component&quot;, function() {
 </section>
 
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<!-- TODO get an easier test for start of TDD -->
 </section>
 
 <section  class=""><h2 id="asynchronous-tests">Asynchronous tests</h2>
+<!-- TODO bring in async test slides -->
 </section>
 
 <section  class=""><h2 id="specifying-behavour">Specifying behavour</h2>
@@ -992,16 +1112,22 @@ describe(&quot;auto-focus component&quot;, function() {
 <section  class=""><h2 id="ordered">Ordered</h2>
 <pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
-primeMinisters[0] // Cameron;
+primeMinisters[0] // What would this be?
 
-// Major
+// ...and this?
 primeMinisters[primeMinisters.length - 1] 
 
-// undefined - no negative indexes :(
+// ...and this?
 primeMinisters[-1] 
 
 console.log(primeMinisters.length) // 4
 </code></pre>
+<ul>
+  <li class=fragment>Cameron - Array is 0 indexed</li>
+  <li class=fragment>Major</li>
+  <li class=fragment>undefined - negative indexes not defined</li>
+</ul>
+
 </section>
 
 <section  class=""><h2 id="extension">Extension</h2>
@@ -1025,16 +1151,24 @@ console.log(primeMinisters.length) // 4
 <pre><code class="lang-script">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
 const lastLabourGovernment = primeMinisters.slice(1, 3);
+
  // Blair then Brown
 lastLabourGovernment.reverse().join(&quot; then &quot;)
 
+// how does slice() work?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="sorting">Sorting</h2>
+<pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
 primeMinisters.sort();
 
-// what can we tell about .sort() and mutation?
 
 // [ &#39;Blair&#39;, &#39;Brown&#39;, &#39;Cameron&#39;, &#39;Major&#39; ]
 console.log(primeMinisters)
+
+// what can we tell about .sort() and mutation?
 
 // and sort order?
 primeMinisters.sort((a,b) =&gt; a.length - b.length)
@@ -1045,7 +1179,6 @@ console.log(primeMinisters)
 </section>
 
 <section  class=""><h2 id="-for-in-"><code>for ... in</code></h2>
-<!-- TODO stinger: ask ppl to guess what happens -->
 <pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 
 // what... is this allowed?
@@ -1059,6 +1192,13 @@ for(let i in primeMinisters) {
 
 // what does initials end up as?
 </code></pre>
+<ul>
+  <li class=fragment>C, B, B, M, h. Why?</li>
+  <li class=fragment><code>Array</code> can have string properties!</li>
+  <li class=fragment><code>for .. in</code> iterates string properties</li>
+</ul>
+
+
 </section>
 
 <section  class=""><h2 id="-for-"><code>for</code></h2>
@@ -1069,13 +1209,18 @@ for(let i = 0, l = primeMinisters.length; i &lt; l; i++) {
   initials[i] = primeMinisters[i][0];
 }
 </code></pre>
+<ul>
+<li>likely always fastest</li>
+<li>but: ugly. Use <em>only</em> when forced to</li>
+<li>your time is much, much more valuable :)</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="-for-of-"><code>for .. of</code></h2>
 <pre><code class="lang-javascript">const primeMinisters = [&quot;Cameron&quot;, &quot;Brown&quot;, &quot;Blair&quot;, &quot;Major&quot;];
 primeMinisters.metaData = &quot;hi&quot;;
 
-// ES6 <code>for ... of</code> goes over VALUES of iterables
+// ES6 `for ... of` goes over VALUES of iterables
 const initials = [];
 for(let pm of primeMinisters) {
   initials.push(pm[0]);
@@ -1083,16 +1228,12 @@ for(let pm of primeMinisters) {
 
 console.log(initials) // [&quot;C&quot;,&quot;B&quot;,&quot;B&quot;,&quot;M&quot;]
 </code></pre>
+<ul>
+<li>What problem is solved?</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="rule-avoid-for-in-on-arrays">Rule: avoid <code>for ... in</code> on arrays</h2>
-</section>
-
-<section  class=""><h2 id="-array-likes"><code>Array</code>-likes</h2>
-<ul>
-<li>In JS, <code>arguments</code> object</li>
-<li>In DOM, <code>NodeList</code></li>
-</ul>
 </section>
 
 <section  class=""><h2 id="functional-iteration">Functional iteration</h2>
@@ -1130,7 +1271,7 @@ const couldStringify = JSON.stringify([1,2])
 <!-- TODO why do we care? -->
 </section>
 
-<section  class=""><h2 id="objects-used-as-dictionaries">Objects, used as dictionaries</h2>
+<section  class=""><h2 id="-object-used-as-dictionary"><code>Object</code> used as dictionary</h2>
 <pre><code class="lang-javascript">const enToFr = {};
 
 enToFr.hello = &quot;bonjour&quot;;
@@ -1140,6 +1281,7 @@ enToFr.cheese = &quot;fromage&quot;;
 console.log(enToFr.hello);
 console.log(enToFr[&quot;hello&quot;]);
 </code></pre>
+<p>AKA hashmap, associative array, table.</p>
 </section>
 
 <section  class=""><h2 id="keys-are-strings-values-any">Keys are strings, values = any</h2>
@@ -1147,29 +1289,29 @@ console.log(enToFr[&quot;hello&quot;]);
 
 dict[10] = &quot;ten&quot;;
 
-dict[&quot;10&quot;] // &quot;ten&quot;
+console.log(dict[&quot;10&quot;]); // &quot;ten&quot;
 
 // general rule: calls toString on non-strings
 const convertsToTen = {
   toString: () =&gt; &quot;10&quot;
 };
 
-dict[convertsToTen] // &quot;ten&quot;
+console.log(dict[convertsToTen]); // &quot;ten&quot;
 </code></pre>
 </section>
 
-<section  class=""><h2 id="iterate">Iterate</h2>
-<pre><code class="lang-javascript">for(const property of object) {
+<section  class=""><h2 id="-for-in-"><code>for ... in</code></h2>
+<pre><code class="lang-javascript">for(const property in Object.values(object)) {
   const value = object[property];
-  console.log(<code>${property}: ${value}</code>);
+  console.log(`${property}: ${value}`);
 }
 </code></pre>
 </section>
 
-<section  class=""><h2 id="both">Both</h2>
+<section  class=""><h2 id="-for-of-"><code>for ... of</code></h2>
 <pre><code class="lang-javascript">// objects not iterable by default, so...
 for(const [property, value] of Object.entries(object)) {
-  console.log(<code>${property}: ${value}</code>);
+  console.log(`${property}: ${value}`);
 }
 </code></pre>
 </section>
@@ -1177,9 +1319,7 @@ for(const [property, value] of Object.entries(object)) {
 <section  class=""><h2 id="es6-dynamic-keys">ES6 - dynamic keys</h2>
 <pre><code class="lang-javascript">// ES6
 function create(property, value) {
-  return {
-    [&quot;id:&quot; + property]: value,
-  }
+  return { [&quot;id:&quot; + property]: value };
 }
 
 // ES5
@@ -1197,29 +1337,13 @@ function create(property, value) {
 dict[1] = &quot;hello&quot;;
 
 // how to count?
-dict.length // undefined
+console.log(dict.length); // undefined
 
-Object.keys(dict).length // costs O(N)
+console.log(Object.keys(dict).length); // slow for very large objects
 </code></pre>
 </section>
 
-<section  class=""><h2 id="-map-es6-to-rescue"><code>Map</code>: ES6 to rescue</h2>
-<pre><code class="lang-javascript">const m = new Map;
-
-const list = [1,2,3];
-
-m.set(list, &quot;A&quot;);
-m.get(list); // A
-m.get([1,2,3]); // why?
-
-const m2 = new Map(Object.entries({
-  list: &quot;hello&quot;,
-  boo: &quot;another key&quot;,
-}));
-</code></pre>
-</section>
-
-<section  class=""><h2 id="non-object-keys-">Non-object keys!</h2>
+<section  class=""><h2 id="es6-to-the-rescue-">ES6 to the rescue!</h2>
 <pre><code class="lang-javascript">const m = new Map;
 const o = {};
 
@@ -1232,10 +1356,27 @@ m.set(b, &quot;B&quot;);
 
 o = {[a]: &quot;A&quot;, [b]: &quot;B&quot;}
 
-Object.keys(o).length // 1
-m.size // 2
+console.log(Object.keys(o).length); // 1
+console.log(m.size); // 2
 
 // ...why?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="more-map-">More <code>Map</code></h2>
+<pre><code class="lang-javascript">const m = new Map;
+
+const list = [1,2,3];
+
+m.set(list, &quot;A&quot;);
+console.log(m.get(list)); // A
+
+console.log(m.get([1,2,3])); // ...?
+
+const m2 = new Map(Object.entries({
+  list: &quot;hello&quot;,
+  boo: &quot;another key&quot;,
+}));
 </code></pre>
 </section>
 
@@ -1268,24 +1409,25 @@ m.forEach((v, k) =&gt; console.log(v, k))
 <pre><code class="lang-javascript">// ES6 only
 
 const s = new Set;
-s.add([1,2]);
-s.has([1,2]) // false
-
 
 s.add(1);
-s.has(1); // true
+console.log(s.has(1)); // ...?
 
-s.size // 2
-s.add(1);
-s.add(1);
-s.size // 2
+console.log(s.size); // ...?
+s.add(1); s.add(1); s.add(1);
+console.log(s.size); // ...?
+
+const A = [1,2];
+s.add(A);
+
+console.log(s.has(A)); // ...?
+console.log(s.has([1,2])); // ...?
 </code></pre>
 </section>
 
 <section  class=""><h2 id="exercise">Exercise</h2>
 <pre><code>exercises/maps-objects-sets
-</code></pre><!-- TODO weak maps/sets -->
-</section>
+</code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="async">Async</h2>
 </section>
@@ -1841,14 +1983,10 @@ const instance = new Widget({
 </section>
 
 <section  class=""><h2 id="let-s-have-a-go">Let&#39;s have a go</h2>
-<!--
+<pre><code>Exercise 1
 
-TODO exercise
-
-- basic class syntax
-
--->
-</section>
+exericses/objects-and-prototypes
+</code></pre></section>
 
 <section  class=""><h2 id="okay-that-s-the-basics">Okay that&#39;s the basics</h2>
 </section>
@@ -1862,26 +2000,78 @@ TODO exercise
 <section  class=""><h2 id="-">...</h2>
 </section>
 
-<section  class=""><h2 id="conventions">Conventions</h2>
-<!-- TODO add WeakMap idiom -->
+<section  class=""><h2 id="consensual-privacy">Consensual privacy</h2>
 <pre><code class="lang-javascript">class Widget {
 
-  // clear it&#39;s private
+  render() {
+    return `&lt;div&gt;${ this.<em>renderName() }&lt;/div&gt;`;
+  }
+
+  // </em> prefix to show it&#39;s private
   _renderHelper() {
     return `&lt;span class=&#39;name&#39;&gt;
       ${ this._model.get(&quot;name&quot;) }
     &lt;/span&gt;`;
   }
 
-  render() {
-    return `&lt;div&gt;${ this._renderName() }&lt;/div&gt;`;
-  }
 }
 
 const instance = new Widget(/* ... */);
 
 instance.render();
 instance._renderHelper(); // no error
+</code></pre>
+</section>
+
+<section  class=""><h2 id="stricter-privacy">Stricter privacy</h2>
+<pre><code class="lang-javascript">const privates = new WeakMap;
+
+class Counter {
+  constructor() {
+    privates.set(this, { count: 0 })
+  }
+
+  get() {
+    return privates.get(this).count;
+  }
+
+  add() {
+    privates.get(this).count += 1;
+  }
+}
+
+const instance = new Counter(/* ... */);
+
+instance.add();
+instance.add();
+console.log(instance.get()); // 2
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-weakmap-"><code>WeakMap</code>?</h2>
+<ul>
+<li><em>keys</em> are available to garbage collect (GC)</li>
+<li>if only weak references remain, available for GC</li>
+<li>keys must be non-primitives</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="-weakmap-e-g"><code>WeakMap</code> e.g</h2>
+<pre><code class="lang-javascript">const map = new Map;
+const weak = new WeakMap;
+
+const A = {};
+const B = {};
+const C = {};
+
+map.set(A, &quot;&quot;);
+weak.set(B, &quot;&quot;);
+
+weak.set(B, &quot;&quot;);
+weak.set(C, &quot;&quot;);
+
+global.map = map;
+global.weak = weak;
 </code></pre>
 </section>
 
@@ -1901,7 +2091,8 @@ instance._renderHelper(); // no error
   }
 }
 
-const instance = new DefaultMap(Object.entries({ apples: 7 }), () =&gt; 0)
+const instance = new DefaultMap(Object.entries({ apples: 7 }), 
+  () =&gt; 0)
 
 instance.get(&quot;apples&quot;) // 7
 instance.get(&quot;pears&quot;) // 0
@@ -1940,12 +2131,8 @@ constructor(...args) {
 </section>
 
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<!-- TODO
-
-- exercise on inheritence, using DefaultMap example
-
--->
-</section>
+<pre><code>exercises/objects-and-prototypes
+</code></pre></section>
 
 <section  class=""><h2 id="properties-">Properties?</h2>
 <pre><code class="lang-javascript">class Widget {
@@ -1990,6 +2177,11 @@ constructor(...args) {
 
 <section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
 <p><img src="media/prototypes.png"></p>
+<!-- TODO explain why on image - i.e that we're reducing repetition -->
+</section>
+
+<section  class=""><h2 id="chain">Chain</h2>
+<p><img src="media/prototype-chain.png"></p>
 </section>
 
 <section  class=""><h2 id="lookup-algorithm">Lookup algorithm</h2>
@@ -2008,8 +2200,24 @@ function getProperty(object, prop) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="chain">Chain</h2>
-<p><img src="media/prototype-chain.png"></p>
+<section  class=""><h2 id="so-properties">So... properties</h2>
+<pre><code class="lang-javascript">class Widget {
+}
+
+// I&#39;m bored of initialising in constructor!
+Widget.prototype.letters = [];
+
+const A = new Widget;
+const B = new Widget;
+A.letters.push(&quot;a&quot;);
+
+console.log(B.letters) // [&quot;a&quot;]
+</code></pre>
+<ul>
+  <li>What went wrong?</li>
+  <li class=fragment>All instances share same prototype property!</li>
+</ul>
+
 </section>
 
 <section data-state='notitle' class=" notitle"><h2 id="creating-object-with-prototype">Creating object with prototype</h2>
@@ -2118,6 +2326,13 @@ button.click();
 </section>
 
 <section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<pre><code>exercises/objects-and-prototypes
+</code></pre><!-- TODO exercise
+
+- explain .call - in es6 mostly for invoking constructors
+- & .apply - useful es5 applications
+
+-->
 <!-- TODO exercise
 
 - quick exercise on this variable context
@@ -2169,7 +2384,7 @@ button.click();
 const s2 = Symbol(&quot;B&quot;);
 const s3 = Symbol(&quot;B&quot;);
 
-s2 === s3 // ?
+console.log(s2 === s3) // ?
 </code></pre>
 <ul>
   <li class='fragment'>Are s2 and s3 the same?</li>
@@ -2182,7 +2397,7 @@ s2 === s3 // ?
 <ul>
 <li>e.g two libraries extend built-in Objects with methods</li>
 </ul>
-<pre><code class="lang-javascript">// like unix &#39;cat&#39; method
+<pre><code class="lang-javascript">// like unix &#39;tac&#39; method
 Object.defineProperty(String.prototype, &quot;tac&quot;, {
   value: function(...others) {
     return others.slice().reverse().join(&quot;&quot;) + this;
@@ -2194,8 +2409,8 @@ console.log(&quot;hello&quot;.tac(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)) //
 </section>
 
 <section  class=""><h2 id="with-symbols">With symbols</h2>
-<pre><code class="lang-javascript">const tacOne = Symbol();
-const tacTwo = Symbol();
+<pre><code class="lang-javascript">const tacOne = Symbol(&quot;tac&quot;);
+const tacTwo = Symbol(&quot;tac&quot;);
 
 Object.defineProperty(String.prototype, tacOne, {
   value: function(...others) {
@@ -2238,6 +2453,7 @@ console.log(items); // [1, 2, 3]
 
 <section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
 <pre><code class="lang-javascript">// this is a bit faffy, and fragile
+const items = [];
 for(let node = list; node; node = node.next) {
   items.push(node.value);
 }
@@ -2245,7 +2461,8 @@ for(let node = list; node; node = node.next) {
 </section>
 
 <section  class=""><h2 id="with-custom-iterators-">With custom iterators!</h2>
-<pre><code class="lang-javascript">// WOAH!!!
+<pre><code class="lang-javascript">const items = [];
+// WOAH!!!
 for(const value of list) {
   items.push(node.value);
 }
@@ -2262,7 +2479,7 @@ for(const value of list) {
 <li>shared symbols are hooks for the newer features of ECMAScript</li>
 </ul>
 <pre><code class="lang-javascript">{ 
-  [Symbol.iterator]: function *() {
+  *<a href="">Symbol.iterator</a> {
     // yields each value in data-structure in turn
   } 
 }
@@ -2280,29 +2497,9 @@ function *iterateLinkedList() {
     yield node.value;
   }
 }
-</code></pre>
-</section>
 
-<section  class=""><h2 id="in-action-">In action!</h2>
-<pre><code class="lang-javascript">function L(value, next) {
-  return { value, next, 
-    [Symbol.iterator]: iterateLinkedList };
-}
-
-const list = L(1, L(2, L(3)));
-
-const items = [];
-for(const value of list) {
-  items.push(value);
-}
-
-console.log(items); // [1, 2, 3]
-
-function *iterateLinkedList() {
-  for(let node = list; node; node = node.next) {
-    yield node.value;
-  }
-}
+const list = L(1, L(2, L(&quot;banana&quot;)));
+for(const v of list) console.log(v);
 </code></pre>
 </section>
 
@@ -2310,7 +2507,8 @@ function *iterateLinkedList() {
 <pre><code>Exercise 4
 
 exercises/generators
-</code></pre></section>
+</code></pre><!-- TODO check exercise 4 -->
+</section>
 
 <section data-state='title' class=" title"><h2 id="developer-tools">Developer Tools</h2>
 </section>
@@ -2332,11 +2530,7 @@ exercises/generators
 
 <section  class=""><h2 id="hands-on">Hands-on</h2>
 <pre><code>in Chrome, google and open &#39;ember TodoMVC&#39;
-</code></pre><!--
-
-TODO create an exercise
-
--->
+</code></pre><!-- TODO create an exercise -->
 </section>
 
 <section data-state='title' class=" title"><h2 id="wrap-">Wrap!</h2>

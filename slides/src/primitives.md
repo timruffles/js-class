@@ -102,7 +102,9 @@ var y = null;
 ## Comparison
 {subtitle:true}
 
-## Yes `==` has issues
+## `==` has issues
+
+<!-- TODO image -->
 
 ## Rule: always use `===`
 {rule:1}
@@ -137,4 +139,9 @@ var nullish = x == null;
 
 1. Special cases: `NaN !== NaN`
 1. Objects (non primitives): compares by identity, not value
+
+## `==`
+
+1. Objects (non primitives): compares by identity, not value
+1. Beyond that, very complex. Just use for `null` or `undefined`
 

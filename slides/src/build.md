@@ -77,11 +77,3 @@ function x(_ref) {
 > npm install --save babel-preset-node5
 ```
 
-## Frontend
-
-<!-- TODO image -->
-
-
-
-
-

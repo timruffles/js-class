@@ -10,16 +10,22 @@
 ```script
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
-primeMinisters[0] // Cameron;
+primeMinisters[0] // What would this be?
 
-// Major
+// ...and this?
 primeMinisters[primeMinisters.length - 1] 
 
-// undefined - no negative indexes :(
+// ...and this?
 primeMinisters[-1] 
 
 console.log(primeMinisters.length) // 4
 ```
+
+<ul>
+  <li class=fragment>Cameron - Array is 0 indexed</li>
+  <li class=fragment>Major</li>
+  <li class=fragment>undefined - negative indexes not defined</li>
+</ul>
 
 ## Extension
 
@@ -45,16 +51,25 @@ console.log(primeMinisters.length) // 4
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 const lastLabourGovernment = primeMinisters.slice(1, 3);
+
  // Blair then Brown
 lastLabourGovernment.reverse().join(" then ")
 
+// how does slice() work?
+```
+
+## Sorting
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 primeMinisters.sort();
 
-// what can we tell about .sort() and mutation?
 
 // [ 'Blair', 'Brown', 'Cameron', 'Major' ]
 console.log(primeMinisters)
+
+// what can we tell about .sort() and mutation?
 
 // and sort order?
 primeMinisters.sort((a,b) => a.length - b.length)
@@ -66,8 +81,6 @@ console.log(primeMinisters)
 
 
 ## `for ... in`
-
-<!-- TODO stinger: ask ppl to guess what happens -->
 
 ```javascript
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
@@ -84,6 +97,12 @@ for(let i in primeMinisters) {
 // what does initials end up as?
 ```
 
+<ul>
+  <li class=fragment>C, B, B, M, h. Why?</li>
+  <li class=fragment><code>Array</code> can have string properties!</li>
+  <li class=fragment><code>for .. in</code> iterates string properties</li>
+</ul>
+
 
 ## `for`
 
@@ -96,6 +115,10 @@ for(let i = 0, l = primeMinisters.length; i < l; i++) {
 }
 ```
 
+- likely always fastest
+- but: ugly. Use *only* when forced to
+- your time is much, much more valuable :)
+
 
 
 ## `for .. of`
@@ -104,7 +127,7 @@ for(let i = 0, l = primeMinisters.length; i < l; i++) {
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 primeMinisters.metaData = "hi";
 
-// ES6 `for ... of` goes over VALUES of iterables
+// ES6 \`for ... of\` goes over VALUES of iterables
 const initials = [];
 for(let pm of primeMinisters) {
   initials.push(pm[0]);
@@ -113,13 +136,10 @@ for(let pm of primeMinisters) {
 console.log(initials) // ["C","B","B","M"]
 ```
 
+- What problem is solved?
+
 ## Rule: avoid `for ... in` on arrays
 {rule:1}
-
-## `Array`-likes
-
-- In JS, `arguments` object
-- In DOM, `NodeList`
 
 ## Functional iteration
 

@@ -14,52 +14,86 @@ Sandii Metz
 ## Simplest
 
 ```javascript
-// A.js
-export var hello = "hi";
+// greetings.en.js
+export var informal = "hi";
 ```
 
 ```javascript
-// B.js
-import { hello } from "./A";
+// run.js
+import { informal } from "./greetings.en";
 
-console.log("A says " + hello);
-```
-
-## More useful
-
-```javascript
-export function hi(name) {
-  console.log("hi " + name);
-}
-```
-
-```javascript
-// B.js
-import { hi } from "./A";
-
-hi("amy"); // prints 'hi amy'
+console.log(informal + " amy") // hi amy
 ```
 
 ## Default export
 
 ```javascript
-// hi.js
-export default function(name) {
-  console.log("hi " + name);
-}
+// greetings.es.js
+export default "hola";
 ```
 
 ```javascript
-// B.js
-import hi from "./hi";
-
-hi("amy"); // prints 'hi amy'
+// greetings.es.js
+var greeting = "hola";
+export default greeting;
 ```
+
+```javascript
+// greetings.es.js
+var greeting = "hola";
+export { greeting as default };
+```
+
+```javascript
+// run.js
+import defaultSpanish from "./greetings.es";
+
+console.log(defaultSpanish + " amy"); // prints 'hola amy'
+```
+
+## Named exports, and renaming
+
+```javascript
+var cake = "sponge";
+var tea = "darjeeling";
+
+
+export { tea, cake as treat };
+```
+
+## Import default, and renaming
+
+```javascript
+import { tea as drink, treat } from "./teaParty";
+```
+
+```javascript
+import { default as host } from "./teaParty";
+```
+
+```javascript
+// default + values
+import party, { tea, treat } from "./teaParty";
+```
+
+## Import as object
+
+```javascript
+import * as party from "./teaParty";
+
+var cake = party.cake;
+
+export { party as default, cake as treat };
+```
+
+## Don't worry
+
+- just learn a few - you are only saving a couple of keystrokes
 
 ## Let's have a go!
 {exercise:true}
 
-<!-- TODO exercises/modules -->
+    exercises/modules;
 
 ## CommonJS
 
@@ -67,22 +101,25 @@ Node's module system
 
 ## Very comparable syntax
 
+
+## Export
+
 ```javascript
-
-var aModule = require("./some/other/module");
-
-var fs = require("fs");
-var anNpmModule = require("from-npm");
-
-// export function mainMethod() {}
+// export { mainMethod as default }
 module.exports = exports = mainMethod;
 
 // export function someFunction() {}
 exports.someFunction = function() {}
 
-
 function mainMethod() {
 } 
+```
+
+## Import
+
+```javascript
+// relative or absolute path
+var myModule = require("./my/module");
 ```
 
 ## Third-party code
@@ -92,17 +129,26 @@ function mainMethod() {
 // this is from core library
 var fs = require("fs");
 
-// this is looked up from node_modules folders in current, and parent
-// directories
+// this is looked up from node_modules folders in current,
+// and parent directories
 var anNpmModule = require("from-npm");
 ```
 
-## import
+## Import
 
 ```javascript
-// relative or absolute path
-var myModule = require("./my/module");
+
+// what's this?
+var aModule = require("./some/other/module");
+
+// third party?
+var fs = require("fs");
+var readFile = fs.readFile;
+
+// third party?
+var someModule = require("lodash");
 ```
+
 
 ## export
 
@@ -133,14 +179,10 @@ module.exports = function Main() {
   </li>
 </ul>
 
-<!-- TODO exercises/commonjs -->
+## Let's have a go!
+{exercise:true}
 
-## TODO
-
-1. renaming
-1. destructuring
-1. more on export?
-
+    exercises/commonjs
 
 ## Summary: modules
 {summary:true}
