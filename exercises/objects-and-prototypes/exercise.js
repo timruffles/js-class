@@ -1,8 +1,6 @@
-// TODO write a bank account using closures (no prototype, `this` or `new`)
-// that implements the following:
+// TODO write a BankAccount class that implements the following:
 //
 //   BankAccount(balance)
-//      returns new instance, with provided balance
 //
 //   .deposit(n)
 //      increases/reduces balance
@@ -10,23 +8,9 @@
 //
 //   .balance(n)
 //      returns balance
-//
-//
-export function BankAccount(balance) {
-}
 
 
-
-// TODO reimplement BankAccount as a constructor
-// designed to be used with `new` & `this` -
-// ensuring you share `balance` and `deposit` between
-// all instances
-export function BankAccountWithThis(balance) {
-}
-
-// TODO implement sharing via prototypes
-
-// TODO using prototypes, create a BankAccountWithOverdraft
+// TODO using class, sub-class BankAccount to create a BankAccountWithOverdraft
 // which allows balance to go below 0, but only
 // as low as the overdraft allows. The API is:
 //
@@ -35,9 +19,22 @@ export function BankAccountWithThis(balance) {
 //   deposit(n)
 //
 //      will allow withdraws to -overdraft, then throws `OutOfFunds`
-export function BankAccountWithOverdraft(balance, overdraft) {
-}
 
 // TODO create inheritance relation
 
-exports.BankAccountWithOverdraft = BankAccountWithOverdraft;
+
+
+
+// TODO using prototypes, subclass BankAccount to create BankAccountWithOverdraftViaPt
+// (inheriting from BankAccount)
+// which allows balance to go below 0, but only
+// as low as the overdraft allows. The API is:
+//
+//   BankAccountWithOverdraftViaPt(balance: number, overdraft: number)
+//
+//   deposit(n)
+//
+//      will allow withdraws to -overdraft, then throws `OutOfFunds`
+
+// TODO create inheritance relation
+
