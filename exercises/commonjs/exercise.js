@@ -21,7 +21,8 @@ var hattersTreat = 'darjeeling in a conch-shell';
  * 1) learning to export with the Hatter
  */
 
-// TODO export the Hatter as default! remember to use CommonJS syntax (require(), module.exports, exports) not ECMAScript modules!
+// TODO export the Hatter as default! remember to use CommonJS syntax
+// (require(), module.exports, exports) not ECMAScript modules!
 
 // TODO export the hattersTreat as treat
 
