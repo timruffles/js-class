@@ -16,7 +16,6 @@
 
     in Chrome, google and open 'ember TodoMVC'
 
-<!-- TODO create an exercise -->
 
 
 
