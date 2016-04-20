@@ -3,6 +3,11 @@
 
 <img src="media/title.png">
 
+## Get setup
+
+- [github.com/timruffles/js-class](https://www.github.com/timruffles/js-class)
+
+<p contenteditable>WiFi: </p>
 
 ## Today
 
@@ -13,24 +18,19 @@
 
 <img src=media/platforms.png>
 
-## Agenda
-
-1. Core language
-1. Data-structures
-1. Objects
-1. Async
-1. Tooling
-
 ## Method
 
 1. Demo
 1. Exercise
-1. Deepen
+1. Review exercises at home!
 
 ## Our guide
 
 ```Javascript
-console.log(anything)
+// most code examples can be directly pasted
+// in browser console
+
+console.log((0, "what does this do?"));
 ```
 
 ## Ages of JS
@@ -38,7 +38,7 @@ console.log(anything)
 - ~~ES3~~ (obsolete)
 - ~~ES5 sloppy~~ (avoid)
 - ES5 strict
-- ES.Next
+- ES.next - ES2015 (ES6), +
 
 ## Landscape diagram
 {notitle:1}
@@ -50,6 +50,8 @@ console.log(anything)
 ```javascript
 // <- first non-comment line of file or function
 "use strict";
+
+// or: ES6 modules/classes
 ```
 
 ## Tightens up language
