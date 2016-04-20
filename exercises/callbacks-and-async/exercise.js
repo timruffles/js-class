@@ -1,22 +1,18 @@
 // TODO
 //
-//   write a method that implements sampling a query stream
+//   Write a method that implements sampling an async query stream.
 //
-//   it should listen to 'n' queries, then report its result
-//   to 'cb'
+//   It should listen to 'n' queries, then report its result
+//   to 'cb'. It should then ignore future 'query' events on queryStream
 //
-//   it should also disconnect from the 'query' events on queryStream
-//
-//   cumlative duration should be in the order the queries started,
-//
-//   e.g this scenario:
+//   In this scenario:
 //
 //       NAME     START    END     DURATION
 //       query 1: 0        50      50
 //       query 2: 5        10      5
 //       query 3: 10       60      50
 //
-//   would give the following result. The query objects in the `queries`
+//   we expect the following result. The query objects in the `queries`
 //   array, their durations in the `durations` array:
 //
 //       {
@@ -40,6 +36,8 @@
 //
 export function sampleQueries(queryStream, n, cb) {
 
+  // TODO somewhere to store results
+
   queryStream.on('query', queryHandler);
 
   function queryHandler(query, time) {
@@ -47,6 +45,8 @@ export function sampleQueries(queryStream, n, cb) {
 
     query.on('end', (time) => {
       console.log(`end id:${query.id} time:${time}`);
+
+      // TODO start thinking about what to do here
     });
   }
 }
