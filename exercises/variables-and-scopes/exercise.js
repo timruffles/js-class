@@ -26,28 +26,31 @@
 const ANSWERS = {};
 
 function scenarioOne() {
-
+  // hoisting zone: A: undefined
   var A = 'scenario';
   inner();
 
   return A;
 
   function inner() {
+    // innerScope: {}
     A = 'inner';
   }
 }
 
-ANSWERS.scenarioOne = 'TODO';
+ANSWERS.scenarioOne = 'inner';
 
 function scenarioTwo() {
 
   var A = 'out';
   inner();
 
+  // scope: {A: 'out'}
   return A;
 
   function inner() {
     var A = 'inner';
+    // scope: {A: 'inner'}
   }
 
 }
@@ -102,7 +105,7 @@ function scenarioFive() {
   return A;
 }
 
-ANSWERS.scenarioFive = 'TODO';
+ANSWERS.scenarioFive = 'inner';
 
 function scenarioSix() {
   var A;
@@ -117,7 +120,7 @@ function scenarioSix() {
   }
 }
 
-ANSWERS.scenarioSix = 'TODO';
+ANSWERS.scenarioSix = 10;
 
 function scenarioSeven() {
 
