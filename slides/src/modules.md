@@ -122,18 +122,6 @@ function mainMethod() {
 var myModule = require("./my/module");
 ```
 
-## Third-party code
-
-```javascript
-
-// this is from core library
-var fs = require("fs");
-
-// this is looked up from node_modules folders in current,
-// and parent directories
-var anNpmModule = require("from-npm");
-```
-
 ## Import
 
 ```javascript
@@ -149,6 +137,19 @@ var readFile = fs.readFile;
 var someModule = require("lodash");
 ```
 
+- how can we tell standard lib vs 3rd party?
+
+## Third-party code
+
+```javascript
+
+// this is from core library
+var fs = require("fs");
+
+// this is looked up from node_modules folders in current,
+// and parent directories
+var anNpmModule = require("from-npm");
+```
 
 ## export
 
@@ -175,7 +176,7 @@ module.exports = function Main() {
   </li>
 
   <li class="fragment">
-    Old <code>exports</code> object is no longer in module object.
+    Original <code>exports</code> object is no longer in module object.
   </li>
 </ul>
 

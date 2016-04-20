@@ -1,9 +1,24 @@
 ## Quality
 {title:1}
 
-<!-- TODO stinger - demonstration - for ESLint -->
+## Languages have gotchas
+
+```javascript
+var launch = new Boolean(false);
+
+if(launch)
+  console.log("launching missiles");
+else
+  console.log("phew");
+  console.log("peace at last");
+
+// what is output?
+```
 
 ## ESLint
+
+- linter: clarifies code
+- blunts some of JS's nasty gotchas
 
 ## Try now
 
@@ -23,15 +38,25 @@ eslint exercises/some-exercise/exercise.js
 npm install --global eslint@latest
 eslint path/to/js
 ```
-
-
 ## Code style
+
+```js
+// brevity at all cost!
+yes && doThing()
+```
+
+```js
+if(yes) {
+  doThing();
+}
+```
 
 ## Boring to debate!
 
-<!-- TODO stinger - demonstration - for ESLint -->
-
 ## JSCS
+
+- find (& fix) style deviations
+- makes switching code-bases more plesant
 
 ## Try now
 

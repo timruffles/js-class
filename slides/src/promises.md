@@ -1,18 +1,16 @@
 ## Promises
 {title:1}
 
-## An IOU
-
-- A value, returned immediately
-- Fulfilled or rejected - once
-- Use before or after resolved
-- Chain together
-- Flow control for async
 
 ## Intuition
 
 ![Promise chain](media/promises.png)
 
+## An IOU
+
+- A value, available immediately
+- Settled - resolved or rejected - once
+- Use before or after settled
 
 ## Promises in practice
 
@@ -128,8 +126,7 @@ var usersWithAccounts = Promise.all(users)
 
 - promises = values for async
 - don't just use as callbacks
-- think about transformers for the values
-- chain promises flows together
+- think chains of transformations
 
 ## Let's try
 

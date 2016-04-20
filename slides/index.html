@@ -236,17 +236,6 @@ var myModule = require(&quot;./my/module&quot;);
 </code></pre>
 </section>
 
-<section  class=""><h2 id="third-party-code">Third-party code</h2>
-<pre><code class="lang-javascript">
-// this is from core library
-var fs = require(&quot;fs&quot;);
-
-// this is looked up from node_modules folders in current,
-// and parent directories
-var anNpmModule = require(&quot;from-npm&quot;);
-</code></pre>
-</section>
-
 <section  class=""><h2 id="import">Import</h2>
 <pre><code class="lang-javascript">
 // what&#39;s this?
@@ -258,6 +247,20 @@ var readFile = fs.readFile;
 
 // third party?
 var someModule = require(&quot;lodash&quot;);
+</code></pre>
+<ul>
+<li>how can we tell standard lib vs 3rd party?</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="third-party-code">Third-party code</h2>
+<pre><code class="lang-javascript">
+// this is from core library
+var fs = require(&quot;fs&quot;);
+
+// this is looked up from node_modules folders in current,
+// and parent directories
+var anNpmModule = require(&quot;from-npm&quot;);
 </code></pre>
 </section>
 
@@ -283,7 +286,7 @@ module.exports = function Main() {
   </li>
 
   <li class="fragment">
-    Old <code>exports</code> object is no longer in module object.
+    Original <code>exports</code> object is no longer in module object.
   </li>
 </ul>
 
@@ -310,6 +313,9 @@ var anotherVariable = &quot;hello&quot;;
 </section>
 
 <section  class=""><h2 id="-undefined-vs-undeclared"><code>undefined</code> vs undeclared</h2>
+</section>
+
+<section  class=""><h2 id="-undefiend-"><code>undefiend</code></h2>
 <pre><code class="lang-javascript">var notDefined;
 
 console.log(notDefined); // ?
@@ -326,8 +332,16 @@ console.log(smeVar); // typo, what happens??
 <section  class=""><h2 id="-const-"><code>const</code></h2>
 <pre><code class="lang-javascript">const doesNotChange = &quot;hi&quot;;
 
-// throws TypeError
+// throws TypeError - Assignment to constant
 doesNotChange = &quot;I&#39;ll try my luck&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-const-"><code>const</code></h2>
+<pre><code class="lang-javascript">const counter = { count: 0 };
+
+// what happens here?
+counter.count += 1;
 </code></pre>
 </section>
 
@@ -450,12 +464,13 @@ global; // node
 <pre><code class="lang-javascript">const [breakfast, lunch, ...more]
   = [&quot;eggs&quot;, &quot;falafel&quot;, &quot;high tea&quot;, &quot;a feast!&quot;, &quot;hot chocolate&quot;];
 
+console.log(breakfast) // &quot;eggs&quot;
 console.log(more) // [&quot;high tea&quot;, &quot;a feast!&quot;, &quot;hot chocolate&quot;];
 </code></pre>
 </section>
 
 <section  class=""><h2 id="structure">Structure</h2>
-<pre><code class="lang-sh">PATTERN = VALUE TO DESTRUCTURE
+<pre><code class="lang-sh">PATTERN DEFINING VARIABLES = VALUE TO DESTRUCTURE;
 </code></pre>
 </section>
 
@@ -661,10 +676,26 @@ if(x == null) {
 </section>
 
 <section data-state='title' class=" title"><h2 id="quality">Quality</h2>
-<!-- TODO stinger - demonstration - for ESLint -->
+</section>
+
+<section  class=""><h2 id="languages-have-gotchas">Languages have gotchas</h2>
+<pre><code class="lang-javascript">var launch = new Boolean(false);
+
+if(launch)
+  console.log(&quot;launching missiles&quot;);
+else
+  console.log(&quot;phew&quot;);
+  console.log(&quot;peace at last&quot;);
+
+// what is output?
+</code></pre>
 </section>
 
 <section  class=""><h2 id="eslint">ESLint</h2>
+<ul>
+<li>linter: clarifies code</li>
+<li>blunts some of JS&#39;s nasty gotchas</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="try-now">Try now</h2>
@@ -686,13 +717,23 @@ eslint path/to/js
 </section>
 
 <section  class=""><h2 id="code-style">Code style</h2>
+<pre><code class="lang-js">// brevity at all cost!
+yes &amp;&amp; doThing()
+</code></pre>
+<pre><code class="lang-js">if(yes) {
+  doThing();
+}
+</code></pre>
 </section>
 
 <section  class=""><h2 id="boring-to-debate-">Boring to debate!</h2>
-<!-- TODO stinger - demonstration - for ESLint -->
 </section>
 
 <section  class=""><h2 id="jscs">JSCS</h2>
+<ul>
+<li>find (&amp; fix) style deviations</li>
+<li>makes switching code-bases more plesant</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="try-now">Try now</h2>
@@ -1218,9 +1259,11 @@ console.log(dict[convertsToTen]); // &quot;ten&quot;
 
 <section  class=""><h2 id="-for-of-"><code>for ... of</code></h2>
 <pre><code class="lang-javascript">// objects not iterable by default, so...
-for(const [property, value] of Object.entries(object)) {
+for(const [property, value] of entries(object)) {
   console.log(`${property}: ${value}`);
 }
+
+// Object.entries(obj) is proposed for future ECMA
 </code></pre>
 </section>
 
@@ -1281,10 +1324,10 @@ console.log(m.get(list)); // A
 
 console.log(m.get([1,2,3])); // ...?
 
-const m2 = new Map(Object.entries({
-  list: &quot;hello&quot;,
-  boo: &quot;another key&quot;,
-}));
+const m2 = new Map([
+  [&quot;list&quot;, &quot;hello&quot;],
+  [&quot;boo&quot;, &quot;another key&quot;],
+]);
 </code></pre>
 </section>
 
@@ -1460,18 +1503,16 @@ function create(data, cb) {
 <section data-state='title' class=" title"><h2 id="promises">Promises</h2>
 </section>
 
-<section  class=""><h2 id="an-iou">An IOU</h2>
-<ul>
-<li>A value, returned immediately</li>
-<li>Fulfilled or rejected - once</li>
-<li>Use before or after resolved</li>
-<li>Chain together</li>
-<li>Flow control for async</li>
-</ul>
-</section>
-
 <section  class=""><h2 id="intuition">Intuition</h2>
 <p><img src="media/promises.png" alt="Promise chain"></p>
+</section>
+
+<section  class=""><h2 id="an-iou">An IOU</h2>
+<ul>
+<li>A value, available immediately</li>
+<li>Settled - resolved or rejected - once</li>
+<li>Use before or after settled</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="promises-in-practice">Promises in practice</h2>
@@ -1590,8 +1631,7 @@ var usersWithAccounts = Promise.all(users)
 <ul>
 <li>promises = values for async</li>
 <li>don&#39;t just use as callbacks</li>
-<li>think about transformers for the values</li>
-<li>chain promises flows together</li>
+<li>think chains of transformations</li>
 </ul>
 </section>
 
@@ -1650,8 +1690,8 @@ for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
 <section  class=""><h2 id="woah-">Woah!</h2>
 </section>
 
-<section  class=""><h2 id="baby-steps-">Baby steps: <code><em></code></h2>
-<pre><code class="lang-javascript">// the &#39;</em>&#39; means we&#39;re a generator function
+<section  class=""><h2 id="baby-steps-">Baby steps: <code>*</code></h2>
+<pre><code class="lang-javascript">// the &#39;*&#39; means we&#39;re a generator function
 function *objectProperties(object) {
   // ...
 }
@@ -1678,8 +1718,11 @@ logLast([1,2,3,4])
 function *logLast(xs) {
   console.log(xs[xs.length - 1]);
 }
+
+// what&#39;s output?
 </code></pre>
 <ul>
+  <li class='fragment'>Nothing</li>
   <li class='fragment'>Calling a generator function creates, not starts, a generator</li>
   <li class='fragment'>It&#39;s only via iterating it we can start it</li>
 </ul>
@@ -1689,14 +1732,13 @@ function *logLast(xs) {
 <section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
 <ul>
 <li>Generator functions <em>return</em> a generator</li>
-<li>The function body is run only via iteration (manual or <code>for ... of</code>)</li>
+<li>The generator body is run only via iteration</li>
 </ul>
 </section>
 
 <section  class=""><h2 id="gotcha-2">Gotcha 2</h2>
 <pre><code class="lang-javascript">
 for(const k in reverse([1,2,3,4])) {
-  // never gets here! why?
   console.log(k);
 }
 
@@ -1707,8 +1749,9 @@ function *reverse(xs) {
 }
 </code></pre>
 <ul>
+  <li>What&#39;s output?</li>
+  <li class='fragment'>Nothing</li>
   <li class='fragment'>How are we looping over our generator?</li>
-  <li class='fragment'>Generator objects have only prototype properties! i.e <code>{}</code></li>
 </ul>
 
 </section>
@@ -1725,7 +1768,7 @@ exercises/generators
 <section data-state='title' class=" title"><h2 id="generator-api">Generator API</h2>
 </section>
 
-<section data-state='title' class=" title"><h2 id="generators-are-an-interface">Generators are an interface</h2>
+<section  class=""><h2 id="generators-are-an-interface">Generators are an interface</h2>
 <pre><code class="lang-javascript">const gen = someGeneratorFunction();
 
 console.log(typeof gen.next); // function
@@ -1903,8 +1946,15 @@ co(function *cat() {
 <section  class=""><h2 id="confusion">Confusion</h2>
 </section>
 
-<section  class=""><h2 id="objects">Objects</h2>
-<pre><code class="lang-javascript">const a = { b: 1 }; // this is instance of &#39;Object&#39;
+<section  class=""><h2 id="-object-"><code>Object</code></h2>
+<pre><code class="lang-javascript">const a = { b: 1 }; // this is an instance of &#39;Object&#39;
+
+// A is an object too!
+A.b = 1;
+function A() {
+}
+
+console.log(typeof null); // object
 </code></pre>
 </section>
 
@@ -1912,8 +1962,12 @@ co(function *cat() {
 </section>
 
 <section  class=""><h2 id="oop">OOP</h2>
-<p>I mean Alan Kay objects! OOP</p>
-</section>
+<ul>
+<li>Object-oriented programming. </li>
+<li>Alan Kay&#39;s &#39;objects&#39;</li>
+</ul>
+<pre><code> The big idea is &quot;messaging&quot;. 
+</code></pre></section>
 
 <section  class=""><h2 id="oop-in-js">OOP in JS</h2>
 <ul>
@@ -1929,12 +1983,12 @@ co(function *cat() {
   }
 
   render() {
-    return <code>&amp;lt;div&amp;gt;${ this._model.get(&amp;quot;name&amp;quot;) }&amp;lt;/div&amp;gt;</code>;
+    return `&lt;div&gt;${ this._model.get(&quot;name&quot;) }&lt;/div&gt;`;
   }
 }
 
 const instance = new Widget({
-  model: new Map(Object.entries({&quot;name&quot;: &quot;crockford&quot;})),
+  model: new Map([[&quot;name&quot;, &quot;crockford&quot;]]),
 });
 </code></pre>
 </section>
@@ -1976,17 +2030,14 @@ exericses/objects-and-prototypes
 <section  class=""><h2 id="privacy-">Privacy?</h2>
 </section>
 
-<section  class=""><h2 id="-">...</h2>
-</section>
-
 <section  class=""><h2 id="consensual-privacy">Consensual privacy</h2>
 <pre><code class="lang-javascript">class Widget {
 
   render() {
-    return `&lt;div&gt;${ this.<em>renderName() }&lt;/div&gt;`;
+    return `&lt;div&gt;${ this._renderName() }&lt;/div&gt;`;
   }
 
-  // </em> prefix to show it&#39;s private
+  // prefix to show it&#39;s private
   _renderHelper() {
     return `&lt;span class=&#39;name&#39;&gt;
       ${ this._model.get(&quot;name&quot;) }
@@ -2057,9 +2108,9 @@ global.weak = weak;
 <section  class=""><h2 id="inheritence">Inheritence</h2>
 <pre><code class="lang-javascript">class DefaultMap extends Map {
 
-  constructor(members, default) {
+  constructor(members, defaulter) {
     super(members);
-    this._default = default;
+    this._default = defaulter;
   }
 
   get(key) {
@@ -2070,11 +2121,11 @@ global.weak = weak;
   }
 }
 
-const instance = new DefaultMap(Object.entries({ apples: 7 }), 
+const instance = new DefaultMap([[&quot;apples&quot;, 7 ]]), 
   () =&gt; 0)
 
-instance.get(&quot;apples&quot;) // 7
-instance.get(&quot;pears&quot;) // 0
+console.log(instance.get(&quot;apples&quot;)) // 7
+console.log(instance.get(&quot;pears&quot;)) // 0
 </code></pre>
 </section>
 
@@ -2615,9 +2666,6 @@ describe(&quot;auto-focus component&quot;, function() {
   });
 })
 </code></pre>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
 <!-- TODO TDD loop image -->
 </section>
 

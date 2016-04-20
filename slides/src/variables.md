@@ -15,6 +15,8 @@ var anotherVariable = "hello";
 
 ## `undefined` vs undeclared
 
+## `undefiend`
+
 ```javascript
 var notDefined;
 
@@ -35,8 +37,17 @@ console.log(smeVar); // typo, what happens??
 ```javascript
 const doesNotChange = "hi";
 
-// throws TypeError
+// throws TypeError - Assignment to constant
 doesNotChange = "I'll try my luck";
+```
+
+## `const`
+
+```javascript
+const counter = { count: 0 };
+
+// what happens here?
+counter.count += 1;
 ```
 
 ## Rule: use `const` if possible

@@ -43,11 +43,11 @@ for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
 
 ## Woah!
 
-## Baby steps: `*`
+## Baby steps: `\*`
 
 ```javascript
-// the '*' means we're a generator function
-function *objectProperties(object) {
+// the '\*' means we're a generator function
+function \*objectProperties(object) {
   // ...
 }
 ```
@@ -75,9 +75,12 @@ logLast([1,2,3,4])
 function *logLast(xs) {
   console.log(xs[xs.length - 1]);
 }
+
+// what's output?
 ```
 
 <ul>
+  <li class='fragment'>Nothing</li>
   <li class='fragment'>Calling a generator function creates, not starts, a generator</li>
   <li class='fragment'>It's only via iterating it we can start it</li>
 </ul>
@@ -85,7 +88,7 @@ function *logLast(xs) {
 ## Gotcha 1
 
 - Generator functions *return* a generator
-- The function body is run only via iteration (manual or `for ... of`)
+- The generator body is run only via iteration
 
 
 ## Gotcha 2
@@ -93,7 +96,6 @@ function *logLast(xs) {
 ```javascript
 
 for(const k in reverse([1,2,3,4])) {
-  // never gets here! why?
   console.log(k);
 }
 
@@ -105,12 +107,12 @@ function *reverse(xs) {
 ```
 
 <ul>
+  <li>What's output?</li>
+  <li class='fragment'>Nothing</li>
   <li class='fragment'>How are we looping over our generator?</li>
-  <li class='fragment'>Generator objects have only prototype properties! i.e <code>{}</code></li>
 </ul>
 
 ## Gotcha 2: Only `for ... of`, `in` will NOT work
-
 
 ## Let's try!
 {exercise:true}
@@ -123,7 +125,6 @@ function *reverse(xs) {
 {title: true}
 
 ## Generators are an interface
-{title:true}
 
 ```javascript
 const gen = someGeneratorFunction();

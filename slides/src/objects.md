@@ -3,11 +3,17 @@
 
 ## Confusion
 
-## Objects
+## `Object`
 
 ```javascript
-const a = { b: 1 }; // this is instance of 'Object'
+const a = { b: 1 }; // this is an instance of 'Object'
 
+// A is an object too!
+A.b = 1;
+function A() {
+}
+
+console.log(typeof null); // object
 ```
 
 ## Nope
@@ -15,7 +21,11 @@ const a = { b: 1 }; // this is instance of 'Object'
 
 ## OOP
 
-I mean Alan Kay objects! OOP
+- Object-oriented programming. 
+- Alan Kay's 'objects'
+
+
+     The big idea is "messaging". 
 
 ## OOP in JS
 
@@ -31,12 +41,12 @@ class Widget {
   }
 
   render() {
-    return `<div>${ this._model.get("name") }</div>`;
+    return \`<div>${ this._model.get("name") }</div>\`;
   }
 }
 
 const instance = new Widget({
-  model: new Map(Object.entries({"name": "crockford"})),
+  model: new Map([["name", "crockford"]]),
 });
 ```
 
@@ -77,8 +87,6 @@ class Widget {
 
 ## Privacy?
 
-## ...
-
 ## Consensual privacy
 
 ```javascript
@@ -88,7 +96,7 @@ class Widget {
     return \`<div>${ this._renderName() }</div>\`;
   }
 
-  // _ prefix to show it's private
+  // prefix to show it's private
   _renderHelper() {
     return \`<span class='name'>
       ${ this._model.get("name") }
@@ -160,9 +168,9 @@ global.weak = weak;
 ```javascript
 class DefaultMap extends Map {
 
-  constructor(members, default) {
+  constructor(members, defaulter) {
     super(members);
-    this._default = default;
+    this._default = defaulter;
   }
 
   get(key) {
@@ -174,11 +182,11 @@ class DefaultMap extends Map {
   }
 }
 
-const instance = new DefaultMap(Object.entries({ apples: 7 }), 
+const instance = new DefaultMap([["apples", 7 ]]), 
   () => 0)
 
-instance.get("apples") // 7
-instance.get("pears") // 0
+console.log(instance.get("apples")) // 7
+console.log(instance.get("pears")) // 0
 ```
 
 ## Broken down

@@ -49,9 +49,11 @@ for(const property in Object.values(object)) {
 
 ```javascript
 // objects not iterable by default, so...
-for(const [property, value] of Object.entries(object)) {
+for(const [property, value] of entries(object)) {
   console.log(\`${property}: ${value}\`);
 }
+
+// Object.entries(obj) is proposed for future ECMA
 ```
 
 ## ES6 - dynamic keys
@@ -117,10 +119,10 @@ console.log(m.get(list)); // A
 
 console.log(m.get([1,2,3])); // ...?
 
-const m2 = new Map(Object.entries({
-  list: "hello",
-  boo: "another key",
-}));
+const m2 = new Map([
+  ["list", "hello"],
+  ["boo", "another key"],
+]);
 ```
 
 

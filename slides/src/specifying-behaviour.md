@@ -94,9 +94,6 @@ describe("auto-focus component", function() {
 })
 ```
 
-##  
-{notitle: true}
-
 <!-- TODO TDD loop image -->
 
 ## TDD loop

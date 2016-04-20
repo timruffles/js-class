@@ -4,7 +4,7 @@
 <img src="slides-theme/img/eval-apply.jpg" style='width:476px; display:block; margin: 0 auto'>
 
 ## Three ways to define
-{note:"don't mention this"}
+{note:"don't mention `this`"}
 
 ## Declare
 

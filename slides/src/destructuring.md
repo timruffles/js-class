@@ -9,13 +9,14 @@
 const [breakfast, lunch, ...more]
   = ["eggs", "falafel", "high tea", "a feast!", "hot chocolate"];
 
+console.log(breakfast) // "eggs"
 console.log(more) // ["high tea", "a feast!", "hot chocolate"];
 ```
 
 ## Structure
 
 ```sh
-PATTERN = VALUE TO DESTRUCTURE
+PATTERN DEFINING VARIABLES = VALUE TO DESTRUCTURE;
 ```
 
 ## Objects
