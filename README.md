@@ -3,6 +3,15 @@
 [![Build Status](https://travis-ci.org/timruffles/js-class.svg?branch=master)](https://travis-ci.org/timruffles/js-class)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/tv14tusk6pd7d36r?svg=true)](https://ci.appveyor.com/project/timruffles/js-class)
 
+## Install
+
+```sh
+cd path/to/this/repo
+npm install
+```
+
+## Weclome
+
 
 It's a priviledge to welcome you to the Advanced JS Class! Today we're going to look at getting the best from the JS of today and the near future: ES6 and beyond.
 

@@ -267,7 +267,7 @@ class Point {
 
 ## If an object doesn't know, it asks its prototype
 
-##    
+##        
 {notitle:1}
 
 <img src="media/prototypes.png">
@@ -320,7 +320,7 @@ console.log(B.letters) // ["a"]
 
 ## Creating objects with prototype
 
-## 
+##     
 {notitle:1}
 
 ```javascript
