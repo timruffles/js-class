@@ -38,7 +38,7 @@ function scenarioOne() {
   }
 }
 
-ANSWERS.scenarioOne = 'inner';
+ANSWERS.scenarioOne = 'TODO';
 
 function scenarioTwo() {
 
@@ -50,6 +50,7 @@ function scenarioTwo() {
 
   function inner() {
     var A = 'inner';
+
     // scope: {A: 'inner'}
   }
 
@@ -105,7 +106,7 @@ function scenarioFive() {
   return A;
 }
 
-ANSWERS.scenarioFive = 'inner';
+ANSWERS.scenarioFive = 'TODO';
 
 function scenarioSix() {
   var A;
@@ -120,7 +121,7 @@ function scenarioSix() {
   }
 }
 
-ANSWERS.scenarioSix = 10;
+ANSWERS.scenarioSix = 'TODO';
 
 function scenarioSeven() {
 

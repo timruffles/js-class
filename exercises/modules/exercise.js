@@ -23,9 +23,9 @@ var hattersTreat = 'darjeeling in a conch-shell';
 
 // TODO export the Hatter as default!
 // TODO export the hattersTreat as treat
-export { 
-  Hatter as default, 
-  hattersTreat as treat 
+export {
+  Hatter as default,
+  hattersTreat as treat
 };
 
 
@@ -37,9 +37,9 @@ export {
  */
 
 
-import hareDefault from "./MarchHare";
-import * as wholeMarchHareModule from "./MarchHare";
-import { treat as MarchHareTreat } from "./MarchHare";
+import hareDefault from './MarchHare';
+import * as wholeMarchHareModule from './MarchHare';
+import { treat as MarchHareTreat } from './MarchHare';
 
 // TODO import the March Hare's default, and its treat
 
@@ -56,4 +56,4 @@ export { hareDefault as MarchHare, MarchHareTreat };
 
 // TODO using the rexport syntax, import and rexport Alice (Alice module default) and AliceTreat
 
-export { default as Alice, treat as AliceTreat } from "./Alice";
+export { default as Alice, treat as AliceTreat } from './Alice';

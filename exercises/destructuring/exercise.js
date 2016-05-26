@@ -1,3 +1,4 @@
+'use strict';
 /* eslint no-unused-vars:0 */
 
 // part 1: getting rid of temporary vars
