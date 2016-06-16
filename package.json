@@ -5,7 +5,7 @@
   "scripts": {
     "lint:all": "eslint exercises/*/exercise.js",
     "style:all": "jscs exercises/*/exercise.js",
-    "// everything in here is stuff that's only useful for me": "",
+    "// everything below here is stuff that's only useful for me": "",
     "ci": "npm run lint:all && npm run style:all && npm test",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
     "test": "node exercises/.sys/run-all.js",
