@@ -9,6 +9,7 @@
     "ci": "npm run lint:all && npm run style:all && npm test",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
     "test": "node exercises/.sys/run-all.js",
+    "postinstall": "cd exercises/systemjs-browser && npm install",
     "slides:dev": "nodemon --ext md,js,css --watch slides --exec 'npm run slides'"
   },
   "author": "Tim Ruffles <oi@truffles.me.uk>",
