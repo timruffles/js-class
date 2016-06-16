@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrent 'live-server' 'babel --watch src --out-dir transpiled'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^1.0.0",
     "systemjs": "^0.19.29"
-  },
-  "scripts": {
-    "start": "concurrently 'live-server' 'babel --watch src --out-dir transpiled'"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",
