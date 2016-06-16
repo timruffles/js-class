@@ -133,3 +133,7 @@ blockquote em {
 .reveal .notitle h1, .reveal .notitle h2 {
   display: none;
 }
+
+.black body , .black body {
+  background: black;
+}

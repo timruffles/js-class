@@ -76,17 +76,35 @@ console.log((0, &quot;what does this do?&quot;));
 </code></pre>
 </section>
 
+<section  class=""><h2 id="our-goal-">Our goal...</h2>
+</section>
+
+<section data-state='black' class=" black"><h2 id="-"> </h2>
+<p><img src="media/be-the-interpreter.jpg"></p>
+</section>
+
+<section data-state='title' class=" title"><h2 id="versions">Versions</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="landscape-diagram">Landscape diagram</h2>
+<p><img src="media/es landscape.png"></p>
+</section>
+
 <section  class=""><h2 id="ages-of-js">Ages of JS</h2>
 <ul>
 <li><del>ES3</del> (obsolete)</li>
 <li><del>ES5 sloppy</del> (avoid)</li>
 <li>ES5 strict</li>
-<li>ES.next - ES2015 (ES6), +</li>
+<li>Yearly releases, starting ES2015 (ES6)</li>
 </ul>
 </section>
 
-<section data-state='notitle' class=" notitle"><h2 id="landscape-diagram">Landscape diagram</h2>
-<p><img src="media/es landscape.png"></p>
+<section  class=""><h2 id="version-names">Version names</h2>
+<ul>
+<li>ES6 is ES2015</li>
+<li>ESYYYY</li>
+<li>ES2016 == <code>Array.prototype.includes</code> + <code>N**k</code></li>
+</ul>
 </section>
 
 <section  class=""><h2 id="strict">Strict</h2>
@@ -332,6 +350,107 @@ console.log(smeVar); // typo, what happens??
 </code></pre>
 </section>
 
+<section  class=""><h2 id="-var-function-scoped"><code>var</code> = function scoped</h2>
+</section>
+
+<section  class=""><h2 id="function-scope">Function scope</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="created-per-invocation">Created per invocation</h2>
+<pre><code class="lang-javascript">function main(A) {
+  console.log(A);
+}
+
+main(10);
+main(&quot;hello &quot; + 5);
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="intuitive">Intuitive</h2>
+<pre><code class="lang-javascript">function main(A) {
+  console.log(A);
+}
+
+var A = 10;
+main(A);
+main(A + 5);
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="more-complex">More complex</h2>
+<pre><code class="lang-javascript">function main() {
+  var A = &#39;hello&#39;;
+  var B = &#39;hi&#39;;
+
+  function one(A, C) {
+    var D = &#39;hola&#39;;
+    console.log(A,B,C,D);
+  }
+
+  one(A, &#39;yo&#39;);
+  one(A);
+  one(B,A);
+
+  console.log(D); // &lt;- what happens here?
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="one-weird-quirk">One weird quirk</h2>
+<pre><code class="lang-javascript">function main() {
+  // what happens here?
+  console.log(i);
+
+  for(var i = 0; i&lt;10; i++) {
+    console.log(i);
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="hoisting">Hoisting</h2>
+<pre><code class="lang-javascript">function main() {
+  console.log(i);
+
+  for(var i = 0; i&lt;10; i++) {
+    console.log(i);
+  }
+}
+</code></pre>
+<pre><code class="lang-javascript">// visualising the &#39;hoisting zone&#39;
+function main() {
+  var i;
+  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+  console.log(i);
+
+  for(var i = 0; i&lt;10; i++) {
+    console.log(i);
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="global-scope">Global scope</h2>
+<pre><code class="lang-javascript">// browser - sloppy mode
+something = &quot;I am global&quot;;
+
+
+// browser - strict mode
+window.something = &quot;I am global&quot;;
+
+// node
+global.something = &quot;I am global&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="acessing-global-object">Acessing global object</h2>
+<pre><code class="lang-javascript">this; // sloppy, outside functions
+
+window; // browser
+global; // node
+</code></pre>
+</section>
+
 <section  class=""><h2 id="-const-"><code>const</code></h2>
 <pre><code class="lang-javascript">const doesNotChange = &quot;hi&quot;;
 
@@ -380,77 +499,11 @@ console.log(i);
 <p><img src="media/block-scopes.png"></p>
 </section>
 
-<section  class=""><h2 id="rule-use-let-in-loops-etc">Rule: use <code>let</code> in loops etc</h2>
+<section  class=""><h2 id="rule-use-let-over-var-">Rule: use <code>let</code> over <code>var</code></h2>
 <ul>
 <li>one less source of bugs</li>
 <li>clearer where variables belong</li>
 </ul>
-</section>
-
-<section  class=""><h2 id="what-about-var-">What about <code>var</code>?</h2>
-</section>
-
-<section  class=""><h2 id="-var-function-scoped"><code>var</code> = function scoped</h2>
-</section>
-
-<section  class=""><h2 id="function-scope">Function scope</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="diagram-of-function-scope">Diagram of function scope</h2>
-<p><img src="media/function-scopes.png"></p>
-</section>
-
-<section  class=""><h2 id="one-weird-quirk">One weird quirk</h2>
-<pre><code class="lang-javascript">function main() {
-  // what happens here?
-  console.log(i);
-
-  for(var i = 0; i&lt;10; i++) {
-    console.log(i);
-  }
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="hoisting">Hoisting</h2>
-<pre><code class="lang-javascript">function main() {
-  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-  # this is the &#39;hoisting zone&#39;, where 
-  # all var statements are hoisted before invocation
-  SCOPE := { i: undefined }
-
-  # NOTE: JUST for intuition - lightning bolt sections
-  # are to give intuition for interpreter actions
-  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-
-  console.log(i);
-
-  for(var i = 0; i&lt;10; i++) {
-    console.log(i);
-  }
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="global-scope">Global scope</h2>
-<pre><code class="lang-javascript">// browser - sloppy mode
-something = &quot;I am global&quot;;
-
-
-// browser - strict mode
-window.something = &quot;I am global&quot;;
-
-// node
-global.something = &quot;I am global&quot;;
-</code></pre>
-</section>
-
-<section  class=""><h2 id="acessing-global-object">Acessing global object</h2>
-<pre><code class="lang-javascript">this; // sloppy, outside functions
-
-window; // browser
-global; // node
-</code></pre>
 </section>
 
 <section  class=""><h2 id="exercise-">Exercise!</h2>
@@ -1464,39 +1517,54 @@ console.log(s.has([1,2])); // ...?
 </ul>
 </section>
 
-<section data-state='notitle' class=" notitle"><h2 id="stack-diagram">Stack diagram</h2>
-<p><img src="media/stack-clear-errors.png"></p>
+<section data-state='notitle' class=" notitle"><h2 id="stack">Stack</h2>
+<p><img src="media/stacks.png"></p>
 </section>
 
-<section data-state='notitle' class=" notitle"><h2 id="with-async-no-one-can-hear-you-throw">With async, no one can hear you throw</h2>
-<p><img src="media/stack-clear.png"></p>
+<section  class=""><h2 id="-try-catch-"><code>try ... catch</code></h2>
+<ul>
+<li>JS looks back up the (sync) stack on errors</li>
+<li>if we&#39;re inside a <code>try ... catch</code> in the stack, we&#39;re ok</li>
+</ul>
 </section>
 
-<section  class=""><h2 id="e-g">e.g</h2>
-<pre><code class="lang-javascript">// this stack is long gone...
-try {
+<section  class=""><h2 id="try-catch">try + catch</h2>
+<pre><code class="lang-javascript">function main() {
+  try {
+    helper();
+  } catch(e) {
+    console.log(e);
+  }
 
-  create({}, function() {
-    // ...
-  })
-
-} catch(e) {
-  // never going to catch!
 }
-// waaaaay before...(1)
 
-function create(data, cb) {
-  $post(&quot;/api/create&quot;, data, function(err, ok) {
-    if(err) {
-      // (1)...we get here
-      throw err;
-    }
-  })
+function helper() {
+  throw Error(&quot;bad thing&quot;);
 }
 </code></pre>
 </section>
 
-<section  class=""><h2 id="rule-don-t-throw-in-async">Rule: don&#39;t throw in async</h2>
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/try-catch-sync.jpg"></p>
+</section>
+
+<section  class=""><h2 id="with-async-try-catch-can-t-help-you">With async, <code>try ... catch</code> can&#39;t help you</h2>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">function main() {
+  try {
+    // make a async HTTP request
+    $.get(&quot;/some/json/url&quot;);
+  } catch(e) {
+    console.log(e);
+  }
+}
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/try-catch-async.jpg"></p>
 </section>
 
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>

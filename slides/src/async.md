@@ -71,43 +71,58 @@
 - keeps point to return to
 - stack 'unravels' with errors
 
-## Stack diagram
-{notitle: 1}
+## Stack
+{notitle:1}
 
-<img src="media/stack-clear-errors.png">
+<img src="media/stacks.png">
 
-## With async, no one can hear you throw
-{notitle: 1}
 
-<img src="media/stack-clear.png">
+## `try ... catch`
+
+- JS looks back up the (sync) stack on errors
+- if we're inside a `try ... catch` in the stack, we're ok
+
+## try + catch
+
+```javascript
+function main() {
+  try {
+    helper();
+  } catch(e) {
+    console.log(e);
+  }
+
+}
+
+function helper() {
+  throw Error("bad thing");
+}
+```
+
+##   
+{notitle:1}
+
+<img src="media/try-catch-sync.jpg">
+
+## With async, `try ... catch` can't help you
 
 ## e.g
 
 ```javascript
-// this stack is long gone...
-try {
-
-  create({}, function() {
-    // ...
-  })
-
-} catch(e) {
-  // never going to catch!
-}
-// waaaaay before...(1)
-
-function create(data, cb) {
-  $post("/api/create", data, function(err, ok) {
-    if(err) {
-      // (1)...we get here
-      throw err;
-    }
-  })
+function main() {
+  try {
+    // make a async HTTP request
+    $.get("/some/json/url");
+  } catch(e) {
+    console.log(e);
+  }
 }
 ```
 
-## Rule: don't throw in async
-{rule:1}
+##   
+{notitle:1}
+
+<img src="media/try-catch-async.jpg">
 
 ## Let's try
 {exercise:true}

@@ -47,6 +47,7 @@ exports.parse = function(source) {
       tag("title")
       tag("sub")
       tag("notitle")
+      tag("black")
       tag("bad")
 
       const body = [heading].concat(takeUntil({ type: "heading", depth: 2 }));

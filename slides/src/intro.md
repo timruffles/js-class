@@ -33,47 +33,10 @@
 console.log((0, "what does this do?"));
 ```
 
-## Ages of JS
+## Our goal...
 
-- ~~ES3~~ (obsolete)
-- ~~ES5 sloppy~~ (avoid)
-- ES5 strict
-- ES.next - ES2015 (ES6), +
+##   
+{black:1}
 
-## Landscape diagram
-{notitle:1}
+<img src="media/be-the-interpreter.jpg">
 
-<img src="media/es landscape.png">
-
-## Strict
-
-```javascript
-// <- first non-comment line of file or function
-"use strict";
-
-// or: ES6 modules/classes
-```
-
-## Tightens up language
-
-- new to JS? Not missing anything!
-- removes `with`
-- bans duplicate properties
-- implicit globals
-
-## Today: ES5 strict, & ES6
-
-All code will run in strict, with ES6.
-
-## Exercise intro
-
-```sh
-./exercises/some-name
-  exercise.js
-  verify.js
-```
-
-```sh
-cd ./exercises/some-name
-node verify
-```

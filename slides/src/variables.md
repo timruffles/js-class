@@ -31,6 +31,120 @@ var someVar;
 console.log(smeVar); // typo, what happens??
 ```
 
+
+## `var` = function scoped
+
+## Function scope
+
+## Created per invocation
+{notitle:1}
+
+```javascript
+function main(A) {
+  console.log(A);
+}
+
+main(10);
+main("hello " + 5);
+```
+
+## Intuitive
+{notitle:1}
+
+```javascript
+function main(A) {
+  console.log(A);
+}
+
+var A = 10;
+main(A);
+main(A + 5);
+```
+
+## More complex
+{notitle:1}
+
+```javascript
+function main() {
+  var A = 'hello';
+  var B = 'hi';
+
+  function one(A, C) {
+    var D = 'hola';
+    console.log(A,B,C,D);
+  }
+
+  one(A, 'yo');
+  one(A);
+  one(B,A);
+
+  console.log(D); // <- what happens here?
+}
+```
+
+
+## One weird quirk
+
+
+```javascript
+function main() {
+  // what happens here?
+  console.log(i);
+
+  for(var i = 0; i<10; i++) {
+    console.log(i);
+  }
+}
+```
+
+## Hoisting
+
+```javascript
+function main() {
+  console.log(i);
+
+  for(var i = 0; i<10; i++) {
+    console.log(i);
+  }
+}
+```
+
+```javascript
+// visualising the 'hoisting zone'
+function main() {
+  var i;
+  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+  console.log(i);
+
+  for(var i = 0; i<10; i++) {
+    console.log(i);
+  }
+}
+```
+
+## Global scope
+
+```javascript
+// browser - sloppy mode
+something = "I am global";
+
+
+// browser - strict mode
+window.something = "I am global";
+
+// node
+global.something = "I am global";
+```
+
+## Acessing global object
+
+```javascript
+this; // sloppy, outside functions
+
+window; // browser
+global; // node
+```
+
 ## `const`
 {es6:1}
 
@@ -86,80 +200,12 @@ console.log(i);
 
 <img src="media/block-scopes.png">
 
-## Rule: use `let` in loops etc 
+## Rule: use `let` over `var`
 {rule:1}
 
 - one less source of bugs
 - clearer where variables belong
 
-## What about `var`?
-
-## `var` = function scoped
-
-## Function scope
-
-## Diagram of function scope
-{notitle:1}
-
-<img src="media/function-scopes.png">
-
-## One weird quirk
-
-
-```javascript
-function main() {
-  // what happens here?
-  console.log(i);
-
-  for(var i = 0; i<10; i++) {
-    console.log(i);
-  }
-}
-```
-
-## Hoisting
-
-```javascript
-function main() {
-  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-  # this is the 'hoisting zone', where 
-  # all var statements are hoisted before invocation
-  SCOPE := { i: undefined }
-
-  # NOTE: JUST for intuition - lightning bolt sections
-  # are to give intuition for interpreter actions
-  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-
-  console.log(i);
-
-  for(var i = 0; i<10; i++) {
-    console.log(i);
-  }
-}
-```
-
-## Global scope
-
-```javascript
-// browser - sloppy mode
-something = "I am global";
-
-
-// browser - strict mode
-window.something = "I am global";
-
-// node
-global.something = "I am global";
-```
-
-## Acessing global object
-
-```javascript
-this; // sloppy, outside functions
-
-window; // browser
-global; // node
-```
 
 ## Exercise!
 {exercise:1}
