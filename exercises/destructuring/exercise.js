@@ -8,7 +8,6 @@ let down = 'Down!';
 
 // TODO make Alice drink a potion - switch up and down in one line!
 // this is tricky - perhaps you could destructure an array some how?
-// ({ up: down, down: up } = { up, down });
 
 
 
