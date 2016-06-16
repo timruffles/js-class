@@ -1,0 +1,39 @@
+<!doctype>
+
+<style>
+  body{
+    font-family: sans-serif;
+  }
+
+  text {
+    text-anchor: middle;
+  }
+
+  circle {
+    transition: fill 0.25s ease-in-out;
+    fill: gold;
+  }
+
+  circle.clicked {
+    fill: tomato;
+  }
+
+</style>
+
+<svg width=1024 height=1024>
+  <g transform='translate(150,150)'>
+    <circle r=80></circle>
+    <text>One</text>
+  </g>
+  <g transform='translate(350,150)'>
+    <circle r=80></circle>
+    <text>Two</text>
+  </g>
+  <g transform='translate(550,150)'>
+    <circle r=80></circle>
+    <text>Three</text>
+  </g>
+</svg>
+
+<script src="browser-exercise.js"></script>
+<script src=".browser-test.js"></script>
