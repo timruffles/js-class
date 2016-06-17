@@ -4,8 +4,18 @@
 // TODO - calls 'logger' with the count of calls, and the arguments
 //
 // @type function loggerFunction(args: Array<any>, callCount: number): void
-// @type function spy(originalFn: Function, logger: loggerFunction, count? : number): spiedFunction
-export function spy(originalFn, logger, count = 0) {
-};
+// @type function spy(originalFn: Function, logger: loggerFunction): spiedFunction
+export function spy(originalFn, logger) {
+  let count = 0;
+
+
+  return function workAsOriginalButSpiedOn() {
+    // TODO call logger
+    // TODO increase count
+  }
+}
+
+
+
 
 
