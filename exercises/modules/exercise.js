@@ -37,3 +37,8 @@ var hattersTreat = 'darjeeling in a conch-shell';
 
 
 
+/**
+ * 3) learning to re-export with the Alice
+ */
+// TODO rexport the default export of ./Alice as Alice
+// TODO rexport the treat name export of ./Alice as AliceTreat
