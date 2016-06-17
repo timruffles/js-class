@@ -15,9 +15,9 @@
  * Just guessing until it works won't help you learn it!
  *
  * if you think the scenario returns nothing, or will
- * throw an error, return nothing (null/undefined or no return)
+ * throw an error, assign that to the answer property (null/undefined)
  *
- * only modify code inside 'exports'
+ * only modify the ANSWERS.scenario = 'TODO' lines
  */
 
 // config for exercises
