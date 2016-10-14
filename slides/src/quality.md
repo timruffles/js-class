@@ -53,3 +53,16 @@ if(yes) {
 
 ## Boring to debate!
 
+## Autofix
+
+```javascript
+eslint --fix exercises/some-exercise/exercise.js
+```
+
+## How to use npm scripts
+
+- Open package.json
+- Read the lint all
+- Create a `lint:fix` that runs lint with fix
+- `npm run` on its own lists scripts
+
