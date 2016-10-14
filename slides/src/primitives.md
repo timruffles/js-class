@@ -40,27 +40,17 @@ var html = \`
 var t = true;
 ```
 
-## Quiz: truthy vs falsy
-
-```javascript
-var empty = Boolean(""); // true
-
-Boolean("hello"); // ?
-
-Boolean(0); // ?
-Boolean(1); // ?
-Boolean(7); // ?
-
-Boolean(true); // ?
-```
-
 
 ## Quiz
 
 ```javascript
-var booly = new Boolean(false);
+var FALSE = new Boolean(false);
 
-Boolean(booly);
+if(FALSE) {
+  console.log("A")
+} else {
+  console.log("B")
+}
 ```
 
 ## Rule: never wrap primitives
@@ -104,10 +94,20 @@ var y = null;
 
 ## `==` has issues
 
-<!-- TODO image -->
+```javascript
+var A = "\t\t\t\t\t \n \n \n" == false;
+
+if(A) {
+  console.log("A was == false");
+} else {
+  console.log("A wasn't == false");
+}
+```
 
 ## Rule: always use `===`
 {rule:1}
+
+- Much clearer
 
 ## But *ONE* place to use `==`
 

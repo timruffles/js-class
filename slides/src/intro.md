@@ -5,9 +5,12 @@
 
 ## Get setup
 
-- [github.com/timruffles/js-class](https://www.github.com/timruffles/js-class)
-
-<p contenteditable>WiFi: </p>
+<ol>
+  <li >WiFi: <span contenteditable>*edit here*</span></li>
+  <li>Clone [github.com/timruffles/js-class](https://www.github.com/timruffles/js-class) - you need [git](https://git-scm.com/downloads)</li>
+  <li>Install Node Current - [nodejs.org](https://nodejs.org)</label></li>
+  <li><label><code>npm install</code></label></li>
+</ol>
 
 ## Today
 

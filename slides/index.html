@@ -43,10 +43,12 @@
 </section>
 
 <section  class=""><h2 id="get-setup">Get setup</h2>
-<ul>
-<li><a href="https://www.github.com/timruffles/js-class">github.com/timruffles/js-class</a></li>
-</ul>
-<p contenteditable>WiFi: </p>
+<ol>
+  <li >WiFi: <span contenteditable><em>edit here</em></span></li>
+  <li>Clone <a href="https://www.github.com/timruffles/js-class">github.com/timruffles/js-class</a> - you need <a href="https://git-scm.com/downloads">git</a></li>
+  <li>Install Node Current - <a href="https://nodejs.org">nodejs.org</a></label></li>
+  <li><label><code>npm install</code></label></li>
+</ol>
 
 </section>
 
@@ -336,7 +338,7 @@ var anotherVariable = &quot;hello&quot;;
 <section  class=""><h2 id="-undefined-vs-undeclared"><code>undefined</code> vs undeclared</h2>
 </section>
 
-<section  class=""><h2 id="-undefiend-"><code>undefiend</code></h2>
+<section  class=""><h2 id="-undefined-"><code>undefined</code></h2>
 <pre><code class="lang-javascript">var notDefined;
 
 console.log(notDefined); // ?
@@ -431,12 +433,11 @@ function main() {
 </section>
 
 <section  class=""><h2 id="global-scope">Global scope</h2>
-<pre><code class="lang-javascript">// browser - sloppy mode
-something = &quot;I am global&quot;;
-
-
-// browser - strict mode
+<pre><code class="lang-javascript">// browser - strict mode
 window.something = &quot;I am global&quot;;
+
+// is now referencable anywhere in program
+console.log(something);
 
 // node
 global.something = &quot;I am global&quot;;
@@ -499,7 +500,7 @@ console.log(i);
 <p><img src="media/block-scopes.png"></p>
 </section>
 
-<section  class=""><h2 id="rule-use-let-over-var-">Rule: use <code>let</code> over <code>var</code></h2>
+<section  class=""><h2 id="rule-pick-const-then-let-over-var-">Rule: pick <code>const</code>, then <code>let</code> over <code>var</code></h2>
 <ul>
 <li>one less source of bugs</li>
 <li>clearer where variables belong</li>
@@ -630,23 +631,14 @@ var html = `
 </code></pre>
 </section>
 
-<section  class=""><h2 id="quiz-truthy-vs-falsy">Quiz: truthy vs falsy</h2>
-<pre><code class="lang-javascript">var empty = Boolean(&quot;&quot;); // true
-
-Boolean(&quot;hello&quot;); // ?
-
-Boolean(0); // ?
-Boolean(1); // ?
-Boolean(7); // ?
-
-Boolean(true); // ?
-</code></pre>
-</section>
-
 <section  class=""><h2 id="quiz">Quiz</h2>
-<pre><code class="lang-javascript">var booly = new Boolean(false);
+<pre><code class="lang-javascript">var FALSE = new Boolean(false);
 
-Boolean(booly);
+if(FALSE) {
+  console.log(&quot;A&quot;)
+} else {
+  console.log(&quot;B&quot;)
+}
 </code></pre>
 </section>
 
@@ -687,10 +679,20 @@ var y = null;
 </section>
 
 <section  class=""><h2 id="-has-issues"><code>==</code> has issues</h2>
-<!-- TODO image -->
+<pre><code class="lang-javascript">var A = &quot;\t\t\t\t\t \n \n \n&quot; == false;
+
+if(A) {
+  console.log(&quot;A was == false&quot;);
+} else {
+  console.log(&quot;A wasn&#39;t == false&quot;);
+}
+</code></pre>
 </section>
 
 <section  class=""><h2 id="rule-always-use-">Rule: always use <code>===</code></h2>
+<ul>
+<li>Much clearer</li>
+</ul>
 </section>
 
 <section  class=""><h2 id="but-one-place-to-use-">But <em>ONE</em> place to use <code>==</code></h2>

@@ -15,7 +15,7 @@ var anotherVariable = "hello";
 
 ## `undefined` vs undeclared
 
-## `undefiend`
+## `undefined`
 
 ```javascript
 var notDefined;
@@ -125,12 +125,11 @@ function main() {
 ## Global scope
 
 ```javascript
-// browser - sloppy mode
-something = "I am global";
-
-
 // browser - strict mode
 window.something = "I am global";
+
+// is now referencable anywhere in program
+console.log(something);
 
 // node
 global.something = "I am global";
@@ -200,7 +199,7 @@ console.log(i);
 
 <img src="media/block-scopes.png">
 
-## Rule: use `let` over `var`
+## Rule: pick `const`, then `let` over `var`
 {rule:1}
 
 - one less source of bugs
