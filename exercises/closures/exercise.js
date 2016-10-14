@@ -1,8 +1,3 @@
-// return a 'spiedFunction', which wraps originalFn and:
-//
-// - calls originalFn with arguments that our spiedFunction is called with
-// - calls 'logger' with the count of calls, and the arguments
-//
 // It'll be used like this
 //
 //     function add(a,b) { return a + b }
@@ -18,15 +13,10 @@
 // @type function SpyingFunction(args: Array<any>, callCount: number): void
 // @type function spy(originalFn: Function, spyingFunction: SpyingFunction): Function
 export function spy(originalFn, spyingFunction) {
-
-
-  return function workAsOriginalButSpiedOn() {
-    // TODO call logger
-    // TODO increase count
+  let count = 0;
+  return function(...args) {
+    count += 1;
+    originalFn(...args);
+    spyingFunction(args, count);
   };
 }
-
-
-
-
-

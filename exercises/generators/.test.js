@@ -77,7 +77,7 @@ describe("generators", function() {
       })
 
 
-      describe("events", function() {
+      describe.only("events", function() {
 
         it("returns promise", function() {
 

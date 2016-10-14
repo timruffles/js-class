@@ -8,7 +8,7 @@
  *
  *    const object = { a: 1, b: 2, c: 3};
  *
- *    for(const [k,v] of exports.objectEntries(object)) {
+ *    for(const [k,v] of objectEntries(object)) {
  *      console.log(k, v);
  *    }
  *
@@ -20,6 +20,13 @@
 //     during iteration - Object.keys()
 
 // TODO yield up key value pairs as arrays - [k1, v1]..., [k2, v2]...
+export function *objectEntries(object) {
+  for(const key in object) {
+    yield [key, object[key]];
+  }
+
+  //yield* Object.keys(object).map(k => [k, object[k]]);
+}
 
 
 /**
@@ -50,17 +57,25 @@
  *
  */
 export function events(emitter, makeGen) {
+  const g = makeGen();
 
   return new Promise(function (resolve, reject) {
 
-    //  TODO create the generator (remember generator function vs generator distinction)
-    //  TODO get an initial event string
-    //  TODO listen, and resume once the event fires
-    //  TODO repeat the listen/resume process until the generator is done
-    //  TODO when the generator is done, return the final value
+    step();
+
+    function step(event) {
+      const yielded = g.next(event); // { done, value }
+
+      if(yielded.done) {
+        resolve(yielded.value);
+      } else {
+        emitter.once(yielded.value, (event) => {
+          step(event);
+        })
+      }
+    }
 
   });
-
 }
 
 

@@ -21,21 +21,18 @@ var hattersTreat = 'darjeeling in a conch-shell';
  * 1) learning to export with the Hatter
  */
 
-// TODO export the Hatter as default!
-// TODO export the hattersTreat as treat
-
+export {
+  Hatter as default,
+  hattersTreat as treat
+};
 
 
 /**
  * 2) learning to import with the March hare
  */
 
-// TODO import the MarchHare's default, and its treat
-// TODO rexport as MarchHare and MarchHareTreat
-
-
-
-
+import { default as MarchHare, treat as MarchHareTreat } from './MarchHare';
+export { MarchHare, MarchHareTreat };
 
 /**
  * 3) learning to re-export with the Alice

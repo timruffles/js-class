@@ -38,25 +38,17 @@ function scenarioOne() {
   }
 }
 
-ANSWERS.scenarioOne = 'TODO';
+ANSWERS.scenarioOne = 'inner';
 
 function scenarioTwo() {
-
   var A = 'out';
-  inner();
 
-  // scope: {A: 'out'}
   return A;
 
-  function inner() {
-    var A = 'inner';
-
-    // scope: {A: 'inner'}
-  }
 
 }
 
-ANSWERS.scenarioTwo = 'TODO';
+ANSWERS.scenarioTwo = 'out';
 
 function scenarioThree() {
   var A = 'outer';
@@ -66,20 +58,19 @@ function scenarioThree() {
   return A;
 
   function inner() {
-    helper();
-
-    return;
-
     function helper() {
       A = 'helper';
     }
 
-    A = 'inner';
+    helper();
+
+    return;
+
   }
 
 }
 
-ANSWERS.scenarioThree = 'TODO';
+ANSWERS.scenarioThree = 'helper';
 
 function scenarioFour() {
   const A = 'outer';
@@ -92,12 +83,12 @@ function scenarioFour() {
 
 }
 
-ANSWERS.scenarioFour = 'TODO';
+ANSWERS.scenarioFour = 'outer';
 
 function scenarioFive() {
   let A = 'outer';
 
-  {
+  if (true) {
     let A = 'inner';
     return A;
   }
@@ -106,7 +97,7 @@ function scenarioFive() {
   return A;
 }
 
-ANSWERS.scenarioFive = 'TODO';
+ANSWERS.scenarioFive = 'inner';
 
 function scenarioSix() {
   var A;
@@ -121,7 +112,7 @@ function scenarioSix() {
   }
 }
 
-ANSWERS.scenarioSix = 'TODO';
+ANSWERS.scenarioSix = 10;
 
 function scenarioSeven() {
 
@@ -151,7 +142,7 @@ function scenarioSeven() {
   }
 }
 
-ANSWERS.scenarioSeven = 'TODO';
+ANSWERS.scenarioSeven = 6;
 
 
 
