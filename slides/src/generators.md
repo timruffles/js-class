@@ -117,8 +117,6 @@ function *reverse(xs) {
 ## Let's try!
 {exercise:true}
 
-    Exercise 1
-
     exercises/generators
 
 ## Generator API
@@ -191,11 +189,7 @@ function dig(object, create) {
 ## Let's try!
 {exercise:true}
 
-  Exercise 2
-
-  exercise/generators
-
-    
+  exercise/generators-helpers
 
 
 ## Asynchronicity
@@ -301,9 +295,7 @@ co(function *cat() {
 ## Let's try!
 {exercise:true}
 
-  Exercise 3
-
-  exercise/generators
+  exercise/generators-co
 
     
 

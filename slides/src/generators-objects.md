@@ -162,6 +162,4 @@ for(const v of list) console.log(v);
 ## Your turn
 {exercise:true}
 
-    Exercise 4
-
-    exercises/generators
+    exercises/generators-iterators

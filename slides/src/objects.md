@@ -1,31 +1,5 @@
-## Objects
-{title:1}
-
-## Confusion
-
-## `Object`
-
-```javascript
-const a = { b: 1 }; // this is an instance of 'Object'
-
-// A is an object too!
-A.b = 1;
-function A() {
-}
-
-console.log(typeof null); // object
-```
-
-## Nope
-{bad: true}
-
 ## OOP
-
-- Object-oriented programming. 
-- Alan Kay's 'objects'
-
-
-     The big idea is "messaging". 
+{title:1}
 
 ## OOP in JS
 
