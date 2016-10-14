@@ -53,20 +53,3 @@ if(yes) {
 
 ## Boring to debate!
 
-## JSCS
-
-- find (& fix) style deviations
-- makes switching code-bases more plesant
-
-## Try now
-
-```sh
-npm run style:all
-
-# per exercise
-npm install --global jscs@latest
-jscs exercises/some-exercise/exercise.js
-
-// boredom removal
-jscs --fix exercises/some-exercise/exercise.js
-```

@@ -4,7 +4,6 @@
   "description": "How to make effective use of today's JS",
   "scripts": {
     "lint:all": "eslint exercises/*/exercise.js",
-    "style:all": "jscs exercises/*/exercise.js",
     "// everything below here is stuff that's only useful for me": "",
     "ci": "npm run lint:all && npm run style:all && npm test",
     "slides": "slides/tools/build-template.sh slides/src < slides/index.template.md > slides/index.html",
@@ -25,11 +24,10 @@
     "chalk": "^1.1.3",
     "co": "^4.6.0",
     "es6-module-loader": "^0.17.11",
-    "eslint": "^2.8.0",
-    "eslint-config-standard": "^5.1.0",
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-standard": "^1.3.2",
-    "jscs": "^3.0.3",
     "lodash": "^4.0.0",
     "mocha": "^2.4.5",
     "pprint": "0.0.1",
@@ -56,20 +54,134 @@
     "globals": {},
     "rules": {
       "padded-blocks": "off",
-      "no-multiple-empty-lines": "off",
-      "keyword-spacing": "off",
+      "no-multiple-empty-lines": 0,
+      "keyword-spacing": [
+        0
+      ],
+      "spaced-comment": 0,
+      "new-parens": 0,
       "no-underscore-dangle": "off",
       "strict": "off",
       "no-lone-blocks": "off",
-      "space-before-function-paren": "off",
-      "no-trailing-spaces": "off",
-      "eqeqeq": ["error", "allow-null"],
-      "comma-spacing": "off",
-      "quotes": "off",
-      "comma-dangle": "off",
-      "key-spacing": "off",
-      "semi": "off",
-      "no-use-before-define": "off"
+      "space-before-function-paren": [
+        0
+      ],
+      "no-trailing-spaces": 0,
+      "eqeqeq": [
+        "error",
+        "allow-null"
+      ],
+      "comma-spacing": [
+        0
+      ],
+      "quotes": [
+        0
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "key-spacing": [
+        2,
+        {
+          "beforeColon": false,
+          "afterColon": true
+        }
+      ],
+      "semi": [
+        2,
+        "always"
+      ],
+      "no-use-before-define": "off",
+      "no-empty": [
+        2,
+        {
+          "allowEmptyCatch": true
+        }
+      ],
+      "no-spaced-func": 2,
+      "quote-props": [
+        2,
+        "as-needed"
+      ],
+      "space-unary-ops": [
+        2,
+        {
+          "words": false,
+          "nonwords": false
+        }
+      ],
+      "no-mixed-spaces-and-tabs": 2,
+      "yoda": [
+        2,
+        "never"
+      ],
+      "no-with": 2,
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "no-multi-str": 2,
+      "one-var": [
+        2,
+        "never"
+      ],
+      "semi-spacing": [
+        2,
+        {
+          "before": false,
+          "after": true
+        }
+      ],
+      "space-before-blocks": [
+        2,
+        "always"
+      ],
+      "wrap-iife": 2,
+      "comma-style": [
+        2,
+        "last"
+      ],
+      "space-infix-ops": 2,
+      "camelcase": [
+        2,
+        {
+          "properties": "always"
+        }
+      ],
+      "eol-last": 2,
+      "dot-notation": 2,
+      "curly": [
+        2,
+        "all"
+      ],
+      "lines-around-comment": [
+        0
+      ],
+      "consistent-this": [
+        2,
+        "_this"
+      ],
+      "linebreak-style": [
+        2,
+        "unix"
+      ],
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": [
+        2,
+        100
+      ],
+      "requireShorthandArrowFunctions": 0,
+      "disallowMultipleLineBreaks": 0
     }
   }
 }
