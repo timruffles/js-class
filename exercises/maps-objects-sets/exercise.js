@@ -9,10 +9,15 @@
 //
 export function getCount(incoming) {
 
+  const eventToCount = {};
+
   incoming((event) => {
 
-    // TODO
-    return 0;
+    const count = eventToCount[event] || 0;
+    const newCount = count + 1;
+    eventToCount[event] = newCount;
+
+    return newCount;
   });
 
 };
@@ -27,10 +32,15 @@ export function getCount(incoming) {
 //
 export function getIpSets(incoming) {
 
+  const eventToIps = new Map();
+
   incoming((event, ip) => {
 
-    // TODO
-    return [];
+    const set = eventToIps.get(event) || new Set();
+    set.add(ip);
+    eventToIps.set(event, set);
+
+    return set;
   });
 };
 

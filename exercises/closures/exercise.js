@@ -6,9 +6,12 @@
 // It'll be used like this
 //
 //     function add(a,b) { return a + b }
-//     function logArg(args, count) { console.log(`on call ${count} I received ${args}`) }
+//     function logArg(args, count) { 
+//       console.log(`on call ${count} I received ${args}`) 
+//     }
 //
 //     const spiedAdd = spy(add, logArg);
+//     //... loads of time passes
 //     const result = spiedAdd(2, 2); // will result in 'on call 1 I received 2,2' being logged
 //
 // This allows us to create a wrapped version of any function that can be used in its place. From
@@ -19,10 +22,14 @@
 // @type function spy(originalFn: Function, spyingFunction: SpyingFunction): Function
 export function spy(originalFn, spyingFunction) {
 
+  // store something in here
+  let count = 0;
 
-  return function workAsOriginalButSpiedOn() {
-    // TODO call logger
-    // TODO increase count
+  return function workAsOriginalButSpiedOn(...args) {
+    count += 1;
+    const originalReturn = originalFn(...args);
+    spyingFunction(args, count);
+    return originalReturn;
   };
 }
 

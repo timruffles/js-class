@@ -3,6 +3,44 @@
 // Exercise 1: TDD
 
 // ONLY write code here once you have written a failing test
+export function userPresenter(user = {}) {
+  if(user.name == null) {
+    throw Error("User must have name!");
+  }
+  return `<span>${user.name}</span>`;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

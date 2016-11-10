@@ -23,8 +23,9 @@ var hattersTreat = 'darjeeling in a conch-shell';
 
 // TODO export the Hatter as default! remember to use CommonJS syntax
 // (require(), module.exports, exports) not ECMAScript modules!
+module.exports = exports = Hatter;
+Hatter.treat = hattersTreat;
 
-// TODO export the hattersTreat as treat
 
 /**
  * 2) learning to import with the March hare
@@ -34,5 +35,8 @@ var hattersTreat = 'darjeeling in a conch-shell';
 
 // TODO rexport as MarchHare and MarchHareTreat
 
+var MarchHare = require("./MarchHare");
+exports.MarchHare = MarchHare;
+exports.MarchHareTreat = MarchHare.treat;
 
 

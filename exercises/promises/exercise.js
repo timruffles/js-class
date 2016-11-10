@@ -15,11 +15,15 @@
 //     formatHtml: (user, account) => html: string,
 //     formatError: (error) => html: string,
 //  )
+
+// promiseMap( p: Promise<A>, t: (a: A) => B | Promise<B> ) => Promise<B>
+// map( as: Array<A>, t: (a: A) => B )  => Array<B>
 //
 export function formatUserOrError(userPromise, getAccount, formatHtml, formatError) {
-
-  // TODO return final promise
-  // TODO thread userPromise through getAccount
-  // TODO combine promises for formatHtml
-  // TODO ensure all errors, from all sources, will end up at formatError
+  return Promise.all([
+    userPromise,
+    userPromise.then(getAccount)
+  ])
+    .then(([u,a]) => formatHtml(u,a))
+    .catch(formatError);
 }

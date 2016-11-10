@@ -11,6 +11,77 @@ import { userPresenter, showUserAction } from "./exercise";
 // remember: try to be strict with getting a failing test
 // before deciding what code to write
 
+describe("user presenter", function() {
+  const user = { name: "Mike Bostock" };
+
+  it("formats a user as a string", function() {
+    const formatted = userPresenter(user);
+    if(typeof formatted !== "string") {
+      throw Error("expected string");
+    }
+  })
+
+  it("formats as a HTML span", function() {
+    const formatted = userPresenter(user);
+    assert.match(formatted, /<span/);
+  })
+
+  it("string presentation of user includes name", function() {
+    const formattedA = userPresenter(user);
+    const formattedB = userPresenter({ name: "Bob" });
+    assert.match(formattedA, new RegExp(user.name));
+    assert.match(formattedB, new RegExp("Bob"));
+  })
+
+  it("validates that user passed resembles a user", function() {
+    assert.throws(() => {
+      userPresenter(0)
+    });
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 describe("showUserAction", function() {

@@ -7,7 +7,7 @@
 
 /* eslint no-undef:0 */
 
-export function greeter(/* TODO define parameters */) {
+export function greeter(person, greeting = 'hi') {
   return `${greeting} ${person}`;
 };
 
@@ -31,7 +31,35 @@ export function greeter(/* TODO define parameters */) {
 
 // eslint no-unused-vars:0
 
-export function englishList(/* params */) {
-  // TODO use destructuring to pull out values
-  // TODO use destructuring to define defaults
+export function englishList(
+  words = [],
+  { oxford = false } = {}
+) {
+  const [first, second] = words;
+  const [tail, ...backwardsWords] = words.reverse();
+  const suffix = oxford ? "," : "";
+
+  switch(words.length) {
+    case 0: return "";
+    case 1: return first;
+    case 2: return `${first} and ${second}`;
+    default:
+      const start = backwardsWords.reverse().join(", ");
+      return `${start}${suffix} and ${tail}`;
+  }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

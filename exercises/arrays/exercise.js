@@ -14,12 +14,52 @@
 //
 /* eslint no-unused-vars:0 */
 
-export { dig };
+export { digReduce as dig };
 
-function dig(/* TODO define params */) {
-  // TODO implement with for ... of etc
+const object = {user: { account: { status: "valid" }}};
+const v = digReduce(object, "user", "account", "status");
+console.log(v);
+const v = digReduce(object, "z", "z", "z");
+
+function digReduce(object, ...props) {
+  return props.reduce((current, prop) => 
+    current != null && current[prop], 
+  object);
 }
 
-function digReduce(/* TODO define params */) {
-  // TODO implement with a reduce
+function dig(object = {}, ...props) {
+  for(const prop of props) {
+    // iterative step - work per step
+    const value = object[prop];
+    if(value == null) {
+      return undefined;
+    }
+    // sets up next value of 'current', or 'state'
+    object = value;
+  }
+  return object;
 }
+
+
+
+
+const STOP = {};
+
+function reduce(xs, fn, current) {
+  for(const v of xs) {
+    current = xs(current, v);
+    if(current === STOP) return;
+  }
+  return current;
+}
+
+
+
+
+
+
+
+
+
+
+

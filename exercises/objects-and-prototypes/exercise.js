@@ -11,6 +11,21 @@
 //   .balance(n)
 //      returns balance
 
+export class BankAccount {
+  constructor(balance) {
+    this._balance = balance;
+  }
+
+  deposit(n) {
+    if(this._balance + n < 0) throw Error("OutOfFunds");
+    this._balance += n;
+  }
+
+  balance() {
+    return this._balance;
+  }
+}
+
 // Exercise 2
 
 // TODO using class, sub-class BankAccount to create a BankAccountWithOverdraft
@@ -25,6 +40,18 @@
 
 // TODO create inheritance relation
 
+export class BankAccountWithOverdraft extends BankAccount {
+  constructor(bal, od) {
+    super(bal);
+    this._overdraft = od;
+  }
+  deposit(n) {
+    if(this._balance + n < -this._overdraft) {
+      throw Error("OutOfFunds");
+    }
+    this._balance += n;
+  }
+}
 
 
 // Exercise 3
@@ -39,3 +66,23 @@
 // TODO ensure BankAccountWithOverdraftViaPt.prototype is a BankAccount (prototypal inheritance)
 // TODO override deposit for our prototypal 'subclass'
 
+
+
+
+function closureBankAccount() {
+  const state = {
+    balance: 0,
+  };
+
+  return function(method, a1) {
+    switch(method) {
+      case "deposit":
+        state.balance += a1;
+        return;
+      case "balance":
+        return state.balance;
+      default:
+        throw Error(`method missing: '${method}'`);
+    }
+  }
+}
