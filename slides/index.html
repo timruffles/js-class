@@ -626,48 +626,6 @@ var html = `
 </code></pre>
 </section>
 
-<section  class=""><h2 id="boolean">Boolean</h2>
-<pre><code class="lang-javascript">var t = true;
-</code></pre>
-</section>
-
-<section  class=""><h2 id="quiz">Quiz</h2>
-<pre><code class="lang-javascript">var FALSE = new Boolean(false);
-
-if(FALSE) {
-  console.log(&quot;A&quot;)
-} else {
-  console.log(&quot;B&quot;)
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="rule-never-wrap-primitives">Rule: never wrap primitives</h2>
-<pre><code class="lang-javascript">// ARRRRRGGGHHHH!!!!!
-var x = new String(&quot;&quot;);
-var 1 = new Number(&quot;&quot;);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="rule-use-boolean-">Rule: use <code>Boolean</code></h2>
-<pre><code class="lang-javascript">var x = &quot;&quot;;
-var coerced = Boolean(x);
-
-// yes, you understand it, but does everyone?
-var shortCoerce = !!x;
-
-// NOOOOOOOOOO - never wrap primitives
-var evil = new Boolean(false);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-undefined-and-null-"><code>undefined</code> and <code>null</code></h2>
-<pre><code class="lang-javascript">var x; // ?
-
-var y = null;
-</code></pre>
-</section>
-
 <section  class=""><h2 id="-null-undefined-"><code>null</code> &amp; <code>undefined</code></h2>
 <ul>
 <li>A nuisance since 1995.</li>
@@ -927,17 +885,7 @@ var object = (a, b) =&gt; {{a:1, b:2}}
 - Is a fat-arrow an expression?
 </p>
 
-</section>
 
-<section  class=""><h2 id="evaluating-functions">Evaluating functions</h2>
-<pre><code class="lang-javascript">var result = add(add(10, 5), 5); 
-
-// steps for JS to evaluate right-hand-side:
-
-//   add(add(10, 5), 5);
-//   add(15, 5);
-//   20
-</code></pre>
 </section>
 
 <section  class=""><h2 id="default-parameters">Default parameters</h2>
@@ -1018,36 +966,6 @@ const pair = [1,2];
 
 // can use ... in calls too!
 sprint(&quot;%s %s&quot;, ...pair);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="can-do-all-this-in-es5">Can do all this in ES5</h2>
-</section>
-
-<section data-state='bad' class=" bad"><h2 id="but-much-uglier">But <em>much</em> uglier</h2>
-</section>
-
-<section  class=""><h2 id="-arguments-"><code>arguments</code></h2>
-<pre><code class="lang-javascript">function callMe() {
-  // who needs parameters?
-  console.log(&quot;Hello &quot; + arguments[0]);
-}
-
-callMe(&quot;a&quot;);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="variable-length">Variable length</h2>
-<pre><code class="lang-javascript">function describeRace(race, winner) {
-  console.log(race + &quot; was won by &quot; + winner + &quot;, beating &quot; 
-    + slice(arguments, 2).join(&quot;, &quot;));
-}
-
-function slice(arrayLike, start, end) {
-  return [].slice.call(arrayLike, start, end);
-}
-
-callMe(&quot;a&quot;);
 </code></pre>
 </section>
 
@@ -1389,20 +1307,20 @@ const m2 = new Map([
 m.set(&quot;A&quot;, 1);
 m.set(&quot;B&quot;, 2);
 
-for(let i in m) {
-  console.log(i) // not called! why?
+for(const prop in m) {
+  console.log(prop) // not called! why?
 }
 
-for(let i of m) {
-  console.log(i) // [&quot;A&quot;, 1], ...
+for(const kv of m) {
+  console.log(kv) // [&quot;A&quot;, 1], ...
 }
 
-for(let i of m.keys()) {
-  console.log(i) // &quot;A&quot;, &quot;B&quot;
+for(const k of m.keys()) {
+  console.log(k) // &quot;A&quot;, &quot;B&quot;
 }
 
-for(let i of m.values()) {
-  console.log(i) // 1, 2
+for(const v of m.values()) {
+  console.log(v) // 1, 2
 }
 
 m.forEach((v, k) =&gt; console.log(v, k))
@@ -1707,301 +1625,6 @@ var usersWithAccounts = Promise.all(users)
 <ul>
 <li>exercises/promises</li>
 </ul>
-</section>
-
-<section data-state='title' class=" title"><h2 id="generators">Generators</h2>
-</section>
-
-<section  class=""><h2 id="why-">Why?</h2>
-</section>
-
-<section  class=""><h2 id="custom-iterators">Custom iterators</h2>
-<ul>
-<li>potentially infinite</li>
-<li>over your own data-structures</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
-<ul>
-<li>very powerful for creating flow control</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="iterators">Iterators</h2>
-<pre><code class="lang-javascript">// over arrays
-for(const v of values) {
-}
-for(const [index, v] of values.entries()) {
-}
-
-// over maps
-for(const [k,v] of map.entries()) {
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="write-your-own-">Write your own!</h2>
-<pre><code class="lang-javascript">function *objectProperties(object) {
-  const keys = Object.keys(object);
-  for(const key of keys) {
-    yield [key, object[key]];
-  }
-}
-
-for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
-  console.log(k, v);
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="woah-">Woah!</h2>
-</section>
-
-<section  class=""><h2 id="baby-steps-">Baby steps: <code>*</code></h2>
-<pre><code class="lang-javascript">// the &#39;*&#39; means we&#39;re a generator function
-function *objectProperties(object) {
-  // ...
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="baby-steps-yield-">Baby steps: <code>yield</code></h2>
-<pre><code class="lang-javascript">function *abc() {
-  // yield returns a value to the caller (for ... of above)
-  yield &quot;a&quot;;
-  yield &quot;b&quot;;
-  yield &quot;c&quot;;
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="two-gotchas">Two gotchas</h2>
-</section>
-
-<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
-<pre><code class="lang-javascript">
-logLast([1,2,3,4])
-
-function *logLast(xs) {
-  console.log(xs[xs.length - 1]);
-}
-
-// what&#39;s output?
-</code></pre>
-<ul>
-  <li class='fragment'>Nothing</li>
-  <li class='fragment'>Calling a generator function creates, not starts, a generator</li>
-  <li class='fragment'>It&#39;s only via iterating it we can start it</li>
-</ul>
-
-</section>
-
-<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
-<ul>
-<li>Generator functions <em>return</em> a generator</li>
-<li>The generator body is run only via iteration</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="gotcha-2">Gotcha 2</h2>
-<pre><code class="lang-javascript">
-for(const k in reverse([1,2,3,4])) {
-  console.log(k);
-}
-
-function *reverse(xs) {
-  for(var i = xs.length; i--;) {
-    yield xs[i];
-  }
-}
-</code></pre>
-<ul>
-  <li>What&#39;s output?</li>
-  <li class='fragment'>Nothing</li>
-  <li class='fragment'>How are we looping over our generator?</li>
-</ul>
-
-</section>
-
-<section  class=""><h2 id="gotcha-2-only-for-of-in-will-not-work">Gotcha 2: Only <code>for ... of</code>, <code>in</code> will NOT work</h2>
-</section>
-
-<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<pre><code>exercises/generators
-</code></pre></section>
-
-<section data-state='title' class=" title"><h2 id="generator-api">Generator API</h2>
-</section>
-
-<section  class=""><h2 id="generators-are-an-interface">Generators are an interface</h2>
-<pre><code class="lang-javascript">const gen = someGeneratorFunction();
-
-console.log(typeof gen.next); // function
-</code></pre>
-</section>
-
-<section  class=""><h2 id="-next-passtoyield-"><code>.next(passToYield)</code></h2>
-<ul>
-<li>resume generator, passing <code>yield</code> the value</li>
-<li>returns next yielded value</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="e-g">e.g</h2>
-<pre><code class="lang-javascript">function* echo() {
-  let value;
-  while(true) {
-    value = yield value;
-  }
-}
-
-const g = echo();
-console.log(g.next(&quot;one&quot;))  // { done: false, value: undefined }
-console.log(g.next(&quot;two&quot;)) // { done: false, value: &quot;two&quot; }
-console.log(g.next(&quot;three&quot;)) // { done: false, value: &quot;three&quot; }
-
-// why...?
-</code></pre>
-</section>
-
-<section  class=""><h2 id="writing-tools-dsls">Writing tools + DSLs</h2>
-<ul>
-<li>since we control flow control inside our generators</li>
-<li>we... can write anything! :)</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="e-g-digger">e.g digger</h2>
-<pre><code class="lang-javascript">console.log(dig({ a: { b: &quot;here&quot; }}, ab)) // &quot;here&quot;
-console.log(dig({ z: { b: &quot;here&quot; }}, ab)) // undefined
-
-function *ab() {
-  yield &quot;a&quot;;
-  yield &quot;b&quot;;
-}
-
-function dig(object, create) {
-  const g = create();
-
-  while(object) {
-    let step = g.next();
-    if(step.done) {
-      break;
-    } else {
-      object = object[step.value];
-    }
-  }
-
-  return object;
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<p>  exercise/generators-helpers</p>
-</section>
-
-<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
-</section>
-
-<section  class=""><h2 id="callbacks">Callbacks</h2>
-<pre><code class="lang-javascript">function cat(pathA, pathB, cb) {
-  fs.readFile(pathA, function(err, fileA) {
-    if(err) return cb(err);
-
-    fs.readFile(pathB, function(err, fileB) {
-      if(err) return cb(err);
-
-      combine(fileA, fileB, cb);
-    });
-  })
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="promises">Promises</h2>
-<pre><code class="lang-javascript">function cat(pathA, pathB) {
-  return Promise.all([
-    fs.readFileAsync(pathA),
-    fs.readFileAsync(pathB),
-  ]).then([fileA, fileB]) =&gt; {
-    return combine(fileA, fileB);<br>  });
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="but-can-we-do-better-">But... can we do better?</h2>
-</section>
-
-<section  class=""><h2 id="yes-">Yes!</h2>
-<pre><code class="lang-javascript">import co from &quot;co&quot;;
-
-co(function *cat() {
-  const fileA = yield fs.readFileAsync(pathA);
-  const fileB = yield fs.readFileAsync(pathB);
-
-  return combine(fileA, fileB);
-})
-.then(function(combined) {
-  console.log(combined);
-});
-</code></pre>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
-<p><img src="media/yay.png" alt="yay"></p>
-</section>
-
-<section  class=""><h2 id="what-s-going-on-">What&#39;s going on?</h2>
-</section>
-
-<section  class=""><h2 id="promise-enabled">Promise enabled</h2>
-<ul>
-<li>when we <code>yield</code> a promise, co will call <code>.next</code> after the promise resolves</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="writing-methods">Writing methods</h2>
-<pre><code class="lang-javascript">import co from &quot;co&quot;;
-
-const cat = co.wrap(function *cat(pathA, pathB) {
-  const readingA = fs.readFileAsync(pathA);
-
-  yield fs.readFileAsync(pathB);
-  const fileA = yield readingA;
-
-  return combine(fileA, fileB);
-});
-
-// files contain upper case words
-cat(&quot;./one&quot;, &quot;./two&quot;)
-.then(function(combined) {
-  // ONETWO
-  console.log(combined);
-});
-</code></pre>
-</section>
-
-<section  class=""><h2 id="parallel">Parallel</h2>
-<pre><code class="lang-javascript">import co from &quot;co&quot;;
-
-co(function *cat() {
-  // don&#39;t yield yet...
-  const readingA = fs.readFileAsync(pathA);
-
-  // ...until we&#39;ve started the other tasks
-  // to run in parallel
-  const fileB = yield fs.readFileAsync(pathB);
-  const fileA = yield readingA;
-
-  return combine(fileA, fileB);
-})
-</code></pre>
-</section>
-
-<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<p>  exercise/generators-co</p>
 </section>
 
 <section data-state='title' class=" title"><h2 id="oop">OOP</h2>
@@ -2443,172 +2066,6 @@ function Structure(width, height) {
 exercises/objects-and-prototypes
 </code></pre></section>
 
-<section data-state='title' class=" title"><h2 id="iterating-custom-data-structures">Iterating custom data structures</h2>
-</section>
-
-<section  class=""><h2 id="we-can-for-of-map-s-etc">We can <code>for .. of</code> <code>Map</code>s etc</h2>
-</section>
-
-<section  class=""><h2 id="what-about-our-own-data-structures-">What about our own data-structures?</h2>
-</section>
-
-<section  class=""><h2 id="yes-we-can-">Yes we can!</h2>
-<pre><code class="lang-javascript">for(const [value, left, right] of myTree) {
-  // pretty cooooool....
-}
-</code></pre>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
-<p><img src="media/yay.png" alt="yay"></p>
-</section>
-
-<section  class=""><h2 id="how-">How?</h2>
-</section>
-
-<section  class=""><h2 id="an-api">An API</h2>
-</section>
-
-<section  class=""><h2 id="we-need-to-be-safe-here-">We need to be safe here...</h2>
-</section>
-
-<section  class=""><h2 id="avoid-name-clashes-with-any-existing-code">Avoid name clashes with <em>any</em> existing code</h2>
-</section>
-
-<section  class=""><h2 id="how-">How?</h2>
-</section>
-
-<section  class=""><h2 id="-symbol-s"><code>Symbol</code>s</h2>
-</section>
-
-<section  class=""><h2 id="symbols-opaque-unique-id-">Symbols = opaque, unique &#39;ID&#39;</h2>
-<pre><code class="lang-javascript">const s1 = Symbol(&quot;A&quot;);
-const s2 = Symbol(&quot;B&quot;);
-const s3 = Symbol(&quot;B&quot;);
-
-console.log(s2 === s3) // ?
-</code></pre>
-<ul>
-  <li class='fragment'>Are s2 and s3 the same?</li>
-  <li class='fragment'>Why not?</li>
-</ul>
-
-</section>
-
-<section  class=""><h2 id="prevents-clashes">Prevents clashes</h2>
-<ul>
-<li>e.g two libraries extend built-in Objects with methods</li>
-</ul>
-<pre><code class="lang-javascript">// like unix &#39;tac&#39; method
-Object.defineProperty(String.prototype, &quot;tac&quot;, {
-  value: function(...others) {
-    return others.slice().reverse().join(&quot;&quot;) + this;
-  }
-});
-
-console.log(&quot;hello&quot;.tac(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)) // 321hello
-</code></pre>
-</section>
-
-<section  class=""><h2 id="with-symbols">With symbols</h2>
-<pre><code class="lang-javascript">const tacOne = Symbol(&quot;tac&quot;);
-const tacTwo = Symbol(&quot;tac&quot;);
-
-Object.defineProperty(String.prototype, tacOne, {
-  value: function(...others) {
-    return others.slice().reverse().join(&quot;&quot;) + this;
-  }
-});
-
-Object.defineProperty(String.prototype, tacTwo, {
-  value: () =&gt; { throw Error(&quot;BROOOOKEN&quot;) }
-});
-
-console.log(&quot;hello&quot;<a href="&quot;1&quot;,&quot;2&quot;,&quot;3&quot;">tacOne</a>) // 321hello
-</code></pre>
-</section>
-
-<section  class=""><h2 id="used-a-lot-in-new-language-features">Used a lot in new language features</h2>
-<ul>
-<li>no risk of breaking old code via clashes</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="letting-you-define-object-iterators">Letting YOU define object iterators</h2>
-</section>
-
-<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
-<pre><code class="lang-javascript">function L(value, next) {
-  return { value, next };
-}
-
-const list = L(1, L(2, L(3)));
-
-const items = [];
-for(let node = list; node; node = node.next) {
-  items.push(node.value);
-}
-
-console.log(items); // [1, 2, 3]
-</code></pre>
-</section>
-
-<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
-<pre><code class="lang-javascript">// this is a bit faffy, and fragile
-const items = [];
-for(let node = list; node; node = node.next) {
-  items.push(node.value);
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="with-custom-iterators-">With custom iterators!</h2>
-<pre><code class="lang-javascript">const items = [];
-// WOAH!!!
-for(const value of list) {
-  items.push(node.value);
-}
-</code></pre>
-<ul>
-<li>implementation detail hidden (<code>.next</code>, <code>.value</code>)</li>
-<li>generic - <code>list</code> could be replaced with <code>Array</code>, <code>Set</code></li>
-<li>no boilerplate</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="language-hook">Language hook</h2>
-<ul>
-<li>shared symbols are hooks for the newer features of ECMAScript</li>
-</ul>
-<pre><code class="lang-javascript">{ 
-  *<a href="">Symbol.iterator</a> {
-    // yields each value in data-structure in turn
-  } 
-}
-</code></pre>
-</section>
-
-<section  class=""><h2 id="defining">Defining</h2>
-<pre><code class="lang-javascript">function L(value, next) {
-  return { value, next, 
-    [Symbol.iterator]: iterateLinkedList };
-}
-
-function *iterateLinkedList() {
-  for(let node = list; node; node = node.next) {
-    yield node.value;
-  }
-}
-
-const list = L(1, L(2, L(&quot;banana&quot;)));
-for(const v of list) console.log(v);
-</code></pre>
-</section>
-
-<section  class=""><h2 id="your-turn">Your turn</h2>
-<pre><code>exercises/generators-iterators
-</code></pre></section>
-
 <section data-state='title' class=" title"><h2 id="tests">Tests</h2>
 </section>
 
@@ -2831,6 +2288,467 @@ exercises/testing
 
 <section  class=""><h2 id="hands-on">Hands-on</h2>
 <pre><code>in Chrome, google and open &#39;ember TodoMVC&#39;
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="generators">Generators</h2>
+</section>
+
+<section  class=""><h2 id="why-">Why?</h2>
+</section>
+
+<section  class=""><h2 id="custom-iterators">Custom iterators</h2>
+<ul>
+<li>potentially infinite</li>
+<li>over your own data-structures</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
+<ul>
+<li>very powerful for creating flow control</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="iterators">Iterators</h2>
+<pre><code class="lang-javascript">// over arrays
+for(const v of values) {
+}
+for(const [index, v] of values.entries()) {
+}
+
+// over maps
+for(const [k,v] of map.entries()) {
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="write-your-own-">Write your own!</h2>
+<pre><code class="lang-javascript">function *objectProperties(object) {
+  const keys = Object.keys(object);
+  for(const key of keys) {
+    yield [key, object[key]];
+  }
+}
+
+for(const [k, v] of objectProperties({a: 1, b: 2, c: 3})) {
+  console.log(k, v);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="woah-">Woah!</h2>
+</section>
+
+<section  class=""><h2 id="baby-steps-">Baby steps: <code>*</code></h2>
+<pre><code class="lang-javascript">// the &#39;*&#39; means we&#39;re a generator function
+function *objectProperties(object) {
+  // ...
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="baby-steps-yield-">Baby steps: <code>yield</code></h2>
+<pre><code class="lang-javascript">function *abc() {
+  // yield returns a value to the caller (for ... of above)
+  yield &quot;a&quot;;
+  yield &quot;b&quot;;
+  yield &quot;c&quot;;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="two-gotchas">Two gotchas</h2>
+</section>
+
+<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
+<pre><code class="lang-javascript">
+logLast([1,2,3,4])
+
+function *logLast(xs) {
+  console.log(xs[xs.length - 1]);
+}
+
+// what&#39;s output?
+</code></pre>
+<ul>
+  <li class='fragment'>Nothing</li>
+  <li class='fragment'>Calling a generator function creates, not starts, a generator</li>
+  <li class='fragment'>It&#39;s only via iterating it we can start it</li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="gotcha-1">Gotcha 1</h2>
+<ul>
+<li>Generator functions <em>return</em> a generator</li>
+<li>The generator body is run only via iteration</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="gotcha-2">Gotcha 2</h2>
+<pre><code class="lang-javascript">
+for(const k in reverse([1,2,3,4])) {
+  console.log(k);
+}
+
+function *reverse(xs) {
+  for(var i = xs.length; i--;) {
+    yield xs[i];
+  }
+}
+</code></pre>
+<ul>
+  <li>What&#39;s output?</li>
+  <li class='fragment'>Nothing</li>
+  <li class='fragment'>How are we looping over our generator?</li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="gotcha-2-only-for-of-in-will-not-work">Gotcha 2: Only <code>for ... of</code>, <code>in</code> will NOT work</h2>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<pre><code>exercises/generators
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="generator-api">Generator API</h2>
+</section>
+
+<section  class=""><h2 id="generators-are-an-interface">Generators are an interface</h2>
+<pre><code class="lang-javascript">const gen = someGeneratorFunction();
+
+console.log(typeof gen.next); // function
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-next-passtoyield-"><code>.next(passToYield)</code></h2>
+<ul>
+<li>resume generator, passing <code>yield</code> the value</li>
+<li>returns next yielded value</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">function* echo() {
+  let value;
+  while(true) {
+    value = yield value;
+  }
+}
+
+const g = echo();
+console.log(g.next(&quot;one&quot;))  // { done: false, value: undefined }
+console.log(g.next(&quot;two&quot;)) // { done: false, value: &quot;two&quot; }
+console.log(g.next(&quot;three&quot;)) // { done: false, value: &quot;three&quot; }
+
+// why...?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="writing-tools-dsls">Writing tools + DSLs</h2>
+<ul>
+<li>since we control flow control inside our generators</li>
+<li>we... can write anything! :)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="e-g-digger">e.g digger</h2>
+<pre><code class="lang-javascript">console.log(dig({ a: { b: &quot;here&quot; }}, ab)) // &quot;here&quot;
+console.log(dig({ z: { b: &quot;here&quot; }}, ab)) // undefined
+
+function *ab() {
+  yield &quot;a&quot;;
+  yield &quot;b&quot;;
+}
+
+function dig(object, create) {
+  const g = create();
+
+  while(object) {
+    let step = g.next();
+    if(step.done) {
+      break;
+    } else {
+      object = object[step.value];
+    }
+  }
+
+  return object;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<p>  exercise/generators-helpers</p>
+</section>
+
+<section  class=""><h2 id="asynchronicity">Asynchronicity</h2>
+</section>
+
+<section  class=""><h2 id="callbacks">Callbacks</h2>
+<pre><code class="lang-javascript">function cat(pathA, pathB, cb) {
+  fs.readFile(pathA, function(err, fileA) {
+    if(err) return cb(err);
+
+    fs.readFile(pathB, function(err, fileB) {
+      if(err) return cb(err);
+
+      combine(fileA, fileB, cb);
+    });
+  })
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="promises">Promises</h2>
+<pre><code class="lang-javascript">function cat(pathA, pathB) {
+  return Promise.all([
+    fs.readFileAsync(pathA),
+    fs.readFileAsync(pathB),
+  ]).then([fileA, fileB]) =&gt; {
+    return combine(fileA, fileB);<br>  });
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="but-can-we-do-better-">But... can we do better?</h2>
+</section>
+
+<section  class=""><h2 id="yes-">Yes!</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
+
+co(function *cat() {
+  const fileA = yield fs.readFileAsync(pathA);
+  const fileB = yield fs.readFileAsync(pathB);
+
+  return combine(fileA, fileB);
+})
+.then(function(combined) {
+  console.log(combined);
+});
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
+<p><img src="media/yay.png" alt="yay"></p>
+</section>
+
+<section  class=""><h2 id="what-s-going-on-">What&#39;s going on?</h2>
+</section>
+
+<section  class=""><h2 id="promise-enabled">Promise enabled</h2>
+<ul>
+<li>when we <code>yield</code> a promise, co will call <code>.next</code> after the promise resolves</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="writing-methods">Writing methods</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
+
+const cat = co.wrap(function *cat(pathA, pathB) {
+  const readingA = fs.readFileAsync(pathA);
+
+  yield fs.readFileAsync(pathB);
+  const fileA = yield readingA;
+
+  return combine(fileA, fileB);
+});
+
+// files contain upper case words
+cat(&quot;./one&quot;, &quot;./two&quot;)
+.then(function(combined) {
+  // ONETWO
+  console.log(combined);
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="parallel">Parallel</h2>
+<pre><code class="lang-javascript">import co from &quot;co&quot;;
+
+co(function *cat() {
+  // don&#39;t yield yet...
+  const readingA = fs.readFileAsync(pathA);
+
+  // ...until we&#39;ve started the other tasks
+  // to run in parallel
+  const fileB = yield fs.readFileAsync(pathB);
+  const fileA = yield readingA;
+
+  return combine(fileA, fileB);
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
+<p>  exercise/generators-co</p>
+</section>
+
+<section data-state='title' class=" title"><h2 id="iterating-custom-data-structures">Iterating custom data structures</h2>
+</section>
+
+<section  class=""><h2 id="we-can-for-of-map-s-etc">We can <code>for .. of</code> <code>Map</code>s etc</h2>
+</section>
+
+<section  class=""><h2 id="what-about-our-own-data-structures-">What about our own data-structures?</h2>
+</section>
+
+<section  class=""><h2 id="yes-we-can-">Yes we can!</h2>
+<pre><code class="lang-javascript">for(const [value, left, right] of myTree) {
+  // pretty cooooool....
+}
+</code></pre>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="omg-">OMG!</h2>
+<p><img src="media/yay.png" alt="yay"></p>
+</section>
+
+<section  class=""><h2 id="how-">How?</h2>
+</section>
+
+<section  class=""><h2 id="an-api">An API</h2>
+</section>
+
+<section  class=""><h2 id="we-need-to-be-safe-here-">We need to be safe here...</h2>
+</section>
+
+<section  class=""><h2 id="avoid-name-clashes-with-any-existing-code">Avoid name clashes with <em>any</em> existing code</h2>
+</section>
+
+<section  class=""><h2 id="how-">How?</h2>
+</section>
+
+<section  class=""><h2 id="-symbol-s"><code>Symbol</code>s</h2>
+</section>
+
+<section  class=""><h2 id="symbols-opaque-unique-id-">Symbols = opaque, unique &#39;ID&#39;</h2>
+<pre><code class="lang-javascript">const s1 = Symbol(&quot;A&quot;);
+const s2 = Symbol(&quot;B&quot;);
+const s3 = Symbol(&quot;B&quot;);
+
+console.log(s2 === s3) // ?
+</code></pre>
+<ul>
+  <li class='fragment'>Are s2 and s3 the same?</li>
+  <li class='fragment'>Why not?</li>
+</ul>
+
+</section>
+
+<section  class=""><h2 id="prevents-clashes">Prevents clashes</h2>
+<ul>
+<li>e.g two libraries extend built-in Objects with methods</li>
+</ul>
+<pre><code class="lang-javascript">// like unix &#39;tac&#39; method
+Object.defineProperty(String.prototype, &quot;tac&quot;, {
+  value: function(...others) {
+    return others.slice().reverse().join(&quot;&quot;) + this;
+  }
+});
+
+console.log(&quot;hello&quot;.tac(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)) // 321hello
+</code></pre>
+</section>
+
+<section  class=""><h2 id="with-symbols">With symbols</h2>
+<pre><code class="lang-javascript">const tacOne = Symbol(&quot;tac&quot;);
+const tacTwo = Symbol(&quot;tac&quot;);
+
+Object.defineProperty(String.prototype, tacOne, {
+  value: function(...others) {
+    return others.slice().reverse().join(&quot;&quot;) + this;
+  }
+});
+
+Object.defineProperty(String.prototype, tacTwo, {
+  value: () =&gt; { throw Error(&quot;BROOOOKEN&quot;) }
+});
+
+console.log(&quot;hello&quot;<a href="&quot;1&quot;,&quot;2&quot;,&quot;3&quot;">tacOne</a>) // 321hello
+</code></pre>
+</section>
+
+<section  class=""><h2 id="used-a-lot-in-new-language-features">Used a lot in new language features</h2>
+<ul>
+<li>no risk of breaking old code via clashes</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="letting-you-define-object-iterators">Letting YOU define object iterators</h2>
+</section>
+
+<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
+<pre><code class="lang-javascript">function L(value, next) {
+  return { value, next };
+}
+
+const list = L(1, L(2, L(3)));
+
+const items = [];
+for(let node = list; node; node = node.next) {
+  items.push(node.value);
+}
+
+console.log(items); // [1, 2, 3]
+</code></pre>
+</section>
+
+<section  class=""><h2 id="e-g-a-nice-simple-linked-list">e.g a nice simple linked list</h2>
+<pre><code class="lang-javascript">// this is a bit faffy, and fragile
+const items = [];
+for(let node = list; node; node = node.next) {
+  items.push(node.value);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="with-custom-iterators-">With custom iterators!</h2>
+<pre><code class="lang-javascript">const items = [];
+// WOAH!!!
+for(const value of list) {
+  items.push(node.value);
+}
+</code></pre>
+<ul>
+<li>implementation detail hidden (<code>.next</code>, <code>.value</code>)</li>
+<li>generic - <code>list</code> could be replaced with <code>Array</code>, <code>Set</code></li>
+<li>no boilerplate</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="language-hook">Language hook</h2>
+<ul>
+<li>shared symbols are hooks for the newer features of ECMAScript</li>
+</ul>
+<pre><code class="lang-javascript">{ 
+  *<a href="">Symbol.iterator</a> {
+    // yields each value in data-structure in turn
+  } 
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="defining">Defining</h2>
+<pre><code class="lang-javascript">function L(value, next) {
+  return { value, next, 
+    [Symbol.iterator]: iterateLinkedList };
+}
+
+function *iterateLinkedList() {
+  for(let node = list; node; node = node.next) {
+    yield node.value;
+  }
+}
+
+const list = L(1, L(2, L(&quot;banana&quot;)));
+for(const v of list) console.log(v);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="your-turn">Your turn</h2>
+<pre><code>exercises/generators-iterators
 </code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="wrap-">Wrap!</h2>

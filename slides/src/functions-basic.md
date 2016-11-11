@@ -44,17 +44,6 @@ var object = (a, b) => {{a:1, b:2}}
 - Is a fat-arrow an expression?
 </p>
 
-## Evaluating functions
-
-```javascript
-var result = add(add(10, 5), 5); 
-
-// steps for JS to evaluate right-hand-side:
-
-//   add(add(10, 5), 5);
-//   add(15, 5);
-//   20
-```
 
 ## Default parameters
 
@@ -144,38 +133,6 @@ const pair = [1,2];
 // can use ... in calls too!
 sprint("%s %s", ...pair);
 
-```
-
-## Can do all this in ES5
-
-## But *much* uglier
-{bad:1}
-
-
-## `arguments`
-
-```javascript
-function callMe() {
-  // who needs parameters?
-  console.log("Hello " + arguments[0]);
-}
-
-callMe("a");
-```
-
-## Variable length
-
-```javascript
-function describeRace(race, winner) {
-  console.log(race + " was won by " + winner + ", beating " 
-    + slice(arguments, 2).join(", "));
-}
-
-function slice(arrayLike, start, end) {
-  return [].slice.call(arrayLike, start, end);
-}
-
-callMe("a");
 ```
 
 ## Exercise!

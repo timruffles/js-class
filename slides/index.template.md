@@ -7,9 +7,10 @@ core-javascript
 modules
 variables
 destructuring
-primitives
 
+primitives
 quality
+
 build
 
 functions basic
@@ -21,13 +22,13 @@ dicts
 async
 promises
 
-generators
-
 objects
-generators-objects
 
 specifying behaviour
 
 developer-tools
+
+generators
+generators-objects
 
 wrap

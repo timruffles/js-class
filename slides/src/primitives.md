@@ -34,55 +34,6 @@ var html = \`
 \`;
 ```
 
-## Boolean
-
-```javascript
-var t = true;
-```
-
-
-## Quiz
-
-```javascript
-var FALSE = new Boolean(false);
-
-if(FALSE) {
-  console.log("A")
-} else {
-  console.log("B")
-}
-```
-
-## Rule: never wrap primitives
-{rule:1}
-
-```javascript
-// ARRRRRGGGHHHH!!!!!
-var x = new String("");
-var 1 = new Number("");
-```
-
-## Rule: use `Boolean`
-{rule:1}
-
-```javascript
-var x = "";
-var coerced = Boolean(x);
-
-// yes, you understand it, but does everyone?
-var shortCoerce = !!x;
-
-// NOOOOOOOOOO - never wrap primitives
-var evil = new Boolean(false);
-```
-
-## `undefined` and `null`
-
-```javascript
-var x; // ?
-
-var y = null;
-```
 
 ## `null` & `undefined`
 

@@ -133,20 +133,20 @@ const m = new Map;
 m.set("A", 1);
 m.set("B", 2);
 
-for(let i in m) {
-  console.log(i) // not called! why?
+for(const prop in m) {
+  console.log(prop) // not called! why?
 }
 
-for(let i of m) {
-  console.log(i) // ["A", 1], ...
+for(const kv of m) {
+  console.log(kv) // ["A", 1], ...
 }
 
-for(let i of m.keys()) {
-  console.log(i) // "A", "B"
+for(const k of m.keys()) {
+  console.log(k) // "A", "B"
 }
 
-for(let i of m.values()) {
-  console.log(i) // 1, 2
+for(const v of m.values()) {
+  console.log(v) // 1, 2
 }
 
 m.forEach((v, k) => console.log(v, k))
