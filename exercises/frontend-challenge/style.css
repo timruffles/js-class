@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  cursor: pointer;
+}
+
+.point {
+  position: absolute;
+  border-radius: 400px;
+  opacity: 0.8;
+  transition: all .15s;
+  transform: scale(1);
+
+  /* bounce*/
+  transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 2.53);
+}
+
+.point.added {
+  transform: scale(0.2);
+}
+
