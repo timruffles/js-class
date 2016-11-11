@@ -1,6 +1,6 @@
 {
   "name": "js-class",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "How to make effective use of today's JS",
   "scripts": {
     "lint:all": "eslint exercises/*/exercise.js",
