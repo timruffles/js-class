@@ -2,6 +2,8 @@
 
 // TODO write a BankAccount class that implements the following:
 //
+//   new BankAccount(100)
+//
 //   BankAccount(balance)
 //
 //   .deposit(n)

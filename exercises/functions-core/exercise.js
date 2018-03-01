@@ -3,7 +3,16 @@
 // use default parameters to fulfil the contract. The default
 // greeting should be 'hi'
 //
-// @type greeter = (person: string, greeting?: string) => string
+// type greeter = (person: string, greeting?: string) => string
+// 
+//     greeter("amy")          // => 'hi amy'
+//     greeter("amy", "hola")  // => 'hola amy'
+//
+//
+//     // make this throw an error - required argument missing
+//     greeter();
+//
+//  
 
 /* eslint no-undef:0 */
 
@@ -23,6 +32,7 @@ export function greeter(/* TODO define parameters */) {
 // if oxford is true, put an additional comma before the and in lists of 3 + items
 //
 //   "one, two, and three"
+//   "one, two and three"
 //
 // default oxford to false.
 //
