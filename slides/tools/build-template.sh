@@ -7,11 +7,11 @@
 
 main() {
   local slidePath=$1
-  remove_empties | to_filenames $slidePath | to_html
+  remove_non_files | to_filenames $slidePath | to_html
 }
 
-remove_empties() {
-  cat | ack -v '^\s*$'
+remove_non_files() {
+  ack -v '^\s*$|^#'
 }
 
 to_filenames() {

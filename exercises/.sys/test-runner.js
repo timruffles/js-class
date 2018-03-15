@@ -8,6 +8,10 @@
 let scheduledTestRun = undefined;
 let testsRun = false;
 const tests = [];
+const NOOP_BEFORE_EACH = () => {};
+let beforeEachHook = NOOP_BEFORE_EACH;
+
+const isNode = typeof window === 'undefined';
 
 export function test(name, test) {
     if(testsRun) {
@@ -24,6 +28,14 @@ export function test(name, test) {
     }
 }
 
+export function beforeEach(fn) {
+  if(beforeEachHook === NOOP_BEFORE_EACH) {
+    beforeEachHook = fn;
+  } else {
+    throw Error('beforeEach already registered');
+  }
+}
+
 function runAllTests() {
    testsRun = true;
 
@@ -32,6 +44,7 @@ function runAllTests() {
    for(const setup of tests) {
        const {name,test} = setup;
        try {
+           beforeEachHook();
            test()
        } catch(error) {
            failed.push({
@@ -114,4 +127,11 @@ export function rstring() {
 export const help = {
     rstring,
     rint,
+}
+
+export function yourWorkOrSpecimin(yourWork, specimin) {
+    const useSpecimin = isNode
+        ? 'USE_SPECIMIN' in process.env
+        : window.location.search.includes('specimin');
+    return useSpecimin ? specimin : yourWork;
 }

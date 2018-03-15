@@ -1,8 +1,8 @@
-import { test, help, assert } from "../.sys/test-runner.js";
+import { beforeEach, yourWorkOrSpecimin, test, help, assert } from "../.sys/test-runner.js";
 import * as specimin from "./.specimin.js";
-import * as yourSolution from "./exercise.js";
+import * as yourWork from "./exercise.js";
 
-const solution = window.location.search.includes('specimin') ? specimin : yourSolution;
+const exercise = yourWorkOrSpecimin(yourWork, specimin);
 
 let a,b,c;
 let object;
@@ -15,20 +15,18 @@ beforeEach(function() {
 });
 
 test("can look up multiple properties deep in objects", function() {
-
-            assert.equal(solution.dig(object, [a,b,c]), "got it");
+            assert.equal(exercise.dig(object, [a,b,c]), "got it");
          })
 
-test("safely returns null-ish value when can't dig further", function() {
-
-            assert.equal(solution.dig(object, ['z','z','z']), undefined);
+test("returns default value if it can't dig further", function() {
+            assert.equal(exercise.dig(object, [a,'z','z'], 'Backup'), 'Backup');
          })
 
+throw Error("what's the best way to define dig - check it tests array knowledge...");
 test("works with no properties provided", function() {
-
-            assert.equal(solution.dig(object, []), undefined);
+            assert.equal(exercise.dig({a: 1}, [], 'Backup'), object);
          })
 
 test("returns null if hits a null", function() {
-            assert.equal(solution.dig(withNull, ['z']), null);
+            assert.equal(exercise.dig({z: null}, ['z']), null);
          })

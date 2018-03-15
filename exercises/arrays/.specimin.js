@@ -8,9 +8,18 @@
 //    dig({ a: { b: "hi } }, "z", "z") // undefined
 //
 // @type dig = (object: Object, ...properties: Array<string>) => any
+const NOT_PROVIDED = {};
 
-export function dig(object, ...properties) {
-  return properties.reduce(function(value, prop) {
+export function dig(object, properties, defaultValue = NOT_PROVIDED) {
+  const found = properties.reduce(function(value, prop) {
     return value == null ? value : value[prop];
   }, object);
+
+  if(found == null) {
+    return defaultValue === NOT_PROVIDED
+          ? found
+          : defaultValue
+  } else {
+    return found;
+  }
 }
