@@ -5,18 +5,17 @@ intro
 
 # this lesson will pitch a piece of code using
 # functions, flow control, primitives and variables
-# that we will be able to full comprehend by the end
-
+# that we will be able to full comprehend by the end:
 # - functions
-#   - motivation: cohesive chunks of code, keeping problems small
 #   - writing and reading declaration/expressions, picking between
-#   - motivates: scope
 #   - using first class nature
 #       - passing in functions
 #       - returning functions
 #   - destructuring
 #   - understanding arrow functions (minus this)
 #   - making deliberate use of closures
+#   - motivates: scope
+#       - hoisting
 # - variables
 #   - reference vs value
 #   - reasoning about scope
@@ -40,6 +39,7 @@ reading core javascript challenge
 #   - point to lodash
 # - maps
 #   - seeing how it 'fills in' object's weakness
+#   - e.g keeping relationships between DOM els and something else
 # - sets
 #   - seeing how a clean/fast way to track membership
 # - general

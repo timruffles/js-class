@@ -1,15 +1,4 @@
-## Core
-{title:1}
-
-## Aim
-
-- Effective 'programming in the small'
-- Writing JS like a native
-
-## Challenge
-
-```javascript
-export function spy(spyFunction, {
+function spy(spyFunction, {
     target,
     method,
 }) {
@@ -35,6 +24,13 @@ export function spy(spyFunction, {
         return (...args) => method.apply(target, args);
     }
 }
-```
 
+function add(a,b) { return a + b }
+function logArg(result, args, count) { console.log(result, args, count) }
+
+const spiedAdd = spy(logArg, {
+    target: add,
+});
+console.log(spiedAdd.name)
+const result = spiedAdd(2, 2); // will result in 'on call 1 I received 2,2' being logged
 

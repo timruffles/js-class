@@ -1,7 +1,6 @@
 ## Advanced Javascript
-{notitle:1}
 
-<img src="media/title.png">
+@timruffles
 
 ## Get setup
 
@@ -14,18 +13,14 @@
 
 ## Today
 
-> Giving you strong core JS skills, ready to tackle modern JS codebases!
+> Building strong core JS skills, ready to tackle modern JS codebases!
 
-## Platforms
-{notitle: 1}
+## Four top-level skills
 
-<img src=media/platforms.png>
-
-## Method
-
-1. Demo
-1. Exercise
-1. Review exercises at home!
+- Writing and reading core JS
+- Picking, and reasoning, about data-structures
+- Solving asynchronous problems, and reasoning about the runtime
+- Picking an architecture for full applications
 
 ## Our guide
 
@@ -36,10 +31,4 @@
 console.log((0, "what does this do?"));
 ```
 
-## Our goal...
-
-##   
-{black:1}
-
-<img src="media/be-the-interpreter.jpg">
 

@@ -18,7 +18,7 @@
 
 export function greeter(/* TODO define parameters */) {
   return `${greeting} ${person}`;
-};
+}
 
 
 // TODO your job is to write a helpful method to create
@@ -44,4 +44,4 @@ export function greeter(/* TODO define parameters */) {
 export function englishList(/* params */) {
   // TODO use destructuring to pull out values
   // TODO use destructuring to define defaults
-};
+}
