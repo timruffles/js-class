@@ -1,7 +1,15 @@
 ## Key-value data-structures
 {title:1}
 
-<!-- TODO why do we care? -->
+## We use a key/value data-structure constantly in JS
+
+## Which is...?
+
+## Object
+
+## A plain object is a great key/value data-structure
+
+- AKA dictionary, hashmap, associative array, table
 
 ## `Object` used as dictionary
 
@@ -14,10 +22,31 @@ enToFr.cheese = "fromage";
 // equivalent
 console.log(enToFr.hello);
 console.log(enToFr["hello"]);
-
 ```
 
-AKA hashmap, associative array, table.
+## Most important place we'll use objects as KV data-structures?
+
+## The most popular data-interchange format in the world is...?
+
+## JSON
+
+JavaScript Object Notation
+
+![json spec fits on card](media/json-spec.png)
+
+## Building block of JSON
+
+```javascript
+{
+    "goal": "structuring data",
+    "how": "associating values with keys, or position in arrays",
+    "attributes": [
+        "simple",
+        "human readable",
+        "human writable"
+    ]
+}
+```
 
 ## Keys are strings, values = any
 
@@ -36,6 +65,8 @@ const convertsToTen = {
 console.log(dict[convertsToTen]); // "ten"
 ```
 
+## Iterating objects
+
 ## `for ... in`
 
 ```javascript
@@ -53,7 +84,7 @@ for(const [property, value] of entries(object)) {
   console.log(\`${property}: ${value}\`);
 }
 
-// Object.entries(obj) is proposed for future ECMA
+// Object.entries(obj) is ES2017
 ```
 
 ## ES6 - dynamic keys

@@ -1,42 +1,5 @@
-## Reasoning about variables
+## Demystifying scopes
 {title:1}
-
-## Variables
-
-- A place for values to live
-- A way to refer ('get') to values
-
-## Values
-
-- Primitives or objects
-- Primitives: `null`, numbers, strings
-- Objects: arrays, regex, DOM nodes, etc
-
-## Let's declare some variables
-
-```javascript
-let a = 1;
-let b;
-```
-
-## `undefined` vs undeclared
-
-## `undefined`
-
-```javascript
-let notDefined;
-
-console.log(notDefined); // ?
-```
-
-## Undeclared
-
-```javascript
-let someVar;
-
-console.log(smeVar); // typo, what happens??
-console.log(notHere); // and here?
-```
 
 ## Variables exist in scopes
 

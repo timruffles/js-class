@@ -1,16 +1,22 @@
-## Variables
+## How variables *really* work
 {title:1}
 
-## Two ages
+## Variables
 
-- Pre-ES.next: `var`
-- Post: `let`, `const`
+- A place for values to live
+- A way to refer ('get') to values
 
-## `var`
+## Values
+
+- Primitives or objects
+- Primitives: `null`, numbers, strings
+- Objects: arrays, regex, DOM nodes, etc
+
+## Let's declare some variables
 
 ```javascript
-var someVariable;
-var anotherVariable = "hello";
+let a = 1;
+let b;
 ```
 
 ## `undefined` vs undeclared
@@ -18,7 +24,7 @@ var anotherVariable = "hello";
 ## `undefined`
 
 ```javascript
-var notDefined;
+let notDefined;
 
 console.log(notDefined); // ?
 ```
@@ -26,189 +32,48 @@ console.log(notDefined); // ?
 ## Undeclared
 
 ```javascript
-var someVar;
+let someVar;
 
 console.log(smeVar); // typo, what happens??
+console.log(notHere); // and here?
 ```
 
+## Two things happened to variables with ES6
 
-## `var` = function scoped
+## One: most variables are now constant
 
-## Function scope
-
-## Created per invocation
-{notitle:1}
-
-```javascript
-function main(A) {
-  console.log(A);
-}
-
-main(10);
-main("hello " + 5);
+```
+const aConstVariable = "how weird... I'm a constant variable";
 ```
 
-## Intuitive
-{notitle:1}
+## Always use `const`, `let` if you can't
 
-```javascript
-function main(A) {
-  console.log(A);
-}
+- 97.5% of variables in Cubik were `const`
+- 98% of variables for Dazn are `const`
 
-var A = 10;
-main(A);
-main(A + 5);
-```
+## Only places to use `let`
 
-## More complex
-{notitle:1}
-
-```javascript
-function main() {
-  var A = 'hello';
-  var B = 'hi';
-
-  function one(A, C) {
-    var D = 'hola';
-    console.log(A,B,C,D);
-  }
-
-  one(A, 'yo');
-  one(A);
-  one(B,A);
-
-  console.log(D); // <- what happens here?
-}
-```
-
-
-## One weird quirk
-
-
-```javascript
-function main() {
-  // what happens here?
-  console.log(i);
-
-  for(var i = 0; i<10; i++) {
-    console.log(i);
-  }
-}
-```
-
-## Hoisting
-
-```javascript
-function main() {
-  console.log(i);
-
-  for(var i = 0; i<10; i++) {
-    console.log(i);
-  }
-}
-```
-
-```javascript
-// visualising the 'hoisting zone'
-function main() {
-  var i;
-  ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-  console.log(i);
-
-  for(var i = 0; i<10; i++) {
-    console.log(i);
-  }
-}
-```
-
-## Global scope
-
-```javascript
-// browser - strict mode
-window.something = "I am global";
-
-// is now referencable anywhere in program
-console.log(something);
-
-// node
-global.something = "I am global";
-```
-
-## Acessing global object
-
-```javascript
-this; // sloppy, outside functions
-
-window; // browser
-global; // node
-```
-
-## `const`
-{es6:1}
-
-```javascript
-const doesNotChange = "hi";
-
-// throws TypeError - Assignment to constant
-doesNotChange = "I'll try my luck";
-```
+- 'Library'/helper code
+- Where a function has internal state
+- Old-school loops: `for(let i = 0` (after measuring performance)
 
 ## `const`
 
-```javascript
-const counter = { count: 0 };
-
-// what happens here?
-counter.count += 1;
-```
-
-## Rule: use `const` if possible
-{rule:1}
-
-- one less source of bugs
-- variables stand out
-
-## `let`
-{es6:1}
+## How does `const` work?
 
 ```javascript
-let hiThere = "hello";
+const tasty = ['ice cream', 'pizza'];
+const tastyTwo = tasty;
+tasty[0] = 'cake';
 
-if(true) {
-  let hiThere = "GOODBYE";
-}
-
-console.log(hiThere) // which?
+console.log(tasty, tastyTwo);
 ```
 
-## Block scope
-{es6:1}
+## `const` is about assignment
 
-```javascript
-for(let i = 0; i++; i < 10) {
-  console.log(i);
-}
-
-// reference error
-console.log(i);
-```
-
-## Diagram of block scope
-{notitle:1}
-
-<img src="media/block-scopes.png">
-
-## Rule: pick `const`, then `let` over `var`
-{rule:1}
-
-- one less source of bugs
-- clearer where variables belong
+- Will always refer to the same *value*
+- But that value can change internally (AKA be mutated)
 
 
-## Exercise!
-{exercise:1}
-
-    exercises/variables-and-scopes
 
 

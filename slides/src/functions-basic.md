@@ -1,4 +1,4 @@
-## Functions
+## Pro-level functions
 {title:1}
 
 <img src="slides-theme/img/eval-apply.jpg" style='width:476px; display:block; margin: 0 auto'>
@@ -11,38 +11,84 @@
 ```javascript
 function add(a,b) {
   return a + b;
-}
+} // <- no semi-colon required
 ```
 
 ## Expression
 
 ```javascript
-var add = function(a, b) {
+const add = function(a, b) {
   return a + b;
-}
+};
 ```
 
-- (expression: something assignable)
+- (expression: evaluates to a value)
 
 ## Fat-arrow
 
 ```javascript
-// note: lack of \`return\`
-var add = (a, b) => a + b;
+const add = (a, b) => {
+    return a + b;
+};
+```
 
-// no ( ) for single arg
-var id = object => object.id;
+## Why?
 
-// note: multiple statements requires {} and \`return\`
-var twoStep = (a, b) => { console.log(a); return b }
+## Shorthand for legibility
 
-// returning just an object requires you provide brackets:
-var object = (a, b) => {{a:1, b:2}}
+```javascript
+const idsA = users.map(function (user) { return user.id });
+
+// fat arrow, curly bracket form
+const idsA = users.map((user) => { return user.id });
+
+// drop parens for single argument
+const idsB = users.map(user => { return user.id });
+
+// bracketless form - no return, single expression
+const idsB = users.map(user => user.id);
+```
+
+## Rules on shorthands
+
+## Multiple statements
+
+```javascript
+// note: multiple statements requires {} form
+const twoStep = (a, b) => { console.log(a); return b }
+```
+
+## Returning an object
+
+```javascript
+// returning just an object requires you provide brackets
+const object = (a, b) => ({a:1, b:2})
 ```
 
 <p class=fragment>
 - Is a fat-arrow an expression?
 </p>
+
+## Destructure in arrow functions
+
+```javascript
+const addCounts = ({count}, {count: countB}) => count + countB;
+```
+
+## Declarations
+
+- special
+- hoisting power!
+
+```javascript
+main();
+function main() {}
+function important() {}
+function fairlyImportant() {}
+function boring() {}
+function trivial() {}
+function reallyNotThatInteresting() {}
+```
 
 
 ## Default parameters
@@ -132,8 +178,18 @@ const pair = [1,2];
 
 // can use ... in calls too!
 sprint("%s %s", ...pair);
-
 ```
+
+## Calling with spread
+
+```javascript
+const things = ['🏆','🎨'];
+// 🏆 🎨 🚀
+console.log(...things, '🚀');
+// 🚀 🏆 🎨
+console.log('🚀', ...things);
+```
+
 
 ## Exercise!
 {title: 1}
