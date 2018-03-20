@@ -15,12 +15,13 @@
 
 > Building strong core JS skills, ready to tackle modern JS codebases!
 
-## Four top-level skills
+## Three top-level skills
 
-- Writing and reading core JS
-- Picking, and reasoning, about data-structures
-- Solving asynchronous problems, and reasoning about the runtime
-- Picking an architecture for full applications
+## Reading/writing core JS
+
+## Picking, &amp; reasoning, about data-structures
+
+## Async: reasoning about the runtime
 
 ## Our guide
 

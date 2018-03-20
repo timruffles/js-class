@@ -11,7 +11,7 @@ main() {
 }
 
 remove_non_files() {
-  ack -v '^\s*$|^#'
+  grep -v -E '^\s*$|^#'
 }
 
 to_filenames() {

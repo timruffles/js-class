@@ -15,18 +15,17 @@ beforeEach(function() {
 });
 
 test("can look up multiple properties deep in objects", function() {
-            assert.equal(exercise.dig(object, [a,b,c]), "got it");
-         })
+    assert.equal(exercise.dig(object, [a,b,c]), "got it");
+})
 
 test("returns default value if it can't dig further", function() {
-            assert.equal(exercise.dig(object, [a,'z','z'], 'Backup'), 'Backup');
-         })
+    assert.equal(exercise.dig(object, [a,'z','z'], 'Backup'), 'Backup');
+})
 
-throw Error("what's the best way to define dig - check it tests array knowledge...");
 test("works with no properties provided", function() {
-            assert.equal(exercise.dig({a: 1}, [], 'Backup'), object);
-         })
+    assert.equal(exercise.dig({a: 1}, [], 'Backup'), object);
+})
 
 test("returns null if hits a null", function() {
-            assert.equal(exercise.dig({z: null}, ['z']), null);
-         })
+    assert.equal(exercise.dig({z: null}, ['z']), null);
+})

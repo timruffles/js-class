@@ -184,8 +184,10 @@ sprint("%s %s", ...pair);
 
 ```javascript
 const things = ['🏆','🎨'];
+
 // 🏆 🎨 🚀
 console.log(...things, '🚀');
+
 // 🚀 🏆 🎨
 console.log('🚀', ...things);
 ```

@@ -1,44 +1,54 @@
 intro
 
-# we need to get handy with the syntax and
-# basic execution environment of JS
+# We need to get handy with the syntax and
+# basic execution environment of JS.
 
-# this lesson will pitch a piece of code using
+# This lesson will pitch a piece of code using
 # functions, flow control, primitives and variables
-# that we will be able to full comprehend by the end:
+# that we will be able to full comprehend by the end.
+
 # - functions
-#   - X writing and reading declaration/expressions, picking between
+#   - writing and reading declaration/expressions, picking between
 #   - using first class nature
 #       - passing in functions
 #       - returning functions
-#   - X destructuring
-#   - X understanding arrow functions (minus this)
-#   - X making deliberate use of closures
-#   - X motivates: scope
-#       - X hoisting
-# - X variables
-#   - X reference vs value
-#   - X reasoning about scope
-#   - X when to use let/const/var
+#   - destructuring
+#   - understanding arrow functions (minus this)
+#   - making deliberate use of closures
+#   - motivates: scope
+#       - hoisting
+# - variables
+#   - reference vs value
+#   - reasoning about scope
+#   - when to use let/const/var
+# - primitives
+#   - string templates
+#   - numbers
+#   - comparison
 core javascript
 variables
 destructuring
 reasoning about scope
 
-functions core
+functions basic
 closures
 
-
-# lets start problems with data
-#
-# data-structures will allow us to perform more interesting
-# work, so we dig into them
-#
-# - objects
-#   - confidently reason about deferencing
+# - objects system
+#   - confidently reason about deferencing, keys, etc
 #   - reasoning correctly about how object keys work
 #   - use as data-transfer, JSON
 #   - understanding limitations as a container
+# - objects proper
+#   - when to use, motivation
+#   - class syntax
+object-system
+objects
+
+# Lets solve problems with data
+#
+# Data-structures will allow us to perform more interesting
+# work.
+#
 # - arrays
 #   - using for ordered data
 #   - using as a queue
@@ -53,12 +63,13 @@ closures
 #   - referencing, deferencing etc
 #   - structures reference values, they don't 'hold' them, so we don't copy by assignment
 solving problems with data
+arrays
+dicts
 
-# let's build programs that can interact - with users and the world
+# Let's build programs that can interact - with users and the world.
 #
-# asynchronicity is key once we want our programs to do real
-# work, so we'll look at a program that does that and use it
-# it to learn about:
+# Asynchronicity is required once we want our programs to do real
+# work.
 #
 # - writing effective code in a single threaded environment
 # - using callbacks effectively
@@ -67,15 +78,11 @@ solving problems with data
 # - promises
 #   - values rather than imperative
 # - async functions
-doing real work challenge
+#   - brings async into the language
+#   - exceptions
+async
+promises
 
-# From there we need to consider structuring larger programs. For that
-# we will likely need to consider using some objects to track essential
-# state
-#
-# - understanding concept of state
-#   - why objects help here
-#   - class syntax
-objects
-writing larger programs challenges
+async functions
 
+wrap

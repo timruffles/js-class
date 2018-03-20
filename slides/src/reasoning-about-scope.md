@@ -129,13 +129,6 @@ for(let i = 0; i++; i < 10) {
 console.log(i);
 ```
 
-## Block scope
-{es6:1}
-
-```javascript
-const values
-```
-
 ## Diagram of block scope
 {notitle:1}
 
@@ -167,9 +160,9 @@ function complexProcess(a,b,c) {
     const e = second(c);
     return third(d,e);
 
-    function first() { /* ... */ }
-    function second() { /* ... */ }
-    function third() { /* ... */ }
+    function first() { /\* ... \*/ }
+    function second() { /\* ... \*/ }
+    function third() { /\* ... \*/ }
 }
 ```
 
@@ -178,9 +171,6 @@ function complexProcess(a,b,c) {
 ## Script organisation
 
 ```javascript
-// bin/some-bin
-#!/usr/bin/env node
-
 main(process.argv[2], process.env.SOME_FLAG);
 
 function main(targetFile, flag) {
@@ -205,9 +195,6 @@ function veryBoringDetail() {}
 ## Important to trivial
 
 ```javascript
-// bin/some-bin
-#!/usr/bin/env node
-
 // this file takes CLI args and does something
 main(process.argv[2], process.env.SOME_FLAG);
 
@@ -222,9 +209,6 @@ function veryBoringDetail() {}
 ## Trivial to important
 
 ```javascript
-// bin/some-bin
-#!/usr/bin/env node
-
 const veryBoringDetail = () => {};
 const anotherBoringDetail = () => {};
 const stepOne = () => {}
@@ -244,7 +228,7 @@ main(process.argv[2], process.env.SOME_FLAG);
 - Issues in transpiled code 😱
 
 
-## `var` statements are hoisted
+## Hoisting & `var`
 
 ```javascript
 function main() {

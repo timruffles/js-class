@@ -7,6 +7,7 @@
 - Writing JS like a native
 
 ## Challenge
+{notitle:1}
 
 ```javascript
 export function spy(spyFunction, {
@@ -17,11 +18,11 @@ export function spy(spyFunction, {
         ? createWrappedMethod()
         : target;
 
-    const name = `${method || target.name}Spied`;
+    const name = \`${method || target.name}Spied\`;
     const {
-        [name]: wrapped,
+        \[name]: wrapped,
     } = {
-        [name](...args) {
+        \[name](...args) {
             const result = spiedFunction(...args);
             spyFunction(result, ...args);
             return result;

@@ -21,7 +21,10 @@ const {
 ## Simple example
 
 ```javascript
-const person = { name: 'Ada Lovelace', dob: new Date('1815-12-10') };
+const person = {
+    name: 'Ada Lovelace',
+    dob: new Date('1815-12-10'),
+};
 const {
     name,
     dob
@@ -31,7 +34,10 @@ const {
 ## Renaming
 
 ```javascript
-const person = { name: 'Ada Lovelace', dob: new Date('1815-12-10') };
+const person = {
+    name: 'Ada Lovelace',
+    dob: new Date('1815-12-10'),
+};
 const {
     // left hand side is the source property the variable
     name: nameOfPerson,
@@ -39,7 +45,7 @@ const {
 } = person;
 ```
 
-## Arr... iterables
+## Arrays
 
 
 ```javascript
@@ -56,14 +62,23 @@ console.log(more) // ["high tea", "a feast!", "hot chocolate"];
 - warning: may cause colleagues to shun you
 
 ```javascript
-const guest = {
-  name: "Hare",
-  treats: ["chocolate eggs", "toast", "rich tea biscuits"],
-
+const party = {
+  guests: [
+    {
+      name: "Hare",
+      treats: [
+        "chocolate eggs",
+        "toast",
+        "rich tea biscuits"
+      ],
+    },
+  ],
 };
-const { name, treats: [best, ...rest], mood = "jumpy" } = guest;
+const {
+    guests: [{name, treats: [best, ...rest], mood = "jumpy" }],
+} = party;
 
-console.log(name, rest) // Hare, ["toast", "rich tea biscuits"]
+console.log(name, rest) // "Hare", ["toast", "rich tea biscuits"]
 ```
 
 ## Okay, but what about the rockets?
@@ -161,7 +176,8 @@ function englishListB(words, {
     oxfordComma = false,
 } = {}) {}
 
-// TypeError: Cannot destructure property `x` of 'undefined' or 'null'.
+// TypeError: Cannot destructure property `x`
+// of 'undefined' or 'null'.
 englishListA([])
 
 // OK - the default expression gives us something to destructure
