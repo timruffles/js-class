@@ -30,7 +30,7 @@ describe("generators", function() {
             });
 
             setTimeout(function() {
-              assert.spyCalledOnce(emitter.on, "should have started listening for event");
+              assert.spyCalledOnce(emitter.on);
               assert.equal(emitter.on.getCall(0).args[0], event, "should have listened for yielded event name");
               done();
             }, 25);

@@ -1,5 +1,5 @@
 ## Two: variable declarations can launch rockets
-{title:1}
+{subtitle:1}
 
 ## How?
 

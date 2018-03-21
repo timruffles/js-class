@@ -124,14 +124,13 @@ console.log((0, &quot;what does this do?&quot;));
 <section  class=""><h2 id="variables">Variables</h2>
 <ul>
 <li>A place for values to live</li>
-<li>A way to refer (&#39;get&#39;) to values</li>
 </ul>
 </section>
 
 <section  class=""><h2 id="values">Values</h2>
 <ul>
 <li>Primitives or objects</li>
-<li>Primitives: <code>null</code>, numbers, strings</li>
+<li>Primitives: numbers, strings, <code>null</code>, etc</li>
 <li>Objects: arrays, regex, DOM nodes, etc</li>
 </ul>
 </section>
@@ -169,15 +168,17 @@ console.log(notHere); // and here?
 
 <section  class=""><h2 id="always-use-const-let-if-you-can-t">Always use <code>const</code>, <code>let</code> if you can&#39;t</h2>
 <ul>
-<li>97.5% of variables in Cubik were <code>const</code></li>
-<li>98% of variables for Dazn are <code>const</code></li>
+<li>~98% of variables in last three codebases were <code>const</code></li>
 </ul>
 </section>
 
-<section  class=""><h2 id="only-places-to-use-let-">Only places to use <code>let</code></h2>
+<section  class=""><h2 id="rule-when-let-">Rule: when <code>let</code>?</h2>
 <ul>
-<li>&#39;Library&#39;/helper code</li>
+<li>&#39;Library&#39;/helper code<ul>
 <li>Where a function has internal state</li>
+<li>Why? This is not application logic, it&#39;s computation</li>
+</ul>
+</li>
 <li>Old-school loops: <code>for(let i = 0</code> (after measuring performance)</li>
 </ul>
 </section>
@@ -202,7 +203,7 @@ console.log(tasty, tastyTwo);
 <!-- story continues: 'two' is destructuring -->
 </section>
 
-<section data-state='title' class=" title"><h2 id="two-variable-declarations-can-launch-rockets">Two: variable declarations can launch rockets</h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="two-variable-declarations-can-launch-rockets">Two: variable declarations can launch rockets</h2>
 </section>
 
 <section  class=""><h2 id="how-">How?</h2>
@@ -211,7 +212,7 @@ console.log(tasty, tastyTwo);
 <section  class=""><h2 id="destructuring">Destructuring</h2>
 </section>
 
-<section  class=""><h2 id="expressive-way-to-work-with-structures">Expressive way to work with structures</h2>
+<section  class=""><h2 id="expressive">Expressive</h2>
 <pre><code class="lang-javascript">const {
     data: {
         children: [
@@ -220,6 +221,13 @@ console.log(tasty, tastyTwo);
         ],
     }
 } = redditApiResponse;
+
+// vs
+
+const firstStory = redditApiResponse
+    .data.children[0];
+const rest = redditApiResponse
+    .data.children.slice(1);
 </code></pre>
 </section>
 
@@ -265,6 +273,9 @@ console.log(more) // [&quot;high tea&quot;, &quot;a feast!&quot;, &quot;hot choc
 <ul>
 <li>warning: may cause colleagues to shun you</li>
 </ul>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="no-limit-">No limit!</h2>
 <pre><code class="lang-javascript">const party = {
   guests: [
     {
@@ -344,48 +355,6 @@ formatPerson({});
 </code></pre>
 </section>
 
-<section  class=""><h2 id="what-s-the-idiomatic-way-of-writing-this-">What&#39;s the idiomatic way of writing this?</h2>
-</section>
-
-<section  class=""><h2 id="destructuring-in-function-arguments">Destructuring in function arguments</h2>
-<pre><code class="lang-javascript">function required(property) {
-    throw Error(&#39;Missing &#39; + property);
-}
-
-function formatPerson({
-        // left hand side is the source property the variable
-        name: nameOfPerson = required(&#39;name&#39;),
-        dob: dateOfBirth = require(&#39;dob&#39;),
-}) {
-    return {
-        nameOfPerson,
-        dateOfBirth,
-    };
-}
-
-// Error: missing name
-formatPerson({});
-</code></pre>
-</section>
-
-<section  class=""><h2 id="optionals">Optionals</h2>
-<pre><code class="lang-javascript">function englishListA(words, {
-    oxfordComma = false,
-}) {}
-
-function englishListB(words, {
-    oxfordComma = false,
-} = {}) {}
-
-// TypeError: Cannot destructure property <code>x</code>
-// of &#39;undefined&#39; or &#39;null&#39;.
-englishListA([])
-
-// OK - the default expression gives us something to destructure
-englishListB([])
-</code></pre>
-</section>
-
 <section  class=""><h2 id="just-enough-modules">Just enough modules</h2>
 <pre><code class="lang-javascript">// egExport.js
 const variableA = 1;
@@ -401,7 +370,7 @@ import { variableA, variableB } from &quot;./egExport&quot;;
 </code></pre>
 </section>
 
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<section data-state='exercise' class=" exercise"><h2 id="let-s-try">Let&#39;s try</h2>
 <pre><code>exercises/destructuring
 </code></pre></section>
 
@@ -501,7 +470,52 @@ main(A + 5);
 
 <section  class=""><h2 id="tricky-">Tricky!</h2>
 <pre><code class="lang-javascript">export // ... we&#39;re in a module!
+
+// so this is not a global, it&#39;s a module-level var
+let something = &#39;hi&#39;;
 </code></pre>
+</section>
+
+<section  class=""><h2 id="global-scope">Global scope</h2>
+<pre><code class="lang-javascript">// browser - strict mode
+window.something = &quot;I am global&quot;;
+
+// is now referencable anywhere in program via global scope
+console.log(something);
+
+// node
+global.something = &quot;I am global&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="acessing-global-object-">Acessing global object?</h2>
+</section>
+
+<section  class=""><h2 id="just-refer-to-property">Just refer to property</h2>
+<pre><code class="lang-javascript">Array;
+
+
+// final check will be on global object, if not
+// there will throw
+anything;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="getting-global-itself-">Getting global itself?</h2>
+<pre><code class="lang-javascript">// browser
+window;
+self;
+
+// node
+global;
+
+// sloppy, outside functions
+this;
+</code></pre>
+<aside class=nodes>
+    <a href="https://github.com/tc39/proposal-global">https://github.com/tc39/proposal-global</a>
+</aside>
+
 </section>
 
 <section  class=""><h2 id="3-module-scope">3. Module scope</h2>
@@ -598,7 +612,7 @@ console.log(
 </code></pre>
 </section>
 
-<section  class=""><h2 id="-in-scope-">&#39;In scope&#39;</h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="-in-scope-">&#39;In scope&#39;</h2>
 </section>
 
 <section data-state='notitle' class=" notitle"><h2 id="let-s-check-reasoning">Let&#39;s check reasoning</h2>
@@ -620,7 +634,7 @@ console.log(
 </code></pre>
 </section>
 
-<section data-state='title' class=" title"><h2 id="using-scopes-for-expression">Using scopes for expression</h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="using-scopes-for-expression">Using scopes for expression</h2>
 </section>
 
 <section  class=""><h2 id="organisation">Organisation</h2>
@@ -693,7 +707,7 @@ main(process.argv[2], process.env.SOME_FLAG);
 </code></pre>
 </section>
 
-<section  class=""><h2 id="-var-"><code>var</code></h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="-var-"><code>var</code></h2>
 </section>
 
 <section  class=""><h2 id="still-necessary-for-js-devs">Still necessary for JS devs</h2>
@@ -725,32 +739,7 @@ function main() {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="global-scope">Global scope</h2>
-<pre><code class="lang-javascript">// browser - strict mode
-window.something = &quot;I am global&quot;;
-
-// is now referencable anywhere in program via global scope
-console.log(something);
-
-// node
-global.something = &quot;I am global&quot;;
-</code></pre>
-</section>
-
-<section  class=""><h2 id="acessing-global-object">Acessing global object</h2>
-<pre><code class="lang-javascript">this; // sloppy, outside functions
-
-window; // browser
-global; // node
-
-
-// final check will be on global object, if not
-// there will throw
-nameNotInCurrentScope;
-</code></pre>
-</section>
-
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<section data-state='exercise' class=" exercise"><h2 id="let-s-try">Let&#39;s try</h2>
 <pre><code>exercises/variables-and-scopes
 </code></pre></section>
 
@@ -786,7 +775,7 @@ console.log(event.toLocaleString(&#39;en-GB&#39;, { timeZone: &#39;UTC&#39; }));
 console.log((123457).toLocaleString(&#39;ja-JP&#39;,
     { style: &#39;currency&#39;, currency: &#39;JPY&#39; }))
 </code></pre>
-<aside>
+<aside class=notes>
     - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString</a>
     - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString</a>
     - <a href="https://en.wikipedia.org/wiki/Indian_numbering_system">https://en.wikipedia.org/wiki/Indian_numbering_system</a>
@@ -843,7 +832,7 @@ const html = `
 </code></pre>
 </section>
 
-<section  class=""><h2 id="comparison">Comparison</h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="comparison">Comparison</h2>
 </section>
 
 <section  class=""><h2 id="-has-issues"><code>==</code> has issues</h2>
@@ -908,6 +897,64 @@ if(x == null) {
 <li>Objects (non primitives): compares by identity, not value</li>
 <li>Beyond that, very complex. Just use for <code>null</code> or <code>undefined</code></li>
 </ol>
+</section>
+
+<section  class=""><h2 id="why-nan-nan-">Why <code>NaN !== NaN</code>?</h2>
+</section>
+
+<section  class=""><h2 id="because-">Because...</h2>
+<ul>
+<li>5 times spoon shouldn&#39;t equal two to the power of whale!</li>
+</ul>
+<pre><code class="lang-javascript">// false, NaN, NaN
+console.log(
+    5 * &#39;spoon&#39; === Math.pow(2, &#39;🐋&#39;),
+    5 * &#39;spoon&#39;,
+    Math.pow(2, &#39;🐋&#39;),
+);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="handling-nan-">Handling <code>NaN</code></h2>
+<pre><code class="lang-javascript">// true
+console.log(
+    isNaN(5 * &#39;spoon&#39;),
+);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="numbers">Numbers</h2>
+<pre><code class="lang-javascript">// ?
+console.log(0.1 + 0.2 === 0.3);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="floats-are-imprecise">Floats are imprecise</h2>
+</section>
+
+<section  class=""><h2 id="solution-use-ints">Solution: use ints</h2>
+<pre><code class="lang-javascript">// round to nearest micropenny (millionth of a penny)
+const microPenniesToPounds = (microPennies) =&gt; (
+    // micro to pennies -&gt; pennies to pounds
+    microPennies / 1e6 / 100
+);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="or-a-library">Or a library</h2>
+</section>
+
+<section  class=""><h2 id="casting-to-boolean">Casting to boolean</h2>
+<pre><code class="lang-javascript">const truthy = [];
+const falsy = 0;
+
+console.log(
+    Boolean(truthy),
+    Boolean(falsy),
+    !!truthy,
+    !!falsy,
+);
+</code></pre>
 </section>
 
 <section data-state='title' class=" title"><h2 id="pro-level-functions">Pro-level functions</h2>
@@ -1149,7 +1196,7 @@ for(var i = 0; i &lt; elements.length; i++) {
 <section  class=""><h2 id="understanding-how-it-works-is-vital">Understanding how it works is vital</h2>
 </section>
 
-<section  class=""><h2 id="what-are-js-objects-">What are JS objects?</h2>
+<section  class=""><h2 id="what-uses-the-object-system-">What uses the object system?</h2>
 </section>
 
 <section  class=""><h2 id="well-">Well...</h2>
@@ -1179,6 +1226,34 @@ for(var i = 0; i &lt; elements.length; i++) {
 for(const thing in thingsYouMightNotFeelAreObjects) {
     console.log(thing, thing.toString(), thing.constructor);
 }
+</code></pre>
+</section>
+
+<section  class=""><h2 id="but-primitives-">But... primitives?</h2>
+<pre><code class="lang-javascript">const number = 10.2;
+const string = &#39;hi&#39;;
+
+// How?
+number.toFixed(2) // 10.20
+</code></pre>
+</section>
+
+<section  class=""><h2 id="converted-to-object">Converted to object</h2>
+<ul>
+<li>Primitives (aside from <code>null</code>/<code>undefined</code>) have wrappers</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="wrapper-objects">Wrapper objects</h2>
+<pre><code class="lang-javascript">const number = 10.2;
+
+number.toFixed(2)
+
+// NEVER use wrapper objects
+Number(number).toFixed(2)
+
+// exception: casting to boolean
+const trueOrFalse = Boolean(somethingTruthyOrFalse);
 </code></pre>
 </section>
 
@@ -1319,7 +1394,7 @@ console.log(typeof Object.getOwnPropertySymbols(Array.prototype)[0])
 </ul>
 </section>
 
-<section  class=""><h2 id="where-do-methods-come-from-">Where do methods come from?</h2>
+<section data-state='subtitle' class=" subtitle"><h2 id="where-do-methods-come-from-">Where do methods come from?</h2>
 <pre><code class="lang-javascript">const animals = [&#39;🐢&#39;, &#39;🐳&#39;, &#39;🐫&#39;];
 // what happens here?
 console.log(animals.slice(-2));
@@ -1333,16 +1408,41 @@ animals.hasOwnProperty(&#39;slice&#39;); // false
 </code></pre>
 </section>
 
-<section  class=""><h2 id="what-happens-next-">What happens next?</h2>
+<section  class=""><h2 id="why-">Why?</h2>
 </section>
 
-<section  class=""><h2 id="reason-about-property-lookup">Reason about property lookup</h2>
+<section  class=""><h2 id="efficiency">Efficiency</h2>
+<ul>
+<li>would be hugely expensive for every array to have its own copy of each array method</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="how-do-we-solve-">How do we solve?</h2>
+</section>
+
+<section  class=""><h2 id="sharing-">Sharing!</h2>
+<ul>
+<li>every array shares same slice method</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="how-">How?</h2>
+</section>
+
+<section  class=""><h2 id="we-ll-define-prototype-objects">We&#39;ll define prototype objects</h2>
+</section>
+
+<section  class=""><h2 id="if-an-object-doesn-t-have-a-method-it-asks-its-prototype">If an object doesn&#39;t have a method, it asks its prototype</h2>
+</section>
+
+<section  class=""><h2 id="looks-up-the-prototype-chain">Looks up the prototype chain</h2>
 <pre><code class="lang-javascript">const animals = [&#39;🐢&#39;, &#39;🐳&#39;, &#39;🐫&#39;];
 // ok, is there a &#39;slice&#39; in the array instance?
 animals.hasOwnProperty(&#39;slice&#39;); // false
 
 // what about in the prototype?
-z.<strong>proto</strong>.hasOwnProperty(&#39;slice&#39;) // true
+Object.getPrototypeOf(animals)
+    .hasOwnProperty(&#39;slice&#39;) // true
 </code></pre>
 </section>
 
@@ -1352,10 +1452,13 @@ function getProperty(object, prop) {
   if(object.hasOwnProperty(prop)) {
     return object[prop];
   } else {
-    if(object.__proto__) {
-      getProperty(object.__proto__, prop);
+    const prototype = Object.getPrototypeOf(object);
+    if(prototype) {
+      getProperty(prototype, prop);
     } else {
-      return undefined;
+      // and here is the source of
+      // &#39;undefined is not a function&#39; 🤔
+      return;
     }
   }
 }
@@ -1394,18 +1497,24 @@ arrayTwo.slice(-1);
 <li>assignment/delete affects instance</li>
 <li>prototype is unaffected!</li>
 </ul>
-<!-- TODO object system exercise -->## OOP
-{title:1}
+</section>
 
-## OOP in JS
+<section data-state='exercise' class=" exercise"><h2 id="exericse">Exericse</h2>
+<pre><code>    exercises/object-system
+</code></pre></section>
 
-- ES6: <code>class</code>
-- ES5: prototypes
+<section data-state='title' class=" title"><h2 id="oop">OOP</h2>
+</section>
 
-## ES6
+<section  class=""><h2 id="oop-in-js">OOP in JS</h2>
+<ul>
+<li>ES6: <code>class</code></li>
+<li>ES5: prototypes</li>
+</ul>
+</section>
 
-<code>javascript
-class Widget {
+<section  class=""><h2 id="es6">ES6</h2>
+<pre><code class="lang-javascript">class Widget {
   constructor({ model }) {
     this._model = model;
   }
@@ -1417,47 +1526,49 @@ class Widget {
 
 const instance = new Widget({
   model: new Map([[&quot;name&quot;, &quot;crockford&quot;]]),
-});</code>
+});
+</code></pre>
+</section>
 
-## Let&#39;s break it down
-
-<code>javascript
-class Widget {
+<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
+<pre><code class="lang-javascript">class Widget {
   // this is the function invoked when we call &#39;new Widget&#39;
   constructor({ model }) {
     // ... 
   }
-}</code>
+}
+</code></pre>
+</section>
 
-## Let&#39;s break it down
-
-<code>javascript
-class Widget {
+<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
+<pre><code class="lang-javascript">class Widget {
   // ...
 
   // methods defined here will be callable on the instances
   render() {
 
   }
-}</code>
+}
+</code></pre>
+</section>
 
-## Let&#39;s have a go
-{exercise:true}
+<section data-state='exercise' class=" exercise"><h2 id="let-s-have-a-go">Let&#39;s have a go</h2>
+<pre><code>Exercise 1
 
-    Exercise 1
+exericses/objects-and-prototypes
+</code></pre></section>
 
-    exericses/objects-and-prototypes
+<section  class=""><h2 id="okay-that-s-the-basics">Okay that&#39;s the basics</h2>
+</section>
 
-## Okay that&#39;s the basics
+<section  class=""><h2 id="what-about">What about</h2>
+</section>
 
-## What about
+<section  class=""><h2 id="privacy-">Privacy?</h2>
+</section>
 
-## Privacy?
-
-## Consensual privacy
-
-<code>javascript
-class Widget {
+<section  class=""><h2 id="consensual-privacy">Consensual privacy</h2>
+<pre><code class="lang-javascript">class Widget {
 
   render() {
     return `&lt;div&gt;${ this._renderName() }&lt;/div&gt;`;
@@ -1475,12 +1586,12 @@ class Widget {
 const instance = new Widget(/* ... */);
 
 instance.render();
-instance._renderHelper(); // no error</code>
+instance._renderHelper(); // no error
+</code></pre>
+</section>
 
-## Stricter privacy
-
-<code>javascript
-const privates = new WeakMap;
+<section  class=""><h2 id="stricter-privacy">Stricter privacy</h2>
+<pre><code class="lang-javascript">const privates = new WeakMap;
 
 class Counter {
   constructor() {
@@ -1500,18 +1611,20 @@ const instance = new Counter(/* ... */);
 
 instance.add();
 instance.add();
-console.log(instance.get()); // 2</code>
+console.log(instance.get()); // 2
+</code></pre>
+</section>
 
-## <code>WeakMap</code>?
+<section  class=""><h2 id="-weakmap-"><code>WeakMap</code>?</h2>
+<ul>
+<li><em>keys</em> are available to garbage collect (GC)</li>
+<li>if only weak references remain, available for GC</li>
+<li>keys must be non-primitives</li>
+</ul>
+</section>
 
-- <em>keys</em> are available to garbage collect (GC)
-- if only weak references remain, available for GC
-- keys must be non-primitives
-
-## <code>WeakMap</code> e.g
-
-<code>javascript
-const map = new Map;
+<section  class=""><h2 id="-weakmap-e-g"><code>WeakMap</code> e.g</h2>
+<pre><code class="lang-javascript">const map = new Map;
 const weak = new WeakMap;
 
 const A = {};
@@ -1525,12 +1638,12 @@ weak.set(B, &quot;&quot;);
 weak.set(C, &quot;&quot;);
 
 global.map = map;
-global.weak = weak;</code>
+global.weak = weak;
+</code></pre>
+</section>
 
-## Inheritence
-
-<code>javascript
-class DefaultMap extends Map {
+<section  class=""><h2 id="inheritence">Inheritence</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
 
   constructor(members, defaulter) {
     super(members);
@@ -1549,12 +1662,12 @@ const instance = new DefaultMap([[&quot;apples&quot;, 7 ]]),
   () =&gt; 0)
 
 console.log(instance.get(&quot;apples&quot;)) // 7
-console.log(instance.get(&quot;pears&quot;)) // 0</code>
+console.log(instance.get(&quot;pears&quot;)) // 0
+</code></pre>
+</section>
 
-## Broken down
-
-<code>javascript
-class DefaultMap extends Map {
+<section  class=""><h2 id="broken-down">Broken down</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
 
   constructor(members, default) {
     super(members);
@@ -1562,18 +1675,17 @@ class DefaultMap extends Map {
   }
 
   // ...
-}</code>
-
-<code>javascript
-// this is the default constructor of a sub-class
+}
+</code></pre>
+<pre><code class="lang-javascript">// this is the default constructor of a sub-class
 constructor(...args) {
   super(...args)
-}</code>
+}
+</code></pre>
+</section>
 
-## Calling super methods
-
-<code>javascript
-class DefaultMap extends Map {
+<section  class=""><h2 id="calling-super-methods">Calling super methods</h2>
+<pre><code class="lang-javascript">class DefaultMap extends Map {
   // ...
 
   get(key) {
@@ -1581,74 +1693,49 @@ class DefaultMap extends Map {
 
     return super.get(key);
   }
-}</code>
+}
+</code></pre>
+</section>
 
-## Let&#39;s try
-{exercise:true}
+<section data-state='exercise' class=" exercise"><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>Exercise 2
 
-    Exercise 2
+exercises/objects-and-prototypes
+</code></pre></section>
 
-    exercises/objects-and-prototypes
-
-## Properties?
-
-<code>javascript
-class Widget {
+<section  class=""><h2 id="properties-">Properties?</h2>
+<pre><code class="lang-javascript">class Widget {
   something: [];
-}</code>
+}
+</code></pre>
+</section>
 
-## Nope
-{bad:true}
+<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
+</section>
 
-## Deliberate ommission
+<section  class=""><h2 id="deliberate-ommission">Deliberate ommission</h2>
+</section>
 
-## Instead
-
-<code>javascript
-class Point {
+<section  class=""><h2 id="instead">Instead</h2>
+<pre><code class="lang-javascript">class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
-}</code>
-
-## Why?
-
-## Well...
-
-## How do JS objects really work?
-
-## Prototypes!
-
-## Big idea
-
-## If an object doesn&#39;t know, it asks its prototype
-
-##<br>{notitle:1}
-
-<img src="media/prototypes.png">
-
-<!-- TODO explain why on image - i.e that we're reducing repetition -->
-</section>
-
-<section  class=""><h2 id="chain">Chain</h2>
-<p><img src="media/prototype-chain.png"></p>
-</section>
-
-<section  class=""><h2 id="lookup-algorithm">Lookup algorithm</h2>
-<pre><code class="lang-javascript">// always at run-time
-function getProperty(object, prop) {
-  if(object.hasOwnProperty(prop)) {
-    return object[prop];
-  } else {
-    if(object.__proto__) {
-      getProperty(object.__proto__, prop);
-    } else {
-      return undefined;
-    }
-  }
 }
 </code></pre>
+</section>
+
+<section  class=""><h2 id="why-">Why?</h2>
+</section>
+
+<section  class=""><h2 id="well-">Well...</h2>
+</section>
+
+<section  class=""><h2 id="how-do-js-objects-really-work-">How do JS objects really work?</h2>
+</section>
+
+<section  class=""><h2 id="prototypes-">Prototypes!</h2>
 </section>
 
 <section  class=""><h2 id="so-properties">So... properties</h2>
@@ -1818,8 +1905,10 @@ function Structure(width, height) {
 </code></pre>
 </section>
 
-<section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<pre><code>exercises/objects-and-prototypes
+<section data-state='exercise' class=" exercise"><h2 id="let-s-try-">Let&#39;s try!</h2>
+<pre><code>Exercise 3
+
+exercises/objects-and-prototypes
 </code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="solving-problems-with-data-structures">Solving problems with data structures</h2>
@@ -2013,7 +2102,7 @@ const couldStringify = JSON.stringify([1,2])
 </code></pre>
 </section>
 
-<section  class=""><h2 id="exercise">Exercise</h2>
+<section data-state='exercise' class=" exercise"><h2 id="exercise">Exercise</h2>
 <pre><code>exercises/arrays
 </code></pre></section>
 
@@ -2352,7 +2441,7 @@ function helper() {
 <p><img src="media/try-catch-async.jpg"></p>
 </section>
 
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<section data-state='exercise' class=" exercise"><h2 id="let-s-try">Let&#39;s try</h2>
 <pre><code>exercises/callbacks-and-async
 </code></pre></section>
 

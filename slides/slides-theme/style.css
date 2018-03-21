@@ -22,16 +22,25 @@
 body {
   box-sizing: border-box;
   background: rgb(250,250,250);
-  color: #222;
+  color: #0b0b0b;
   font-family: Exo;
   font-size: 48px;
 }
 
-.title body, .q body, .a body {
+.title body, .subtitle body, .q body, .a body {
   background: #198698;
 }
-.title .reveal h1, .title .reveal h2 {
+.title .reveal h1, .title .reveal h2,
+.subtitle .reveal h1, .subtitle .reveal h2
+{
   color: rgb(250,250,250);
+}
+
+.exercise body {
+  background: #dafeb2;
+}
+.exercise .reveal h2 {
+  color: rgb(25,25,25);
 }
 
 .reveal .slides > section {

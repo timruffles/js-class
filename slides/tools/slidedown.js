@@ -45,8 +45,9 @@ exports.parse = function(source) {
       })
 
       tag("title")
-      tag("sub")
+      tag("subtitle")
       tag("notitle")
+      tag("exercise")
       tag("black")
       tag("bad")
 

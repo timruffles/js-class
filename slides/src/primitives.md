@@ -30,7 +30,7 @@ console.log((123457).toLocaleString('ja-JP',
     { style: 'currency', currency: 'JPY' }))
 ```
 
-<aside>
+<aside class=notes>
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
     - https://en.wikipedia.org/wiki/Indian_numbering_system
@@ -145,6 +145,51 @@ const missing = x == null;
 
 1. Objects (non primitives): compares by identity, not value
 1. Beyond that, very complex. Just use for `null` or `undefined`
+
+## Why `NaN !== NaN`?
+
+## Because...
+
+- 5 times spoon shouldn't equal two to the power of whale!
+
+```javascript
+// false, NaN, NaN
+console.log(
+    5 \* 'spoon' === Math.pow(2, '🐋'),
+    5 \* 'spoon',
+    Math.pow(2, '🐋'),
+);
+```
+
+## Handling `NaN`
+
+```javascript
+// true
+console.log(
+    isNaN(5 * 'spoon'),
+);
+```
+
+## Numbers
+
+```javascript
+// ?
+console.log(0.1 + 0.2 === 0.3);
+```
+
+## Floats are imprecise
+
+## Solution: use ints
+
+```javascript
+// round to nearest micropenny (millionth of a penny)
+const microPenniesToPounds = (microPennies) => (
+    // micro to pennies -> pennies to pounds
+    microPennies / 1e6 / 100
+);
+```
+
+## Or a library
 
 ## Casting to boolean
 

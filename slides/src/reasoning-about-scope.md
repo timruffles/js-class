@@ -135,7 +135,7 @@ global;
 this;
 ```
 
-<aside>
+<aside class=nodes>
     https://github.com/tc39/proposal-global
 </aside>
 
