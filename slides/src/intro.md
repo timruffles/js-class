@@ -1,6 +1,8 @@
 ## Advanced Javascript
 
-@timruffles
+[@timruffles](https://twitter.com/timruffles)
+
+[timr.co](https://timr.co)
 
 ## Get setup
 

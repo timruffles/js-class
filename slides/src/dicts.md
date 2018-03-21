@@ -80,7 +80,7 @@ for(const property in Object.values(object)) {
 
 ```javascript
 // objects not iterable by default, so...
-for(const [property, value] of entries(object)) {
+for(const [property, value] of Object.entries(object)) {
   console.log(\`${property}: ${value}\`);
 }
 
@@ -113,7 +113,8 @@ dict[1] = "hello";
 // how to count?
 console.log(dict.length); // undefined
 
-console.log(Object.keys(dict).length); // slow for very large objects
+// slow for very large objects
+console.log(Object.keys(dict).length);
 ```
 
 

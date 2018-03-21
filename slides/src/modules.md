@@ -1,4 +1,4 @@
-## Designing in JS
+## Module systems
 {title:true}
 
 ## Structuring an application

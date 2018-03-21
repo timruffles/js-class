@@ -5,8 +5,6 @@
 
 ## For ordered data
 
-<!-- TODO lookup some nice order-dependent challenges -->
-
 ## Ordered
 
 ```script
@@ -145,21 +143,49 @@ console.log(initials) // ["C","B","B","M"]
 
 ## Functional iteration
 
+## Common patterns
+
+## e.g everything that...
+
 ```javascript
 // ES5 'array additions'
 const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
 
 primeMinisters.filter((p) => p[0] === "B") // ["Brown","Blair"];
-
-primeMinisters.map((p) => p[0]) // [ "C", "B", "B", "M" ]
-
-primeMinisters.reduce((s, e) => s + ":" + e) // 'Cameron:Brown:Blair:Major'
 ```
 
 ## Functional iterators
 
 - intention revealing
 - shorter, less error-prone
+
+## e.g transform each
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
+
+primeMinisters.map((p) => p[0]) // [ "C", "B", "B", "M" ]
+```
+
+## e.g Does everything?
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
+
+primeMinisters.every((p) => p.includes('o')) // false
+```
+
+## e.g combine
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
+
+primeMinisters.reduce((keyed, p) => {
+    keyed[p] = p;
+    return keyed;
+}, {}); // { Cameron: "Cameron", Brown: "Brown" ... }
+```
+
 
 ## Remember: compares by identity
 

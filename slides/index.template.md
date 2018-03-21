@@ -88,3 +88,7 @@ promises
 async functions
 
 wrap
+
+modules
+generators
+generators-objects
