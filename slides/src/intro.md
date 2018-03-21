@@ -17,6 +17,11 @@
 
 > Strong modern JS skills, ready for today's codebases
 
+## cooking
+{notitle:1}
+
+<img src=media/salt-fat-acid.jpg style='height: 100vh; margin: 0 auto; display: block' />
+
 ## Three top-level skills
 
 ## Reading/writing modern JS
