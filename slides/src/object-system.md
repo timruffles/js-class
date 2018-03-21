@@ -49,7 +49,7 @@ number.toFixed(2) // 10.20
 ## Converted to object
 
 - Primitives (aside from `null`/`undefined`) have wrappers
-- Invoking methods on primitives is same as invoking on wrapper
+
 
 ## Wrapper objects
 
@@ -300,4 +300,7 @@ arrayTwo.slice(-1);
 - assignment/delete affects instance
 - prototype is unaffected!
 
-<!-- TODO object system exercise -->
+## Exericse
+{exercise: 1}
+
+        exercises/object-system
