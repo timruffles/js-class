@@ -237,40 +237,6 @@ class Point {
 
 ## Prototypes!
 
-## Big idea
-
-## If an object doesn't know, it asks its prototype
-
-##        
-{notitle:1}
-
-<img src="media/prototypes.png">
-
-<!-- TODO explain why on image - i.e that we're reducing repetition -->
-
-## Chain
-
-<img src="media/prototype-chain.png">
-
-## Lookup algorithm
-{code:1}
-
-```javascript
-// always at run-time
-function getProperty(object, prop) {
-  if(object.hasOwnProperty(prop)) {
-    return object[prop];
-  } else {
-    if(object.\_\_proto\_\_) {
-      getProperty(object.\_\_proto\_\_, prop);
-    } else {
-      return undefined;
-    }
-  }
-}
-```
-
-
 ## So... properties
 
 ```javascript

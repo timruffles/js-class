@@ -1,4 +1,3 @@
-'use strict';
 /* eslint no-unused-vars:0 */
 
 // part 1: getting rid of temporary vars
@@ -21,7 +20,7 @@ let others;
 // TODO destruture the winner into winner, and the rest into others
 
 
-export { winner as raceWinner, others as raceOthers };
+export { winner, others };
 
 // part 3: objects
 

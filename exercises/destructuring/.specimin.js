@@ -22,7 +22,7 @@ let others;
 [winner, ...others] = raceParticipants;
 
 
-export { winner as raceWinner, others as raceOthers };
+export { winner, others };
 
 
 

@@ -54,14 +54,14 @@
 
 <section  class=""><h2 id="today">Today</h2>
 <blockquote>
-<p>Building strong core JS skills, ready to tackle modern JS codebases!</p>
+<p>Strong modern JS skills, ready for today&#39;s codebases</p>
 </blockquote>
 </section>
 
 <section  class=""><h2 id="three-top-level-skills">Three top-level skills</h2>
 </section>
 
-<section  class=""><h2 id="reading-writing-core-js">Reading/writing core JS</h2>
+<section  class=""><h2 id="reading-writing-modern-js">Reading/writing modern JS</h2>
 </section>
 
 <section  class=""><h2 id="picking-amp-reasoning-about-data-structures">Picking, &amp; reasoning, about data-structures</h2>
@@ -72,7 +72,7 @@
 
 <section  class=""><h2 id="our-guide">Our guide</h2>
 <pre><code class="lang-Javascript">// most code examples can be directly pasted
-// in browser console
+// in browser/node console
 
 console.log((0, &quot;what does this do?&quot;));
 </code></pre>
@@ -199,6 +199,7 @@ console.log(tasty, tastyTwo);
 <li>Will always refer to the same <em>value</em></li>
 <li>But that value can change internally (AKA be mutated)</li>
 </ul>
+<!-- story continues: 'two' is destructuring -->
 </section>
 
 <section data-state='title' class=" title"><h2 id="two-variable-declarations-can-launch-rockets">Two: variable declarations can launch rockets</h2>
@@ -218,7 +219,7 @@ console.log(tasty, tastyTwo);
             ...rest,
         ],
     }
-} = await json(&#39;https://reddit.com/r/funny.json&#39;);
+} = redditApiResponse;
 </code></pre>
 </section>
 
@@ -227,6 +228,7 @@ console.log(tasty, tastyTwo);
     name: &#39;Ada Lovelace&#39;,
     dob: new Date(&#39;1815-12-10&#39;),
 };
+
 const {
     name,
     dob
@@ -239,11 +241,14 @@ const {
     name: &#39;Ada Lovelace&#39;,
     dob: new Date(&#39;1815-12-10&#39;),
 };
+
 const {
     // left hand side is the source property the variable
     name: nameOfPerson,
     dob: dateOfBirth,
 } = person;
+
+console.log(nameOfPerson); // &#39;Ada Lovelace&#39;
 </code></pre>
 </section>
 
@@ -381,6 +386,21 @@ englishListB([])
 </code></pre>
 </section>
 
+<section  class=""><h2 id="just-enough-modules">Just enough modules</h2>
+<pre><code class="lang-javascript">// egExport.js
+const variableA = 1;
+function variableB() {}
+
+export {
+    variableA,
+    variableB,
+}
+</code></pre>
+<pre><code class="lang-javascript">// egImport.js
+import { variableA, variableB } from &quot;./egExport&quot;;
+</code></pre>
+</section>
+
 <section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
 <pre><code>exercises/destructuring
 </code></pre></section>
@@ -443,7 +463,13 @@ alpha(gamma);
 </code></pre>
 </section>
 
-<section  class=""><h2 id="functions-scope">Functions &amp; scope</h2>
+<section  class=""><h2 id="there-are-6">There are 6</h2>
+<ul>
+<li>4 types</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="1-functions-scopes">1. Functions scopes</h2>
 </section>
 
 <section  class=""><h2 id="at-what-time-">At what time?</h2>
@@ -470,50 +496,59 @@ main(A + 5);
 </code></pre>
 </section>
 
-<section  class=""><h2 id="global-scope-">Global scope?</h2>
+<section  class=""><h2 id="2-global-scope-">2. Global scope?</h2>
 </section>
 
-<section  class=""><h2 id="module-scope">Module scope</h2>
+<section  class=""><h2 id="tricky-">Tricky!</h2>
+<pre><code class="lang-javascript">export // ... we&#39;re in a module!
+</code></pre>
+</section>
+
+<section  class=""><h2 id="3-module-scope">3. Module scope</h2>
+<pre><code class="lang-javascript">// some module.js
+
+const someName = 1;
+export { someName };
+
+// what scope is this variable defined in?
+otherName = 2;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="which-files-are-modules-">Which files are modules?</h2>
 <ul>
-<li>ES6 introduced modules</li>
-<li>module: file with import/export<ul>
-<li>or <code>&lt;script type=&quot;module&quot;&gt;</code></li>
+<li>browser<ul>
+<li><code>&lt;script type=module&gt;</code>, or imported via <code>import</code></li>
 </ul>
 </li>
-<li>lifetime?</li>
-<li>Modules are evaluated once</li>
+<li>node<ul>
+<li>new <code>.mjs</code> (AKA Michael Jackson Solution)</li>
+</ul>
+</li>
+<li>transpiled<ul>
+<li>whatever you configure!</li>
+</ul>
+</li>
 </ul>
 </section>
 
 <section  class=""><h2 id="module-scoped-variables">Module scoped variables</h2>
 <ul>
-<li>Live forever</li>
+<li>Modules are evaluated once, on demand</li>
+<li>Modules live forever</li>
 </ul>
 </section>
 
-<section  class=""><h2 id="-in-scope-">&#39;In scope&#39;</h2>
-</section>
-
-<section data-state='notitle' class=" notitle"><h2 id="more-complex">More complex</h2>
-<pre><code class="lang-javascript">function main() {
-  let A = &#39;hello&#39;;
-  let B = &#39;hi&#39;;
-
-  function one(A, C) {
-    let D = &#39;hola&#39;;
-    console.log(A,B,C,D);
-  }
-
-  one(A, &#39;yo&#39;);
-  one(A);
-  one(B,A);
-
-  console.log(D); // &lt;- what happens here?
-}
+<section  class=""><h2 id="4-block-scope">4. Block scope</h2>
+<pre><code class="lang-javascript">    // ...
+    } else {
+        const msg = low(x);
+        return msg;
+    }
 </code></pre>
 </section>
 
-<section  class=""><h2 id="block-scope">Block scope</h2>
+<section  class=""><h2 id="cleans-up-loops">Cleans up loops</h2>
 <pre><code class="lang-javascript">for(let i = 0; i++; i &lt; 10) {
   console.log(i);
 }
@@ -532,6 +567,55 @@ console.log(i);
   for(var i = 0; i&lt;10; i++) {
     console.log(i);
   }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="what-can-block-scopes-replace-">What can block scopes replace?</h2>
+</section>
+
+<section  class=""><h2 id="iife">IIFE</h2>
+<pre><code class="lang-javascript">// nonModuleScript.js
+&#39;use strict&#39;;
+
+const topLevel = &#39;hi&#39;;
+
+!(function() {
+    // all this effort just to get a scope!
+    const iife = &#39;hello&#39;;
+})()
+
+{
+    // ahhhh
+    const block = &#39;hello&#39;;
+}
+
+// ?
+console.log(
+    typeof topLevel,
+    typeof iife,
+    typeof block)
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-in-scope-">&#39;In scope&#39;</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="let-s-check-reasoning">Let&#39;s check reasoning</h2>
+<pre><code class="lang-javascript">function main() {
+  let A = &#39;hello&#39;;
+  let B = &#39;hi&#39;;
+
+  function one(A, C) {
+    let D = &#39;hola&#39;;
+    console.log(A,B,C,D);
+  }
+
+  one(A, &#39;yo&#39;);
+  one(A);
+  one(B,A);
+
+  console.log(D); // &lt;- what happens here?
 }
 </code></pre>
 </section>
@@ -658,7 +742,172 @@ global.something = &quot;I am global&quot;;
 
 window; // browser
 global; // node
+
+
+// final check will be on global object, if not
+// there will throw
+nameNotInCurrentScope;
 </code></pre>
+</section>
+
+<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
+<pre><code>exercises/variables-and-scopes
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="primitives">Primitives</h2>
+</section>
+
+<section  class=""><h2 id="team-primitive">Team primitive</h2>
+<ol>
+<li><code>undefined</code></li>
+<li><code>null</code></li>
+<li>booleans</li>
+<li>numbers</li>
+<li>strings</li>
+<li>symbols</li>
+</ol>
+</section>
+
+<section  class=""><h2 id="quite-sophisticated">Quite sophisticated</h2>
+</section>
+
+<section  class=""><h2 id="e-g-i18n">e.g i18n</h2>
+<pre><code class="lang-javascript">const event = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+
+// 20/12/2012, 03:00:00
+console.log(event.toLocaleString(&#39;en-GB&#39;, { timeZone: &#39;UTC&#39; }));
+
+// 1,023,942 - one million, 23 thousand, 924
+(1023942).toLocaleString(&#39;en-GB&#39;, {useGrouping: true})
+// 10,23,942 - 10 lakh, 23 thousand, 924
+(1023942).toLocaleString(&#39;en-IN&#39;, {useGrouping: true})
+
+// ￥123,457
+console.log((123457).toLocaleString(&#39;ja-JP&#39;,
+    { style: &#39;currency&#39;, currency: &#39;JPY&#39; }))
+</code></pre>
+<aside>
+    - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString</a>
+    - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString</a>
+    - <a href="https://en.wikipedia.org/wiki/Indian_numbering_system">https://en.wikipedia.org/wiki/Indian_numbering_system</a>
+</aside>
+
+</section>
+
+<section  class=""><h2 id="your-friend-mdn">Your friend: MDN</h2>
+<ul>
+<li><a href="https://developer.mozilla.org">MDN</a><ul>
+<li>now Mozilla, WC3, Google, Samsung co-project</li>
+</ul>
+</li>
+<li>I prefix my searches &quot;MDN ...&quot;</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="string">String</h2>
+<pre><code class="lang-javascript">const name = &#39;Tim&#39;;
+const description = &quot;It&#39;s saving escapes&quot;;
+
+const complete = `${name}: ${opinion}`;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="interpolation-">Interpolation: <code>${}</code></h2>
+<pre><code class="lang-javascript">const opinionOnEs6 = &quot;much nicer&quot;;
+const es6 = `Interpolation: &#39;${opinion}&#39;`;
+
+const opinionOnEs5 = &quot;looks ugly&quot;;
+const es5 = &quot;Interpolation: &#39;&quot; + opinion + &quot;&#39;&quot;;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="template-strings">Template strings</h2>
+<pre><code class="lang-javascript">const es5Html = &quot;&lt;h1&gt;Ugh&lt;/h1&gt;&quot; +
+  &quot;&lt;p&gt;This is horrid&lt;/p&gt;&quot;;
+
+const howMuch = &quot;Much&quot;;
+
+const html = `
+  &lt;h1&gt;Writing HTML with ES.Next&lt;/h1&gt;
+  &lt;p&gt;${howMuch} nicer&lt;/p&gt;
+`;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="can-write-expressions-in-templates">Can write expressions in templates</h2>
+<pre><code class="lang-javascript">const html = `
+  &lt;h1&gt;Zoo&lt;/h1&gt;
+  &lt;p&gt;Good ${isMorning ? &#39;morning&#39; : &#39;day&#39;}&lt;/p&gt;
+  &lt;p&gt;${ userSummary(user) }&lt;/p&gt;
+`;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="comparison">Comparison</h2>
+</section>
+
+<section  class=""><h2 id="-has-issues"><code>==</code> has issues</h2>
+<pre><code class="lang-javascript">const A = &quot;\t\t\t\t\t \n \n \n&quot; == false;
+
+if(A) {
+  console.log(&quot;A was == false&quot;);
+} else {
+  console.log(&quot;A wasn&#39;t == false&quot;);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-always-use-">Rule: always use <code>===</code></h2>
+<ul>
+<li>Much clearer</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="but-one-place-to-use-">But <em>ONE</em> place to use <code>==</code></h2>
+</section>
+
+<section  class=""><h2 id="-null-undefined-"><code>null</code> &amp; <code>undefined</code></h2>
+<ul>
+<li>A nuisance since 1995.</li>
+<li>I&#39;d stick to <code>undefined</code></li>
+</ul>
+</section>
+
+<section  class=""><h2 id="handling-null-and-undefined-">Handling <code>null</code> and <code>undefined</code></h2>
+<pre><code class="lang-javascript">// undefined is not eqeqeq null
+console.log(undefined === null); // false
+
+if(x === null || x === undefined) {
+  // what a chore!
+}
+
+if(x == null) {
+  // equivalent, shorter, idiomatic
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="rule-use-null-">Rule: use <code>== null</code></h2>
+<pre><code class="lang-javascript">const missing = x == null;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-"><code>===</code></h2>
+<ol>
+<li>Same type?</li>
+<li><p>Same value?</p>
+</li>
+<li><p>Special cases: <code>NaN !== NaN</code></p>
+</li>
+<li>Objects (non primitives): compares by identity, not value</li>
+</ol>
+</section>
+
+<section  class=""><h2 id="-"><code>==</code></h2>
+<ol>
+<li>Objects (non primitives): compares by identity, not value</li>
+<li>Beyond that, very complex. Just use for <code>null</code> or <code>undefined</code></li>
+</ol>
 </section>
 
 <section data-state='title' class=" title"><h2 id="pro-level-functions">Pro-level functions</h2>
@@ -1145,20 +1394,18 @@ arrayTwo.slice(-1);
 <li>assignment/delete affects instance</li>
 <li>prototype is unaffected!</li>
 </ul>
-</section>
+<!-- TODO object system exercise -->## OOP
+{title:1}
 
-<section data-state='title' class=" title"><h2 id="oop">OOP</h2>
-</section>
+## OOP in JS
 
-<section  class=""><h2 id="oop-in-js">OOP in JS</h2>
-<ul>
-<li>ES6: <code>class</code></li>
-<li>ES5: prototypes</li>
-</ul>
-</section>
+- ES6: <code>class</code>
+- ES5: prototypes
 
-<section  class=""><h2 id="es6">ES6</h2>
-<pre><code class="lang-javascript">class Widget {
+## ES6
+
+<code>javascript
+class Widget {
   constructor({ model }) {
     this._model = model;
   }
@@ -1170,49 +1417,47 @@ arrayTwo.slice(-1);
 
 const instance = new Widget({
   model: new Map([[&quot;name&quot;, &quot;crockford&quot;]]),
-});
-</code></pre>
-</section>
+});</code>
 
-<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
-<pre><code class="lang-javascript">class Widget {
+## Let&#39;s break it down
+
+<code>javascript
+class Widget {
   // this is the function invoked when we call &#39;new Widget&#39;
   constructor({ model }) {
     // ... 
   }
-}
-</code></pre>
-</section>
+}</code>
 
-<section  class=""><h2 id="let-s-break-it-down">Let&#39;s break it down</h2>
-<pre><code class="lang-javascript">class Widget {
+## Let&#39;s break it down
+
+<code>javascript
+class Widget {
   // ...
 
   // methods defined here will be callable on the instances
   render() {
 
   }
-}
-</code></pre>
-</section>
+}</code>
 
-<section  class=""><h2 id="let-s-have-a-go">Let&#39;s have a go</h2>
-<pre><code>Exercise 1
+## Let&#39;s have a go
+{exercise:true}
 
-exericses/objects-and-prototypes
-</code></pre></section>
+    Exercise 1
 
-<section  class=""><h2 id="okay-that-s-the-basics">Okay that&#39;s the basics</h2>
-</section>
+    exericses/objects-and-prototypes
 
-<section  class=""><h2 id="what-about">What about</h2>
-</section>
+## Okay that&#39;s the basics
 
-<section  class=""><h2 id="privacy-">Privacy?</h2>
-</section>
+## What about
 
-<section  class=""><h2 id="consensual-privacy">Consensual privacy</h2>
-<pre><code class="lang-javascript">class Widget {
+## Privacy?
+
+## Consensual privacy
+
+<code>javascript
+class Widget {
 
   render() {
     return `&lt;div&gt;${ this._renderName() }&lt;/div&gt;`;
@@ -1230,12 +1475,12 @@ exericses/objects-and-prototypes
 const instance = new Widget(/* ... */);
 
 instance.render();
-instance._renderHelper(); // no error
-</code></pre>
-</section>
+instance._renderHelper(); // no error</code>
 
-<section  class=""><h2 id="stricter-privacy">Stricter privacy</h2>
-<pre><code class="lang-javascript">const privates = new WeakMap;
+## Stricter privacy
+
+<code>javascript
+const privates = new WeakMap;
 
 class Counter {
   constructor() {
@@ -1255,20 +1500,18 @@ const instance = new Counter(/* ... */);
 
 instance.add();
 instance.add();
-console.log(instance.get()); // 2
-</code></pre>
-</section>
+console.log(instance.get()); // 2</code>
 
-<section  class=""><h2 id="-weakmap-"><code>WeakMap</code>?</h2>
-<ul>
-<li><em>keys</em> are available to garbage collect (GC)</li>
-<li>if only weak references remain, available for GC</li>
-<li>keys must be non-primitives</li>
-</ul>
-</section>
+## <code>WeakMap</code>?
 
-<section  class=""><h2 id="-weakmap-e-g"><code>WeakMap</code> e.g</h2>
-<pre><code class="lang-javascript">const map = new Map;
+- <em>keys</em> are available to garbage collect (GC)
+- if only weak references remain, available for GC
+- keys must be non-primitives
+
+## <code>WeakMap</code> e.g
+
+<code>javascript
+const map = new Map;
 const weak = new WeakMap;
 
 const A = {};
@@ -1282,12 +1525,12 @@ weak.set(B, &quot;&quot;);
 weak.set(C, &quot;&quot;);
 
 global.map = map;
-global.weak = weak;
-</code></pre>
-</section>
+global.weak = weak;</code>
 
-<section  class=""><h2 id="inheritence">Inheritence</h2>
-<pre><code class="lang-javascript">class DefaultMap extends Map {
+## Inheritence
+
+<code>javascript
+class DefaultMap extends Map {
 
   constructor(members, defaulter) {
     super(members);
@@ -1306,12 +1549,12 @@ const instance = new DefaultMap([[&quot;apples&quot;, 7 ]]),
   () =&gt; 0)
 
 console.log(instance.get(&quot;apples&quot;)) // 7
-console.log(instance.get(&quot;pears&quot;)) // 0
-</code></pre>
-</section>
+console.log(instance.get(&quot;pears&quot;)) // 0</code>
 
-<section  class=""><h2 id="broken-down">Broken down</h2>
-<pre><code class="lang-javascript">class DefaultMap extends Map {
+## Broken down
+
+<code>javascript
+class DefaultMap extends Map {
 
   constructor(members, default) {
     super(members);
@@ -1319,17 +1562,18 @@ console.log(instance.get(&quot;pears&quot;)) // 0
   }
 
   // ...
-}
-</code></pre>
-<pre><code class="lang-javascript">// this is the default constructor of a sub-class
+}</code>
+
+<code>javascript
+// this is the default constructor of a sub-class
 constructor(...args) {
   super(...args)
-}
-</code></pre>
-</section>
+}</code>
 
-<section  class=""><h2 id="calling-super-methods">Calling super methods</h2>
-<pre><code class="lang-javascript">class DefaultMap extends Map {
+## Calling super methods
+
+<code>javascript
+class DefaultMap extends Map {
   // ...
 
   get(key) {
@@ -1337,59 +1581,53 @@ constructor(...args) {
 
     return super.get(key);
   }
-}
-</code></pre>
-</section>
+}</code>
 
-<section  class=""><h2 id="let-s-try">Let&#39;s try</h2>
-<pre><code>Exercise 2
+## Let&#39;s try
+{exercise:true}
 
-exercises/objects-and-prototypes
-</code></pre></section>
+    Exercise 2
 
-<section  class=""><h2 id="properties-">Properties?</h2>
-<pre><code class="lang-javascript">class Widget {
+    exercises/objects-and-prototypes
+
+## Properties?
+
+<code>javascript
+class Widget {
   something: [];
-}
-</code></pre>
-</section>
+}</code>
 
-<section data-state='bad' class=" bad"><h2 id="nope">Nope</h2>
-</section>
+## Nope
+{bad:true}
 
-<section  class=""><h2 id="deliberate-ommission">Deliberate ommission</h2>
-</section>
+## Deliberate ommission
 
-<section  class=""><h2 id="instead">Instead</h2>
-<pre><code class="lang-javascript">class Point {
+## Instead
+
+<code>javascript
+class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
-}
-</code></pre>
-</section>
+}</code>
 
-<section  class=""><h2 id="why-">Why?</h2>
-</section>
+## Why?
 
-<section  class=""><h2 id="well-">Well...</h2>
-</section>
+## Well...
 
-<section  class=""><h2 id="how-do-js-objects-really-work-">How do JS objects really work?</h2>
-</section>
+## How do JS objects really work?
 
-<section  class=""><h2 id="prototypes-">Prototypes!</h2>
-</section>
+## Prototypes!
 
-<section  class=""><h2 id="big-idea">Big idea</h2>
-</section>
+## Big idea
 
-<section  class=""><h2 id="if-an-object-doesn-t-know-it-asks-its-prototype">If an object doesn&#39;t know, it asks its prototype</h2>
-</section>
+## If an object doesn&#39;t know, it asks its prototype
 
-<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
-<p><img src="media/prototypes.png"></p>
+##<br>{notitle:1}
+
+<img src="media/prototypes.png">
+
 <!-- TODO explain why on image - i.e that we're reducing repetition -->
 </section>
 
@@ -1581,9 +1819,7 @@ function Structure(width, height) {
 </section>
 
 <section  class=""><h2 id="let-s-try-">Let&#39;s try!</h2>
-<pre><code>Exercise 3
-
-exercises/objects-and-prototypes
+<pre><code>exercises/objects-and-prototypes
 </code></pre></section>
 
 <section data-state='title' class=" title"><h2 id="solving-problems-with-data-structures">Solving problems with data structures</h2>
@@ -2262,8 +2498,144 @@ var usersWithAccounts = Promise.all(users)
 </section>
 
 <section data-state='title' class=" title"><h2 id="async-functions">Async functions</h2>
-<p><!-- TODO -->## Wrap!
-{title:1}</p>
+</section>
+
+<section  class=""><h2 id="promises-are-great-but-">Promises are great but...</h2>
+</section>
+
+<section  class=""><h2 id="still-not-syntactically-sweet">Still not syntactically sweet</h2>
+</section>
+
+<section  class=""><h2 id="example-problem">Example problem</h2>
+<ul>
+<li>retrieve a user by id<ul>
+<li>or send 404</li>
+</ul>
+</li>
+<li>get profile using user, if present<ul>
+<li>update profile</li>
+<li>or, create profile</li>
+</ul>
+</li>
+<li>send 500 in case of any unexpected errors</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="promises">Promises</h2>
+<pre><code class="lang-javascript">function updateProfile(request, response) {
+    getUser(params[&quot;id&quot;])
+        .then((user) =&gt; (
+            if(!user) {
+                return res.send(404);
+            }
+
+            return getProfile(user)
+                .then(profile =&gt;
+                    profile
+                    ? update(user, profile,
+                        request.params)
+                    : create(user, request.params)
+                )
+        ))
+        .catch(() =&gt; response.send(500))
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="async-functions">Async functions</h2>
+<pre><code class="lang-javascript">async function updateProfile(request, response) {
+    try {
+        const user = await getUser(params[&quot;id&quot;]);
+        if(!user) {
+            res.send(404);
+        }
+
+        const profile = await getProfile(user);
+        return profile
+            ? update(user, profile,
+                request.params)
+            : create(user, request.params)
+    } catch(e) {
+        response.send(500)
+    }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="syntax">Syntax</h2>
+<pre><code class="lang-javascript">async function longForm() {}
+
+const fatArrow = async () =&gt; {};
+
+// ?
+const returnValue = fatArrow()
+</code></pre>
+</section>
+
+<section  class=""><h2 id="async-functions-return-promises">Async functions return promises</h2>
+</section>
+
+<section  class=""><h2 id="e-g">e.g</h2>
+<pre><code class="lang-javascript">const getReddit = async (r) =&gt; fetch(<code>https://reddit.com/r/${r}.json</code>;
+
+getReddit()
+    .then(r =&gt; r.json())
+    .then(
+        b =&gt; console.log(b),
+        e =&gt; console.error(&#39;fail&#39;, e)
+    )
+</code></pre>
+</section>
+
+<section  class=""><h2 id="async-composing-with-language-">Async composing with language!</h2>
+<pre><code class="lang-javascript">async function filterAsync(getPromises, predicate) {
+    const promises = getPromises.map(f =&gt; f());
+    const included = [];
+
+    for(const promise of promises) {
+       const value = await promise;
+       if(predicate(value)) {
+         included.push(value);
+       }
+    }
+
+    return included;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="shorter-">Shorter?</h2>
+</section>
+
+<section  class=""><h2 id="remember-promise-knowledge-still-vital">Remember: promise knowledge still vital</h2>
+<pre><code class="lang-javascript">async function filterAsync(getPromises, predicate) {
+    const promises = getPromises.map(f =&gt; f());
+    const values = await Promise.all(promises);
+    return values.filter(predicate);
+}
+
+// golfed :)
+async function filterAsync(getPromises, predicate) {
+    return (await Promise.all(getPromises.map(f =&gt; f())))
+        .filter(predicate);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="what-s-the-difference-">What&#39;s the difference?</h2>
+<pre><code class="lang-javascript">// A
+await usersPromise.update(params);
+
+// B
+(await userPromise).update(params);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="exercise">Exercise</h2>
+<pre><code>exercises/async-functions
+</code></pre></section>
+
+<section data-state='title' class=" title"><h2 id="wrap-">Wrap!</h2>
 </section>
 
 <section  class=""><h2 id="thanks-">Thanks!</h2>

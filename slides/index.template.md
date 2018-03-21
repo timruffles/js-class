@@ -30,6 +30,8 @@ variables
 destructuring
 reasoning about scope
 
+primitives
+
 functions basic
 closures
 

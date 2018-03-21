@@ -5,7 +5,7 @@
 
 ## Understanding how it works is vital
 
-## What are JS objects?
+## What uses the object system?
 
 ## Well...
 
@@ -34,6 +34,35 @@ const thingsYouMightNotFeelAreObjects = [
 for(const thing in thingsYouMightNotFeelAreObjects) {
     console.log(thing, thing.toString(), thing.constructor);
 }
+```
+
+## But... primitives?
+
+```javascript
+const number = 10.2;
+const string = 'hi';
+
+// How?
+number.toFixed(2) // 10.20
+```
+
+## Converted to object
+
+- Primitives (aside from `null`/`undefined`) have wrappers
+- Invoking methods on primitives is same as invoking on wrapper
+
+## Wrapper objects
+
+```javascript
+const number = 10.2;
+
+number.toFixed(2)
+
+// NEVER use wrapper objects
+Number(number).toFixed(2)
+
+// exception: casting to boolean
+const trueOrFalse = Boolean(somethingTruthyOrFalse);
 ```
 
 ## Objects
@@ -185,9 +214,25 @@ const animals = ['🐢', '🐳', '🐫'];
 animals.hasOwnProperty('slice'); // false
 ```
 
-## What happens next?
+## Why?
 
-## Reason about property lookup
+## Efficiency
+
+- would be hugely expensive for every array to have its own copy of each array method
+
+## How do we solve?
+
+## Sharing!
+
+- every array shares same slice method
+
+## How?
+
+## We'll define prototype objects
+
+## If an object doesn't have a method, it asks its prototype
+
+## Looks up the prototype chain
 
 ```javascript
 const animals = ['🐢', '🐳', '🐫'];
@@ -195,7 +240,8 @@ const animals = ['🐢', '🐳', '🐫'];
 animals.hasOwnProperty('slice'); // false
 
 // what about in the prototype?
-z.__proto__.hasOwnProperty('slice') // true
+Object.getPrototypeOf(animals)
+    .hasOwnProperty('slice') // true
 ```
 
 ## Lookup algorithm
@@ -207,10 +253,13 @@ function getProperty(object, prop) {
   if(object.hasOwnProperty(prop)) {
     return object[prop];
   } else {
-    if(object.\_\_proto\_\_) {
-      getProperty(object.\_\_proto\_\_, prop);
+    const prototype = Object.getPrototypeOf(object);
+    if(prototype) {
+      getProperty(prototype, prop);
     } else {
-      return undefined;
+      // and here is the source of
+      // 'undefined is not a function' 🤔
+      return;
     }
   }
 }
@@ -251,3 +300,4 @@ arrayTwo.slice(-1);
 - assignment/delete affects instance
 - prototype is unaffected!
 
+<!-- TODO object system exercise -->

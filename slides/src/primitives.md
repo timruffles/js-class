@@ -1,44 +1,88 @@
 ## Primitives
 {title: 1}
 
-## String
-```javascript
-var name = 'Tim';
-var description = "It's saving escapes";
+## Team primitive
 
-var complete = \`${name}: ${opinion}\`;
+1. `undefined`
+1. `null`
+1. booleans
+1. numbers
+1. strings
+1. symbols
+
+## Quite sophisticated
+
+## e.g i18n
+
+```javascript
+const event = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+
+// 20/12/2012, 03:00:00
+console.log(event.toLocaleString('en-GB', { timeZone: 'UTC' }));
+
+// 1,023,942 - one million, 23 thousand, 924
+(1023942).toLocaleString('en-GB', {useGrouping: true})
+// 10,23,942 - 10 lakh, 23 thousand, 924
+(1023942).toLocaleString('en-IN', {useGrouping: true})
+
+// ￥123,457
+console.log((123457).toLocaleString('ja-JP',
+    { style: 'currency', currency: 'JPY' }))
 ```
 
+<aside>
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+    - https://en.wikipedia.org/wiki/Indian_numbering_system
+</aside>
+
+## Your friend: MDN
+
+- [MDN](https://developer.mozilla.org)
+    - now Mozilla, WC3, Google, Samsung co-project
+- I prefix my searches "MDN ..."
+
+## String
+```javascript
+const name = 'Tim';
+const description = "It's saving escapes";
+
+const complete = \`${name}: ${opinion}\`;
+```
 
 ## Interpolation: `${}`
 
 ```javascript
-var opinionOnEs6 = "much nicer";
-var es6 = \`Interpolation: '${opinion}'\`;
+const opinionOnEs6 = "much nicer";
+const es6 = \`Interpolation: '${opinion}'\`;
 
-var opinionOnEs5 = "looks ugly";
-var es5 = "Interpolation: '" + opinion + "'";
+const opinionOnEs5 = "looks ugly";
+const es5 = "Interpolation: '" + opinion + "'";
 ```
 
 ## Template strings
 
 ```javascript
-var es5Html = "<h1>Ugh</h1>" +
+const es5Html = "<h1>Ugh</h1>" +
   "<p>This is horrid</p>";
 
-var howMuch = "Much";
+const howMuch = "Much";
 
-var html = \`
+const html = \`
   <h1>Writing HTML with ES.Next</h1>
   <p>${howMuch} nicer</p>
 \`;
 ```
 
+## Can write expressions in templates
 
-## `null` & `undefined`
-
-- A nuisance since 1995.
-- I'd stick to `undefined`
+```javascript
+const html = \`
+  <h1>Zoo</h1>
+  <p>Good ${isMorning ? 'morning' : 'day'}</p>
+  <p>${ userSummary(user) }</p>
+\`;
+```
 
 ## Comparison
 {subtitle:true}
@@ -46,7 +90,7 @@ var html = \`
 ## `==` has issues
 
 ```javascript
-var A = "\t\t\t\t\t \n \n \n" == false;
+const A = "\t\t\t\t\t \n \n \n" == false;
 
 if(A) {
   console.log("A was == false");
@@ -62,17 +106,23 @@ if(A) {
 
 ## But *ONE* place to use `==`
 
+## `null` & `undefined`
+
+- A nuisance since 1995.
+- I'd stick to `undefined`
+
 ## Handling `null` and `undefined`
 
-```
-var undefinedNotEqeqeqNull = undefined === null; // false
+```javascript
+// undefined is not eqeqeq null
+console.log(undefined === null); // false
 
 if(x === null || x === undefined) {
   // what a chore!
 }
 
 if(x == null) {
-  // equivalent, shorter, nicer
+  // equivalent, shorter, idiomatic
 }
 ```
 
@@ -80,7 +130,7 @@ if(x == null) {
 {rule:1}
 
 ```javascript
-var nullish = x == null;
+const missing = x == null;
 ```
 
 ## `===`
@@ -95,4 +145,18 @@ var nullish = x == null;
 
 1. Objects (non primitives): compares by identity, not value
 1. Beyond that, very complex. Just use for `null` or `undefined`
+
+## Casting to boolean
+
+```javascript
+const truthy = [];
+const falsy = 0;
+
+console.log(
+    Boolean(truthy),
+    Boolean(falsy),
+    !!truthy,
+    !!falsy,
+);
+```
 

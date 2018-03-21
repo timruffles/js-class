@@ -4,12 +4,11 @@
 ## Variables
 
 - A place for values to live
-- A way to refer ('get') to values
 
 ## Values
 
 - Primitives or objects
-- Primitives: `null`, numbers, strings
+- Primitives: numbers, strings, `null`, etc
 - Objects: arrays, regex, DOM nodes, etc
 
 ## Let's declare some variables
@@ -48,13 +47,13 @@ const aConstVariable = "how weird... I'm a constant variable";
 
 ## Always use `const`, `let` if you can't
 
-- 97.5% of variables in Cubik were `const`
-- 98% of variables for Dazn are `const`
+- ~98% of variables in last three codebases were `const`
 
-## Only places to use `let`
+## Rule: when `let`?
 
 - 'Library'/helper code
-- Where a function has internal state
+    - Where a function has internal state
+    - Why? This is not application logic, it's computation
 - Old-school loops: `for(let i = 0` (after measuring performance)
 
 ## `const`
@@ -74,6 +73,4 @@ console.log(tasty, tastyTwo);
 - Will always refer to the same *value*
 - But that value can change internally (AKA be mutated)
 
-
-
-
+<!-- story continues: 'two' is destructuring -->

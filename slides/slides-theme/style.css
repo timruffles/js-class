@@ -45,6 +45,7 @@ body {
   line-height: 1.125em;
   margin-bottom: 0.25em;
   word-wrap: normal;
+  hyphens: none;
 }
 
 .slides section {

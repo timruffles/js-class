@@ -5,7 +5,7 @@
 
 ## Destructuring
 
-## Expressive way to work with structures
+## Expressive
 
 ```javascript
 const {
@@ -15,7 +15,14 @@ const {
             ...rest,
         ],
     }
-} = await json('https://reddit.com/r/funny.json');
+} = redditApiResponse;
+
+// vs
+
+const firstStory = redditApiResponse
+    .data.children[0];
+const rest = redditApiResponse
+    .data.children.slice(1);
 ```
 
 ## Simple example
@@ -25,6 +32,7 @@ const person = {
     name: 'Ada Lovelace',
     dob: new Date('1815-12-10'),
 };
+
 const {
     name,
     dob
@@ -38,11 +46,14 @@ const person = {
     name: 'Ada Lovelace',
     dob: new Date('1815-12-10'),
 };
+
 const {
     // left hand side is the source property the variable
     name: nameOfPerson,
     dob: dateOfBirth,
 } = person;
+
+console.log(nameOfPerson); // 'Ada Lovelace'
 ```
 
 ## Arrays
@@ -60,6 +71,9 @@ console.log(more) // ["high tea", "a feast!", "hot chocolate"];
 ## No limit!
 
 - warning: may cause colleagues to shun you
+
+## No limit!
+{notitle:1}
 
 ```javascript
 const party = {
@@ -82,7 +96,6 @@ console.log(name, rest) // "Hare", ["toast", "rich tea biscuits"]
 ```
 
 ## Okay, but what about the rockets?
-
 
 ## Failing
 
@@ -141,47 +154,22 @@ function formatPerson(person) {
 formatPerson({});
 ```
 
-## What's the idiomatic way of writing this?
-
-## Destructuring in function arguments
+## Just enough modules
 
 ```javascript
-function required(property) {
-    throw Error('Missing ' + property);
-}
+// egExport.js
+const variableA = 1;
+function variableB() {}
 
-function formatPerson({
-        // left hand side is the source property the variable
-        name: nameOfPerson = required('name'),
-        dob: dateOfBirth = require('dob'),
-}) {
-    return {
-        nameOfPerson,
-        dateOfBirth,
-    };
+export {
+    variableA,
+    variableB,
 }
-
-// Error: missing name
-formatPerson({});
 ```
 
-## Optionals
-
 ```javascript
-function englishListA(words, {
-    oxfordComma = false,
-}) {}
-
-function englishListB(words, {
-    oxfordComma = false,
-} = {}) {}
-
-// TypeError: Cannot destructure property `x`
-// of 'undefined' or 'null'.
-englishListA([])
-
-// OK - the default expression gives us something to destructure
-englishListB([])
+// egImport.js
+import { variableA, variableB } from "./egExport";
 ```
 
 ## Let's try

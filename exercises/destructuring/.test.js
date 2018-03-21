@@ -15,11 +15,11 @@ describe("destructures values", function() {
       describe("arrays", function() {
 
         it("exported head", function() {
-          assert.equal(exported.raceWinner, "Hare");
+          assert.equal(exported.winner, "Hare");
         })
 
         it("exported rest", function() {
-          assert.deepEqual(exported.raceOthers, ["Alice", "Cheshire Cat"]);
+          assert.deepEqual(exported.others, ["Alice", "Cheshire Cat"]);
         })
           
       })

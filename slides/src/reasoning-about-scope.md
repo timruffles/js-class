@@ -51,7 +51,11 @@ const gamma = 1;
 alpha(gamma);
 ```
 
-## Functions & scope
+## There are 6
+
+- 4 types
+
+## 1. Functions scopes
 
 ## At what time?
 
@@ -80,45 +84,101 @@ main(A);
 main(A + 5);
 ```
 
-## Global scope?
+## 2. Global scope?
 
-## Module scope
+## Tricky!
 
-- ES6 introduced modules
-- module: file with import/export
-    - or `<script type="module">`
-- lifetime?
-- Modules are evaluated once
+```javascript
+export // ... we're in a module!
+
+// so this is not a global, it's a module-level var
+let something = 'hi';
+```
+
+## Global scope
+
+```javascript
+// browser - strict mode
+window.something = "I am global";
+
+// is now referencable anywhere in program via global scope
+console.log(something);
+
+// node
+global.something = "I am global";
+```
+
+## Acessing global object?
+
+## Just refer to property
+
+```javascript
+Array;
+
+
+// final check will be on global object, if not
+// there will throw
+anything;
+```
+
+## Getting global itself?
+
+```javascript
+// browser
+window;
+self;
+
+// node
+global;
+
+// sloppy, outside functions
+this;
+```
+
+<aside>
+    https://github.com/tc39/proposal-global
+</aside>
+
+## 3. Module scope
+
+```javascript
+// some module.js
+
+const someName = 1;
+export { someName };
+
+// what scope is this variable defined in?
+otherName = 2;
+```
+
+## Which files are modules?
+
+- browser
+    - `<script type=module>`, or imported via `import`
+- node
+    - new `.mjs` (AKA Michael Jackson Solution)
+- transpiled
+    - whatever you configure!
 
 ## Module scoped variables
 
-- Live forever
+- Modules are evaluated once, on demand
+- Modules live forever
 
-## 'In scope'
 
-## More complex
-{notitle:1}
+
+## 4. Block scope
+{es6:1}
 
 ```javascript
-function main() {
-  let A = 'hello';
-  let B = 'hi';
-
-  function one(A, C) {
-    let D = 'hola';
-    console.log(A,B,C,D);
-  }
-
-  one(A, 'yo');
-  one(A);
-  one(B,A);
-
-  console.log(D); // <- what happens here?
-}
+    // ...
+    } else {
+        const msg = low(x);
+        return msg;
+    }
 ```
 
-## Block scope
-{es6:1}
+## Cleans up loops
 
 ```javascript
 for(let i = 0; i++; i < 10) {
@@ -145,8 +205,59 @@ function main() {
 }
 ```
 
+## What can block scopes replace?
+
+## IIFE
+
+```javascript
+// nonModuleScript.js
+'use strict';
+
+const topLevel = 'hi';
+
+!(function() {
+    // all this effort just to get a scope!
+    const iife = 'hello';
+})()
+
+{
+    // ahhhh
+    const block = 'hello';
+}
+
+// ?
+console.log(
+    typeof topLevel,
+    typeof iife,
+    typeof block)
+```
+
+## 'In scope'
+{subtitle: 1}
+
+## Let's check reasoning
+{notitle:1}
+
+```javascript
+function main() {
+  let A = 'hello';
+  let B = 'hi';
+
+  function one(A, C) {
+    let D = 'hola';
+    console.log(A,B,C,D);
+  }
+
+  one(A, 'yo');
+  one(A);
+  one(B,A);
+
+  console.log(D); // <- what happens here?
+}
+```
+
 ## Using scopes for expression
-{title:1}
+{subtitle:1}
 
 ## Organisation
 
@@ -221,6 +332,7 @@ main(process.argv[2], process.env.SOME_FLAG);
 ```
 
 ## `var`
+{subtitle:1}
 
 ## Still necessary for JS devs
 
@@ -253,25 +365,14 @@ function main() {
 }
 ```
 
-## Global scope
 
-```javascript
-// browser - strict mode
-window.something = "I am global";
+## Let's try
+{exercise:true}
 
-// is now referencable anywhere in program via global scope
-console.log(something);
+    exercises/variables-and-scopes
 
-// node
-global.something = "I am global";
-```
 
-## Acessing global object
 
-```javascript
-this; // sloppy, outside functions
 
-window; // browser
-global; // node
-```
+
 

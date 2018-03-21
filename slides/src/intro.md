@@ -13,11 +13,11 @@
 
 ## Today
 
-> Building strong core JS skills, ready to tackle modern JS codebases!
+> Strong modern JS skills, ready for today's codebases
 
 ## Three top-level skills
 
-## Reading/writing core JS
+## Reading/writing modern JS
 
 ## Picking, &amp; reasoning, about data-structures
 
@@ -27,7 +27,7 @@
 
 ```Javascript
 // most code examples can be directly pasted
-// in browser console
+// in browser/node console
 
 console.log((0, "what does this do?"));
 ```
