@@ -2,7 +2,7 @@ var help = require("../.sys/test-help");
 const _ = require("lodash");
 const assert = require("chai").assert;
 
-describe("promises", function() {
+describe("async functions", function() {
 
     this.timeout(150);
 
