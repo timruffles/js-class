@@ -12,5 +12,5 @@
 //  ): Promise<string>
 //
 export async function formatUserOrError(userPromise, getAccount, formatHtml, formatError) {
-    // TODO implement me
+  // TODO implement me
 }
