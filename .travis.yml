@@ -11,3 +11,8 @@ script:
 cache:
   directories:
   - $HOME/.npm
+branches:
+  only:
+    - update
+    - master
+    - gh-pages
