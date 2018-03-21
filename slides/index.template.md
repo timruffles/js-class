@@ -28,11 +28,13 @@ intro
 core javascript
 variables
 destructuring
+
+quality
+
 reasoning about scope
 
 primitives
 
-quality
 
 functions basic
 closures
