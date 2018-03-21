@@ -32,6 +32,8 @@ reasoning about scope
 
 primitives
 
+quality
+
 functions basic
 closures
 

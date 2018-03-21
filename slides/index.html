@@ -962,6 +962,74 @@ console.log(
 </code></pre>
 </section>
 
+<section data-state='title' class=" title"><h2 id="quality">Quality</h2>
+</section>
+
+<section  class=""><h2 id="languages-have-gotchas">Languages have gotchas</h2>
+<pre><code class="lang-javascript">var launch = new Boolean(false);
+
+if(launch)
+  console.log(&quot;launching missiles&quot;);
+else
+  console.log(&quot;phew&quot;);
+  console.log(&quot;peace at last&quot;);
+
+// what is output?
+</code></pre>
+</section>
+
+<section  class=""><h2 id="eslint">ESLint</h2>
+<ul>
+<li>linter: clarifies code</li>
+<li>blunts some of JS&#39;s nasty gotchas</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="try-now">Try now</h2>
+<pre><code class="lang-sh">npm run lint:all
+
+# per exercise
+eslint exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="running-eslint">Running ESLint</h2>
+<ul>
+<li>Editor plugins</li>
+<li>CLI:</li>
+</ul>
+<pre><code class="lang-sh">npm install --global eslint@latest
+eslint path/to/js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="code-style">Code style</h2>
+<pre><code class="lang-js">// brevity at all cost!
+yes &amp;&amp; doThing()
+</code></pre>
+<pre><code class="lang-js">if(yes) {
+  doThing();
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="boring-to-debate-">Boring to debate!</h2>
+</section>
+
+<section  class=""><h2 id="autofix">Autofix</h2>
+<pre><code class="lang-javascript">eslint --fix exercises/some-exercise/exercise.js
+</code></pre>
+</section>
+
+<section  class=""><h2 id="how-to-use-npm-scripts">How to use npm scripts</h2>
+<ul>
+<li>Open package.json</li>
+<li>Read the lint all</li>
+<li>Create a <code>lint:fix</code> that runs lint with fix</li>
+<li><code>npm run</code> on its own lists scripts</li>
+</ul>
+</section>
+
 <section data-state='title' class=" title"><h2 id="pro-level-functions">Pro-level functions</h2>
 <p><img src="slides-theme/img/eval-apply.jpg" style='width:476px; display:block; margin: 0 auto'></p>
 </section>
