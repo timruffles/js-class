@@ -22,8 +22,10 @@ exports = module.exports = function(path) {
 }
 
 exports.test = function(testFile, handler) {
-  var cmd = format('"%s" --use_strict "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon --compilers js:babel-register -r "%s/mocha-setup.js" "%s"',
-    process.execPath, dn, dn, testFile);
+  // TODO - finish NO_BABEL - es6 modules last problem
+  var polyfill = process.env.NO_BABEL ? "" : "--compilers js:babel-register -r babel-polyfill";
+  var cmd = format('"%s" --use_strict "%s/../../node_modules/mocha/bin/mocha" --ui bdd -r chai -r sinon %s -r "%s/mocha-setup.js" "%s"',
+    process.execPath, dn, polyfill, dn, testFile);
 
   exec(cmd, { cwd: dn }, handler);
 }
