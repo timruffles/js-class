@@ -103,6 +103,22 @@ function create(property, value) {
 }
 ```
 
+## Copying
+
+```javascript
+const user = {name:'sally', age: 10};
+
+const userOlder = {
+    ...user,
+    age: 20,
+};
+
+// priority: right to left
+const userOlderB = Object.assign(
+    {age: 5}, user, { age: 20 });
+console.log(userOlderB.age, userOlderB.name); // ?
+```
+
 ## Missing features
 
 ```javascript

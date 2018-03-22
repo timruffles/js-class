@@ -2341,6 +2341,21 @@ function create(property, value) {
 </code></pre>
 </section>
 
+<section  class=""><h2 id="copying">Copying</h2>
+<pre><code class="lang-javascript">const user = {name:&#39;sally&#39;, age: 10};
+
+const userOlder = {
+    ...user,
+    age: 20,
+};
+
+// priority: right to left
+const userOlderB = Object.assign(
+    {age: 5}, user, { age: 20 });
+console.log(userOlderB.age, userOlderB.name); // ?
+</code></pre>
+</section>
+
 <section  class=""><h2 id="missing-features">Missing features</h2>
 <pre><code class="lang-javascript">const dict = {};
 
