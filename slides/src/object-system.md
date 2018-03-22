@@ -198,7 +198,6 @@ console.log(typeof Object.getOwnPropertySymbols(Array.prototype)[0])
 
 
 ## Where do methods come from?
-{subtitle:1}
 
 ```javascript
 const animals = ['🐢', '🐳', '🐫'];
@@ -255,7 +254,7 @@ function getProperty(object, prop) {
   } else {
     const prototype = Object.getPrototypeOf(object);
     if(prototype) {
-      getProperty(prototype, prop);
+      return getProperty(prototype, prop);
     } else {
       // and here is the source of
       // 'undefined is not a function' 🤔

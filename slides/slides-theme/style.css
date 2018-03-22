@@ -147,3 +147,7 @@ blockquote em {
 .black body , .black body {
   background: black;
 }
+
+aside.notes {
+  display: none;
+}

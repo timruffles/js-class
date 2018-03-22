@@ -137,7 +137,7 @@ global.map = map;
 global.weak = weak;
 ```
 
-## Inheritence
+## Inheritance
 
 ```javascript
 class DefaultMap extends Map {

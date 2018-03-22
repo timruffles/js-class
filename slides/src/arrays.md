@@ -78,6 +78,36 @@ primeMinisters.sort((a,b) => a.length - b.length)
 console.log(primeMinisters)
 ```
 
+## Copying
+
+```javascript
+const primeMinisters = ["Cameron", "Brown", "Blair", "Major"];
+const pms = [...primeMinisters];
+
+primeMinisters[0] = "Thatcher";
+
+console.log(pmgs[0]) // ?
+```
+
+## Copying continued
+
+```javascript
+const languages = [
+    { name: "ada" },
+    { name: "javascript" },
+    { name: "ocaml" },
+];
+const langs = [...languages];
+
+languages[0].name = "elm";
+
+console.log(langs[0]) // ?
+```
+
+## Deep copies
+
+1. library
+1. Quick (without prototypes): `JSON.parse(JSON.stringify(target))`
 
 
 ## `for ... in`
